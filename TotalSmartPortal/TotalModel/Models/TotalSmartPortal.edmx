@@ -6955,7 +6955,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="NMVNTaskID" Mode="In" Type="Int32" />
             <Parameter Name="OrganizationalUnitID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetCommodityAvailables">
+          <FunctionImport Name="GetCommodityAvailables" ReturnType="Collection(TotalSmartPortalModel.CommodityAvailable)">
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="WarehouseID" Mode="In" Type="Int32" />
@@ -6969,13 +6969,13 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="CommodityTypeIDList" Mode="In" Type="String" />
             <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetCommodityCodePartA" ReturnType="Collection(String)">
+          <FunctionImport Name="GetCommodityCodePartA" ReturnType="Collection(TotalSmartPortalModel.CommodityCodePart)">
           <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetCommodityCodePartB" ReturnType="Collection(String)">
+          <FunctionImport Name="GetCommodityCodePartB" ReturnType="Collection(TotalSmartPortalModel.CommodityCodePart)">
           <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetCommodityCodePartC" ReturnType="Collection(String)">
+          <FunctionImport Name="GetCommodityCodePartC" ReturnType="Collection(TotalSmartPortalModel.CommodityCodePart)">
           <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetCommodityPriceIndexes" ReturnType="Collection(TotalSmartPortalModel.CommodityPriceIndex)">
@@ -7028,7 +7028,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImport Name="GetDeliveryAdvicePendingSalesOrders" ReturnType="Collection(TotalSmartPortalModel.DeliveryAdvicePendingSalesOrder)">
           <Parameter Name="LocationID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetDeliveryAdviceViewDetails">
+          <FunctionImport Name="GetDeliveryAdviceViewDetails" ReturnType="Collection(TotalSmartPortalModel.DeliveryAdviceViewDetail)">
           <Parameter Name="DeliveryAdviceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetEmployeeIndexes" ReturnType="Collection(TotalSmartPortalModel.EmployeeIndex)">
@@ -7052,7 +7052,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImport Name="GetGoodsIssueReceivables" ReturnType="Collection(TotalSmartPortalModel.GoodsIssueReceivable)">
           <Parameter Name="LocationID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetGoodsIssueViewDetails">
+          <FunctionImport Name="GetGoodsIssueViewDetails" ReturnType="Collection(TotalSmartPortalModel.GoodsIssueViewDetail)">
             <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="DeliveryAdviceID" Mode="In" Type="Int32" />
@@ -7149,12 +7149,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="HandlingUnitIDs" Mode="In" Type="String" />
             <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="GetPromotionByCustomers" ReturnType="Collection(TotalSmartPortalModel.PromotionByCustomer)">
+          <FunctionImport Name="GetPromotionByCustomers" EntitySet="Promotions" ReturnType="Collection(TotalSmartPortalModel.Promotion)">
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="ApplyToSalesVersusReturns" Mode="In" Type="Int32" />
             <Parameter Name="FilterApplyToTradeDiscount" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetPromotionCustomerCategories" ReturnType="Collection(TotalSmartPortalModel.PromotionCustomerCategory)">
+          <FunctionImport Name="GetPromotionCustomerCategories" EntitySet="CustomerCategories" ReturnType="Collection(TotalSmartPortalModel.CustomerCategory)">
           <Parameter Name="PromotionID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetPromotionIndexes" ReturnType="Collection(TotalSmartPortalModel.PromotionIndex)">
@@ -7184,7 +7184,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="GetSalesOrderViewDetails">
+          <FunctionImport Name="GetSalesOrderViewDetails" ReturnType="Collection(TotalSmartPortalModel.SalesOrderViewDetail)">
           <Parameter Name="SalesOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetSalesReturnIndexes" ReturnType="Collection(TotalSmartPortalModel.SalesReturnIndex)">
@@ -8108,44 +8108,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Decimal" Name="RealWeight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="PromotionByCustomer">
-          <Property Type="Int32" Name="PromotionID" Nullable="false" />
-          <Property Type="DateTime" Name="EntryDate" Nullable="false" Precision="23" />
-          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="Code" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="Specs" Nullable="false" MaxLength="150" />
-          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="EndDate" Nullable="false" Precision="23" />
-          <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="5" />
-          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="5" />
-          <Property Type="Int32" Name="UserID" Nullable="false" />
-          <Property Type="Int32" Name="OrganizationalUnitID" Nullable="false" />
-          <Property Type="Int32" Name="LocationID" Nullable="false" />
-          <Property Type="Int32" Name="CommodityBrandID" Nullable="false" />
-          <Property Type="Boolean" Name="ApplyToSales" Nullable="false" />
-          <Property Type="Boolean" Name="ApplyToReturns" Nullable="false" />
-          <Property Type="Boolean" Name="ApplyToAllCustomers" Nullable="false" />
-          <Property Type="Boolean" Name="ApplyToAllCommodities" Nullable="false" />
-          <Property Type="Boolean" Name="ApplyToTradeDiscount" Nullable="false" />
-          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
-          <Property Type="Boolean" Name="Approved" Nullable="false" />
-          <Property Type="DateTime" Name="ApprovedDate" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="InActive" Nullable="false" />
-          <Property Type="DateTime" Name="InActiveDate" Nullable="true" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="PromotionCustomerCategory">
-          <Property Type="Int32" Name="CustomerCategoryID" Nullable="false" />
-          <Property Type="String" Name="Code" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="AncestorID" Nullable="true" />
-          <Property Type="Int32" Name="PriceCategoryID" Nullable="false" />
-          <Property Type="Int32" Name="PaymentTermID" Nullable="false" />
-          <Property Type="Int32" Name="MonetaryAccountID" Nullable="false" />
-          <Property Type="Int32" Name="WarehouseCategoryID" Nullable="false" />
-          <Property Type="Boolean" Name="ShowDiscount" Nullable="false" />
-          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
-        </ComplexType>
         <ComplexType Name="PromotionIndex">
           <Property Type="Int32" Name="PromotionID" Nullable="false" />
           <Property Type="DateTime" Name="EntryDate" Nullable="true" />
@@ -8458,6 +8420,146 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DeliveryAdviceViewDetail">
+          <Property Type="Int32" Name="DeliveryAdviceDetailID" Nullable="false" />
+          <Property Type="Int32" Name="DeliveryAdviceID" Nullable="false" />
+          <Property Type="Int32" Name="SalesOrderID" Nullable="true" />
+          <Property Type="Int32" Name="SalesOrderDetailID" Nullable="true" />
+          <Property Type="String" Name="SalesOrderReference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderCode" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="SalesOrderEntryDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+          <Property Type="String" Name="WarehouseCode" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="VoidTypeID" Nullable="true" />
+          <Property Type="String" Name="VoidTypeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VoidTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VoidClassID" Nullable="true" />
+          <Property Type="Int32" Name="CalculatingTypeID" Nullable="false" />
+          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="22" Scale="2" />
+          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="FreeQuantityRemains" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="FreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TradeDiscountRate" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="VATPercent" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedGrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedVATAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="VATAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedGrossAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrossAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsBonus" Nullable="true" />
+          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
+          <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GoodsIssueViewDetail">
+          <Property Type="Int32" Name="DeliveryAdviceID" Nullable="false" />
+          <Property Type="String" Name="DeliveryAdviceReference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DeliveryAdviceCode" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="DeliveryAdviceEntryDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="GoodsIssueDetailID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
+          <Property Type="Int32" Name="DeliveryAdviceDetailID" Nullable="false" />
+          <Property Type="Int32" Name="VoidTypeID" Nullable="true" />
+          <Property Type="String" Name="VoidTypeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VoidTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VoidClassID" Nullable="true" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+          <Property Type="String" Name="WarehouseCode" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="CalculatingTypeID" Nullable="false" />
+          <Property Type="Boolean" Name="VATbyRow" Nullable="false" />
+          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Decimal" Name="FreeQuantityRemains" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="22" Scale="2" />
+          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="FreeQuantity" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="ListedPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TradeDiscountRate" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="VATPercent" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedGrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="ListedVATAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="VATAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="ListedGrossAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="GrossAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Boolean" Name="IsBonus" Nullable="true" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SalesOrderViewDetail">
+          <Property Type="Int32" Name="SalesOrderDetailID" Nullable="false" />
+          <Property Type="Int32" Name="SalesOrderID" Nullable="false" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+          <Property Type="String" Name="WarehouseCode" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="VoidTypeID" Nullable="true" />
+          <Property Type="String" Name="VoidTypeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VoidTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VoidClassID" Nullable="true" />
+          <Property Type="Int32" Name="CalculatingTypeID" Nullable="false" />
+          <Property Type="Decimal" Name="QuantityAvailable" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="FreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TradeDiscountRate" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="VATPercent" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedGrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedVATAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="VATAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ListedGrossAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrossAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsBonus" Nullable="true" />
+          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
+          <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CommodityAvailable">
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Decimal" Name="ListedPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TradeDiscountRate" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="VATPercent" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+          <Property Type="String" Name="WarehouseCode" Nullable="false" MaxLength="10" />
+          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Boolean" Name="Bookable" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CommodityCodePart">
+          <Property Type="String" Name="CodePart" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -9743,7 +9845,26 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetAddressees" FunctionName="TotalSmartPortalModel.Store.GetAddressees" />
           <FunctionImportMapping FunctionImportName="GetApprovalPermitted" FunctionName="TotalSmartPortalModel.Store.GetApprovalPermitted" />
-          <FunctionImportMapping FunctionImportName="GetCommodityAvailables" FunctionName="TotalSmartPortalModel.Store.GetCommodityAvailables" />
+          <FunctionImportMapping FunctionImportName="GetCommodityAvailables" FunctionName="TotalSmartPortalModel.Store.GetCommodityAvailables" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityAvailable">
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="ListedPrice" ColumnName="ListedPrice" />
+                <ScalarProperty Name="GrossPrice" ColumnName="GrossPrice" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="TradeDiscountRate" ColumnName="TradeDiscountRate" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
+                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="WarehouseCode" ColumnName="WarehouseCode" />
+                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
+                <ScalarProperty Name="Bookable" ColumnName="Bookable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetCommodityBases" FunctionName="TotalSmartPortalModel.Store.GetCommodityBases">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityBase">
@@ -9759,9 +9880,27 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetCommodityCodePartA" FunctionName="TotalSmartPortalModel.Store.GetCommodityCodePartA" />
-          <FunctionImportMapping FunctionImportName="GetCommodityCodePartB" FunctionName="TotalSmartPortalModel.Store.GetCommodityCodePartB" />
-          <FunctionImportMapping FunctionImportName="GetCommodityCodePartC" FunctionName="TotalSmartPortalModel.Store.GetCommodityCodePartC" />
+          <FunctionImportMapping FunctionImportName="GetCommodityCodePartA" FunctionName="TotalSmartPortalModel.Store.GetCommodityCodePartA" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityCodePart">
+                <ScalarProperty Name="CodePart" ColumnName="CodePart" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCommodityCodePartB" FunctionName="TotalSmartPortalModel.Store.GetCommodityCodePartB" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityCodePart">
+                <ScalarProperty Name="CodePart" ColumnName="CodePart" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCommodityCodePartC" FunctionName="TotalSmartPortalModel.Store.GetCommodityCodePartC" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityCodePart">
+                <ScalarProperty Name="CodePart" ColumnName="CodePart" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetCommodityPriceIndexes" FunctionName="TotalSmartPortalModel.Store.GetCommodityPriceIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityPriceIndex">
@@ -10041,7 +10180,53 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetDeliveryAdviceViewDetails" FunctionName="TotalSmartPortalModel.Store.GetDeliveryAdviceViewDetails" />
+          <FunctionImportMapping FunctionImportName="GetDeliveryAdviceViewDetails" FunctionName="TotalSmartPortalModel.Store.GetDeliveryAdviceViewDetails" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.DeliveryAdviceViewDetail">
+                <ScalarProperty Name="DeliveryAdviceDetailID" ColumnName="DeliveryAdviceDetailID" />
+                <ScalarProperty Name="DeliveryAdviceID" ColumnName="DeliveryAdviceID" />
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="SalesOrderDetailID" ColumnName="SalesOrderDetailID" />
+                <ScalarProperty Name="SalesOrderReference" ColumnName="SalesOrderReference" />
+                <ScalarProperty Name="SalesOrderCode" ColumnName="SalesOrderCode" />
+                <ScalarProperty Name="SalesOrderEntryDate" ColumnName="SalesOrderEntryDate" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="WarehouseCode" ColumnName="WarehouseCode" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="VoidTypeCode" ColumnName="VoidTypeCode" />
+                <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
+                <ScalarProperty Name="VoidClassID" ColumnName="VoidClassID" />
+                <ScalarProperty Name="CalculatingTypeID" ColumnName="CalculatingTypeID" />
+                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
+                <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
+                <ScalarProperty Name="FreeQuantityRemains" ColumnName="FreeQuantityRemains" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
+                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
+                <ScalarProperty Name="ListedPrice" ColumnName="ListedPrice" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TradeDiscountRate" ColumnName="TradeDiscountRate" />
+                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+                <ScalarProperty Name="ListedGrossPrice" ColumnName="ListedGrossPrice" />
+                <ScalarProperty Name="GrossPrice" ColumnName="GrossPrice" />
+                <ScalarProperty Name="ListedAmount" ColumnName="ListedAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ListedVATAmount" ColumnName="ListedVATAmount" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="ListedGrossAmount" ColumnName="ListedGrossAmount" />
+                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+                <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetEmployeeIndexes" FunctionName="TotalSmartPortalModel.Store.GetEmployeeIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.EmployeeIndex">
@@ -10143,7 +10328,52 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetGoodsIssueViewDetails" FunctionName="TotalSmartPortalModel.Store.GetGoodsIssueViewDetails" />
+          <FunctionImportMapping FunctionImportName="GetGoodsIssueViewDetails" FunctionName="TotalSmartPortalModel.Store.GetGoodsIssueViewDetails" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.GoodsIssueViewDetail">
+                <ScalarProperty Name="DeliveryAdviceID" ColumnName="DeliveryAdviceID" />
+                <ScalarProperty Name="DeliveryAdviceReference" ColumnName="DeliveryAdviceReference" />
+                <ScalarProperty Name="DeliveryAdviceCode" ColumnName="DeliveryAdviceCode" />
+                <ScalarProperty Name="DeliveryAdviceEntryDate" ColumnName="DeliveryAdviceEntryDate" />
+                <ScalarProperty Name="GoodsIssueDetailID" ColumnName="GoodsIssueDetailID" />
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="DeliveryAdviceDetailID" ColumnName="DeliveryAdviceDetailID" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="VoidTypeCode" ColumnName="VoidTypeCode" />
+                <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
+                <ScalarProperty Name="VoidClassID" ColumnName="VoidClassID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="WarehouseCode" ColumnName="WarehouseCode" />
+                <ScalarProperty Name="CalculatingTypeID" ColumnName="CalculatingTypeID" />
+                <ScalarProperty Name="VATbyRow" ColumnName="VATbyRow" />
+                <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
+                <ScalarProperty Name="FreeQuantityRemains" ColumnName="FreeQuantityRemains" />
+                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
+                <ScalarProperty Name="ListedPrice" ColumnName="ListedPrice" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TradeDiscountRate" ColumnName="TradeDiscountRate" />
+                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+                <ScalarProperty Name="ListedGrossPrice" ColumnName="ListedGrossPrice" />
+                <ScalarProperty Name="GrossPrice" ColumnName="GrossPrice" />
+                <ScalarProperty Name="ListedAmount" ColumnName="ListedAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ListedVATAmount" ColumnName="ListedVATAmount" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="ListedGrossAmount" ColumnName="ListedGrossAmount" />
+                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+                <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetHandlingUnitIndexes" FunctionName="TotalSmartPortalModel.Store.GetHandlingUnitIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.HandlingUnitIndex">
@@ -10539,50 +10769,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPromotionByCustomers" FunctionName="TotalSmartPortalModel.Store.GetPromotionByCustomers">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TotalSmartPortalModel.PromotionByCustomer">
-                <ScalarProperty Name="PromotionID" ColumnName="PromotionID" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Specs" ColumnName="Specs" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="CommodityBrandID" ColumnName="CommodityBrandID" />
-                <ScalarProperty Name="ApplyToSales" ColumnName="ApplyToSales" />
-                <ScalarProperty Name="ApplyToReturns" ColumnName="ApplyToReturns" />
-                <ScalarProperty Name="ApplyToAllCustomers" ColumnName="ApplyToAllCustomers" />
-                <ScalarProperty Name="ApplyToAllCommodities" ColumnName="ApplyToAllCommodities" />
-                <ScalarProperty Name="ApplyToTradeDiscount" ColumnName="ApplyToTradeDiscount" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="InActive" ColumnName="InActive" />
-                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPromotionCustomerCategories" FunctionName="TotalSmartPortalModel.Store.GetPromotionCustomerCategories">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TotalSmartPortalModel.PromotionCustomerCategory">
-                <ScalarProperty Name="CustomerCategoryID" ColumnName="CustomerCategoryID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AncestorID" ColumnName="AncestorID" />
-                <ScalarProperty Name="PriceCategoryID" ColumnName="PriceCategoryID" />
-                <ScalarProperty Name="PaymentTermID" ColumnName="PaymentTermID" />
-                <ScalarProperty Name="MonetaryAccountID" ColumnName="MonetaryAccountID" />
-                <ScalarProperty Name="WarehouseCategoryID" ColumnName="WarehouseCategoryID" />
-                <ScalarProperty Name="ShowDiscount" ColumnName="ShowDiscount" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPromotionIndexes" FunctionName="TotalSmartPortalModel.Store.GetPromotionIndexes">
             <ResultMapping>
@@ -10702,7 +10890,46 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetSalesOrderViewDetails" FunctionName="TotalSmartPortalModel.Store.GetSalesOrderViewDetails" />
+          <FunctionImportMapping FunctionImportName="GetSalesOrderViewDetails" FunctionName="TotalSmartPortalModel.Store.GetSalesOrderViewDetails" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.SalesOrderViewDetail">
+                <ScalarProperty Name="SalesOrderDetailID" ColumnName="SalesOrderDetailID" />
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="WarehouseCode" ColumnName="WarehouseCode" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="VoidTypeCode" ColumnName="VoidTypeCode" />
+                <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
+                <ScalarProperty Name="VoidClassID" ColumnName="VoidClassID" />
+                <ScalarProperty Name="CalculatingTypeID" ColumnName="CalculatingTypeID" />
+                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
+                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
+                <ScalarProperty Name="ListedPrice" ColumnName="ListedPrice" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TradeDiscountRate" ColumnName="TradeDiscountRate" />
+                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+                <ScalarProperty Name="ListedGrossPrice" ColumnName="ListedGrossPrice" />
+                <ScalarProperty Name="GrossPrice" ColumnName="GrossPrice" />
+                <ScalarProperty Name="ListedAmount" ColumnName="ListedAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ListedVATAmount" ColumnName="ListedVATAmount" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="ListedGrossAmount" ColumnName="ListedGrossAmount" />
+                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+                <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetSalesReturnIndexes" FunctionName="TotalSmartPortalModel.Store.GetSalesReturnIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.SalesReturnIndex">

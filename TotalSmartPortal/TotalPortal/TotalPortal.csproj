@@ -351,6 +351,10 @@
     <Content Include="Content\Images\Logo\logo.png" />
     <Content Include="Content\Images\Logo\LogoTanThanh.ico" />
     <Content Include="Content\Images\Logo\LOGO_TANTHANH.png" />
+    <Content Include="Content\Images\Logo\Logo_TDV.png" />
+    <Content Include="Content\Images\Logo\Logo_TDV_ISO.png" />
+    <Content Include="Content\Images\Logo\Logo_TDV_ISO_TRAN.png" />
+    <Content Include="Content\Images\Logo\xx.png" />
     <Content Include="Content\Images\Mains\Actions-bookmark-add-icon-32.png" />
     <Content Include="Content\Images\Mains\Actions-ok-icon32.png" />
     <Content Include="Content\Images\Mains\Actions-ok-icon64.png" />

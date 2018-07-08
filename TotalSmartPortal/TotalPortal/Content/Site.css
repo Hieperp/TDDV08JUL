@@ -149,16 +149,19 @@ label { /*override bootstrap label css*/
 #header {
     float: left;
     width: 100%;
-    padding-left: 10px;
+    /*padding-left: 10px;*/
     /*border-bottom: 1px dotted #5D5A53;*/
     /*margin-bottom: 5px;*/
+    height: 114px;
 }
 
     #header h1 {
         font-size: 18px; /*This for logan: ASP.NET MVC MUSIC STORE*/
         float: left;
-        background: url(../content/Images/Logo/Logo-vcp.png) no-repeat;
+        background: url('../content/Images/Logo/Logo_TDV_ISO_TRAN.png') no-repeat;
         padding: 45px 0px 0px 0px;
+        margin: 4px;
+        height: 114px;
     }
 
 
