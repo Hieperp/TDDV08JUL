@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="11d7aeb1b70644ed8a1d70fe9c5f52a3" Name="Diagram1" ZoomLevel="33">
+        <EntityTypeShape EntityType="TotalSmartPortalModel.AccessControl" Width="1.5" PointX="30.625" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.AccountInvoiceDetail" Width="1.5" PointX="5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.AccountInvoice" Width="1.5" PointX="2.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.AspNetUser" Width="1.5" PointX="37.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Commodity" Width="1.5" PointX="8.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CommodityBrand" Width="1.5" PointX="8.125" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CommodityCategory" Width="1.5" PointX="5.875" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CommodityPrice" Width="1.5" PointX="39.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CommodityType" Width="1.5" PointX="5.875" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CreditNoteDetail" Width="1.5" PointX="10.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CreditNote" Width="1.5" PointX="5" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CustomerCategory" Width="1.5" PointX="2.75" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Customer" Width="1.5" PointX="5" PointY="32.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CustomerType" Width="1.5" PointX="2.75" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.DeliveryAdviceDetail" Width="1.5" PointX="12.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.DeliveryAdvice" Width="1.5" PointX="7.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Employee" Width="1.5" PointX="2.75" PointY="32.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.EntireTerritory" Width="1.5" PointX="2.75" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsDelivery" Width="1.5" PointX="15.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsDeliveryDetail" Width="1.5" PointX="26" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsIssueDetail" Width="1.5" PointX="23.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsIssue" Width="1.5" PointX="15.5" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.HandlingUnitDetail" Width="1.5" PointX="29" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.HandlingUnit" Width="1.5" PointX="20.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Location" Width="1.5" PointX="0.5" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.ModuleDetail" Width="1.5" PointX="39.5" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Module" Width="1.5" PointX="35.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.MonetaryAccount" Width="1.5" PointX="8" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.OrganizationalUnit" Width="1.5" PointX="28.375" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.OrganizationalUnitUser" Width="1.5" PointX="30.625" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PackingMaterial" Width="1.5" PointX="18.5" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PaymentTerm" Width="1.5" PointX="0.5" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PriceCategory" Width="1.5" PointX="2.75" PointY="46.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PromotionCommodityCodePart" Width="1.5" PointX="12.625" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Promotion" Width="1.5" PointX="10.375" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.ReceiptDetail" Width="1.5" PointX="20.75" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Receipt" Width="1.5" PointX="10.25" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Report" Width="1.5" PointX="41.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.SalesOrderDetail" Width="1.5" PointX="23.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.SalesOrder" Width="1.5" PointX="18.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.SalesReturnDetail" Width="1.5" PointX="32" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.SalesReturn" Width="1.5" PointX="26.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Territory" Width="1.5" PointX="35.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Vehicle" Width="1.5" PointX="13" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.VoidType" Width="1.5" PointX="16" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Warehouse" Width="1.5" PointX="16" PointY="40.75" IsExpanded="true" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccessControls_OrganizationalUnits" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoiceDetails_AccountInvoices" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoiceDetails_Commodities" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoices_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoices_Customers1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoices_Customers2" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoices_GoodsIssues" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoices_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoices_PaymentTerms" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_AccountInvoices_TradePromotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Commodities_CommodityBrands" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Commodities_CommodityCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Commodities_CommodityTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CreditNoteDetails_Commodities" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdviceDetails_Commodities" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssueDetails_Commodities" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrderDetails_Commodities" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturnDetails_Commodities" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CommodityBrands_CommodityBrands" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Promotions_CommodityBrands" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CommodityCategories_CommodityCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CommodityTypes_CommodityTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CreditNoteDetails_CreditNotes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CreditNotes_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CreditNotes_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CreditNotes_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Receipts_CreditNotes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CustomerCategories_CustomerCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CustomerCategories_PaymentTerms" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Customers_CustomerCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Customers_CustomerTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Customers_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Customers_EntireTerritories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Customers_PriceCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_Customers1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsDeliveries_Customers1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssues_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssues_Customers1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnits_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnits_Customers1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Receipts_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_Customers1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Customers1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CustomerTypes_CustomerTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdviceDetails_DeliveryAdvices" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdviceDetails_SalesOrderDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdviceDetails_VoidTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_PaymentTerms" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_PriceCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_Promotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_SalesOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_TradePromotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_VoidTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_DeliveryAdvices_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssues_DeliveryAdvices" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Employees_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsDeliveries_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsDeliveries_Employees1" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssues_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnits_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Receipts_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsDeliveries_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsDeliveries_Vehicles" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsDeliveryDetails_GoodsDeliveries" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsDeliveryDetails_HandlingUnits" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssueDetails_GoodsIssues" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssueDetails_VoidTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssueDetails_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnitDetails_GoodsIssueDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturnDetails_GoodsIssueDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssues_PaymentTerms" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssues_TradePromotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsIssues_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnits_GoodsIssues" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ReceiptDetails_GoodsIssues" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Receipts_GoodsIssues" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_GoodsIssues" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnitDetails_HandlingUnits" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnits_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_HandlingUnits_PackingMaterials" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_OrganizationalUnits_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Receipts_MonetaryAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_OrganizationalUnitIUsers_OrganizationalUnits" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_PaymentTerms" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_PriceCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_PriceCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PromotionCommodityCodeParts_Promotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_Promotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_TradePromotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Promotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_TradePromotions" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ReceiptDetails_Receipts" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Receipts_Receipts" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Receipts_SalesReturns" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrderDetails_SalesOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrderDetails_VoidTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_VoidTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrders_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturnDetails_SalesReturns" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_Territories_Territories" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
