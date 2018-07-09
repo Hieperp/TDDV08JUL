@@ -1711,13 +1711,13 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SalesOrderEditable", entityIDParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SalesOrderPostSaveValidate(Nullable<int> entityID)
+        public virtual ObjectResult<string> SalesOrderPostSaveValidate(Nullable<int> entityID)
         {
             var entityIDParameter = entityID.HasValue ?
                 new ObjectParameter("EntityID", entityID) :
                 new ObjectParameter("EntityID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SalesOrderPostSaveValidate", entityIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SalesOrderPostSaveValidate", entityIDParameter);
         }
     
         public virtual int SalesOrderSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)

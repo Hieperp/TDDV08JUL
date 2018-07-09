@@ -7342,7 +7342,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImport Name="SalesOrderEditable" ReturnType="Collection(String)">
           <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SalesOrderPostSaveValidate" ReturnType="Collection(Int32)">
+          <FunctionImport Name="SalesOrderPostSaveValidate" ReturnType="Collection(String)">
           <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SalesOrderSaveRelative">
