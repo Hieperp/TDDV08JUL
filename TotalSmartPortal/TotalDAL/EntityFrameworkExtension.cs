@@ -194,6 +194,50 @@ namespace TotalDAL
 
 
 
+
+
+
+
+
+        public static bool TableExists(this DbContext dbContext, string tableName)
+        {
+            var query = dbContext.Database.SqlQuery(typeof(int), string.Format("SELECT COUNT(*) FROM sysobjects WHERE Name = '{0}' AND xtype = 'U';", tableName), new object[] { });
+
+            int exists = query.Cast<int>().Single();
+
+            return (exists > 0);
+        }
+
+        public static bool ColumnExists(this DbContext dbContext, string tableName, string columnName)
+        {
+            var query = dbContext.Database.SqlQuery(typeof(int), string.Format("SELECT COUNT(*) FROM syscolumns INNER JOIN sysobjects ON syscolumns.id = sysobjects.id WHERE sysobjects.name = '{0}' AND syscolumns.name = N'{1}' AND sysobjects.xtype = 'U';", new object[] { tableName, columnName }), new object[] { });
+
+            int exists = query.Cast<int>().Single();
+
+            return (exists > 0);
+        }
+
+
+        public static void ColumnAdd(this DbContext dbContext, string tableName, string columnName, string dataType, string defaultData, bool notNULL)
+        {
+            if (dbContext.TableExists(tableName) && !dbContext.ColumnExists(tableName, columnName))
+            {
+                dbContext.Database.ExecuteSqlCommand(@"ALTER TABLE " + tableName + " ADD " + columnName + " " + dataType + " NULL ");
+
+                if (defaultData != null)
+                    dbContext.Database.ExecuteSqlCommand(@"UPDATE " + tableName + " SET " + columnName + " = '" + defaultData + "'");
+
+                if (notNULL)
+                    dbContext.Database.ExecuteSqlCommand(@"ALTER TABLE " + tableName + " ALTER COLUMN " + columnName + " " + dataType + " NOT NULL");
+            }
+        }
+
+        public static void ColumnDrop(this DbContext dbContext, string tableName, string columnName)
+        {
+            if (dbContext.TableExists(tableName) && dbContext.ColumnExists(tableName, columnName))
+                dbContext.Database.ExecuteSqlCommand(@"ALTER TABLE " + tableName + " DROP COLUMN " + columnName);
+        }
+
     }
 }
 

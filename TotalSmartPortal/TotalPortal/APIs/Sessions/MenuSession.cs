@@ -213,5 +213,19 @@ namespace TotalPortal.APIs.Sessions
             else
                 context.Session["TaskController"] = "";
         }
+
+
+
+
+
+        public static string GetFreshSession(HttpContextBase context)
+        {
+            return (string)context.Session["FreshSession"];
+        }
+
+        public static void SetFreshSession(HttpContextBase context, string freshSession)
+        {
+            context.Session["FreshSession"] = freshSession;
+        }
     }
 }

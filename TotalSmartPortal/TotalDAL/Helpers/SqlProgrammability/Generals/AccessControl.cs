@@ -15,6 +15,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Generals
 
         public void RestoreProcedure()
         {
+            this.GetVersionID();
+            this.GetStoredID();
+            this.GetVersionValidate();
+
             this.GetAccessLevel();
             this.GetApprovalPermitted();
             this.GetUnApprovalPermitted();
@@ -24,6 +28,39 @@ namespace TotalDAL.Helpers.SqlProgrammability.Generals
             this.GetShowDiscount();
             this.GetShowDiscountByCustomer();
             this.UpdateLockedDate();
+        }
+
+        private void GetVersionID()
+        {
+            string queryString = " @ConfigID Int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       SELECT      MAX(VersionID) AS VersionID FROM Configs WHERE ConfigID = @ConfigID " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("GetVersionID", queryString);
+        }
+
+        private void GetStoredID()
+        {
+            string queryString = " @ConfigID Int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       SELECT      MAX(StoredID) AS StoredID FROM Configs WHERE ConfigID = @ConfigID " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("GetStoredID", queryString);
+        }
+
+        private void GetVersionValidate()
+        {
+            string queryString = " @ConfigID Int, @VersionID Int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       SELECT      MAX(ConfigID) AS ConfigID FROM Configs WHERE ConfigID = @ConfigID AND VersionID = @VersionID AND StoredID = @VersionID " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("GetVersionValidate", queryString);
         }
 
         /// <summary>

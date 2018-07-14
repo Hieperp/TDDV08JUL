@@ -84,7 +84,7 @@ namespace TotalService
 
         public virtual bool GlobalLocked(TDto dto)
         {
-            return (dto.EntryDate <= this.genericRepository.GetEditLockedDate(this.LocationID, this.nmvnTaskID));
+            return (!this.genericRepository.VersionValidate(true) || dto.EntryDate <= this.genericRepository.GetEditLockedDate(this.LocationID, this.nmvnTaskID));
         }
 
         public override GlobalEnums.AccessLevel GetAccessLevel(int? organizationalUnitID)

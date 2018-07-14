@@ -2006,5 +2006,36 @@ namespace TotalModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UserUnregister", userIDParameter, userNameParameter, organizationalUnitNameParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> GetStoredID(Nullable<int> configID)
+        {
+            var configIDParameter = configID.HasValue ?
+                new ObjectParameter("ConfigID", configID) :
+                new ObjectParameter("ConfigID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetStoredID", configIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetVersionID(Nullable<int> configID)
+        {
+            var configIDParameter = configID.HasValue ?
+                new ObjectParameter("ConfigID", configID) :
+                new ObjectParameter("ConfigID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetVersionID", configIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetVersionValidate(Nullable<int> configID, Nullable<int> versionID)
+        {
+            var configIDParameter = configID.HasValue ?
+                new ObjectParameter("ConfigID", configID) :
+                new ObjectParameter("ConfigID", typeof(int));
+    
+            var versionIDParameter = versionID.HasValue ?
+                new ObjectParameter("VersionID", versionID) :
+                new ObjectParameter("VersionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetVersionValidate", configIDParameter, versionIDParameter);
+        }
     }
 }

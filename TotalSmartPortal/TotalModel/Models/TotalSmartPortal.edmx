@@ -2946,6 +2946,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
         <Function Name="GetShowDiscountByCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetStoredID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConfigID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetTaskIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUnApprovalPermitted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
@@ -2969,6 +2972,13 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
         </Function>
         <Function Name="GetUserReportControls" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetVersionID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConfigID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetVersionValidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConfigID" Type="int" Mode="In" />
+          <Parameter Name="VersionID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetVoidablePermitted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
@@ -7431,6 +7441,16 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="OrganizationalUnitName" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetStoredID" ReturnType="Collection(Int32)">
+          <Parameter Name="ConfigID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetVersionID" ReturnType="Collection(Int32)">
+          <Parameter Name="ConfigID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetVersionValidate" ReturnType="Collection(Int32)">
+            <Parameter Name="ConfigID" Mode="In" Type="Int32" />
+            <Parameter Name="VersionID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -11194,6 +11214,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="UserRegister" FunctionName="TotalSmartPortalModel.Store.UserRegister" />
           <FunctionImportMapping FunctionImportName="UserToggleVoid" FunctionName="TotalSmartPortalModel.Store.UserToggleVoid" />
           <FunctionImportMapping FunctionImportName="UserUnregister" FunctionName="TotalSmartPortalModel.Store.UserUnregister" />
+          <FunctionImportMapping FunctionImportName="GetStoredID" FunctionName="TotalSmartPortalModel.Store.GetStoredID" />
+          <FunctionImportMapping FunctionImportName="GetVersionID" FunctionName="TotalSmartPortalModel.Store.GetVersionID" />
+          <FunctionImportMapping FunctionImportName="GetVersionValidate" FunctionName="TotalSmartPortalModel.Store.GetVersionValidate" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

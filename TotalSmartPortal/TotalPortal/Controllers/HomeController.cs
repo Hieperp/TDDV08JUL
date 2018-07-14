@@ -30,6 +30,12 @@ namespace TotalPortal.Controllers
             return View();
         }
 
+        public ActionResult SmartBiztech()
+        {
+            MenuSession.SetFreshSession(this.HttpContext, "Restore");
+            return View("Index");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "This software is licensed to Vinh Cơ Company Limited.";

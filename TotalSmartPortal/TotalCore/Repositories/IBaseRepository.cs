@@ -34,6 +34,10 @@ namespace TotalCore.Repositories
 
         String GetSystemInfos();
         String GetSystemInfos(bool secureEncoding);
+
         bool SystemInfoValidate();
+        bool VersionValidate(bool bothKeyID);
+
+        bool AutoUpdates(bool restoreProcedures);
     }
 }

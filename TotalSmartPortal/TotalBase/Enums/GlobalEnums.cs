@@ -1,4 +1,5 @@
-﻿namespace TotalBase.Enums
+﻿using System;
+namespace TotalBase.Enums
 {
     public static class GlobalEnums
     {
@@ -38,6 +39,7 @@
             Employee = 8005,
             CommodityPrice = 8006,
 
+            PurchaseRequisition = 8020,
             PurchaseOrder = 8021,
             PurchaseInvoice = 8022,
 
@@ -81,6 +83,8 @@
             VehicleTransfer = 8075,
             PartTransfer = 8076
 
+
+            
         };
 
         public enum ActiveOption
@@ -204,6 +208,61 @@
             Readable = 1,
             Editable = 2
         };
+
+
+
+
+
+
+
+
+
+
+
+        public enum FillingLine
+        {
+            None = 0,
+            Smallpack = 1,
+            Pail = 2,
+            Drum = 3,
+
+            BatchMaster = 18,
+
+            TDV = 68,
+            GoodsIssue = 88
+        }
+
+
+        public static int ConfigID = (int)GlobalEnums.FillingLine.TDV;
+        public static int ConfigVersionID(int configID)
+        {
+            if (configID == (int)GlobalEnums.FillingLine.None)
+                return 2;
+            else if (configID == (int)GlobalEnums.FillingLine.TDV)
+                return 2;
+            else if (configID == (int)GlobalEnums.FillingLine.GoodsIssue)
+                return 2;
+            else if (configID == (int)GlobalEnums.FillingLine.BatchMaster)
+                return 2;
+
+
+            else if (configID == (int)GlobalEnums.FillingLine.Smallpack || configID == (int)GlobalEnums.FillingLine.Pail || configID == (int)GlobalEnums.FillingLine.Drum)
+                return 2; //PAY ATTENTION WHEN CHANGE THIS VALUE BECAUSE: THIS IS USING ON THE FILLING LINES
+            else
+                return -1;
+        }
+
+        public static int MaxConfigVersionID()
+        {
+            int maxConfigVersionID = 0;
+            foreach (GlobalEnums.FillingLine fillingLine in Enum.GetValues(typeof(GlobalEnums.FillingLine)))
+            {
+                if (maxConfigVersionID < GlobalEnums.ConfigVersionID((int)fillingLine)) maxConfigVersionID = GlobalEnums.ConfigVersionID((int)fillingLine);
+            }
+
+            return maxConfigVersionID;
+        }
+
     }
 
 

@@ -13,6 +13,8 @@ using TotalCore.Repositories.Sessions;
 using TotalPortal.Models;
 using TotalPortal.APIs.Sessions;
 using TotalPortal.ViewModels.Sessions;
+using TotalBase.Enums;
+using System.Data.Entity.Core.Objects;
 
 
 namespace TotalPortal.APIs.Sessions
@@ -59,6 +61,8 @@ namespace TotalPortal.APIs.Sessions
         {
             try
             {
+                this.VersionValidate();
+
                 string moduleName = MenuSession.GetModuleName(this.HttpContext);
                 string taskName = MenuSession.GetTaskName(this.HttpContext);
                 string taskController = MenuSession.GetTaskController(this.HttpContext);
@@ -86,9 +90,11 @@ namespace TotalPortal.APIs.Sessions
                 MenuSession.SetUserLocked(this.HttpContext, 0);
                 return PartialView(moduleMaster);
             }
-            catch
+            catch (Exception e)
             {
                 ViewBag.LocationName = "[USER LOCKED]";
+                ViewBag.ExceptionMessage = e.Message;
+
                 MenuSession.SetUserLocked(this.HttpContext, 1);
                 return PartialView(new List<Module>());
             }
@@ -112,5 +118,24 @@ namespace TotalPortal.APIs.Sessions
 
             return Json(new { Success = 1 });
         }
+
+        private void VersionValidate()
+        {
+            if (MenuSession.GetFreshSession(this.HttpContext) == null || MenuSession.GetFreshSession(this.HttpContext) == "Restore")
+            {
+                foreach (GlobalEnums.FillingLine fillingLine in Enum.GetValues(typeof(GlobalEnums.FillingLine)))
+                {
+                    this.moduleRepository.ExecuteStoreCommand("UPDATE Configs SET VersionID = " + GlobalEnums.ConfigVersionID((int)fillingLine) + " WHERE ConfigID = " + (int)fillingLine + " AND VersionID < " + GlobalEnums.ConfigVersionID((int)fillingLine), new ObjectParameter[] { });
+                }
+
+                if (!this.moduleRepository.VersionValidate(false)) //JUST CHECK ONLY VersionID. THEN CALL AutoUpdates RIGHT BELOW TO UPDATE StoredID IF NEEDED
+                    throw new Exception("This web application must be updated. Please contact your administrators.");
+
+                if (!this.moduleRepository.AutoUpdates(MenuSession.GetFreshSession(this.HttpContext) == "Restore"))
+                    throw new Exception("This web application must be updated. Please contact your administrators.");
+            }
+            MenuSession.SetFreshSession(this.HttpContext, "CLOSED");
+        }
+
     }
 }
