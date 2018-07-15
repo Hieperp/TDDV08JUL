@@ -144,6 +144,7 @@ namespace TotalBase.Enums
             Consumables = 3,
             Services = 6,
             CreditNote = 8,
+            Material = 68,
             Unknown = 99
         };
 

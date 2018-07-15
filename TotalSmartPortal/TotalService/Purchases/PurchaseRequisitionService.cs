@@ -11,21 +11,21 @@ namespace TotalService.Purchases
 {
     public class PurchaseRequisitionService : GenericWithViewDetailService<PurchaseRequisition, PurchaseRequisitionDetail, PurchaseRequisitionViewDetail, PurchaseRequisitionDTO, PurchaseRequisitionPrimitiveDTO, PurchaseRequisitionDetailDTO>, IPurchaseRequisitionService
     {
-        public PurchaseRequisitionService(IPurchaseRequisitionRepository salesOrderRepository)
-            : base(salesOrderRepository, "PurchaseRequisitionPostSaveValidate", "PurchaseRequisitionSaveRelative", "PurchaseRequisitionToggleApproved", "PurchaseRequisitionToggleVoid", "PurchaseRequisitionToggleVoidDetail", "GetPurchaseRequisitionViewDetails")
+        public PurchaseRequisitionService(IPurchaseRequisitionRepository purchaseRequisitionRepository)
+            : base(purchaseRequisitionRepository, "PurchaseRequisitionPostSaveValidate", "PurchaseRequisitionSaveRelative", "PurchaseRequisitionToggleApproved", "PurchaseRequisitionToggleVoid", "PurchaseRequisitionToggleVoidDetail", "GetPurchaseRequisitionViewDetails")
         {
         }
 
-        public override ICollection<PurchaseRequisitionViewDetail> GetViewDetails(int salesOrderID)
+        public override ICollection<PurchaseRequisitionViewDetail> GetViewDetails(int purchaseRequisitionID)
         {
-            ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("PurchaseRequisitionID", salesOrderID) };
+            ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("PurchaseRequisitionID", purchaseRequisitionID) };
             return this.GetViewDetails(parameters);
         }
 
-        public override bool Save(PurchaseRequisitionDTO salesOrderDTO)
+        public override bool Save(PurchaseRequisitionDTO purchaseRequisitionDTO)
         {
-            salesOrderDTO.PurchaseRequisitionViewDetails.RemoveAll(x => x.Quantity == 0);
-            return base.Save(salesOrderDTO);
+            purchaseRequisitionDTO.PurchaseRequisitionViewDetails.RemoveAll(x => x.Quantity == 0);
+            return base.Save(purchaseRequisitionDTO);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace TotalPortal.App_Start
     using TotalCore.Repositories.Generals;
     using TotalCore.Repositories.Commons;
     using TotalCore.Repositories.Sales;
+    using TotalCore.Repositories.Purchases;
     using TotalCore.Repositories.Inventories;
     using TotalCore.Repositories.Accounts;
     using TotalCore.Repositories.Sessions;
@@ -25,6 +26,7 @@ namespace TotalPortal.App_Start
 
     using TotalCore.Services.Commons;
     using TotalCore.Services.Sales;
+    using TotalCore.Services.Purchases;
     using TotalCore.Services.Inventories;
     using TotalCore.Services.Accounts;
 
@@ -33,6 +35,7 @@ namespace TotalPortal.App_Start
     using TotalDAL.Repositories.Generals;
     using TotalDAL.Repositories.Commons;
     using TotalDAL.Repositories.Sales;
+    using TotalDAL.Repositories.Purchases;
     using TotalDAL.Repositories.Inventories;
     using TotalDAL.Repositories.Accounts;
     using TotalDAL.Repositories.Sessions;
@@ -41,11 +44,13 @@ namespace TotalPortal.App_Start
 
     using TotalService.Commons;
     using TotalService.Sales;
+    using TotalService.Purchases;
     using TotalService.Inventories;
     using TotalService.Accounts;
 
 
     using TotalPortal.Areas.Sales.Builders;
+    using TotalPortal.Areas.Purchases.Builders;
     using TotalPortal.Areas.Inventories.Builders;
     using TotalPortal.Areas.Commons.Builders;
     using TotalPortal.Areas.Accounts.Builders;
@@ -99,6 +104,12 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IModuleDetailRepository>().To<ModuleDetailRepository>();
 
                 kernel.Bind<IReportAPIRepository>().To<ReportAPIRepository>();
+
+
+                kernel.Bind<IPurchaseRequisitionService>().To<PurchaseRequisitionService>();
+                kernel.Bind<IPurchaseRequisitionRepository>().To<PurchaseRequisitionRepository>();
+                kernel.Bind<IPurchaseRequisitionAPIRepository>().To<PurchaseRequisitionAPIRepository>();
+                kernel.Bind<IPurchaseRequisitionViewModelSelectListBuilder>().To<PurchaseRequisitionViewModelSelectListBuilder>();
 
 
                 kernel.Bind<ISalesOrderService>().To<SalesOrderService>();

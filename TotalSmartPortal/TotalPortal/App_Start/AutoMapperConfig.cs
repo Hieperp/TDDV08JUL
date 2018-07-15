@@ -7,11 +7,13 @@ using AutoMapper;
 using TotalModel.Models;
 
 using TotalDTO.Sales;
+using TotalDTO.Purchases;
 using TotalDTO.Inventories;
 using TotalDTO.Commons;
 using TotalDTO.Accounts;
 
 using TotalPortal.Areas.Sales.ViewModels;
+using TotalPortal.Areas.Purchases.ViewModels;
 using TotalPortal.Areas.Inventories.ViewModels;
 using TotalPortal.Areas.Accounts.ViewModels;
 using TotalPortal.Areas.Commons.ViewModels;
@@ -28,6 +30,13 @@ namespace TotalPortal.App_Start
 
             Mapper.Initialize(cfg =>
             {
+                cfg.CreateMap<PurchaseRequisition, PurchaseRequisitionViewModel>();
+                cfg.CreateMap<PurchaseRequisition, PurchaseRequisitionDTO>();
+                cfg.CreateMap<PurchaseRequisitionPrimitiveDTO, PurchaseRequisition>();
+                cfg.CreateMap<PurchaseRequisitionViewDetail, PurchaseRequisitionDetailDTO>();
+                cfg.CreateMap<PurchaseRequisitionDetailDTO, PurchaseRequisitionDetail>();
+
+
                 cfg.CreateMap<SalesOrder, SalesOrderViewModel>();
                 cfg.CreateMap<SalesOrder, SalesOrderDTO>();
                 cfg.CreateMap<SalesOrderPrimitiveDTO, SalesOrder>();

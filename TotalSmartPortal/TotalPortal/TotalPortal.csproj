@@ -270,7 +270,11 @@
     <Compile Include="Areas\Inventories\ViewModels\GoodsDeliveryViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsIssueViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
+    <Compile Include="Areas\Purchases\APIs\PurchaseRequisitionAPIsController.cs" />
+    <Compile Include="Areas\Purchases\Builders\PurchaseRequisitionViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Purchases\Controllers\PurchaseRequisitionsController.cs" />
     <Compile Include="Areas\Purchases\PurchasesAreaRegistration.cs" />
+    <Compile Include="Areas\Purchases\ViewModels\PurchaseRequisitionViewModel.cs" />
     <Compile Include="Areas\Sales\APIs\DeliveryAdviceAPIsController.cs" />
     <Compile Include="Areas\Sales\APIs\SalesOrderAPIsController.cs" />
     <Compile Include="Areas\Sales\APIs\SalesReturnAPIsController.cs" />
@@ -1090,6 +1094,7 @@
     <Content Include="Areas\Commons\Views\Promotions\PromotionCustomerCategories.cshtml" />
     <Content Include="Areas\Generals\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Generals\Views\web.config" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1155,6 +1160,8 @@
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Edit.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Open.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Edit.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Index.js" />
     <Content Include="Scripts\Controllers\Root\Account\Register.js" />
     <Content Include="Scripts\Controllers\Root\Home\Index.js" />
     <Content Include="Scripts\Controllers\Root\Home\LockedDate.js" />
