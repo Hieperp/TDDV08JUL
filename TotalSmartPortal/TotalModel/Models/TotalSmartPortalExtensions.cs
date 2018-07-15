@@ -44,8 +44,6 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.PurchaseRequisitionID; }
 
-        public virtual Employee Salesperson { get { return this.Employee; } }
-
         public ICollection<PurchaseRequisitionDetail> GetDetails() { return this.PurchaseRequisitionDetails; }
     }
 

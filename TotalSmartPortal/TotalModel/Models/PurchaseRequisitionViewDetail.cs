@@ -19,10 +19,10 @@ namespace TotalModel.Models
         public string CommodityCode { get; set; }
         public string CommodityName { get; set; }
         public int CommodityTypeID { get; set; }
-        public int VoidTypeID { get; set; }
+        public Nullable<int> VoidTypeID { get; set; }
         public string VoidTypeCode { get; set; }
         public string VoidTypeName { get; set; }
-        public int VoidClassID { get; set; }
+        public Nullable<int> VoidClassID { get; set; }
         public decimal Quantity { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }

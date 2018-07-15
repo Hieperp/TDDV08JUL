@@ -842,7 +842,6 @@
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="CommodityID" Type="int" Nullable="false" />
           <Property Name="CommodityTypeID" Type="int" Nullable="false" />
-          <Property Name="SalespersonID" Type="int" Nullable="false" />
           <Property Name="DeliveryDate" Type="datetime" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="QuantityAdvice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -862,7 +861,6 @@
           <Property Name="Reference" Type="nvarchar" MaxLength="10" />
           <Property Name="TrackingVouchers" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="SalespersonID" Type="int" Nullable="false" />
           <Property Name="DeliveryDate" Type="datetime" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="PreparedPersonID" Type="int" Nullable="false" />
@@ -2234,18 +2232,6 @@ warning 6035: The relationship 'FK_PurchaseRequisitions_AspNetUsers2' has column
             </Principal>
             <Dependent Role="PurchaseRequisitions">
               <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchaseRequisitions_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-          <End Role="PurchaseRequisitions" Type="Self.PurchaseRequisitions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="PurchaseRequisitions">
-              <PropertyRef Name="SalespersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3717,10 +3703,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Customers" EntitySet="Customers" />
             <End Role="PurchaseRequisitions" EntitySet="PurchaseRequisitions" />
           </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitions_Employees" Association="Self.FK_PurchaseRequisitions_Employees">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="PurchaseRequisitions" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
           <AssociationSet Name="FK_PurchaseRequisitions_Locations" Association="Self.FK_PurchaseRequisitions_Locations">
             <End Role="Locations" EntitySet="Locations" />
             <End Role="PurchaseRequisitions" EntitySet="PurchaseRequisitions" />
@@ -4428,7 +4410,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Receipts" Relationship="Self.FK_Receipts_Employees" FromRole="Employees" ToRole="Receipts" />
           <NavigationProperty Name="SalesOrders" Relationship="Self.FK_SalesOrders_Employees" FromRole="Employees" ToRole="SalesOrders" />
           <NavigationProperty Name="SalesReturns" Relationship="Self.FK_SalesReturns_Employees" FromRole="Employees" ToRole="SalesReturns" />
-          <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Employees" FromRole="Employee" ToRole="PurchaseRequisition" />
         </EntityType>
         <EntityType Name="EntireTerritory">
           <Key>
@@ -7670,52 +7651,22 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="ConfigID" Mode="In" Type="Int32" />
             <Parameter Name="VersionID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="PurchaseRequisitionDetails" EntityType="TotalSmartPortalModel.PurchaseRequisitionDetail" />
-          <EntitySet Name="PurchaseRequisitions" EntityType="TotalSmartPortalModel.PurchaseRequisition" />
-          <AssociationSet Name="FK_PurchaseRequisitionDetails_Commodities" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_Commodities">
-            <End Role="Commodity" EntitySet="Commodities" />
-            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitions_Customers" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitions_Employees" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Employees">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitions_Locations" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitionDetails_PurchaseRequisitions" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions">
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitionDetails_VoidTypes" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes">
-            <End Role="VoidType" EntitySet="VoidTypes" />
-            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitions_VoidTypes" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes">
-            <End Role="VoidType" EntitySet="VoidTypes" />
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
           <FunctionImport Name="GetPurchaseRequisitionIndexes" ReturnType="Collection(TotalSmartPortalModel.PurchaseRequisitionIndex)">
             <Parameter Name="AspUserID" Mode="In" Type="String" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetPurchaseRequisitionViewDetails" ReturnType="Collection(TotalSmartPortalModel.PurchaseRequisitionViewDetail)">
-            <Parameter Name="PurchaseRequisitionID" Mode="In" Type="Int32" />
+          <Parameter Name="PurchaseRequisitionID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PurchaseRequisitionApproved" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PurchaseRequisitionEditable" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PurchaseRequisitionPostSaveValidate" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PurchaseRequisitionSaveRelative">
             <Parameter Name="EntityID" Mode="In" Type="Int32" />
@@ -7737,8 +7688,34 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="VoidTypeID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PurchaseRequisitionVoidable" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="PurchaseRequisitionDetails" EntityType="TotalSmartPortalModel.PurchaseRequisitionDetail" />
+          <EntitySet Name="PurchaseRequisitions" EntityType="TotalSmartPortalModel.PurchaseRequisition" />
+          <AssociationSet Name="FK_PurchaseRequisitionDetails_Commodities" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_Commodities">
+            <End Role="Commodity" EntitySet="Commodities" />
+            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitions_Customers" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitions_Locations" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitionDetails_PurchaseRequisitions" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions">
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitionDetails_VoidTypes" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitions_VoidTypes" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -8869,6 +8846,37 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
         <ComplexType Name="CommodityCodePart">
           <Property Type="String" Name="CodePart" Nullable="false" MaxLength="20" />
         </ComplexType>
+        <ComplexType Name="PurchaseRequisitionIndex">
+          <Property Type="Int32" Name="PurchaseRequisitionID" Nullable="false" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="true" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TrackingVouchers" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="VoidTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalQuantityAdvice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="Approved" Nullable="false" />
+          <Property Type="Boolean" Name="InActive" Nullable="false" />
+          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PurchaseRequisitionViewDetail">
+          <Property Type="Int32" Name="PurchaseRequisitionDetailID" Nullable="false" />
+          <Property Type="Int32" Name="PurchaseRequisitionID" Nullable="false" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Int32" Name="VoidTypeID" Nullable="true" />
+          <Property Type="String" Name="VoidTypeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VoidTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VoidClassID" Nullable="true" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
+          <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
         <EntityType Name="PurchaseRequisitionDetail">
           <Key>
             <PropertyRef Name="PurchaseRequisitionDetailID" />
@@ -8880,7 +8888,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="CommodityID" Type="Int32" Nullable="false" />
           <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
-          <Property Name="SalespersonID" Type="Int32" Nullable="false" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
           <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="QuantityAdvice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
@@ -8903,7 +8910,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="TrackingVouchers" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="SalespersonID" Type="Int32" Nullable="false" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="PreparedPersonID" Type="Int32" Nullable="false" />
@@ -8923,7 +8929,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
           <Property Name="InActiveDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" FromRole="PurchaseRequisition" ToRole="Customer" />
-          <NavigationProperty Name="Employee" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Employees" FromRole="PurchaseRequisition" ToRole="Employee" />
           <NavigationProperty Name="Location" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations" FromRole="PurchaseRequisition" ToRole="Location" />
           <NavigationProperty Name="PurchaseRequisitionDetails" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" FromRole="PurchaseRequisition" ToRole="PurchaseRequisitionDetail" />
           <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" FromRole="PurchaseRequisition" ToRole="VoidType" />
@@ -8949,18 +8954,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="PurchaseRequisition">
               <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchaseRequisitions_Employees">
-          <End Type="TotalSmartPortalModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="PurchaseRequisition">
-              <PropertyRef Name="SalespersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9012,37 +9005,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="PurchaseRequisitionIndex">
-          <Property Type="Int32" Name="PurchaseRequisitionID" Nullable="false" />
-          <Property Type="DateTime" Name="EntryDate" Nullable="true" />
-          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="TrackingVouchers" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="VoidTypeName" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="TotalQuantityAdvice" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="Approved" Nullable="false" />
-          <Property Type="Boolean" Name="InActive" Nullable="false" />
-          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="PurchaseRequisitionViewDetail">
-          <Property Type="Int32" Name="PurchaseRequisitionDetailID" Nullable="false" />
-          <Property Type="Int32" Name="PurchaseRequisitionID" Nullable="false" />
-          <Property Type="Int32" Name="CommodityID" Nullable="false" />
-          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
-          <Property Type="Int32" Name="VoidTypeID" Nullable="false" />
-          <Property Type="String" Name="VoidTypeCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="VoidTypeName" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="VoidClassID" Nullable="false" />
-          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
-          <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11679,59 +11641,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="GetStoredID" FunctionName="TotalSmartPortalModel.Store.GetStoredID" />
           <FunctionImportMapping FunctionImportName="GetVersionID" FunctionName="TotalSmartPortalModel.Store.GetVersionID" />
           <FunctionImportMapping FunctionImportName="GetVersionValidate" FunctionName="TotalSmartPortalModel.Store.GetVersionValidate" />
-          <EntitySetMapping Name="PurchaseRequisitionDetails">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.PurchaseRequisitionDetail">
-              <MappingFragment StoreEntitySet="PurchaseRequisitionDetails">
-                <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
-                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
-                <ScalarProperty Name="InActive" ColumnName="InActive" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="QuantityAdvice" ColumnName="QuantityAdvice" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="SalespersonID" ColumnName="SalespersonID" />
-                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
-                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="PurchaseRequisitionID" ColumnName="PurchaseRequisitionID" />
-                <ScalarProperty Name="PurchaseRequisitionDetailID" ColumnName="PurchaseRequisitionDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PurchaseRequisitions">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.PurchaseRequisition">
-              <MappingFragment StoreEntitySet="PurchaseRequisitions">
-                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
-                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
-                <ScalarProperty Name="InActive" ColumnName="InActive" />
-                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TotalQuantityAdvice" ColumnName="TotalQuantityAdvice" />
-                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
-                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="SalespersonID" ColumnName="SalespersonID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="TrackingVouchers" ColumnName="TrackingVouchers" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="PurchaseRequisitionID" ColumnName="PurchaseRequisitionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetPurchaseRequisitionIndexes" FunctionName="TotalSmartPortalModel.Store.GetPurchaseRequisitionIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.PurchaseRequisitionIndex">
@@ -11779,6 +11688,57 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="PurchaseRequisitionToggleVoid" FunctionName="TotalSmartPortalModel.Store.PurchaseRequisitionToggleVoid" />
           <FunctionImportMapping FunctionImportName="PurchaseRequisitionToggleVoidDetail" FunctionName="TotalSmartPortalModel.Store.PurchaseRequisitionToggleVoidDetail" />
           <FunctionImportMapping FunctionImportName="PurchaseRequisitionVoidable" FunctionName="TotalSmartPortalModel.Store.PurchaseRequisitionVoidable" />
+          <EntitySetMapping Name="PurchaseRequisitionDetails">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.PurchaseRequisitionDetail">
+              <MappingFragment StoreEntitySet="PurchaseRequisitionDetails">
+                <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="QuantityAdvice" ColumnName="QuantityAdvice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="PurchaseRequisitionID" ColumnName="PurchaseRequisitionID" />
+                <ScalarProperty Name="PurchaseRequisitionDetailID" ColumnName="PurchaseRequisitionDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseRequisitions">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.PurchaseRequisition">
+              <MappingFragment StoreEntitySet="PurchaseRequisitions">
+                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalQuantityAdvice" ColumnName="TotalQuantityAdvice" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
+                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="TrackingVouchers" ColumnName="TrackingVouchers" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="PurchaseRequisitionID" ColumnName="PurchaseRequisitionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1095,6 +1095,10 @@
     <Content Include="Areas\Generals\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Generals\Views\web.config" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Index.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\_PurchaseRequisition.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Create.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Edit.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Delete.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1161,7 +1165,7 @@
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Open.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Approve.js" />
-    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\CreateWizard.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Create.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Delete.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Edit.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Index.js" />
@@ -2031,6 +2035,7 @@
     <Content Include="Views\Account\UserReferences.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\ShippingAddress.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\Addressee.cshtml" />
+    <Content Include="Views\Helpers\Bases\_BaseSectionTopB.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

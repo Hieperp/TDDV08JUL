@@ -21,7 +21,6 @@ namespace TotalModel.Models
         public int CustomerID { get; set; }
         public int CommodityID { get; set; }
         public int CommodityTypeID { get; set; }
-        public int SalespersonID { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public decimal Quantity { get; set; }
         public decimal QuantityAdvice { get; set; }

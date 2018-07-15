@@ -14,5 +14,15 @@ namespace TotalDTO.Purchases
         public int PurchaseRequisitionID { get; set; }
 
         public int CustomerID { get; set; }
+        
+        //[Display(Name = "Mã CK")]
+        [UIHint("AutoCompletes/CommodityBase")]
+        public override string CommodityCode { get; set; }
+
+        public string VoidTypeCode { get; set; }
+        [Display(Name = "Lý do")]
+        [UIHint("AutoCompletes/VoidTypeBase")]
+        public string VoidTypeName { get; set; }
+        public Nullable<int> VoidClassID { get; set; }
     }
 }

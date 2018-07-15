@@ -25,7 +25,6 @@ namespace TotalModel.Models
         public string Reference { get; set; }
         public string TrackingVouchers { get; set; }
         public int CustomerID { get; set; }
-        public int SalespersonID { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public int UserID { get; set; }
         public int PreparedPersonID { get; set; }
@@ -46,7 +45,6 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> InActiveDate { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual Employee Employee { get; set; }
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }

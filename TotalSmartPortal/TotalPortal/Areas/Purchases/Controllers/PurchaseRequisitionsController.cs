@@ -19,7 +19,7 @@ namespace TotalPortal.Areas.Purchases.Controllers
     public class PurchaseRequisitionsController : GenericViewDetailController<PurchaseRequisition, PurchaseRequisitionDetail, PurchaseRequisitionViewDetail, PurchaseRequisitionDTO, PurchaseRequisitionPrimitiveDTO, PurchaseRequisitionDetailDTO, PurchaseRequisitionViewModel>
     {
         public PurchaseRequisitionsController(IPurchaseRequisitionService purchaseRequisitionService, IPurchaseRequisitionViewModelSelectListBuilder purchaseRequisitionViewModelSelectListBuilder)
-            : base(purchaseRequisitionService, purchaseRequisitionViewModelSelectListBuilder, true)
+            : base(purchaseRequisitionService, purchaseRequisitionViewModelSelectListBuilder)
         {
         }
 
