@@ -1160,8 +1160,14 @@
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Edit.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Open.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Approve.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\CreateWizard.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Delete.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Edit.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Index.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Open.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Print.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Void.js" />
     <Content Include="Scripts\Controllers\Root\Account\Register.js" />
     <Content Include="Scripts\Controllers\Root\Home\Index.js" />
     <Content Include="Scripts\Controllers\Root\Home\LockedDate.js" />

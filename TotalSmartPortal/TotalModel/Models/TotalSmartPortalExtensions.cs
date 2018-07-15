@@ -34,6 +34,42 @@ namespace TotalModel.Models
         }
     }
 
+
+
+
+
+
+
+    public partial class PurchaseRequisition : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<PurchaseRequisitionDetail>
+    {
+        public int GetID() { return this.PurchaseRequisitionID; }
+
+        public virtual Employee Salesperson { get { return this.Employee; } }
+
+        public ICollection<PurchaseRequisitionDetail> GetDetails() { return this.PurchaseRequisitionDetails; }
+    }
+
+
+    public partial class PurchaseRequisitionDetail : IPrimitiveEntity, IHelperEntryDate, IHelperCommodityID, IHelperCommodityTypeID
+    {
+        public int GetID() { return this.PurchaseRequisitionDetailID; }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public partial class SalesOrder : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<SalesOrderDetail>
     {
         public int GetID() { return this.SalesOrderID; }
