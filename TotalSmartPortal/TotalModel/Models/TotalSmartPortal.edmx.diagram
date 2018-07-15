@@ -163,6 +163,15 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturnDetails_SalesReturns" ManuallyRouted="false" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Warehouses" ManuallyRouted="false" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_Territories_Territories" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PurchaseRequisitionDetail" Width="1.5" PointX="28.5" PointY="16" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PurchaseRequisition" Width="1.5" PointX="21.25" PointY="35.875" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Employees" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

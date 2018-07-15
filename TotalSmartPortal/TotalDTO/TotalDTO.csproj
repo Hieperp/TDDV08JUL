@@ -115,6 +115,8 @@
     <Compile Include="Inventories\HandlingUnitDTO.cs" />
     <Compile Include="IPrimitiveDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purchases\PurchaseRequisitionDetailDTO.cs" />
+    <Compile Include="Purchases\PurchaseRequisitionDTO.cs" />
     <Compile Include="Sales\DeliveryAdviceDetailDTO.cs" />
     <Compile Include="Sales\DeliveryAdviceDTO.cs" />
     <Compile Include="Sales\SalesOrderDetailDTO.cs" />

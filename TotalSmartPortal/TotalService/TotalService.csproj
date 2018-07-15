@@ -69,6 +69,7 @@
     <Compile Include="Inventories\GoodsIssueService.cs" />
     <Compile Include="Inventories\HandlingUnitService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purchases\PurchaseRequisitionService.cs" />
     <Compile Include="Sales\DeliveryAdviceService.cs" />
     <Compile Include="Sales\SalesOrderService.cs" />
     <Compile Include="Sales\SalesReturnService.cs" />

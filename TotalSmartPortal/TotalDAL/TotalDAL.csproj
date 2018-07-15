@@ -80,6 +80,7 @@
     <Compile Include="Repositories\Generals\UserRepository.cs" />
     <Compile Include="Repositories\Inventories\GoodsDeliveryRepository.cs" />
     <Compile Include="Repositories\Inventories\HandlingUnitRepository.cs" />
+    <Compile Include="Repositories\Purchases\PurchaseRequisitionRepository.cs" />
     <Compile Include="Repositories\Sales\SalesOrderRepository.cs" />
     <Compile Include="Repositories\Sales\SalesReturnRepository.cs" />
     <Compile Include="Repositories\Sessions\ModuleDetailRepository.cs" />

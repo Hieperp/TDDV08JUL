@@ -16,6 +16,7 @@ namespace TotalDAL.Repositories
 {
     public class BaseRepository : IBaseRepository
     {
+        #region Main
         private readonly TotalSmartPortalEntities totalSmartPortalEntities;
 
         public BaseRepository(TotalSmartPortalEntities totalSmartPortalEntities)
@@ -192,7 +193,7 @@ namespace TotalDAL.Repositories
         }
 
 
-
+        #endregion Main
 
 
 
@@ -290,7 +291,7 @@ namespace TotalDAL.Repositories
             Helpers.SqlProgrammability.Generals.AccessControl accessControl = new Helpers.SqlProgrammability.Generals.AccessControl(totalSmartPortalEntities);
             accessControl.RestoreProcedure();
 
-            return;
+            //return;
 
             Helpers.SqlProgrammability.Purchases.PurchaseRequisition purchaseRequisition = new Helpers.SqlProgrammability.Purchases.PurchaseRequisition(totalSmartPortalEntities);
             purchaseRequisition.RestoreProcedure();
