@@ -1099,6 +1099,11 @@
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Create.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Edit.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Delete.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Approve.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Void.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\VoidDetail.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\VoidDetailSuccess.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Print.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
