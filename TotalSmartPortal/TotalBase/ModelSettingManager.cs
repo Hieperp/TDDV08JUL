@@ -54,7 +54,7 @@ namespace TotalBase
                     return "CR";
 
                 case GlobalEnums.NmvnTaskID.GoodsReceipt:
-                    return "N";
+                    return "R";
 
                 case GlobalEnums.NmvnTaskID.ServiceContract:
                     return "H";
