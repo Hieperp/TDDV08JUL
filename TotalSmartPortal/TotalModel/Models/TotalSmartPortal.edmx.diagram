@@ -164,12 +164,22 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturns_Warehouses" ManuallyRouted="false" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_Territories_Territories" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.PurchaseRequisitionDetail" Width="1.5" PointX="23.5" PointY="8" />
-        <EntityTypeShape EntityType="TotalSmartPortalModel.PurchaseRequisition" Width="1.5" PointX="21.25" PointY="14" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsReceiptDetail" Width="1.5" PointX="31.75" PointY="17.625" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsReceipt" Width="1.5" PointX="29.5" PointY="32.625" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PurchaseRequisition" Width="1.5" PointX="21.25" PointY="36" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceiptDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_Customers" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_Employees" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceiptDetails_GoodsReceipts" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceiptDetails_PurchaseRequisitionDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_Locations" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" />
         </Diagram>
     </edmx:Diagrams>

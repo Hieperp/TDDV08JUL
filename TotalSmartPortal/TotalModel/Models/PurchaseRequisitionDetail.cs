@@ -14,6 +14,12 @@ namespace TotalModel.Models
     
     public partial class PurchaseRequisitionDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PurchaseRequisitionDetail()
+        {
+            this.GoodsReceiptDetails = new HashSet<GoodsReceiptDetail>();
+        }
+    
         public int PurchaseRequisitionDetailID { get; set; }
         public int PurchaseRequisitionID { get; set; }
         public System.DateTime EntryDate { get; set; }
@@ -30,9 +36,12 @@ namespace TotalModel.Models
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
+        public decimal QuantityReceipt { get; set; }
     
         public virtual Commodity Commodity { get; set; }
-        public virtual PurchaseRequisition PurchaseRequisition { get; set; }
         public virtual VoidType VoidType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
+        public virtual PurchaseRequisition PurchaseRequisition { get; set; }
     }
 }

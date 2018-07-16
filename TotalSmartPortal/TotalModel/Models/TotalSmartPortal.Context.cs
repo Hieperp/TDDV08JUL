@@ -74,6 +74,8 @@ namespace TotalModel.Models
         public virtual DbSet<VoidType> VoidTypes { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
+        public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
+        public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
         public virtual DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
@@ -2164,6 +2166,164 @@ namespace TotalModel.Models
                 new ObjectParameter("EntityID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PurchaseRequisitionVoidable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<GoodsReceiptIndex> GetGoodsReceiptIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptIndex>("GetGoodsReceiptIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<GoodsReceiptPendingCustomer> GetGoodsReceiptPendingCustomers(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptPendingCustomer>("GetGoodsReceiptPendingCustomers", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<GoodsReceiptPendingPurchaseRequisitionDetail> GetGoodsReceiptPendingPurchaseRequisitionDetails(Nullable<int> locationID, Nullable<int> goodsReceiptID, Nullable<int> purchaseRequisitionID, Nullable<int> customerID, Nullable<int> receiverID, Nullable<int> priceCategoryID, Nullable<int> warehouseID, string shippingAddress, string addressee, Nullable<int> tradePromotionID, Nullable<decimal> vATPercent, Nullable<System.DateTime> entryDate, string purchaseRequisitionDetailIDs, Nullable<bool> isReadonly)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var goodsReceiptIDParameter = goodsReceiptID.HasValue ?
+                new ObjectParameter("GoodsReceiptID", goodsReceiptID) :
+                new ObjectParameter("GoodsReceiptID", typeof(int));
+    
+            var purchaseRequisitionIDParameter = purchaseRequisitionID.HasValue ?
+                new ObjectParameter("PurchaseRequisitionID", purchaseRequisitionID) :
+                new ObjectParameter("PurchaseRequisitionID", typeof(int));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(int));
+    
+            var receiverIDParameter = receiverID.HasValue ?
+                new ObjectParameter("ReceiverID", receiverID) :
+                new ObjectParameter("ReceiverID", typeof(int));
+    
+            var priceCategoryIDParameter = priceCategoryID.HasValue ?
+                new ObjectParameter("PriceCategoryID", priceCategoryID) :
+                new ObjectParameter("PriceCategoryID", typeof(int));
+    
+            var warehouseIDParameter = warehouseID.HasValue ?
+                new ObjectParameter("WarehouseID", warehouseID) :
+                new ObjectParameter("WarehouseID", typeof(int));
+    
+            var shippingAddressParameter = shippingAddress != null ?
+                new ObjectParameter("ShippingAddress", shippingAddress) :
+                new ObjectParameter("ShippingAddress", typeof(string));
+    
+            var addresseeParameter = addressee != null ?
+                new ObjectParameter("Addressee", addressee) :
+                new ObjectParameter("Addressee", typeof(string));
+    
+            var tradePromotionIDParameter = tradePromotionID.HasValue ?
+                new ObjectParameter("TradePromotionID", tradePromotionID) :
+                new ObjectParameter("TradePromotionID", typeof(int));
+    
+            var vATPercentParameter = vATPercent.HasValue ?
+                new ObjectParameter("VATPercent", vATPercent) :
+                new ObjectParameter("VATPercent", typeof(decimal));
+    
+            var entryDateParameter = entryDate.HasValue ?
+                new ObjectParameter("EntryDate", entryDate) :
+                new ObjectParameter("EntryDate", typeof(System.DateTime));
+    
+            var purchaseRequisitionDetailIDsParameter = purchaseRequisitionDetailIDs != null ?
+                new ObjectParameter("PurchaseRequisitionDetailIDs", purchaseRequisitionDetailIDs) :
+                new ObjectParameter("PurchaseRequisitionDetailIDs", typeof(string));
+    
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptPendingPurchaseRequisitionDetail>("GetGoodsReceiptPendingPurchaseRequisitionDetails", locationIDParameter, goodsReceiptIDParameter, purchaseRequisitionIDParameter, customerIDParameter, receiverIDParameter, priceCategoryIDParameter, warehouseIDParameter, shippingAddressParameter, addresseeParameter, tradePromotionIDParameter, vATPercentParameter, entryDateParameter, purchaseRequisitionDetailIDsParameter, isReadonlyParameter);
+        }
+    
+        public virtual ObjectResult<GoodsReceiptPendingPurchaseRequisition> GetGoodsReceiptPendingPurchaseRequisitions(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptPendingPurchaseRequisition>("GetGoodsReceiptPendingPurchaseRequisitions", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<GoodsReceiptViewDetail> GetGoodsReceiptViewDetails(Nullable<int> goodsReceiptID)
+        {
+            var goodsReceiptIDParameter = goodsReceiptID.HasValue ?
+                new ObjectParameter("GoodsReceiptID", goodsReceiptID) :
+                new ObjectParameter("GoodsReceiptID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptViewDetail>("GetGoodsReceiptViewDetails", goodsReceiptIDParameter);
+        }
+    
+        public virtual ObjectResult<string> GoodsReceiptApproved(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GoodsReceiptApproved", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> GoodsReceiptEditable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GoodsReceiptEditable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> GoodsReceiptPostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GoodsReceiptPostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int GoodsReceiptSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GoodsReceiptSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual int GoodsReceiptToggleApproved(Nullable<int> entityID, Nullable<bool> approved)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var approvedParameter = approved.HasValue ?
+                new ObjectParameter("Approved", approved) :
+                new ObjectParameter("Approved", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GoodsReceiptToggleApproved", entityIDParameter, approvedParameter);
         }
     }
 }
