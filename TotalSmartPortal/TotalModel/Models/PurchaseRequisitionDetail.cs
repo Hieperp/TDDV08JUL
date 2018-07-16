@@ -29,19 +29,18 @@ namespace TotalModel.Models
         public int CommodityTypeID { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public decimal Quantity { get; set; }
-        public decimal QuantityAdvice { get; set; }
+        public decimal QuantityReceipt { get; set; }
         public string Remarks { get; set; }
         public Nullable<int> VoidTypeID { get; set; }
         public bool Approved { get; set; }
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
-        public decimal QuantityReceipt { get; set; }
     
         public virtual Commodity Commodity { get; set; }
-        public virtual VoidType VoidType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual PurchaseRequisition PurchaseRequisition { get; set; }
+        public virtual VoidType VoidType { get; set; }
     }
 }

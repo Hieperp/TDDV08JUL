@@ -111,6 +111,8 @@
     <Compile Include="Inventories\GoodsDeliveryDTO.cs" />
     <Compile Include="Inventories\GoodsIssueDetailDTO.cs" />
     <Compile Include="Inventories\GoodsIssueDTO.cs" />
+    <Compile Include="Inventories\GoodsReceiptDetailDTO.cs" />
+    <Compile Include="Inventories\GoodsReceiptDTO.cs" />
     <Compile Include="Inventories\HandlingUnitDetailDTO.cs" />
     <Compile Include="Inventories\HandlingUnitDTO.cs" />
     <Compile Include="IPrimitiveDTO.cs" />

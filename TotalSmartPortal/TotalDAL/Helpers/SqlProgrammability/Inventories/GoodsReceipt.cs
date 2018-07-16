@@ -5,7 +5,7 @@ using TotalBase;
 using TotalBase.Enums;
 using TotalModel.Models;
 
-namespace TotalDAL.Helpers.SqlProgrammability.Purchases
+namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 {
     public class GoodsReceipt
     {
@@ -126,7 +126,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Purchases
 
             SqlProgrammability.Inventories.Inventories inventories = new SqlProgrammability.Inventories.Inventories(this.totalSmartPortalEntities);
 
-            queryString = " @LocationID Int, @GoodsReceiptID Int, @PurchaseRequisitionID Int, @CustomerID Int, @ReceiverID Int, @PriceCategoryID Int, @WarehouseID Int, @ShippingAddress nvarchar(200), @Addressee nvarchar(200), @TradePromotionID int, @VATPercent decimal(18, 2), @EntryDate DateTime, @PurchaseRequisitionDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
+            queryString = " @LocationID Int, @GoodsReceiptID Int, @PurchaseRequisitionID Int, @CustomerID Int, @PurchaseRequisitionDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 

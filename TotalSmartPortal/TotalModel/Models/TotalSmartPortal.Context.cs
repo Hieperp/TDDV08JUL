@@ -73,10 +73,10 @@ namespace TotalModel.Models
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VoidType> VoidTypes { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
-        public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
         public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
         public virtual DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
+        public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -2194,7 +2194,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptPendingCustomer>("GetGoodsReceiptPendingCustomers", locationIDParameter);
         }
     
-        public virtual ObjectResult<GoodsReceiptPendingPurchaseRequisitionDetail> GetGoodsReceiptPendingPurchaseRequisitionDetails(Nullable<int> locationID, Nullable<int> goodsReceiptID, Nullable<int> purchaseRequisitionID, Nullable<int> customerID, Nullable<int> receiverID, Nullable<int> priceCategoryID, Nullable<int> warehouseID, string shippingAddress, string addressee, Nullable<int> tradePromotionID, Nullable<decimal> vATPercent, Nullable<System.DateTime> entryDate, string purchaseRequisitionDetailIDs, Nullable<bool> isReadonly)
+        public virtual ObjectResult<GoodsReceiptPendingPurchaseRequisitionDetail> GetGoodsReceiptPendingPurchaseRequisitionDetails(Nullable<int> locationID, Nullable<int> goodsReceiptID, Nullable<int> purchaseRequisitionID, Nullable<int> customerID, string purchaseRequisitionDetailIDs, Nullable<bool> isReadonly)
         {
             var locationIDParameter = locationID.HasValue ?
                 new ObjectParameter("LocationID", locationID) :
@@ -2212,38 +2212,6 @@ namespace TotalModel.Models
                 new ObjectParameter("CustomerID", customerID) :
                 new ObjectParameter("CustomerID", typeof(int));
     
-            var receiverIDParameter = receiverID.HasValue ?
-                new ObjectParameter("ReceiverID", receiverID) :
-                new ObjectParameter("ReceiverID", typeof(int));
-    
-            var priceCategoryIDParameter = priceCategoryID.HasValue ?
-                new ObjectParameter("PriceCategoryID", priceCategoryID) :
-                new ObjectParameter("PriceCategoryID", typeof(int));
-    
-            var warehouseIDParameter = warehouseID.HasValue ?
-                new ObjectParameter("WarehouseID", warehouseID) :
-                new ObjectParameter("WarehouseID", typeof(int));
-    
-            var shippingAddressParameter = shippingAddress != null ?
-                new ObjectParameter("ShippingAddress", shippingAddress) :
-                new ObjectParameter("ShippingAddress", typeof(string));
-    
-            var addresseeParameter = addressee != null ?
-                new ObjectParameter("Addressee", addressee) :
-                new ObjectParameter("Addressee", typeof(string));
-    
-            var tradePromotionIDParameter = tradePromotionID.HasValue ?
-                new ObjectParameter("TradePromotionID", tradePromotionID) :
-                new ObjectParameter("TradePromotionID", typeof(int));
-    
-            var vATPercentParameter = vATPercent.HasValue ?
-                new ObjectParameter("VATPercent", vATPercent) :
-                new ObjectParameter("VATPercent", typeof(decimal));
-    
-            var entryDateParameter = entryDate.HasValue ?
-                new ObjectParameter("EntryDate", entryDate) :
-                new ObjectParameter("EntryDate", typeof(System.DateTime));
-    
             var purchaseRequisitionDetailIDsParameter = purchaseRequisitionDetailIDs != null ?
                 new ObjectParameter("PurchaseRequisitionDetailIDs", purchaseRequisitionDetailIDs) :
                 new ObjectParameter("PurchaseRequisitionDetailIDs", typeof(string));
@@ -2252,7 +2220,7 @@ namespace TotalModel.Models
                 new ObjectParameter("IsReadonly", isReadonly) :
                 new ObjectParameter("IsReadonly", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptPendingPurchaseRequisitionDetail>("GetGoodsReceiptPendingPurchaseRequisitionDetails", locationIDParameter, goodsReceiptIDParameter, purchaseRequisitionIDParameter, customerIDParameter, receiverIDParameter, priceCategoryIDParameter, warehouseIDParameter, shippingAddressParameter, addresseeParameter, tradePromotionIDParameter, vATPercentParameter, entryDateParameter, purchaseRequisitionDetailIDsParameter, isReadonlyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptPendingPurchaseRequisitionDetail>("GetGoodsReceiptPendingPurchaseRequisitionDetails", locationIDParameter, goodsReceiptIDParameter, purchaseRequisitionIDParameter, customerIDParameter, purchaseRequisitionDetailIDsParameter, isReadonlyParameter);
         }
     
         public virtual ObjectResult<GoodsReceiptPendingPurchaseRequisition> GetGoodsReceiptPendingPurchaseRequisitions(Nullable<int> locationID)

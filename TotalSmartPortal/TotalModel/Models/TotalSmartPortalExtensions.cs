@@ -58,6 +58,22 @@ namespace TotalModel.Models
 
 
 
+    public partial class GoodsReceipt : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<GoodsReceiptDetail>
+    {
+        public int GetID() { return this.GoodsReceiptID; }
+
+        public ICollection<GoodsReceiptDetail> GetDetails() { return this.GoodsReceiptDetails; }
+    }
+
+
+    public partial class GoodsReceiptDetail : IPrimitiveEntity, IHelperEntryDate, IHelperCommodityID, IHelperCommodityTypeID
+    {
+        public int GetID() { return this.GoodsReceiptDetailID; }
+    }
+
+
+    
+
 
 
 

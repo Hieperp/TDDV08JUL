@@ -298,7 +298,7 @@ namespace TotalDAL.Repositories
 
             //return;
 
-            Helpers.SqlProgrammability.Purchases.GoodsReceipt goodsReceipt = new Helpers.SqlProgrammability.Purchases.GoodsReceipt(totalSmartPortalEntities);
+            Helpers.SqlProgrammability.Inventories.GoodsReceipt goodsReceipt = new Helpers.SqlProgrammability.Inventories.GoodsReceipt(totalSmartPortalEntities);
             goodsReceipt.RestoreProcedure();
 
             return;

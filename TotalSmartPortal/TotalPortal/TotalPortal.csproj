@@ -259,6 +259,7 @@
     <Compile Include="Areas\Inventories\APIs\HandlingUnitAPIsController.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsDeliveryViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsIssueViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Inventories\Builders\GoodsReceiptViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\HandlingUnitViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsDeliveriesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="Areas\Inventories\InventoriesAreaRegistration.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsDeliveryViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsIssueViewModel.cs" />
+    <Compile Include="Areas\Inventories\ViewModels\GoodsReceiptViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
     <Compile Include="Areas\Purchases\APIs\PurchaseRequisitionAPIsController.cs" />
     <Compile Include="Areas\Purchases\Builders\PurchaseRequisitionViewModelSelectListBuilder.cs" />
@@ -1163,6 +1165,13 @@
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Open.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Print.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Approve.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\CreateWizard.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Delete.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Edit.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Index.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Open.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Print.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\AddHandlingUnitPendingGoodsIssueDetail.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Delete.js" />

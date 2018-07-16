@@ -24,5 +24,8 @@ namespace TotalDTO.Purchases
         [UIHint("AutoCompletes/VoidTypeBase")]
         public string VoidTypeName { get; set; }
         public Nullable<int> VoidClassID { get; set; }
+
+        [UIHint("Decimal")]
+        public override decimal Quantity { get; set; }
     }
 }
