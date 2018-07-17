@@ -52,8 +52,8 @@ namespace TotalDTO.Inventories
             base.PerformPresaveRule();
 
             string salesOrderReferences = ""; string salesOrderCodes = "";
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseInvoice && salesOrderReferences.IndexOf(e.PurchaseRequisitionReference) < 0) salesOrderReferences = salesOrderReferences + (salesOrderReferences != "" ? ", " : "") + e.PurchaseRequisitionReference; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseInvoice && salesOrderCodes.IndexOf(e.PurchaseRequisitionCode) < 0) salesOrderCodes = salesOrderCodes + (salesOrderCodes != "" ? ", " : "") + e.PurchaseRequisitionCode; });
-            this.PurchaseRequisitionReferences = salesOrderReferences; this.PurchaseRequisitionCodes = salesOrderCodes != "" ? salesOrderCodes : null; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseInvoice) this.Code = this.PurchaseRequisitionCodes;
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && salesOrderReferences.IndexOf(e.PurchaseRequisitionReference) < 0) salesOrderReferences = salesOrderReferences + (salesOrderReferences != "" ? ", " : "") + e.PurchaseRequisitionReference; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && salesOrderCodes.IndexOf(e.PurchaseRequisitionCode) < 0) salesOrderCodes = salesOrderCodes + (salesOrderCodes != "" ? ", " : "") + e.PurchaseRequisitionCode; });
+            this.PurchaseRequisitionReferences = salesOrderReferences; this.PurchaseRequisitionCodes = salesOrderCodes != "" ? salesOrderCodes : null; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition) this.Code = this.PurchaseRequisitionCodes;
         }
     }
 

@@ -241,7 +241,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "           IF (@GoodsReceiptTypeID > 0) " + "\r\n";
             queryString = queryString + "               BEGIN  " + "\r\n";
 
-            queryString = queryString + "                   IF (@GoodsReceiptTypeID = " + (int)GlobalEnums.GoodsReceiptTypeID.PurchaseInvoice + ") " + "\r\n";
+            queryString = queryString + "                   IF (@GoodsReceiptTypeID = " + (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition + ") " + "\r\n";
             queryString = queryString + "                       BEGIN  " + "\r\n";
             queryString = queryString + "                           UPDATE          PurchaseRequisitionDetails " + "\r\n";
             queryString = queryString + "                           SET             PurchaseRequisitionDetails.QuantityReceipt = ROUND(PurchaseRequisitionDetails.QuantityReceipt + GoodsReceiptDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + ") " + "\r\n";

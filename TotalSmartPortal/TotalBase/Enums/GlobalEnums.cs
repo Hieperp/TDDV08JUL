@@ -104,7 +104,8 @@ namespace TotalBase.Enums
             PurchaseInvoice = 1,
             GoodsReturn = 2,
             StockTransfer = 3,
-            InventoryAdjustment = 4
+            InventoryAdjustment = 4,
+            PurchaseRequisition = 6
         };
 
         public enum SalesInvoiceTypeID
