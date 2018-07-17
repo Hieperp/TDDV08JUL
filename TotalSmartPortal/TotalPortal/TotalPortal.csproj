@@ -256,6 +256,7 @@
     <Compile Include="Areas\Generals\GeneralsAreaRegistration.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsDeliveryAPIsController.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsIssueAPIsController.cs" />
+    <Compile Include="Areas\Inventories\APIs\GoodsReceiptAPIsController.cs" />
     <Compile Include="Areas\Inventories\APIs\HandlingUnitAPIsController.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsDeliveryViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsIssueViewModelSelectListBuilder.cs" />
@@ -263,6 +264,7 @@
     <Compile Include="Areas\Inventories\Builders\HandlingUnitViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsDeliveriesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
+    <Compile Include="Areas\Inventories\Controllers\GoodsReceiptsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\HandlingUnitsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsDeliverySession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsIssueSession.cs" />
@@ -1106,6 +1108,7 @@
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\VoidDetail.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\VoidDetailSuccess.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Print.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
