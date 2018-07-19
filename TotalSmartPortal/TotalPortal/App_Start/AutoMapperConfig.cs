@@ -8,12 +8,14 @@ using TotalModel.Models;
 
 using TotalDTO.Sales;
 using TotalDTO.Purchases;
+using TotalDTO.Productions;
 using TotalDTO.Inventories;
 using TotalDTO.Commons;
 using TotalDTO.Accounts;
 
 using TotalPortal.Areas.Sales.ViewModels;
 using TotalPortal.Areas.Purchases.ViewModels;
+using TotalPortal.Areas.Productions.ViewModels;
 using TotalPortal.Areas.Inventories.ViewModels;
 using TotalPortal.Areas.Accounts.ViewModels;
 using TotalPortal.Areas.Commons.ViewModels;
@@ -41,6 +43,16 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<GoodsReceiptPrimitiveDTO, GoodsReceipt>();
                 cfg.CreateMap<GoodsReceiptViewDetail, GoodsReceiptDetailDTO>();
                 cfg.CreateMap<GoodsReceiptDetailDTO, GoodsReceiptDetail>();
+
+
+
+
+                cfg.CreateMap<ProductionOrder, ProductionOrderViewModel>();
+                cfg.CreateMap<ProductionOrder, ProductionOrderDTO>();
+                cfg.CreateMap<ProductionOrderPrimitiveDTO, ProductionOrder>();
+                cfg.CreateMap<ProductionOrderViewDetail, ProductionOrderDetailDTO>();
+                cfg.CreateMap<ProductionOrderDetailDTO, ProductionOrderDetail>();
+
 
 
 

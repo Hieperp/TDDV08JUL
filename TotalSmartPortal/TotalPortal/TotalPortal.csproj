@@ -274,6 +274,11 @@
     <Compile Include="Areas\Inventories\ViewModels\GoodsIssueViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsReceiptViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
+    <Compile Include="Areas\Productions\APIs\ProductionOrderAPIsController.cs" />
+    <Compile Include="Areas\Productions\Builders\ProductionOrderViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Productions\Controllers\ProductionOrdersController.cs" />
+    <Compile Include="Areas\Productions\ProductionsAreaRegistration.cs" />
+    <Compile Include="Areas\Productions\ViewModels\ProductionOrderViewModel.cs" />
     <Compile Include="Areas\Purchases\APIs\PurchaseRequisitionAPIsController.cs" />
     <Compile Include="Areas\Purchases\Builders\PurchaseRequisitionViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Purchases\Controllers\PurchaseRequisitionsController.cs" />
@@ -1117,6 +1122,9 @@
     <Content Include="Areas\Inventories\Views\GoodsReceipts\_GetCustomer.cshtml" />
     <Content Include="Areas\Inventories\Views\GoodsReceipts\_GetPurchaseRequisition.cshtml" />
     <Content Include="Areas\Inventories\Views\GoodsReceipts\GetPendingPurchaseRequisitionDetails.cshtml" />
+    <Content Include="Areas\Productions\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Productions\Views\web.config" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1190,6 +1198,14 @@
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Edit.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Open.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Approve.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Create.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Delete.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Edit.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Index.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Open.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Print.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Void.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Approve.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Create.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Delete.js" />
