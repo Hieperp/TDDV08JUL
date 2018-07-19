@@ -1125,6 +1125,15 @@
     <Content Include="Areas\Productions\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Productions\Views\web.config" />
     <Content Include="Areas\Productions\Views\ProductionOrders\Index.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\_ProductionOrder.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\Approve.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\Create.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\Delete.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\Edit.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\Print.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\Void.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\VoidDetail.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\VoidDetailSuccess.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
