@@ -19,6 +19,9 @@ namespace TotalBase
                     return "H";
 
 
+                case GlobalEnums.NmvnTaskID.ProductionOrder:
+                    return "PO";
+
 
                 case GlobalEnums.NmvnTaskID.SalesOrder:
                     return "O";

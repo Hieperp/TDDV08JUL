@@ -43,7 +43,7 @@ namespace TotalBase.Enums
             PurchaseOrder = 8021,
             PurchaseInvoice = 8022,
 
-
+            ProductionOrder = 680018,
 
             Quotation = 8031,
             SalesOrder = 8032,

@@ -288,6 +288,12 @@ namespace TotalDAL.Repositories
 
 
             //return;
+
+            Helpers.SqlProgrammability.Productions.ProductionOrder productionOrder = new Helpers.SqlProgrammability.Productions.ProductionOrder(totalSmartPortalEntities);
+            productionOrder.RestoreProcedure();
+
+
+            return;
             Helpers.SqlProgrammability.Generals.AccessControl accessControl = new Helpers.SqlProgrammability.Generals.AccessControl(totalSmartPortalEntities);
             accessControl.RestoreProcedure();
 
