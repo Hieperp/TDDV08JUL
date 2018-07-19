@@ -36,6 +36,13 @@ namespace TotalPortal.Areas.Inventories.Controllers
             commodityTypeIDList.Append(","); commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Consumables);
 
             RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
+
+
+            StringBuilder warehouseTaskIDList = new StringBuilder();
+            warehouseTaskIDList.Append((int)GlobalEnums.WarehouseTaskID.DeliveryAdvice);
+
+            ViewBag.WarehouseTaskID = (int)GlobalEnums.WarehouseTaskID.DeliveryAdvice;
+            ViewBag.WarehouseTaskIDList = warehouseTaskIDList.ToString();
         }
 
         public virtual ActionResult GetPendingPurchaseRequisitionDetails()

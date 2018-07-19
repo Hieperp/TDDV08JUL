@@ -23,5 +23,6 @@ namespace TotalModel.Models
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
         public string CustomerOfficialName { get; set; }
+        public int GoodsReceiptTypeID { get; set; }
     }
 }

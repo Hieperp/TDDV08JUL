@@ -20,12 +20,12 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TrackingVouchers)
+            @Html.LabelFor(model => model.Code)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.TrackingVouchers).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => model.Code).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.TrackingVouchers, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
             </div>
         </div>
 

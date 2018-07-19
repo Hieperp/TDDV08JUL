@@ -24,8 +24,8 @@ namespace TotalDTO.Purchases
         //public virtual Nullable<int> CustomerID { get; set; }
         public virtual Nullable<int> CustomerID { get { return 68; } }
 
-        [Display(Name = "Chứng từ khuyến mãi")]
-        public string TrackingVouchers { get; set; }
+        [Display(Name = "Chứng")]
+        public string Code { get; set; }
     }
 
     public class PurchaseRequisitionDTO : PurchaseRequisitionPrimitiveDTO, IBaseDetailEntity<PurchaseRequisitionDetailDTO>

@@ -1109,6 +1109,14 @@
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\VoidDetailSuccess.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Print.cshtml" />
     <Content Include="Areas\Inventories\Views\GoodsReceipts\Index.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\_GoodsReceipt.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\CreateWizard.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\Delete.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\Edit.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\Print.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\_GetCustomer.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\_GetPurchaseRequisition.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsReceipts\GetPendingPurchaseRequisitionDetails.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1168,6 +1176,7 @@
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Open.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Print.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\AddPendingPurchaseRequisitionDetail.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Approve.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsReceipts\Delete.js" />

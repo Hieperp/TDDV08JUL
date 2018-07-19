@@ -16,7 +16,6 @@ namespace TotalModel.Models
         public int PurchaseRequisitionID { get; set; }
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string Reference { get; set; }
-        public string TrackingVouchers { get; set; }
         public string LocationCode { get; set; }
         public string CustomerName { get; set; }
         public string VoidTypeName { get; set; }
@@ -26,5 +25,6 @@ namespace TotalModel.Models
         public bool Approved { get; set; }
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
+        public string Code { get; set; }
     }
 }

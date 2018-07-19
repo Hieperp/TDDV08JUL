@@ -24,7 +24,6 @@ namespace TotalModel.Models
         public int CommodityID { get; set; }
         public int CommodityTypeID { get; set; }
         public Nullable<int> WarehouseID { get; set; }
-        public int SalespersonID { get; set; }
         public decimal Quantity { get; set; }
         public decimal QuantityIssue { get; set; }
         public string Remarks { get; set; }

@@ -51,24 +51,24 @@ namespace TotalDTO.Inventories
 
             base.PerformPresaveRule();
 
-            string salesOrderReferences = ""; string salesOrderCodes = "";
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && salesOrderReferences.IndexOf(e.PurchaseRequisitionReference) < 0) salesOrderReferences = salesOrderReferences + (salesOrderReferences != "" ? ", " : "") + e.PurchaseRequisitionReference; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && salesOrderCodes.IndexOf(e.PurchaseRequisitionCode) < 0) salesOrderCodes = salesOrderCodes + (salesOrderCodes != "" ? ", " : "") + e.PurchaseRequisitionCode; });
-            this.PurchaseRequisitionReferences = salesOrderReferences; this.PurchaseRequisitionCodes = salesOrderCodes != "" ? salesOrderCodes : null; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition) this.Code = this.PurchaseRequisitionCodes;
+            string purchaseRequisitionReferences = ""; string purchaseRequisitionCodes = "";
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.WarehouseID = this.WarehouseID; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && purchaseRequisitionReferences.IndexOf(e.PurchaseRequisitionReference) < 0) purchaseRequisitionReferences = purchaseRequisitionReferences + (purchaseRequisitionReferences != "" ? ", " : "") + e.PurchaseRequisitionReference; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && e.PurchaseRequisitionCode != null && purchaseRequisitionCodes.IndexOf(e.PurchaseRequisitionCode) < 0) purchaseRequisitionCodes = purchaseRequisitionCodes + (purchaseRequisitionCodes != "" ? ", " : "") + e.PurchaseRequisitionCode; });
+            this.PurchaseRequisitionReferences = purchaseRequisitionReferences; this.PurchaseRequisitionCodes = purchaseRequisitionCodes != "" ? purchaseRequisitionCodes : null; if (this.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition) this.Code = this.PurchaseRequisitionCodes;
         }
     }
 
 
-    public class GoodsReceiptDTO : GoodsReceiptPrimitiveDTO, IBaseDetailEntity<GoodsReceiptDetailDTO>
+    public class GoodsReceiptDTO : GoodsReceiptPrimitiveDTO, IBaseDetailEntity<GoodsReceiptDetailDTO>, ISearchCustomer, IPriceCategory
     {
         public GoodsReceiptDTO()
         {
             this.GoodsReceiptViewDetails = new List<GoodsReceiptDetailDTO>();
         }
 
-        //public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
-        //[Display(Name = "Khách hàng")]
-        //[UIHint("Commons/CustomerBase")]
-        //public CustomerBaseDTO Customer { get; set; }
+        public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
+        [Display(Name = "Khách hàng")]
+        [UIHint("Commons/CustomerBase")]
+        public CustomerBaseDTO Customer { get; set; }
 
         public override Nullable<int> WarehouseID { get { return (this.Warehouse != null ? this.Warehouse.WarehouseID : null); } }
         [Display(Name = "Kho hàng")]
@@ -81,6 +81,28 @@ namespace TotalDTO.Inventories
         public ICollection<GoodsReceiptDetailDTO> GetDetails() { return this.GoodsReceiptViewDetails; }
 
         protected override IEnumerable<GoodsReceiptDetailDTO> DtoDetails() { return this.GoodsReceiptViewDetails; }
+
+
+
+        #region implement ISearchCustomer only
+
+        [Display(Name = "PriceCategoryID")]
+        public int PriceCategoryID { get; set; }
+        [Display(Name = "PriceCategoryCode")]
+        public string PriceCategoryCode { get; set; }
+
+        [Display(Name = "Đơn vị, người nhận hàng")]
+        public int ReceiverID { get { return (this.Receiver != null ? this.Receiver.CustomerID : 0); } }
+        [Display(Name = "Đơn vị, người nhận hàng")]
+        [UIHint("Commons/CustomerBase")]
+        public CustomerBaseDTO Receiver { get; set; }
+
+        public virtual Nullable<int> TradePromotionID { get; set; }
+        [Display(Name = "Addressee")]
+        public string ShippingAddress { get; set; }
+        [Display(Name = "Addressee")]
+        public string Addressee { get; set; }
+        #endregion implement ISearchCustomer only
     }
 }
 
