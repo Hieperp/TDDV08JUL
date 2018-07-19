@@ -180,6 +180,14 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_Locations" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.ProductionOrderDetail" Width="1.5" PointX="20.5" PointY="12.125" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.ProductionOrder" Width="1.5" PointX="18.25" PointY="11.125" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_Locations" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionOrders" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_VoidTypes" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

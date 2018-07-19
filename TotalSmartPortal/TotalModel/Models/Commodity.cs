@@ -25,6 +25,7 @@ namespace TotalModel.Models
             this.SalesReturnDetails = new HashSet<SalesReturnDetail>();
             this.PurchaseRequisitionDetails = new HashSet<PurchaseRequisitionDetail>();
             this.GoodsReceiptDetails = new HashSet<GoodsReceiptDetail>();
+            this.ProductionOrderDetails = new HashSet<ProductionOrderDetail>();
         }
     
         public int CommodityID { get; set; }
@@ -78,5 +79,7 @@ namespace TotalModel.Models
         public virtual ICollection<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
     }
 }

@@ -77,6 +77,8 @@ namespace TotalModel.Models
         public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
         public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
+        public virtual DbSet<ProductionOrderDetail> ProductionOrderDetails { get; set; }
+        public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -2292,6 +2294,132 @@ namespace TotalModel.Models
                 new ObjectParameter("Approved", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GoodsReceiptToggleApproved", entityIDParameter, approvedParameter);
+        }
+    
+        public virtual ObjectResult<ProductionOrderIndex> GetProductionOrderIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductionOrderIndex>("GetProductionOrderIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<ProductionOrderViewDetail> GetProductionOrderViewDetails(Nullable<int> productionOrderID)
+        {
+            var productionOrderIDParameter = productionOrderID.HasValue ?
+                new ObjectParameter("ProductionOrderID", productionOrderID) :
+                new ObjectParameter("ProductionOrderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductionOrderViewDetail>("GetProductionOrderViewDetails", productionOrderIDParameter);
+        }
+    
+        public virtual ObjectResult<string> ProductionOrderApproved(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ProductionOrderApproved", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> ProductionOrderEditable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ProductionOrderEditable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> ProductionOrderPostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ProductionOrderPostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int ProductionOrderSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductionOrderSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual int ProductionOrderToggleApproved(Nullable<int> entityID, Nullable<bool> approved)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var approvedParameter = approved.HasValue ?
+                new ObjectParameter("Approved", approved) :
+                new ObjectParameter("Approved", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductionOrderToggleApproved", entityIDParameter, approvedParameter);
+        }
+    
+        public virtual int ProductionOrderToggleVoid(Nullable<int> entityID, Nullable<bool> inActive, Nullable<int> voidTypeID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var inActiveParameter = inActive.HasValue ?
+                new ObjectParameter("InActive", inActive) :
+                new ObjectParameter("InActive", typeof(bool));
+    
+            var voidTypeIDParameter = voidTypeID.HasValue ?
+                new ObjectParameter("VoidTypeID", voidTypeID) :
+                new ObjectParameter("VoidTypeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductionOrderToggleVoid", entityIDParameter, inActiveParameter, voidTypeIDParameter);
+        }
+    
+        public virtual int ProductionOrderToggleVoidDetail(Nullable<int> entityID, Nullable<int> entityDetailID, Nullable<bool> inActivePartial, Nullable<int> voidTypeID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var entityDetailIDParameter = entityDetailID.HasValue ?
+                new ObjectParameter("EntityDetailID", entityDetailID) :
+                new ObjectParameter("EntityDetailID", typeof(int));
+    
+            var inActivePartialParameter = inActivePartial.HasValue ?
+                new ObjectParameter("InActivePartial", inActivePartial) :
+                new ObjectParameter("InActivePartial", typeof(bool));
+    
+            var voidTypeIDParameter = voidTypeID.HasValue ?
+                new ObjectParameter("VoidTypeID", voidTypeID) :
+                new ObjectParameter("VoidTypeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductionOrderToggleVoidDetail", entityIDParameter, entityDetailIDParameter, inActivePartialParameter, voidTypeIDParameter);
+        }
+    
+        public virtual ObjectResult<string> ProductionOrderVoidable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ProductionOrderVoidable", entityIDParameter);
         }
     }
 }
