@@ -40,6 +40,11 @@
         "gridEditorWarehouseInvoked": "Controllers/Root/Shared/Edits/gridEditorWarehouseInvoked",
         "gridEditorVoidType": "Controllers/Root/Shared/Edits/gridEditorVoidType",
         "gridEditorVoidTypeInvoked": "Controllers/Root/Shared/Edits/gridEditorVoidTypeInvoked",
+        "gridEditorMold": "Controllers/Root/Shared/Edits/gridEditorMold",
+        "gridEditorMoldInvoked": "Controllers/Root/Shared/Edits/gridEditorMoldInvoked",
+        "gridEditorProductionLine": "Controllers/Root/Shared/Edits/gridEditorProductionLine",
+        "gridEditorProductionLineInvoked": "Controllers/Root/Shared/Edits/gridEditorProductionLineInvoked",
+
 
         "gridWidget": "Controllers/Root/Shared/Edits/gridWidget",
         "gridWidgetQuantityRemains": "Controllers/Root/Shared/Edits/gridWidgetQuantityRemains",
