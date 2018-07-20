@@ -1260,6 +1260,8 @@
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommoditiesInWarehousesInvoked.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommodity.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommodityInvoked.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCustomer.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCustomerInvoked.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorMold.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorMoldInvoked.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorProductionLine.js" />
@@ -2092,6 +2094,8 @@
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\Addressee.cshtml" />
     <Content Include="Views\Helpers\Bases\_BaseSectionTopB.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\ProductionLineBase.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AutoCompletes\MoldBase.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AutoCompletes\CustomerBasic.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

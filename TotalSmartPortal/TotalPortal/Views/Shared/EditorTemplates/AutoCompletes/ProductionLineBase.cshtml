@@ -7,12 +7,12 @@
         .DataTextField("ProductionLineCode")
         .Filter("contains")
         .MinLength(SettingsManager.AutoCompleteMinLenght)
-        .Placeholder("Chọn mã ck...")
-        .HeaderTemplate("<div class=\"dropdown-header general-custom-header commodity-custom-header\">" +
+        .Placeholder("Chọn mã máy...")
+        .HeaderTemplate("<div class=\"dropdown-header general-custom-header productionLine-custom-header\">" +
                 "<span class=\"k-widget k-header\">Mã</span>" +
-                "<span class=\"k-widget k-header\">Tên chiết khấu</span>" +
+                "<span class=\"k-widget k-header\">Tên máy</span>" +
                 "</div>")
-        .Template("<div class=\"dropdown-body general-custom-body commodity-custom-body\">" +
+        .Template("<div class=\"dropdown-body general-custom-body productionLine-custom-body\">" +
                 "<span class=\"k-state-default\"><p>#: data.ProductionLineCode #</p></span>" +
                     "<span class=\"k-state-default\"><p>#: data.ProductionLineName #</p></span>" +
                 "</div>")
@@ -25,8 +25,7 @@
 
                     function(e) {
                     return {
-                    searchText: $("#ProductionLineCode").data("kendoAutoComplete").value(),
-                    commodityTypeIDList: requireConfig.pageOptions.commodityTypeIDList
+                    searchText: $("#ProductionLineCode").data("kendoAutoComplete").value()
                     };}
 
                 </text>);//Send parameter to controller search action
@@ -45,7 +44,7 @@
 
 <script type="text/javascript">
     $("#ProductionLineCode").focus(function (e) {
-        window.commodityCodeBeforeChange = $("#ProductionLineCode").val();
+        window.productionLineCodeBeforeChange = $("#ProductionLineCode").val();
     });
 </script>
 
@@ -62,12 +61,12 @@
     */
 
 
-    .commodity-custom-header > span:first-child {
+    .productionLine-custom-header > span:first-child {
         width: 85px;
     }
 
 
-    .commodity-custom-header > span:last-child {
+    .productionLine-custom-header > span:last-child {
         width: 297px;
     }
 
@@ -76,12 +75,12 @@
 
 
 
-    .k-item > .commodity-custom-body > span:first-child {
+    .k-item > .productionLine-custom-body > span:first-child {
         width: 84px;
     }
 
 
-    .k-item > .commodity-custom-body > span:last-child {
+    .k-item > .productionLine-custom-body > span:last-child {
         width: 270px;
     }
 

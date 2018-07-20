@@ -36,6 +36,8 @@
         "gridEditorCommoditiesInWarehousesInvoked": "Controllers/Root/Shared/Edits/gridEditorCommoditiesInWarehousesInvoked",
         "gridEditorCommoditiesInGoodsReceipts": "Controllers/Root/Shared/Edits/gridEditorCommoditiesInGoodsReceipts",
         "gridEditorCommoditiesInGoodsReceiptsInvoked": "Controllers/Root/Shared/Edits/gridEditorCommoditiesInGoodsReceiptsInvoked",
+        "gridEditorCustomer": "Controllers/Root/Shared/Edits/gridEditorCustomer",
+        "gridEditorCustomerInvoked": "Controllers/Root/Shared/Edits/gridEditorCustomerInvoked",
         "gridEditorWarehouse": "Controllers/Root/Shared/Edits/gridEditorWarehouse",
         "gridEditorWarehouseInvoked": "Controllers/Root/Shared/Edits/gridEditorWarehouseInvoked",
         "gridEditorVoidType": "Controllers/Root/Shared/Edits/gridEditorVoidType",
