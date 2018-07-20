@@ -79,6 +79,8 @@ namespace TotalModel.Models
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
         public virtual DbSet<ProductionOrderDetail> ProductionOrderDetails { get; set; }
         public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
+        public virtual DbSet<Mold> Molds { get; set; }
+        public virtual DbSet<ProductionLine> ProductionLines { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -2420,6 +2422,28 @@ namespace TotalModel.Models
                 new ObjectParameter("EntityID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ProductionOrderVoidable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<MoldBase> GetMoldBases(string searchText, Nullable<int> commodityID)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            var commodityIDParameter = commodityID.HasValue ?
+                new ObjectParameter("CommodityID", commodityID) :
+                new ObjectParameter("CommodityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MoldBase>("GetMoldBases", searchTextParameter, commodityIDParameter);
+        }
+    
+        public virtual ObjectResult<ProductionLineBase> GetProductionLineBases(string searchText)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductionLineBase>("GetProductionLineBases", searchTextParameter);
         }
     }
 }

@@ -188,6 +188,10 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionOrders" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_VoidTypes" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Mold" Width="1.5" PointX="18.625" PointY="7.625" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.ProductionLine" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Molds" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionLines" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

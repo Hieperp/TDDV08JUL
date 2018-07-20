@@ -249,9 +249,9 @@ namespace TotalDAL.Repositories
             throw new Exception(message);
         }
 
-        
-        
-        
+
+
+
 
         public bool AutoUpdates(bool restoreProcedures)
         {
@@ -286,6 +286,15 @@ namespace TotalDAL.Repositories
         public void CreateStoredProcedure()
         {
 
+            //return;
+
+            Helpers.SqlProgrammability.Commons.ProductionLine productionLine = new Helpers.SqlProgrammability.Commons.ProductionLine(totalSmartPortalEntities);
+            productionLine.RestoreProcedure();
+
+            //return;
+
+            Helpers.SqlProgrammability.Commons.Mold mold = new Helpers.SqlProgrammability.Commons.Mold(totalSmartPortalEntities);
+            mold.RestoreProcedure();
 
             //return;
 

@@ -37,5 +37,7 @@ namespace TotalModel.Models
         public virtual Customer Customer { get; set; }
         public virtual ProductionOrder ProductionOrder { get; set; }
         public virtual VoidType VoidType { get; set; }
+        public virtual Mold Mold { get; set; }
+        public virtual ProductionLine ProductionLine { get; set; }
     }
 }

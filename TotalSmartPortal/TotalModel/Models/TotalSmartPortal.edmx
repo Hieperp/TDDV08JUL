@@ -772,6 +772,18 @@
           <Property Name="ImageIndex" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="InActive" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Molds">
+          <Key>
+            <PropertyRef Name="MoldID" />
+          </Key>
+          <Property Name="MoldID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="InActive" Type="bit" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="MonetaryAccounts">
           <Key>
             <PropertyRef Name="MonetaryAccountID" />
@@ -834,6 +846,18 @@
           <Property Name="ShowListedGrossPrice" Type="bit" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="InActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductionLines">
+          <Key>
+            <PropertyRef Name="ProductionLineID" />
+          </Key>
+          <Property Name="ProductionLineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductionClassID" Type="int" Nullable="false" />
+          <Property Name="ProductionCategoryID" Type="int" Nullable="false" />
+          <Property Name="InActive" Type="bit" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ProductionOrderDetails">
           <Key>
@@ -2366,6 +2390,30 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductionOrderDetails_Molds">
+          <End Role="Molds" Type="Self.Molds" Multiplicity="1" />
+          <End Role="ProductionOrderDetails" Type="Self.ProductionOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Molds">
+              <PropertyRef Name="MoldID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetails">
+              <PropertyRef Name="MoldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrderDetails_ProductionLines">
+          <End Role="ProductionLines" Type="Self.ProductionLines" Multiplicity="1" />
+          <End Role="ProductionOrderDetails" Type="Self.ProductionOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionLines">
+              <PropertyRef Name="ProductionLineID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetails">
+              <PropertyRef Name="ProductionLineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductionOrderDetails_ProductionOrders">
           <End Role="ProductionOrders" Type="Self.ProductionOrders" Multiplicity="1" />
           <End Role="ProductionOrderDetails" Type="Self.ProductionOrderDetails" Multiplicity="*" />
@@ -3221,6 +3269,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
         <Function Name="GetLocationOrganizationalUnits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nothing" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetMoldBases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
+          <Parameter Name="CommodityID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetOverStockItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="lSKUActionDate" Type="datetime" Mode="In" />
           <ReturnType>
@@ -3289,6 +3341,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Parameter Name="ReceiverID" Type="int" Mode="In" />
           <Parameter Name="HandlingUnitIDs" Type="varchar" Mode="In" />
           <Parameter Name="IsReadonly" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="GetProductionLineBases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetProductionOrderIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
@@ -3707,12 +3762,14 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDetails" EntityType="Self.ModuleDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Molds" EntityType="Self.Molds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonetaryAccounts" EntityType="Self.MonetaryAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrganizationalUnits" EntityType="Self.OrganizationalUnits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrganizationalUnitUsers" EntityType="Self.OrganizationalUnitUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackingMaterials" EntityType="Self.PackingMaterials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentTerms" EntityType="Self.PaymentTerms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceCategories" EntityType="Self.PriceCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductionLines" EntityType="Self.ProductionLines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductionOrderDetails" EntityType="Self.ProductionOrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductionOrders" EntityType="Self.ProductionOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionCommodityCodeParts" EntityType="Self.PromotionCommodityCodeParts" Schema="dbo" store:Type="Tables" />
@@ -4064,6 +4121,14 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           </AssociationSet>
           <AssociationSet Name="FK_ProductionOrderDetails_Customers" Association="Self.FK_ProductionOrderDetails_Customers">
             <End Role="Customers" EntitySet="Customers" />
+            <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrderDetails_Molds" Association="Self.FK_ProductionOrderDetails_Molds">
+            <End Role="Molds" EntitySet="Molds" />
+            <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrderDetails_ProductionLines" Association="Self.FK_ProductionOrderDetails_ProductionLines">
+            <End Role="ProductionLines" EntitySet="ProductionLines" />
             <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductionOrderDetails_ProductionOrders" Association="Self.FK_ProductionOrderDetails_ProductionOrders">
@@ -8229,16 +8294,16 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetProductionOrderViewDetails" ReturnType="Collection(TotalSmartPortalModel.ProductionOrderViewDetail)">
-            <Parameter Name="ProductionOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="ProductionOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProductionOrderApproved" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProductionOrderEditable" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProductionOrderPostSaveValidate" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProductionOrderSaveRelative">
             <Parameter Name="EntityID" Mode="In" Type="Int32" />
@@ -8260,8 +8325,25 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="VoidTypeID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProductionOrderVoidable" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetMoldBases" ReturnType="Collection(TotalSmartPortalModel.MoldBase)">
+            <Parameter Name="SearchText" Mode="In" Type="String" />
+            <Parameter Name="CommodityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductionLineBases" ReturnType="Collection(TotalSmartPortalModel.ProductionLineBase)">
+          <Parameter Name="SearchText" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Molds" EntityType="TotalSmartPortalModel.Mold" />
+          <EntitySet Name="ProductionLines" EntityType="TotalSmartPortalModel.ProductionLine" />
+          <AssociationSet Name="FK_ProductionOrderDetails_Molds" Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Molds">
+            <End Role="Mold" EntitySet="Molds" />
+            <End Role="ProductionOrderDetail" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrderDetails_ProductionLines" Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionLines">
+            <End Role="ProductionLine" EntitySet="ProductionLines" />
+            <End Role="ProductionOrderDetail" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -9783,6 +9865,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Customers" FromRole="ProductionOrderDetail" ToRole="Customer" />
           <NavigationProperty Name="ProductionOrder" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionOrders" FromRole="ProductionOrderDetail" ToRole="ProductionOrder" />
           <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" FromRole="ProductionOrderDetail" ToRole="VoidType" />
+          <NavigationProperty Name="Mold" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Molds" FromRole="ProductionOrderDetail" ToRole="Mold" />
+          <NavigationProperty Name="ProductionLine" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionLines" FromRole="ProductionOrderDetail" ToRole="ProductionLine" />
         </EntityType>
         <EntityType Name="ProductionOrder">
           <Key>
@@ -9922,6 +10006,66 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="MoldBase">
+          <Property Type="Int32" Name="MoldID" Nullable="false" />
+          <Property Type="String" Name="MoldCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MoldName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ProductionLineBase">
+          <Property Type="Int32" Name="ProductionLineID" Nullable="false" />
+          <Property Type="String" Name="ProductionLineCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ProductionLineName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Mold">
+          <Key>
+            <PropertyRef Name="MoldID" />
+          </Key>
+          <Property Name="MoldID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Molds" FromRole="Mold" ToRole="ProductionOrderDetail" />
+        </EntityType>
+        <EntityType Name="ProductionLine">
+          <Key>
+            <PropertyRef Name="ProductionLineID" />
+          </Key>
+          <Property Name="ProductionLineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionClassID" Type="Int32" Nullable="false" />
+          <Property Name="ProductionCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionLines" FromRole="ProductionLine" ToRole="ProductionOrderDetail" />
+        </EntityType>
+        <Association Name="FK_ProductionOrderDetails_Molds">
+          <End Type="TotalSmartPortalModel.Mold" Role="Mold" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.ProductionOrderDetail" Role="ProductionOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mold">
+              <PropertyRef Name="MoldID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetail">
+              <PropertyRef Name="MoldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrderDetails_ProductionLines">
+          <End Type="TotalSmartPortalModel.ProductionLine" Role="ProductionLine" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.ProductionOrderDetail" Role="ProductionOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionLine">
+              <PropertyRef Name="ProductionLineID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetail">
+              <PropertyRef Name="ProductionLineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12899,6 +13043,50 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="ProductionOrderToggleVoid" FunctionName="TotalSmartPortalModel.Store.ProductionOrderToggleVoid" />
           <FunctionImportMapping FunctionImportName="ProductionOrderToggleVoidDetail" FunctionName="TotalSmartPortalModel.Store.ProductionOrderToggleVoidDetail" />
           <FunctionImportMapping FunctionImportName="ProductionOrderVoidable" FunctionName="TotalSmartPortalModel.Store.ProductionOrderVoidable" />
+          <FunctionImportMapping FunctionImportName="GetMoldBases" FunctionName="TotalSmartPortalModel.Store.GetMoldBases">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.MoldBase">
+                <ScalarProperty Name="MoldID" ColumnName="MoldID" />
+                <ScalarProperty Name="MoldCode" ColumnName="MoldCode" />
+                <ScalarProperty Name="MoldName" ColumnName="MoldName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProductionLineBases" FunctionName="TotalSmartPortalModel.Store.GetProductionLineBases" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.ProductionLineBase">
+                <ScalarProperty Name="ProductionLineID" ColumnName="ProductionLineID" />
+                <ScalarProperty Name="ProductionLineCode" ColumnName="ProductionLineCode" />
+                <ScalarProperty Name="ProductionLineName" ColumnName="ProductionLineName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Molds">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.Mold">
+              <MappingFragment StoreEntitySet="Molds">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="MoldID" ColumnName="MoldID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionLines">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.ProductionLine">
+              <MappingFragment StoreEntitySet="ProductionLines">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="ProductionCategoryID" ColumnName="ProductionCategoryID" />
+                <ScalarProperty Name="ProductionClassID" ColumnName="ProductionClassID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ProductionLineID" ColumnName="ProductionLineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
