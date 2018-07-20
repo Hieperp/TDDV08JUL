@@ -72,10 +72,28 @@ namespace TotalModel.Models
     }
 
 
-    
 
 
 
+
+
+
+
+
+
+
+    public partial class ProductionOrder : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<ProductionOrderDetail>
+    {
+        public int GetID() { return this.ProductionOrderID; }
+
+        public ICollection<ProductionOrderDetail> GetDetails() { return this.ProductionOrderDetails; }
+    }
+
+
+    public partial class ProductionOrderDetail : IPrimitiveEntity, IHelperEntryDate, IHelperCommodityID, IHelperCommodityTypeID
+    {
+        public int GetID() { return this.ProductionOrderDetailID; }
+    }
 
 
 

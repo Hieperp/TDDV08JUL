@@ -9,9 +9,6 @@ using TotalCore.Services.Productions;
 
 namespace TotalService.Productions
 {
-    class ProductionOrderService
-    {
-    }
     public class ProductionOrderService : GenericWithViewDetailService<ProductionOrder, ProductionOrderDetail, ProductionOrderViewDetail, ProductionOrderDTO, ProductionOrderPrimitiveDTO, ProductionOrderDetailDTO>, IProductionOrderService
     {
         public ProductionOrderService(IProductionOrderRepository productionOrderRepository)
