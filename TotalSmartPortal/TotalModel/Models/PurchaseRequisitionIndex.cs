@@ -21,10 +21,10 @@ namespace TotalModel.Models
         public string VoidTypeName { get; set; }
         public string Description { get; set; }
         public decimal TotalQuantity { get; set; }
-        public decimal TotalQuantityAdvice { get; set; }
         public bool Approved { get; set; }
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public string Code { get; set; }
+        public decimal TotalQuantityReceipt { get; set; }
     }
 }

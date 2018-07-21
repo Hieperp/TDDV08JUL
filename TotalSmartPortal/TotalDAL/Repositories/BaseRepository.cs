@@ -285,6 +285,10 @@ namespace TotalDAL.Repositories
 
         public void CreateStoredProcedure()
         {
+            //return;
+
+            Helpers.SqlProgrammability.Purchases.PurchaseRequisition purchaseRequisition = new Helpers.SqlProgrammability.Purchases.PurchaseRequisition(totalSmartPortalEntities);
+            purchaseRequisition.RestoreProcedure();
 
             //return;
 
@@ -306,11 +310,7 @@ namespace TotalDAL.Repositories
             Helpers.SqlProgrammability.Generals.AccessControl accessControl = new Helpers.SqlProgrammability.Generals.AccessControl(totalSmartPortalEntities);
             accessControl.RestoreProcedure();
 
-            //return;
-
-            Helpers.SqlProgrammability.Purchases.PurchaseRequisition purchaseRequisition = new Helpers.SqlProgrammability.Purchases.PurchaseRequisition(totalSmartPortalEntities);
-            purchaseRequisition.RestoreProcedure();
-
+           
             //return;
 
             Helpers.SqlProgrammability.Inventories.GoodsReceipt goodsReceipt = new Helpers.SqlProgrammability.Inventories.GoodsReceipt(totalSmartPortalEntities);

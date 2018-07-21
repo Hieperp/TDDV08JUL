@@ -9483,11 +9483,11 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="VoidTypeName" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="TotalQuantityAdvice" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Boolean" Name="Approved" Nullable="false" />
           <Property Type="Boolean" Name="InActive" Nullable="false" />
           <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
           <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TotalQuantityReceipt" Nullable="false" Precision="18" Scale="2" />
         </ComplexType>
         <ComplexType Name="PurchaseRequisitionViewDetail">
           <Property Type="Int32" Name="PurchaseRequisitionDetailID" Nullable="false" />
@@ -12713,11 +12713,11 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
-                <ScalarProperty Name="TotalQuantityAdvice" ColumnName="TotalQuantityAdvice" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="InActive" ColumnName="InActive" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="TotalQuantityReceipt" ColumnName="TotalQuantityReceipt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
