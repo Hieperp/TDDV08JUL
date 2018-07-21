@@ -223,6 +223,8 @@
     <Compile Include="Areas\Commons\APIs\CommodityPriceAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\CustomerAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\EmployeeAPIsController.cs" />
+    <Compile Include="Areas\Commons\APIs\MoldAPIsController.cs" />
+    <Compile Include="Areas\Commons\APIs\ProductionLineAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\SearchAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\VoidTypeAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\PromotionAPIsController.cs" />

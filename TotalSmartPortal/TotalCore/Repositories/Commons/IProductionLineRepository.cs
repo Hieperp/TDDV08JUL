@@ -10,6 +10,6 @@ namespace TotalCore.Repositories.Commons
 
     public interface IProductionLineAPIRepository : IGenericAPIRepository
     {
-        IList<ProductionLineBase> GetProductionLineBases(string searchText, int warehouseTaskID);
+        IList<ProductionLineBase> GetProductionLineBases(string searchText);
     }
 }

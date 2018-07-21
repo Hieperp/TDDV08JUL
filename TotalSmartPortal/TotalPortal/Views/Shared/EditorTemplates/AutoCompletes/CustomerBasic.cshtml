@@ -15,8 +15,8 @@
                 "<span class=\"k-widget k-header\">Tên khách hàng</span>" +
                 "</div>")
         .Template("<div class=\"dropdown-body general-custom-body customer-custom-body\">" +
-                "<span class=\"k-state-default\"><p>#: data.CustomerCode #</p></span>" +
-                    "<span class=\"k-state-default\"><p>#: data.CustomerName #</p></span>" +
+                "<span class=\"k-state-default\"><p>#: data.Code #</p></span>" +
+                    "<span class=\"k-state-default\"><p>#: data.Name #</p></span>" +
                 "</div>")
 
         .DataSource(source =>
@@ -27,7 +27,8 @@
 
                     function(e) {
                     return {
-                    searchText: $("#CustomerCode").data("kendoAutoComplete").value()
+                    searchText: $("#CustomerCode").data("kendoAutoComplete").value(),
+                    warehouseTaskID: 0
                     };}
 
                 </text>);//Send parameter to controller search action

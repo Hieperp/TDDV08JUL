@@ -16,6 +16,7 @@ namespace TotalDTO.Productions
         public int CustomerID { get; set; }
         [Display(Name = "Mã khách hàng")]
         [Required(ErrorMessage = "Vui lòng chọn khách hàng")]
+        [UIHint("AutoCompletes/CustomerBasic")]
         public virtual string CustomerCode { get; set; }
 
         [Display(Name = "Tên khách hàng")]
@@ -25,11 +26,13 @@ namespace TotalDTO.Productions
         public int ProductionLineID { get; set; }
         [Display(Name = "Dây chuyền")]
         [Required(ErrorMessage = "Vui lòng chọn dây chuyền")]
+        [UIHint("AutoCompletes/ProductionLineBase")]
         public virtual string ProductionLineCode { get; set; }
 
         public int MoldID { get; set; }
         [Display(Name = "Mã khuôn")]
         [Required(ErrorMessage = "Vui lòng chọn mã khuôn")]
+        [UIHint("AutoCompletes/MoldBase")]
         public virtual string MoldCode { get; set; }
 
 

@@ -74,6 +74,23 @@
 
 
 
+                    columns.Bound(p => p.CustomerID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CustomerID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CustomerID' value='#= CustomerID #' />");
+                    columns.Bound(p => p.CustomerCode).DisplayNameTitle().Filterable(false).Width(200)
+                        .ClientTemplate("#= CustomerCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CustomerCode' value='#= CustomerCode #' />");
+
+                    
+                    columns.Bound(p => p.ProductionLineID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= ProductionLineID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineID' value='#= ProductionLineID #' />");
+                    columns.Bound(p => p.ProductionLineCode).DisplayNameTitle().Filterable(false).Width(200)
+                        .ClientTemplate("#= ProductionLineCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineCode' value='#= ProductionLineCode #' />");
+
+                    columns.Bound(p => p.MoldID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= MoldID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].MoldID' value='#= MoldID #' />");
+                    columns.Bound(p => p.MoldCode).DisplayNameTitle().Filterable(false).Width(200)
+                        .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
+
+                    
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")

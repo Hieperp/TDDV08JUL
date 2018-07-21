@@ -241,6 +241,17 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IVehicleRepository>().To<VehicleRepository>();
 
 
+                //kernel.Bind<IMoldService>().To<MoldService>();
+                kernel.Bind<IMoldRepository>().To<MoldRepository>();
+                kernel.Bind<IMoldAPIRepository>().To<MoldAPIRepository>();
+                //kernel.Bind<IMoldSelectListBuilder>().To<MoldSelectListBuilder>();
+
+                //kernel.Bind<IProductionLineService>().To<ProductionLineService>();
+                kernel.Bind<IProductionLineRepository>().To<ProductionLineRepository>();
+                kernel.Bind<IProductionLineAPIRepository>().To<ProductionLineAPIRepository>();
+                //kernel.Bind<IProductionLineSelectListBuilder>().To<ProductionLineSelectListBuilder>();
+
+
                 RegisterServices(kernel);
                 return kernel;
             }

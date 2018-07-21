@@ -16,11 +16,11 @@
             var dataItem = e.sender.dataItem(e.item.index());
 
             currentDataSourceRow.set("CustomerID", dataItem.CustomerID);
-            currentDataSourceRow.set("CustomerCode", dataItem.CustomerCode);
-            currentDataSourceRow.set("CustomerName", dataItem.CustomerName);
+            currentDataSourceRow.set("CustomerCode", dataItem.Code);
+            currentDataSourceRow.set("CustomerName", dataItem.Name);
         }
 
-        window.customerCodeBeforeChange = dataItem.CustomerCode;
+        window.customerCodeBeforeChange = dataItem.Code;
     };
 
 
