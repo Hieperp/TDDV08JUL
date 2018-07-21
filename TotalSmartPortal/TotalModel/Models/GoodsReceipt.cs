@@ -47,7 +47,7 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual Location Location { get; set; }
-        public virtual PurchaseRequisition PurchaseRequisition { get; set; }
         public virtual Warehouse Warehouse { get; set; }
+        public virtual PurchaseRequisition PurchaseRequisition { get; set; }
     }
 }

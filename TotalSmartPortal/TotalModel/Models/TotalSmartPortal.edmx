@@ -987,7 +987,7 @@
           <Property Name="LocationID" Type="int" Nullable="false" />
           <Property Name="ApproverID" Type="int" Nullable="false" />
           <Property Name="TotalQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="TotalQuantityAdvice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalQuantityReceipt" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -4716,9 +4716,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="SalesOrders1" Relationship="Self.FK_SalesOrders_Customers1" FromRole="Customers" ToRole="SalesOrders" />
           <NavigationProperty Name="SalesReturns" Relationship="Self.FK_SalesReturns_Customers" FromRole="Customers" ToRole="SalesReturns" />
           <NavigationProperty Name="SalesReturns1" Relationship="Self.FK_SalesReturns_Customers1" FromRole="Customers" ToRole="SalesReturns" />
-          <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" FromRole="Customer" ToRole="PurchaseRequisition" />
           <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Customers" FromRole="Customer" ToRole="GoodsReceipt" />
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Customers" FromRole="Customer" ToRole="ProductionOrderDetail" />
+          <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" FromRole="Customer" ToRole="PurchaseRequisition" />
         </EntityType>
         <EntityType Name="CustomerType">
           <Key>
@@ -5166,9 +5166,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="OrganizationalUnits" Relationship="Self.FK_OrganizationalUnits_Locations" FromRole="Locations" ToRole="OrganizationalUnits" />
           <NavigationProperty Name="SalesOrders" Relationship="Self.FK_SalesOrders_Locations" FromRole="Locations" ToRole="SalesOrders" />
           <NavigationProperty Name="SalesReturns" Relationship="Self.FK_SalesReturns_Locations" FromRole="Locations" ToRole="SalesReturns" />
-          <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations" FromRole="Location" ToRole="PurchaseRequisition" />
           <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Locations" FromRole="Location" ToRole="GoodsReceipt" />
           <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_Locations" FromRole="Location" ToRole="ProductionOrder" />
+          <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations" FromRole="Location" ToRole="PurchaseRequisition" />
         </EntityType>
         <EntityType Name="ModuleDetail">
           <Key>
@@ -5684,10 +5684,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="GoodsIssueDetails" Relationship="Self.FK_GoodsIssueDetails_VoidTypes" FromRole="VoidTypes" ToRole="GoodsIssueDetails" />
           <NavigationProperty Name="SalesOrderDetails" Relationship="Self.FK_SalesOrderDetails_VoidTypes" FromRole="VoidTypes" ToRole="SalesOrderDetails" />
           <NavigationProperty Name="SalesOrders" Relationship="Self.FK_SalesOrders_VoidTypes" FromRole="VoidTypes" ToRole="SalesOrders" />
-          <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" FromRole="VoidType" ToRole="PurchaseRequisition" />
           <NavigationProperty Name="PurchaseRequisitionDetails" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes" FromRole="VoidType" ToRole="PurchaseRequisitionDetail" />
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" FromRole="VoidType" ToRole="ProductionOrderDetail" />
           <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_VoidTypes" FromRole="VoidType" ToRole="ProductionOrder" />
+          <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" FromRole="VoidType" ToRole="PurchaseRequisition" />
         </EntityType>
         <EntityType Name="Warehouse">
           <Key>
@@ -8167,19 +8167,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImport Name="PurchaseRequisitionVoidable" ReturnType="Collection(String)">
           <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="PurchaseRequisitions" EntityType="TotalSmartPortalModel.PurchaseRequisition" />
-          <AssociationSet Name="FK_PurchaseRequisitions_Customers" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitions_Locations" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitions_VoidTypes" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes">
-            <End Role="VoidType" EntitySet="VoidTypes" />
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-          </AssociationSet>
           <FunctionImport Name="GetGoodsReceiptIndexes" ReturnType="Collection(TotalSmartPortalModel.GoodsReceiptIndex)">
             <Parameter Name="AspUserID" Mode="In" Type="String" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
@@ -8224,10 +8211,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_PurchaseRequisitionDetails_PurchaseRequisitions" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions">
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
-            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_PurchaseRequisitionDetails_VoidTypes" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes">
             <End Role="VoidType" EntitySet="VoidTypes" />
             <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
@@ -8252,10 +8235,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           </AssociationSet>
           <AssociationSet Name="FK_GoodsReceipts_Locations" Association="TotalSmartPortalModel.FK_GoodsReceipts_Locations">
             <End Role="Location" EntitySet="Locations" />
-            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsReceipts_PurchaseRequisitions" Association="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions">
-            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
             <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
           </AssociationSet>
           <AssociationSet Name="FK_GoodsReceipts_Warehouses" Association="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses">
@@ -8343,6 +8322,27 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <AssociationSet Name="FK_ProductionOrderDetails_ProductionLines" Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionLines">
             <End Role="ProductionLine" EntitySet="ProductionLines" />
             <End Role="ProductionOrderDetail" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <EntitySet Name="PurchaseRequisitions" EntityType="TotalSmartPortalModel.PurchaseRequisition" />
+          <AssociationSet Name="FK_PurchaseRequisitions_Customers" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceipts_PurchaseRequisitions" Association="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions">
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitions_Locations" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitionDetails_PurchaseRequisitions" Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions">
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
+            <End Role="PurchaseRequisitionDetail" EntitySet="PurchaseRequisitionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequisitions_VoidTypes" Association="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
@@ -9505,75 +9505,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
         </ComplexType>
-        <EntityType Name="PurchaseRequisition">
-          <Key>
-            <PropertyRef Name="PurchaseRequisitionID" />
-          </Key>
-          <Property Name="PurchaseRequisitionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="PreparedPersonID" Type="Int32" Nullable="false" />
-          <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
-          <Property Name="LocationID" Type="Int32" Nullable="false" />
-          <Property Name="ApproverID" Type="Int32" Nullable="false" />
-          <Property Name="TotalQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="TotalQuantityAdvice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Approved" Type="Boolean" Nullable="false" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="VoidTypeID" Type="Int32" />
-          <Property Name="InActive" Type="Boolean" Nullable="false" />
-          <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
-          <Property Name="InActiveDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" FromRole="PurchaseRequisition" ToRole="Customer" />
-          <NavigationProperty Name="Location" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations" FromRole="PurchaseRequisition" ToRole="Location" />
-          <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" FromRole="PurchaseRequisition" ToRole="VoidType" />
-          <NavigationProperty Name="PurchaseRequisitionDetails" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" FromRole="PurchaseRequisition" ToRole="PurchaseRequisitionDetail" />
-          <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions" FromRole="PurchaseRequisition" ToRole="GoodsReceipt" />
-        </EntityType>
-        <Association Name="FK_PurchaseRequisitions_Customers">
-          <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="PurchaseRequisition">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchaseRequisitions_Locations">
-          <End Type="TotalSmartPortalModel.Location" Role="Location" Multiplicity="1" />
-          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="LocationID" />
-            </Principal>
-            <Dependent Role="PurchaseRequisition">
-              <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchaseRequisitions_VoidTypes">
-          <End Type="TotalSmartPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
-          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VoidType">
-              <PropertyRef Name="VoidTypeID" />
-            </Principal>
-            <Dependent Role="PurchaseRequisition">
-              <PropertyRef Name="VoidTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="GoodsReceiptIndex">
           <Property Type="Int32" Name="GoodsReceiptID" Nullable="false" />
           <Property Type="DateTime" Name="EntryDate" Nullable="true" />
@@ -9661,9 +9592,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
           <Property Name="InActivePartialDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Commodity" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_Commodities" FromRole="PurchaseRequisitionDetail" ToRole="Commodity" />
-          <NavigationProperty Name="PurchaseRequisition" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" FromRole="PurchaseRequisitionDetail" ToRole="PurchaseRequisition" />
           <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes" FromRole="PurchaseRequisitionDetail" ToRole="VoidType" />
           <NavigationProperty Name="GoodsReceiptDetails" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_PurchaseRequisitionDetails" FromRole="PurchaseRequisitionDetail" ToRole="GoodsReceiptDetail" />
+          <NavigationProperty Name="PurchaseRequisition" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" FromRole="PurchaseRequisitionDetail" ToRole="PurchaseRequisition" />
         </EntityType>
         <Association Name="FK_PurchaseRequisitionDetails_Commodities">
           <End Type="TotalSmartPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -9674,18 +9605,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="PurchaseRequisitionDetail">
               <PropertyRef Name="CommodityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchaseRequisitionDetails_PurchaseRequisitions">
-          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="1" />
-          <End Type="TotalSmartPortalModel.PurchaseRequisitionDetail" Role="PurchaseRequisitionDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PurchaseRequisition">
-              <PropertyRef Name="PurchaseRequisitionID" />
-            </Principal>
-            <Dependent Role="PurchaseRequisitionDetail">
-              <PropertyRef Name="PurchaseRequisitionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9752,8 +9671,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Customers" FromRole="GoodsReceipt" ToRole="Customer" />
           <NavigationProperty Name="GoodsReceiptDetails" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_GoodsReceipts" FromRole="GoodsReceipt" ToRole="GoodsReceiptDetail" />
           <NavigationProperty Name="Location" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Locations" FromRole="GoodsReceipt" ToRole="Location" />
-          <NavigationProperty Name="PurchaseRequisition" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions" FromRole="GoodsReceipt" ToRole="PurchaseRequisition" />
           <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" FromRole="GoodsReceipt" ToRole="Warehouse" />
+          <NavigationProperty Name="PurchaseRequisition" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions" FromRole="GoodsReceipt" ToRole="PurchaseRequisition" />
         </EntityType>
         <Association Name="FK_GoodsReceiptDetails_Commodities">
           <End Type="TotalSmartPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -9812,18 +9731,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="GoodsReceipt">
               <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsReceipts_PurchaseRequisitions">
-          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="0..1" />
-          <End Type="TotalSmartPortalModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PurchaseRequisition">
-              <PropertyRef Name="PurchaseRequisitionID" />
-            </Principal>
-            <Dependent Role="GoodsReceipt">
-              <PropertyRef Name="PurchaseRequisitionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -10063,6 +9970,99 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="ProductionOrderDetail">
               <PropertyRef Name="ProductionLineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PurchaseRequisition">
+          <Key>
+            <PropertyRef Name="PurchaseRequisitionID" />
+          </Key>
+          <Property Name="PurchaseRequisitionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="PreparedPersonID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="ApproverID" Type="Int32" Nullable="false" />
+          <Property Name="TotalQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalQuantityReceipt" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="VoidTypeID" Type="Int32" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
+          <Property Name="InActiveDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" FromRole="PurchaseRequisition" ToRole="Customer" />
+          <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions" FromRole="PurchaseRequisition" ToRole="GoodsReceipt" />
+          <NavigationProperty Name="Location" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Locations" FromRole="PurchaseRequisition" ToRole="Location" />
+          <NavigationProperty Name="PurchaseRequisitionDetails" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" FromRole="PurchaseRequisition" ToRole="PurchaseRequisitionDetail" />
+          <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" FromRole="PurchaseRequisition" ToRole="VoidType" />
+        </EntityType>
+        <Association Name="FK_PurchaseRequisitions_Customers">
+          <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="PurchaseRequisition">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsReceipts_PurchaseRequisitions">
+          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseRequisition">
+              <PropertyRef Name="PurchaseRequisitionID" />
+            </Principal>
+            <Dependent Role="GoodsReceipt">
+              <PropertyRef Name="PurchaseRequisitionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseRequisitions_Locations">
+          <End Type="TotalSmartPortalModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="PurchaseRequisition">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseRequisitionDetails_PurchaseRequisitions">
+          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PurchaseRequisitionDetail" Role="PurchaseRequisitionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseRequisition">
+              <PropertyRef Name="PurchaseRequisitionID" />
+            </Principal>
+            <Dependent Role="PurchaseRequisitionDetail">
+              <PropertyRef Name="PurchaseRequisitionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseRequisitions_VoidTypes">
+          <End Type="TotalSmartPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.PurchaseRequisition" Role="PurchaseRequisition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidType">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="PurchaseRequisition">
+              <PropertyRef Name="VoidTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12749,35 +12749,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="PurchaseRequisitionToggleVoid" FunctionName="TotalSmartPortalModel.Store.PurchaseRequisitionToggleVoid" />
           <FunctionImportMapping FunctionImportName="PurchaseRequisitionToggleVoidDetail" FunctionName="TotalSmartPortalModel.Store.PurchaseRequisitionToggleVoidDetail" />
           <FunctionImportMapping FunctionImportName="PurchaseRequisitionVoidable" FunctionName="TotalSmartPortalModel.Store.PurchaseRequisitionVoidable" />
-          <EntitySetMapping Name="PurchaseRequisitions">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.PurchaseRequisition">
-              <MappingFragment StoreEntitySet="PurchaseRequisitions">
-                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
-                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
-                <ScalarProperty Name="InActive" ColumnName="InActive" />
-                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TotalQuantityAdvice" ColumnName="TotalQuantityAdvice" />
-                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
-                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="PurchaseRequisitionID" ColumnName="PurchaseRequisitionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetGoodsReceiptIndexes" FunctionName="TotalSmartPortalModel.Store.GetGoodsReceiptIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.GoodsReceiptIndex">
@@ -13084,6 +13055,35 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ProductionLineID" ColumnName="ProductionLineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseRequisitions">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.PurchaseRequisition">
+              <MappingFragment StoreEntitySet="PurchaseRequisitions">
+                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalQuantityReceipt" ColumnName="TotalQuantityReceipt" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
+                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="PurchaseRequisitionID" ColumnName="PurchaseRequisitionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

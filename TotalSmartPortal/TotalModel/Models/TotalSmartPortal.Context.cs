@@ -73,7 +73,6 @@ namespace TotalModel.Models
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VoidType> VoidTypes { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
-        public virtual DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
         public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
         public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
@@ -81,6 +80,7 @@ namespace TotalModel.Models
         public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
         public virtual DbSet<Mold> Molds { get; set; }
         public virtual DbSet<ProductionLine> ProductionLines { get; set; }
+        public virtual DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
