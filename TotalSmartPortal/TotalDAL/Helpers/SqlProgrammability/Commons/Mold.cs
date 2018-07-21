@@ -67,7 +67,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
 
             queryString = queryString + "       SELECT      TOP 30 MoldID, Code AS MoldCode, Name AS MoldName " + " \r\n";
             queryString = queryString + "       FROM        Molds " + "\r\n";
-            queryString = queryString + "       WHERE       InActive = 0 AND MoldID IN (SELECT MoldID FROM CommodityMolds WHERE CommodityID = @CommodityID) AND (@SearchText = '' OR Code LIKE '%' + @SearchText + '%' OR Name LIKE '%' + @SearchText + '%') " + "\r\n";
+            queryString = queryString + "       WHERE       InActive = 0 AND MoldID IN (SELECT MoldID FROM CommodityMolds WHERE 1 = 1 OR CommodityID = @CommodityID) AND (@SearchText = '' OR Code LIKE '%' + @SearchText + '%' OR Name LIKE '%' + @SearchText + '%') " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
 
