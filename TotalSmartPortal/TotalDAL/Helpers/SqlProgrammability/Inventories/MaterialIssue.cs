@@ -22,7 +22,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
             this.GetMaterialIssueViewDetails();
 
-            this.GetMaterialIssuePendingCustomers();
+            this.GetMaterialIssuePendingWorkshifts();
             this.GetMaterialIssuePendingProductionOrders();
             this.GetMaterialIssuePendingProductionOrderDetails();
 
@@ -47,10 +47,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      MaterialIssues.MaterialIssueID, CAST(MaterialIssues.EntryDate AS DATE) AS EntryDate, MaterialIssues.Reference, Locations.Code AS LocationCode, Customers.Name AS CustomerName, MaterialIssues.Description, MaterialIssues.TotalQuantity, MaterialIssues.Approved " + "\r\n";
+            queryString = queryString + "       SELECT      MaterialIssues.MaterialIssueID, CAST(MaterialIssues.EntryDate AS DATE) AS EntryDate, MaterialIssues.Reference, Locations.Code AS LocationCode, Workshifts.Name AS WorkshiftName, MaterialIssues.Description, MaterialIssues.TotalQuantity, MaterialIssues.Approved " + "\r\n";
             queryString = queryString + "       FROM        MaterialIssues " + "\r\n";
             queryString = queryString + "                   INNER JOIN Locations ON MaterialIssues.EntryDate >= @FromDate AND MaterialIssues.EntryDate <= @ToDate AND MaterialIssues.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.MaterialIssue + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = MaterialIssues.LocationID " + "\r\n";
-            queryString = queryString + "                   INNER JOIN Customers ON MaterialIssues.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Workshifts ON MaterialIssues.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
 
@@ -93,29 +93,29 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
 
             queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.ProductionOrder + " AS MaterialIssueTypeID, ProductionOrders.ProductionOrderID, ProductionOrders.Reference AS ProductionOrderReference, ProductionOrders.Code AS ProductionOrderCode, ProductionOrders.EntryDate AS ProductionOrderEntryDate, ProductionOrders.Description, ProductionOrders.Remarks, " + "\r\n";
-            queryString = queryString + "                       ProductionOrders.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.OfficialName AS CustomerOfficialName " + "\r\n";
+            queryString = queryString + "                       ProductionOrders.WorkshiftID, Workshifts.Code AS WorkshiftCode, Workshifts.Name AS WorkshiftName, Workshifts.OfficialName AS WorkshiftOfficialName " + "\r\n";
 
             queryString = queryString + "       FROM            ProductionOrders " + "\r\n";
-            queryString = queryString + "                       INNER JOIN Customers ON ProductionOrders.ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0 AND ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0) AND ProductionOrders.CustomerID = Customers.CustomerID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Workshifts ON ProductionOrders.ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0 AND ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0) AND ProductionOrders.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories WorkshiftEntireTerritories ON Workshifts.TerritoryID = WorkshiftEntireTerritories.TerritoryID " + "\r\n";
 
             this.totalSmartPortalEntities.CreateStoredProcedure("GetMaterialIssuePendingProductionOrders", queryString);
         }
 
-        private void GetMaterialIssuePendingCustomers()
+        private void GetMaterialIssuePendingWorkshifts()
         {
             string queryString = " @LocationID int " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
-            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.ProductionOrder + " AS MaterialIssueTypeID, Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.OfficialName AS CustomerOfficialName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.TerritoryID AS CustomerTerritoryID, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.ProductionOrder + " AS MaterialIssueTypeID, Workshifts.WorkshiftID, Workshifts.Code AS WorkshiftCode, Workshifts.Name AS WorkshiftName, Workshifts.OfficialName AS WorkshiftOfficialName, Workshifts.VATCode AS WorkshiftVATCode, Workshifts.AttentionName AS WorkshiftAttentionName, Workshifts.TerritoryID AS WorkshiftTerritoryID, WorkshiftEntireTerritories.EntireName AS WorkshiftEntireTerritoryEntireName " + "\r\n";
 
-            queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID FROM ProductionOrders WHERE ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0  AND ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0)) CustomerPENDING " + "\r\n";
-            queryString = queryString + "                       INNER JOIN Customers ON CustomerPENDING.CustomerID = Customers.CustomerID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN CustomerCategories ON Customers.CustomerCategoryID = CustomerCategories.CustomerCategoryID " + "\r\n";
+            queryString = queryString + "       FROM           (SELECT DISTINCT WorkshiftID FROM ProductionOrders WHERE ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0  AND ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0)) WorkshiftPENDING " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Workshifts ON WorkshiftPENDING.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories WorkshiftEntireTerritories ON Workshifts.TerritoryID = WorkshiftEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN WorkshiftCategories ON Workshifts.WorkshiftCategoryID = WorkshiftCategories.WorkshiftCategoryID " + "\r\n";
 
-            this.totalSmartPortalEntities.CreateStoredProcedure("GetMaterialIssuePendingCustomers", queryString);
+            this.totalSmartPortalEntities.CreateStoredProcedure("GetMaterialIssuePendingWorkshifts", queryString);
         }
 
 
@@ -126,7 +126,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
             SqlProgrammability.Inventories.Inventories inventories = new SqlProgrammability.Inventories.Inventories(this.totalSmartPortalEntities);
 
-            queryString = " @LocationID Int, @MaterialIssueID Int, @ProductionOrderID Int, @CustomerID Int, @ProductionOrderDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
+            queryString = " @LocationID Int, @MaterialIssueID Int, @ProductionOrderID Int, @WorkshiftID Int, @ProductionOrderDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
@@ -197,7 +197,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                   0 AS Quantity, ProductionOrders.Description, ProductionOrderDetails.Remarks, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        ProductionOrders " + "\r\n";
-            queryString = queryString + "                   INNER JOIN ProductionOrderDetails ON " + (isProductionOrderID ? " ProductionOrders.ProductionOrderID = @ProductionOrderID " : "ProductionOrders.LocationID = @LocationID AND ProductionOrders.CustomerID = @CustomerID ") + " AND ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0 AND ROUND(ProductionOrderDetails.Quantity- ProductionOrderDetails.QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0 AND ProductionOrders.ProductionOrderID = ProductionOrderDetails.ProductionOrderID" + (isProductionOrderDetailIDs ? " AND ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@ProductionOrderDetailIDs))" : "") + "\r\n";
+            queryString = queryString + "                   INNER JOIN ProductionOrderDetails ON " + (isProductionOrderID ? " ProductionOrders.ProductionOrderID = @ProductionOrderID " : "ProductionOrders.LocationID = @LocationID AND ProductionOrders.WorkshiftID = @WorkshiftID ") + " AND ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0 AND ROUND(ProductionOrderDetails.Quantity- ProductionOrderDetails.QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0 AND ProductionOrders.ProductionOrderID = ProductionOrderDetails.ProductionOrderID" + (isProductionOrderDetailIDs ? " AND ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@ProductionOrderDetailIDs))" : "") + "\r\n";
             queryString = queryString + "                   INNER JOIN Commodities ON ProductionOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
 
             return queryString;
