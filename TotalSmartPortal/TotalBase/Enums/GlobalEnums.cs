@@ -49,6 +49,7 @@ namespace TotalBase.Enums
             SalesOrder = 8032,
             DeliveryAdvice = 8035,
             GoodsIssue = 8037,
+            MaterialIssue = 8039,
 
             SalesInvoice = 8051,
 
@@ -106,6 +107,12 @@ namespace TotalBase.Enums
             StockTransfer = 3,
             InventoryAdjustment = 4,
             PurchaseRequisition = 6
+        };
+
+        public enum MaterialIssueTypeID
+        {
+            AllMaterialIssue = 999,
+            ProductionOrder = 6
         };
 
         public enum SalesInvoiceTypeID
