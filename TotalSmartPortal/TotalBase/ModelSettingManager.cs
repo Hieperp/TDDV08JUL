@@ -22,6 +22,10 @@ namespace TotalBase
                 case GlobalEnums.NmvnTaskID.ProductionOrder:
                     return "PO";
 
+                case GlobalEnums.NmvnTaskID.MaterialIssue:
+                    return "MI";
+                    
+
 
                 case GlobalEnums.NmvnTaskID.SalesOrder:
                     return "O";

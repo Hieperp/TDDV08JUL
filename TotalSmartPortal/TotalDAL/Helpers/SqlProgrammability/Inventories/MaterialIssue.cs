@@ -68,14 +68,20 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "    BEGIN " + "\r\n";
 
             queryString = queryString + "       SELECT      MaterialIssueDetails.MaterialIssueDetailID, MaterialIssueDetails.MaterialIssueID, MaterialIssueDetails.ProductionOrderID, MaterialIssueDetails.ProductionOrderDetailID, ProductionOrders.Reference AS ProductionOrderReference, ProductionOrders.Code AS ProductionOrderCode, ProductionOrders.EntryDate AS ProductionOrderEntryDate, " + "\r\n";
-            queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, MaterialIssueDetails.CommodityTypeID, " + "\r\n";
-            queryString = queryString + "                   ROUND(ISNULL(CASE WHEN ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0 THEN ProductionOrderDetails.Quantity - ProductionOrderDetails.QuantityReceipt ELSE 0 END, 0) + MaterialIssueDetails.Quantity, " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, MaterialIssueDetails.Quantity, MaterialIssueDetails.Remarks " + "\r\n";
+            queryString = queryString + "                   MaterialIssueDetails.PlannedOrderID, MaterialIssueDetails.PlannedOrderDetailID, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.Code AS PlannedOrderCode, PlannedOrders.EntryDate AS PlannedOrderEntryDate, " + "\r\n";
+            queryString = queryString + "                   ProductionLines.Code AS ProductionLineCode, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, MaterialIssueDetails.CommodityTypeID, MaterialIssueDetails.CommodityID AS MaterialID, Materials.Code AS MaterialCode, " + "\r\n";
+            queryString = queryString + "                   ROUND(GoodsReceiptDetails.Quantity - GoodsReceiptDetails.QuantityIssued + MaterialIssueDetails.Quantity, " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, MaterialIssueDetails.Quantity, MaterialIssueDetails.Remarks " + "\r\n";
             queryString = queryString + "       FROM        MaterialIssueDetails " + "\r\n";
-            queryString = queryString + "                   INNER JOIN Commodities ON MaterialIssueDetails.MaterialIssueID = @MaterialIssueID AND MaterialIssueDetails.CommodityID = Commodities.CommodityID " + "\r\n";
-            queryString = queryString + "                   LEFT JOIN ProductionOrderDetails ON MaterialIssueDetails.ProductionOrderDetailID = ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
-            queryString = queryString + "                   LEFT JOIN ProductionOrders ON ProductionOrderDetails.ProductionOrderID = ProductionOrders.ProductionOrderID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities Materials ON MaterialIssueDetails.MaterialIssueID = @MaterialIssueID AND MaterialIssueDetails.CommodityID = Materials.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN ProductionOrderDetails ON MaterialIssueDetails.ProductionOrderDetailID = ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN ProductionOrders ON ProductionOrderDetails.ProductionOrderID = ProductionOrders.ProductionOrderID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrderDetails ON MaterialIssueDetails.PlannedOrderDetailID = PlannedOrderDetails.PlannedOrderDetailID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrders ON MaterialIssueDetails.PlannedOrderID = PlannedOrders.PlannedOrderID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities ON ProductionOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN ProductionLines ON ProductionOrderDetails.ProductionLineID = ProductionLines.ProductionLineID  " + "\r\n";
+            queryString = queryString + "                   INNER JOIN GoodsReceiptDetails ON MaterialIssueDetails.GoodsReceiptDetailID = GoodsReceiptDetails.GoodsReceiptDetailID " + "\r\n";
 
-            queryString = queryString + "       ORDER BY    Commodities.CommodityTypeID, MaterialIssueDetails.MaterialIssueID, MaterialIssueDetails.MaterialIssueDetailID " + "\r\n";
+            queryString = queryString + "       ORDER BY    MaterialIssueDetails.MaterialIssueID, MaterialIssueDetails.MaterialIssueDetailID " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
 
@@ -92,12 +98,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
-            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.ProductionOrder + " AS MaterialIssueTypeID, ProductionOrders.ProductionOrderID, ProductionOrders.Reference AS ProductionOrderReference, ProductionOrders.Code AS ProductionOrderCode, ProductionOrders.EntryDate AS ProductionOrderEntryDate, ProductionOrders.Description, ProductionOrders.Remarks, " + "\r\n";
-            queryString = queryString + "                       ProductionOrders.WorkshiftID, Workshifts.Code AS WorkshiftCode, Workshifts.Name AS WorkshiftName, Workshifts.OfficialName AS WorkshiftOfficialName " + "\r\n";
+            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.ProductionOrder + " AS MaterialIssueTypeID, ProductionOrders.ProductionOrderID, ProductionOrders.Reference AS ProductionOrderReference, ProductionOrders.Code AS ProductionOrderCode, ProductionOrders.EntryDate AS ProductionOrderEntryDate, ProductionOrders.WorkshiftID, Workshifts.Code AS WorkshiftCode, ProductionOrders.Description, ProductionOrders.Remarks " + "\r\n";
 
-            queryString = queryString + "       FROM            ProductionOrders " + "\r\n";
-            queryString = queryString + "                       INNER JOIN Workshifts ON ProductionOrders.ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0 AND ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0) AND ProductionOrders.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN EntireTerritories WorkshiftEntireTerritories ON Workshifts.TerritoryID = WorkshiftEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "       FROM            ProductionOrders " + "\r\n";//AND ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") > 0
+            queryString = queryString + "                       INNER JOIN Workshifts ON ProductionOrders.ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0) AND ProductionOrders.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
 
             this.totalSmartPortalEntities.CreateStoredProcedure("GetMaterialIssuePendingProductionOrders", queryString);
         }
@@ -108,12 +112,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
-            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.ProductionOrder + " AS MaterialIssueTypeID, Workshifts.WorkshiftID, Workshifts.Code AS WorkshiftCode, Workshifts.Name AS WorkshiftName, Workshifts.OfficialName AS WorkshiftOfficialName, Workshifts.VATCode AS WorkshiftVATCode, Workshifts.AttentionName AS WorkshiftAttentionName, Workshifts.TerritoryID AS WorkshiftTerritoryID, WorkshiftEntireTerritories.EntireName AS WorkshiftEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.ProductionOrder + " AS MaterialIssueTypeID, Workshifts.WorkshiftID, Workshifts.Code AS WorkshiftCode " + "\r\n";
 
-            queryString = queryString + "       FROM           (SELECT DISTINCT WorkshiftID FROM ProductionOrders WHERE ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0  AND ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0)) WorkshiftPENDING " + "\r\n";
+            queryString = queryString + "       FROM           (SELECT DISTINCT WorkshiftID FROM ProductionOrders WHERE ProductionOrderID IN (SELECT ProductionOrderID FROM ProductionOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0)) WorkshiftPENDING " + "\r\n";// AND ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") > 0
             queryString = queryString + "                       INNER JOIN Workshifts ON WorkshiftPENDING.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN EntireTerritories WorkshiftEntireTerritories ON Workshifts.TerritoryID = WorkshiftEntireTerritories.TerritoryID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN WorkshiftCategories ON Workshifts.WorkshiftCategoryID = WorkshiftCategories.WorkshiftCategoryID " + "\r\n";
 
             this.totalSmartPortalEntities.CreateStoredProcedure("GetMaterialIssuePendingWorkshifts", queryString);
         }
@@ -124,62 +126,73 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString;
 
-            SqlProgrammability.Inventories.Inventories inventories = new SqlProgrammability.Inventories.Inventories(this.totalSmartPortalEntities);
-
-            queryString = " @LocationID Int, @MaterialIssueID Int, @ProductionOrderID Int, @WorkshiftID Int, @ProductionOrderDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
+            queryString = " @LocationID Int, @MaterialIssueID Int, @ProductionOrderID Int, @WorkshiftID Int, @ProductionOrderDetailIDs varchar(3999), @GoodsReceiptDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
             queryString = queryString + "   BEGIN " + "\r\n";
 
             queryString = queryString + "       IF  (@ProductionOrderID <> 0) " + "\r\n";
-            queryString = queryString + "           " + this.BuildSQLProductionOrder(true) + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPendingDetails(true) + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
-            queryString = queryString + "           " + this.BuildSQLProductionOrder(false) + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPendingDetails(false) + "\r\n";
 
             queryString = queryString + "   END " + "\r\n";
 
             this.totalSmartPortalEntities.CreateStoredProcedure("GetMaterialIssuePendingProductionOrderDetails", queryString);
         }
 
-        private string BuildSQLProductionOrder(bool isProductionOrderID)
+        private string BuildSQLPendingDetails(bool isProductionOrderID)
         {
             string queryString = "";
             queryString = queryString + "   BEGIN " + "\r\n";
             queryString = queryString + "       IF  (@ProductionOrderDetailIDs <> '') " + "\r\n";
-            queryString = queryString + "           " + this.BuildSQLProductionOrderProductionOrderDetailIDs(isProductionOrderID, true) + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPendingDetails(isProductionOrderID, true) + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
-            queryString = queryString + "           " + this.BuildSQLProductionOrderProductionOrderDetailIDs(isProductionOrderID, false) + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPendingDetails(isProductionOrderID, false) + "\r\n";
             queryString = queryString + "   END " + "\r\n";
 
             return queryString;
         }
 
-        private string BuildSQLProductionOrderProductionOrderDetailIDs(bool isProductionOrderID, bool isProductionOrderDetailIDs)
+        private string BuildSQLPendingDetails(bool isProductionOrderID, bool isProductionOrderDetailIDs)
+        {
+            string queryString = "";
+            queryString = queryString + "   BEGIN " + "\r\n";
+            queryString = queryString + "       IF  (@GoodsReceiptDetailIDs <> '') " + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPendingDetails(isProductionOrderID, true, true) + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPendingDetails(isProductionOrderID, false, false) + "\r\n";
+            queryString = queryString + "   END " + "\r\n";
+
+            return queryString;
+        }
+
+        private string BuildSQLPendingDetails(bool isProductionOrderID, bool isProductionOrderDetailIDs, bool isGoodsReceiptDetailIDs)
         {
             string queryString = "";
             queryString = queryString + "   BEGIN " + "\r\n";
 
             queryString = queryString + "       IF (@MaterialIssueID <= 0) " + "\r\n";
             queryString = queryString + "               BEGIN " + "\r\n";
-            queryString = queryString + "                   " + this.BuildSQLNew(isProductionOrderID, isProductionOrderDetailIDs) + "\r\n";
-            queryString = queryString + "                   ORDER BY ProductionOrders.EntryDate, ProductionOrders.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
+            queryString = queryString + "                   " + this.BuildSQLNew(isProductionOrderID, isProductionOrderDetailIDs, isGoodsReceiptDetailIDs) + "\r\n";
+            queryString = queryString + "                   ORDER BY ProductionOrderDetails.EntryDate, ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
             queryString = queryString + "               END " + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
 
             queryString = queryString + "               IF (@IsReadonly = 1) " + "\r\n";
             queryString = queryString + "                   BEGIN " + "\r\n";
-            queryString = queryString + "                       " + this.BuildSQLEdit(isProductionOrderID, isProductionOrderDetailIDs) + "\r\n";
-            queryString = queryString + "                       ORDER BY ProductionOrders.EntryDate, ProductionOrders.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
+            queryString = queryString + "                       " + this.BuildSQLEdit(isProductionOrderID, isProductionOrderDetailIDs, isGoodsReceiptDetailIDs) + "\r\n";
+            queryString = queryString + "                       ORDER BY ProductionOrderDetails.EntryDate, ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
             queryString = queryString + "                   END " + "\r\n";
 
             queryString = queryString + "               ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
 
             queryString = queryString + "                   BEGIN " + "\r\n";
-            queryString = queryString + "                       " + this.BuildSQLNew(isProductionOrderID, isProductionOrderDetailIDs) + " WHERE ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT ProductionOrderDetailID FROM MaterialIssueDetails WHERE MaterialIssueID = @MaterialIssueID) " + "\r\n";
+            queryString = queryString + "                       " + this.BuildSQLNew(isProductionOrderID, isProductionOrderDetailIDs, isGoodsReceiptDetailIDs) + " WHERE ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT ProductionOrderDetailID FROM MaterialIssueDetails WHERE MaterialIssueID = @MaterialIssueID) " + "\r\n";
             queryString = queryString + "                       UNION ALL " + "\r\n";
-            queryString = queryString + "                       " + this.BuildSQLEdit(isProductionOrderID, isProductionOrderDetailIDs) + "\r\n";
-            queryString = queryString + "                       ORDER BY ProductionOrders.EntryDate, ProductionOrders.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
+            queryString = queryString + "                       " + this.BuildSQLEdit(isProductionOrderID, isProductionOrderDetailIDs, isGoodsReceiptDetailIDs) + "\r\n";
+            queryString = queryString + "                       ORDER BY ProductionOrderDetails.EntryDate, ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
             queryString = queryString + "                   END " + "\r\n";
 
             queryString = queryString + "   END " + "\r\n";
@@ -187,35 +200,55 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             return queryString;
         }
 
-        private string BuildSQLNew(bool isProductionOrderID, bool isProductionOrderDetailIDs)
+        private string BuildSQLNew(bool isProductionOrderID, bool isProductionOrderDetailIDs, bool isGoodsReceiptDetailIDs)
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      ProductionOrders.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID, ProductionOrders.Reference AS ProductionOrderReference, ProductionOrders.Code AS ProductionOrderCode, ProductionOrders.EntryDate AS ProductionOrderEntryDate, " + "\r\n";
-            queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, " + "\r\n";
-            queryString = queryString + "                   ROUND(ProductionOrderDetails.Quantity - ProductionOrderDetails.QuantityReceipt, 0) AS QuantityRemains, " + "\r\n";
-            queryString = queryString + "                   0 AS Quantity, ProductionOrders.Description, ProductionOrderDetails.Remarks, CAST(1 AS bit) AS IsSelected " + "\r\n";
+            queryString = queryString + "       SELECT      PlannedOrders.PlannedOrderID, PlannedOrderDetails.PlannedOrderDetailID, PlannedOrders.EntryDate AS PlannedOrderEntryDate, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.Code AS PlannedOrderCode, PlannedOrderDetails.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, " + "\r\n";
+            queryString = queryString + "                   ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID, ProductionOrderDetails.EntryDate AS ProductionOrderEntryDate, ProductionOrderDetails.ProductionLineID, ProductionLines.Code AS ProductionLineCode, ProductionOrderDetails.MoldID, Molds.Code AS MoldCode, ProductionOrderDetails.WorkshiftID, Workshifts.Code AS WorkshiftCode, " + "\r\n";
+            queryString = queryString + "                   ProductionOrderDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, CommodityMaterialDetails.MaterialID, Materials.Code AS MaterialCode, GoodsReceiptDetails.GoodsReceiptDetailID, GoodsReceiptDetails.EntryDate AS GoodsReceiptDetailEntryDate, " + "\r\n";
+            queryString = queryString + "                   ROUND(PlannedOrderDetails.Quantity- PlannedOrderDetails.QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") AS PlannedOrderRemains, Workshifts.WorkingHours, Molds.CyclePerHours, Molds.Quantity AS MoldQuantity, CommodityMaterialDetails.BlockUnit, CommodityMaterialDetails.BlockQuantity, ROUND(GoodsReceiptDetails.Quantity - GoodsReceiptDetails.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, 0 AS Quantity, CAST(0 AS bit) AS IsSelected " + "\r\n";
 
-            queryString = queryString + "       FROM        ProductionOrders " + "\r\n";
-            queryString = queryString + "                   INNER JOIN ProductionOrderDetails ON " + (isProductionOrderID ? " ProductionOrders.ProductionOrderID = @ProductionOrderID " : "ProductionOrders.LocationID = @LocationID AND ProductionOrders.WorkshiftID = @WorkshiftID ") + " AND ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0 AND ROUND(ProductionOrderDetails.Quantity- ProductionOrderDetails.QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") > 0 AND ProductionOrders.ProductionOrderID = ProductionOrderDetails.ProductionOrderID" + (isProductionOrderDetailIDs ? " AND ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@ProductionOrderDetailIDs))" : "") + "\r\n";
+            queryString = queryString + "       FROM        ProductionOrderDetails " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrderDetails ON " + (isProductionOrderID ? " ProductionOrderDetails.ProductionOrderID = @ProductionOrderID " : "ProductionOrderDetails.LocationID = @LocationID AND ProductionOrderDetails.WorkshiftID = @WorkshiftID") + " AND ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0 AND ProductionOrderDetails.PlannedOrderDetailID = PlannedOrderDetails.PlannedOrderDetailID AND ROUND(PlannedOrderDetails.Quantity- PlannedOrderDetails.QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") > 0 " + (isProductionOrderDetailIDs ? " AND ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@ProductionOrderDetailIDs))" : "") + "\r\n";
+
+            queryString = queryString + "                   INNER JOIN PlannedOrders ON PlannedOrderDetails.PlannedOrderID = PlannedOrders.PlannedOrderID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN ProductionLines ON ProductionOrderDetails.ProductionLineID = ProductionLines.ProductionLineID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Molds ON ProductionOrderDetails.MoldID = Molds.MoldID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers ON ProductionOrderDetails.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                   INNER JOIN Commodities ON ProductionOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN CommodityMaterialDetails ON ProductionOrderDetails.CommodityMaterialID = CommodityMaterialDetails.CommodityMaterialID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities Materials ON CommodityMaterialDetails.MaterialID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Workshifts ON ProductionOrderDetails.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
+
+            queryString = queryString + "                   LEFT JOIN GoodsReceiptDetails ON CommodityMaterialDetails.MaterialID = GoodsReceiptDetails.CommodityID AND GoodsReceiptDetails.Approved = 1 AND ROUND(GoodsReceiptDetails.Quantity- GoodsReceiptDetails.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") > 0 " + (isGoodsReceiptDetailIDs ? " AND GoodsReceiptDetails.GoodsReceiptDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@GoodsReceiptDetailIDs))" : "") + "\r\n";
 
             return queryString;
         }
 
-        private string BuildSQLEdit(bool isProductionOrderID, bool isProductionOrderDetailIDs)
+        private string BuildSQLEdit(bool isProductionOrderID, bool isProductionOrderDetailIDs, bool isGoodsReceiptDetailIDs)
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      ProductionOrders.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID, ProductionOrders.Reference AS ProductionOrderReference, ProductionOrders.Code AS ProductionOrderCode, ProductionOrders.EntryDate AS ProductionOrderEntryDate, " + "\r\n";
-            queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, " + "\r\n";
-            queryString = queryString + "                   ROUND(ProductionOrderDetails.Quantity - ProductionOrderDetails.QuantityReceipt + MaterialIssueDetails.Quantity, 0) AS QuantityRemains, " + "\r\n";
-            queryString = queryString + "                   0 AS Quantity, ProductionOrders.Description, ProductionOrderDetails.Remarks, CAST(1 AS bit) AS IsSelected " + "\r\n";
+            queryString = queryString + "       SELECT      PlannedOrders.PlannedOrderID, PlannedOrderDetails.PlannedOrderDetailID, PlannedOrders.EntryDate AS PlannedOrderEntryDate, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.Code AS PlannedOrderCode, PlannedOrderDetails.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, " + "\r\n";
+            queryString = queryString + "                   ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.ProductionOrderDetailID, ProductionOrderDetails.EntryDate AS ProductionOrderEntryDate, ProductionOrderDetails.ProductionLineID, ProductionLines.Code AS ProductionLineCode, ProductionOrderDetails.MoldID, Molds.Code AS MoldCode, ProductionOrderDetails.WorkshiftID, Workshifts.Code AS WorkshiftCode, " + "\r\n";
+            queryString = queryString + "                   ProductionOrderDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, CommodityMaterialDetails.MaterialID, Materials.Code AS MaterialCode, GoodsReceiptDetails.GoodsReceiptDetailID, GoodsReceiptDetails.EntryDate AS GoodsReceiptDetailEntryDate, " + "\r\n";
+            queryString = queryString + "                   ROUND(PlannedOrderDetails.Quantity- PlannedOrderDetails.QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") AS PlannedOrderRemains, Workshifts.WorkingHours, Molds.CyclePerHours, Molds.Quantity AS MoldQuantity, CommodityMaterialDetails.BlockUnit, CommodityMaterialDetails.BlockQuantity, ROUND(GoodsReceiptDetails.Quantity - GoodsReceiptDetails.QuantityIssued + MaterialIssueDetails.Quantity, " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, 0 AS Quantity, CAST(0 AS bit) AS IsSelected " + "\r\n";
 
-            queryString = queryString + "       FROM        ProductionOrderDetails " + "\r\n";
-            queryString = queryString + "                   INNER JOIN MaterialIssueDetails ON MaterialIssueDetails.MaterialIssueID = @MaterialIssueID AND ProductionOrderDetails.ProductionOrderDetailID = MaterialIssueDetails.ProductionOrderDetailID" + (isProductionOrderDetailIDs ? " AND ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@ProductionOrderDetailIDs))" : "") + "\r\n";
+            queryString = queryString + "       FROM        MaterialIssueDetails " + "\r\n";
+            queryString = queryString + "                   INNER JOIN ProductionOrderDetails ON MaterialIssueDetails.MaterialIssueID = @MaterialIssueID AND MaterialIssueDetails.ProductionOrderDetailID = ProductionOrderDetails.ProductionOrderDetailID " + (isProductionOrderDetailIDs ? " AND ProductionOrderDetails.ProductionOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@ProductionOrderDetailIDs))" : "") + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrderDetails ON ProductionOrderDetails.PlannedOrderDetailID = PlannedOrderDetails.PlannedOrderDetailID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrders ON PlannedOrderDetails.PlannedOrderID = PlannedOrders.PlannedOrderID " + "\r\n";
+            
+            queryString = queryString + "                   INNER JOIN ProductionLines ON ProductionOrderDetails.ProductionLineID = ProductionLines.ProductionLineID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Molds ON ProductionOrderDetails.MoldID = Molds.MoldID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers ON ProductionOrderDetails.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                   INNER JOIN Commodities ON ProductionOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
-            queryString = queryString + "                   INNER JOIN ProductionOrders ON ProductionOrderDetails.ProductionOrderID = ProductionOrders.ProductionOrderID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN CommodityMaterialDetails ON ProductionOrderDetails.CommodityMaterialID = CommodityMaterialDetails.CommodityMaterialID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities Materials ON CommodityMaterialDetails.CommodityID = Materials.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Workshifts ON ProductionOrderDetails.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
+
+            queryString = queryString + "                   LEFT  JOIN GoodsReceiptDetails ON CommodityMaterialDetails.MaterialID = GoodsReceiptDetails.CommodityID AND GoodsReceiptDetails.Approved = 1 AND ROUND(GoodsReceiptDetails.Quantity- GoodsReceiptDetails.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") > 0 " + (isGoodsReceiptDetailIDs ? " AND GoodsReceiptDetails.GoodsReceiptDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@GoodsReceiptDetailIDs))" : "") + "\r\n";
 
             return queryString;
         }
@@ -226,7 +259,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             string queryString = " @EntityID int, @SaveRelativeOption int " + "\r\n"; //SaveRelativeOption: 1: Update, -1:Undo
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       BEGIN " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("MaterialIssueSaveRelative", queryString);
+
 
             //queryString = queryString + "           IF (@SaveRelativeOption = 1) ";
             //queryString = queryString + "               BEGIN ";
@@ -244,7 +279,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                   IF (@MaterialIssueTypeID = " + (int)GlobalEnums.MaterialIssueTypeID.ProductionOrder + ") " + "\r\n";
             queryString = queryString + "                       BEGIN  " + "\r\n";
             queryString = queryString + "                           UPDATE          ProductionOrderDetails " + "\r\n";
-            queryString = queryString + "                           SET             ProductionOrderDetails.QuantityReceipt = ROUND(ProductionOrderDetails.QuantityReceipt + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + ") " + "\r\n";
+            queryString = queryString + "                           SET             ProductionOrderDetails.QuantitySemifinished = ROUND(ProductionOrderDetails.QuantitySemifinished + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + ") " + "\r\n";
             queryString = queryString + "                           FROM            MaterialIssueDetails " + "\r\n";
             queryString = queryString + "                                           INNER JOIN ProductionOrderDetails ON ((ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0) OR @SaveRelativeOption = -1) AND MaterialIssueDetails.MaterialIssueID = @EntityID AND MaterialIssueDetails.ProductionOrderDetailID = ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
             queryString = queryString + "                           SET @AffectedROWCOUNT = @@ROWCOUNT " + "\r\n";
@@ -254,7 +289,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             //queryString = queryString + "                   IF (@MaterialIssueTypeID = " + (int)GlobalEnums.MaterialIssueTypeID.GoodsIssueTransfer + ") " + "\r\n";
             //queryString = queryString + "                       BEGIN  " + "\r\n";
             //queryString = queryString + "                           UPDATE          GoodsIssueTransferDetails " + "\r\n";
-            //queryString = queryString + "                           SET             GoodsIssueTransferDetails.QuantityReceipt = ROUND(GoodsIssueTransferDetails.QuantityReceipt + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), GoodsIssueTransferDetails.LineVolumeReceipt = ROUND(GoodsIssueTransferDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
+            //queryString = queryString + "                           SET             GoodsIssueTransferDetails.QuantitySemifinished = ROUND(GoodsIssueTransferDetails.QuantitySemifinished + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), GoodsIssueTransferDetails.LineVolumeReceipt = ROUND(GoodsIssueTransferDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
             //queryString = queryString + "                           FROM            MaterialIssueDetails " + "\r\n";
             //queryString = queryString + "                                           INNER JOIN GoodsIssueTransferDetails ON MaterialIssueDetails.MaterialIssueID = @EntityID AND GoodsIssueTransferDetails.Approved = 1 AND MaterialIssueDetails.GoodsIssueTransferDetailID = GoodsIssueTransferDetails.GoodsIssueTransferDetailID " + "\r\n";
             //queryString = queryString + "                           SET @AffectedROWCOUNT = @@ROWCOUNT " + "\r\n";
@@ -264,7 +299,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             //queryString = queryString + "                   IF (@MaterialIssueTypeID = " + (int)GlobalEnums.MaterialIssueTypeID.WarehouseAdjustments + ") " + "\r\n";
             //queryString = queryString + "                       BEGIN  " + "\r\n";
             //queryString = queryString + "                           UPDATE          WarehouseAdjustmentDetails " + "\r\n";
-            //queryString = queryString + "                           SET             WarehouseAdjustmentDetails.QuantityReceipt = ROUND(WarehouseAdjustmentDetails.QuantityReceipt + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), WarehouseAdjustmentDetails.LineVolumeReceipt = ROUND(WarehouseAdjustmentDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
+            //queryString = queryString + "                           SET             WarehouseAdjustmentDetails.QuantitySemifinished = ROUND(WarehouseAdjustmentDetails.QuantitySemifinished + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), WarehouseAdjustmentDetails.LineVolumeReceipt = ROUND(WarehouseAdjustmentDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
             //queryString = queryString + "                           FROM            MaterialIssueDetails " + "\r\n";
             //queryString = queryString + "                                           INNER JOIN WarehouseAdjustmentDetails ON MaterialIssueDetails.MaterialIssueID = @EntityID AND WarehouseAdjustmentDetails.Quantity > 0 AND MaterialIssueDetails.WarehouseAdjustmentDetailID = WarehouseAdjustmentDetails.WarehouseAdjustmentDetailID " + "\r\n";
             //queryString = queryString + "                           SET @AffectedROWCOUNT = @@ROWCOUNT " + "\r\n";
@@ -281,15 +316,15 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
             queryString = queryString + "       END " + "\r\n";
 
-            this.totalSmartPortalEntities.CreateStoredProcedure("MaterialIssueSaveRelative", queryString);
+            //this.totalSmartPortalEntities.CreateStoredProcedure("MaterialIssueSaveRelative", queryString);
         }
 
         private void MaterialIssuePostSaveValidate()
         {
-            string[] queryArray = new string[2];
+            string[] queryArray = new string[0];
 
-            queryArray[0] = " SELECT TOP 1 @FoundEntity = N'Ngày đặt hàng: ' + CAST(ProductionOrders.EntryDate AS nvarchar) FROM MaterialIssueDetails INNER JOIN ProductionOrders ON MaterialIssueDetails.MaterialIssueID = @EntityID AND MaterialIssueDetails.ProductionOrderID = ProductionOrders.ProductionOrderID AND MaterialIssueDetails.EntryDate < ProductionOrders.EntryDate ";
-            queryArray[1] = " SELECT TOP 1 @FoundEntity = N'Số lượng xuất vượt quá số lượng đặt hàng: ' + CAST(ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") AS nvarchar) FROM ProductionOrderDetails WHERE (ROUND(Quantity - QuantityReceipt, " + (int)GlobalEnums.rndQuantity + ") < 0) ";
+            //queryArray[0] = " SELECT TOP 1 @FoundEntity = N'Ngày đặt hàng: ' + CAST(ProductionOrders.EntryDate AS nvarchar) FROM MaterialIssueDetails INNER JOIN ProductionOrders ON MaterialIssueDetails.MaterialIssueID = @EntityID AND MaterialIssueDetails.ProductionOrderID = ProductionOrders.ProductionOrderID AND MaterialIssueDetails.EntryDate < ProductionOrders.EntryDate ";
+            //queryArray[1] = " SELECT TOP 1 @FoundEntity = N'Số lượng xuất vượt quá số lượng đặt hàng: ' + CAST(ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") AS nvarchar) FROM ProductionOrderDetails WHERE (ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") < 0) ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("MaterialIssuePostSaveValidate", queryArray);
         }
@@ -309,9 +344,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
         private void MaterialIssueEditable()
         {
-            string[] queryArray = new string[1];
+            string[] queryArray = new string[0];
 
-            queryArray[0] = " SELECT TOP 1 @FoundEntity = MaterialIssueID FROM MaterialIssueDetails WHERE MaterialIssueID = @EntityID ";
+            //queryArray[0] = " SELECT TOP 1 @FoundEntity = MaterialIssueID FROM MaterialIssueDetails WHERE MaterialIssueID = @EntityID ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("MaterialIssueEditable", queryArray);
         }
