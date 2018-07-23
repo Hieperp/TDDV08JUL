@@ -74,13 +74,16 @@ namespace TotalModel.Models
         public virtual DbSet<VoidType> VoidTypes { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
-        public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
-        public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
-        public virtual DbSet<ProductionOrderDetail> ProductionOrderDetails { get; set; }
-        public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
         public virtual DbSet<Mold> Molds { get; set; }
         public virtual DbSet<ProductionLine> ProductionLines { get; set; }
         public virtual DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
+        public virtual DbSet<MaterialIssueDetail> MaterialIssueDetails { get; set; }
+        public virtual DbSet<MaterialIssue> MaterialIssues { get; set; }
+        public virtual DbSet<ProductionOrderDetail> ProductionOrderDetails { get; set; }
+        public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
+        public virtual DbSet<Workshift> Workshifts { get; set; }
+        public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
+        public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -2444,6 +2447,136 @@ namespace TotalModel.Models
                 new ObjectParameter("SearchText", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductionLineBase>("GetProductionLineBases", searchTextParameter);
+        }
+    
+        public virtual ObjectResult<MaterialIssueIndex> GetMaterialIssueIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssueIndex>("GetMaterialIssueIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<MaterialIssuePendingProductionOrderDetail> GetMaterialIssuePendingProductionOrderDetails(Nullable<int> locationID, Nullable<int> materialIssueID, Nullable<int> productionOrderID, Nullable<int> workshiftID, string productionOrderDetailIDs, string goodsReceiptDetailIDs, Nullable<bool> isReadonly)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var materialIssueIDParameter = materialIssueID.HasValue ?
+                new ObjectParameter("MaterialIssueID", materialIssueID) :
+                new ObjectParameter("MaterialIssueID", typeof(int));
+    
+            var productionOrderIDParameter = productionOrderID.HasValue ?
+                new ObjectParameter("ProductionOrderID", productionOrderID) :
+                new ObjectParameter("ProductionOrderID", typeof(int));
+    
+            var workshiftIDParameter = workshiftID.HasValue ?
+                new ObjectParameter("WorkshiftID", workshiftID) :
+                new ObjectParameter("WorkshiftID", typeof(int));
+    
+            var productionOrderDetailIDsParameter = productionOrderDetailIDs != null ?
+                new ObjectParameter("ProductionOrderDetailIDs", productionOrderDetailIDs) :
+                new ObjectParameter("ProductionOrderDetailIDs", typeof(string));
+    
+            var goodsReceiptDetailIDsParameter = goodsReceiptDetailIDs != null ?
+                new ObjectParameter("GoodsReceiptDetailIDs", goodsReceiptDetailIDs) :
+                new ObjectParameter("GoodsReceiptDetailIDs", typeof(string));
+    
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingProductionOrderDetail>("GetMaterialIssuePendingProductionOrderDetails", locationIDParameter, materialIssueIDParameter, productionOrderIDParameter, workshiftIDParameter, productionOrderDetailIDsParameter, goodsReceiptDetailIDsParameter, isReadonlyParameter);
+        }
+    
+        public virtual ObjectResult<MaterialIssuePendingProductionOrder> GetMaterialIssuePendingProductionOrders(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingProductionOrder>("GetMaterialIssuePendingProductionOrders", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<MaterialIssuePendingWorkshift> GetMaterialIssuePendingWorkshifts(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingWorkshift>("GetMaterialIssuePendingWorkshifts", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<MaterialIssueViewDetail> GetMaterialIssueViewDetails(Nullable<int> materialIssueID)
+        {
+            var materialIssueIDParameter = materialIssueID.HasValue ?
+                new ObjectParameter("MaterialIssueID", materialIssueID) :
+                new ObjectParameter("MaterialIssueID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssueViewDetail>("GetMaterialIssueViewDetails", materialIssueIDParameter);
+        }
+    
+        public virtual ObjectResult<string> MaterialIssueApproved(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("MaterialIssueApproved", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> MaterialIssueEditable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("MaterialIssueEditable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> MaterialIssuePostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("MaterialIssuePostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int MaterialIssueSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MaterialIssueSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual int MaterialIssueToggleApproved(Nullable<int> entityID, Nullable<bool> approved)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var approvedParameter = approved.HasValue ?
+                new ObjectParameter("Approved", approved) :
+                new ObjectParameter("Approved", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MaterialIssueToggleApproved", entityIDParameter, approvedParameter);
         }
     }
 }

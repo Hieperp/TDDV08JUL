@@ -35,7 +35,7 @@ namespace TotalModel.Models
         public int LocationID { get; set; }
         public int ApproverID { get; set; }
         public decimal TotalQuantity { get; set; }
-        public decimal TotalQuantityIssue { get; set; }
+        public decimal TotalQuantityIssued { get; set; }
         public string Description { get; set; }
         public string Remarks { get; set; }
         public System.DateTime CreatedDate { get; set; }
@@ -47,7 +47,7 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual Location Location { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
         public virtual PurchaseRequisition PurchaseRequisition { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

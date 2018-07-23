@@ -14,6 +14,12 @@ namespace TotalModel.Models
     
     public partial class GoodsReceiptDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GoodsReceiptDetail()
+        {
+            this.MaterialIssueDetails = new HashSet<MaterialIssueDetail>();
+        }
+    
         public int GoodsReceiptDetailID { get; set; }
         public int GoodsReceiptID { get; set; }
         public System.DateTime EntryDate { get; set; }
@@ -25,12 +31,14 @@ namespace TotalModel.Models
         public int CommodityTypeID { get; set; }
         public Nullable<int> WarehouseID { get; set; }
         public decimal Quantity { get; set; }
-        public decimal QuantityIssue { get; set; }
+        public decimal QuantityIssued { get; set; }
         public string Remarks { get; set; }
         public bool Approved { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual GoodsReceipt GoodsReceipt { get; set; }
         public virtual PurchaseRequisitionDetail PurchaseRequisitionDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace TotalModel.Models
         public decimal Weight { get; set; }
         public bool InActive { get; set; }
         public string Remarks { get; set; }
+        public decimal CyclePerHours { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
