@@ -20,8 +20,6 @@ namespace TotalModel.Models
         public string LocationCode { get; set; }
         public string VoidTypeName { get; set; }
         public string Description { get; set; }
-        public decimal TotalQuantity { get; set; }
-        public decimal TotalQuantitySemifinished { get; set; }
         public bool Approved { get; set; }
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }

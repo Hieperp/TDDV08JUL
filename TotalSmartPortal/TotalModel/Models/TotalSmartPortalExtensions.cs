@@ -72,6 +72,18 @@ namespace TotalModel.Models
     }
 
 
+    public partial class MaterialIssue : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<MaterialIssueDetail>
+    {
+        public int GetID() { return this.MaterialIssueID; }
+
+        public ICollection<MaterialIssueDetail> GetDetails() { return this.MaterialIssueDetails; }
+    }
+
+
+    public partial class MaterialIssueDetail : IPrimitiveEntity, IHelperEntryDate, IHelperCommodityID, IHelperCommodityTypeID
+    {
+        public int GetID() { return this.MaterialIssueDetailID; }
+    }
 
 
 
