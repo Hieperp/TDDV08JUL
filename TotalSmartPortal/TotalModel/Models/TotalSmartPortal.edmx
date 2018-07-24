@@ -3615,6 +3615,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
         <Function Name="GetCommodityCodePartC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetCommodityMaterialBases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
+          <Parameter Name="CommodityID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetCommodityPriceIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
           <Parameter Name="FromDate" Type="datetime" Mode="In" />
@@ -9195,16 +9199,16 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetPlannedOrderViewDetails" ReturnType="Collection(TotalSmartPortalModel.PlannedOrderViewDetail)">
-            <Parameter Name="PlannedOrderID" Mode="In" Type="Int32" />
+          <Parameter Name="PlannedOrderID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlannedOrderApproved" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlannedOrderEditable" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlannedOrderPostSaveValidate" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlannedOrderSaveRelative">
             <Parameter Name="EntityID" Mode="In" Type="Int32" />
@@ -9226,7 +9230,11 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="VoidTypeID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlannedOrderVoidable" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCommodityMaterialBases" ReturnType="Collection(TotalSmartPortalModel.CommodityMaterialBase)">
+            <Parameter Name="SearchText" Mode="In" Type="String" />
+            <Parameter Name="CommodityID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
@@ -11572,6 +11580,11 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
           <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CommodityMaterialBase">
+          <Property Type="Int32" Name="CommodityMaterialID" Nullable="false" />
+          <Property Type="String" Name="CommodityMaterialCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityMaterialReference" Nullable="false" MaxLength="10" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -14899,6 +14912,15 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="PlannedOrderToggleVoid" FunctionName="TotalSmartPortalModel.Store.PlannedOrderToggleVoid" />
           <FunctionImportMapping FunctionImportName="PlannedOrderToggleVoidDetail" FunctionName="TotalSmartPortalModel.Store.PlannedOrderToggleVoidDetail" />
           <FunctionImportMapping FunctionImportName="PlannedOrderVoidable" FunctionName="TotalSmartPortalModel.Store.PlannedOrderVoidable" />
+          <FunctionImportMapping FunctionImportName="GetCommodityMaterialBases" FunctionName="TotalSmartPortalModel.Store.GetCommodityMaterialBases">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityMaterialBase">
+                <ScalarProperty Name="CommodityMaterialID" ColumnName="CommodityMaterialID" />
+                <ScalarProperty Name="CommodityMaterialCode" ColumnName="CommodityMaterialCode" />
+                <ScalarProperty Name="CommodityMaterialReference" ColumnName="CommodityMaterialReference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

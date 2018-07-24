@@ -29,7 +29,6 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
 
             //this.GetCommoditiesInWarehouses("GetCommoditiesInWarehousesIncludeOutOfStock", false, true, true, true);
 
-            this.GetCommodityBases();
             this.GetCustomerBases();
             this.GetShippingAddress();
             this.GetAddressees();
@@ -439,24 +438,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
 
             return queryString;
         }
-
-        private void GetCommodityBases()
-        {
-            string queryString;
-
-            queryString = " @CommodityTypeIDList varchar(200), @SearchText nvarchar(60) " + "\r\n";
-            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
-            queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "    BEGIN " + "\r\n";
-
-            queryString = queryString + "       SELECT      TOP 30 Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Commodities.ListedPrice, Commodities.GrossPrice, 0.0 AS DiscountPercent, 0.0 AS TradeDiscountRate, CommodityCategories.VATPercent " + " \r\n";
-            queryString = queryString + "       FROM        Commodities " + "\r\n";
-            queryString = queryString + "                   INNER JOIN CommodityCategories ON Commodities.InActive = 0 AND (@SearchText = '' OR Commodities.Code LIKE '%' + @SearchText + '%' OR Commodities.OfficialCode LIKE '%' + @SearchText + '%' OR Commodities.Name LIKE '%' + @SearchText + '%') AND Commodities.CommodityTypeID IN (SELECT Id FROM dbo.SplitToIntList (@CommodityTypeIDList)) AND Commodities.CommodityCategoryID = CommodityCategories.CommodityCategoryID " + "\r\n";
-
-            queryString = queryString + "    END " + "\r\n";
-
-            this.totalSmartPortalEntities.CreateStoredProcedure("GetCommodityBases", queryString);
-        }
+        
 
         private void GetCustomerBases()
         {

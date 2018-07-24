@@ -2711,5 +2711,18 @@ namespace TotalModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PlannedOrderVoidable", entityIDParameter);
         }
+    
+        public virtual ObjectResult<CommodityMaterialBase> GetCommodityMaterialBases(string searchText, Nullable<int> commodityID)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            var commodityIDParameter = commodityID.HasValue ?
+                new ObjectParameter("CommodityID", commodityID) :
+                new ObjectParameter("CommodityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CommodityMaterialBase>("GetCommodityMaterialBases", searchTextParameter, commodityIDParameter);
+        }
     }
 }

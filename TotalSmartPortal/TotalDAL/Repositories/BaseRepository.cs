@@ -287,6 +287,9 @@ namespace TotalDAL.Repositories
         {
 
             
+            Helpers.SqlProgrammability.Commons.Commodity commodity = new Helpers.SqlProgrammability.Commons.Commodity(totalSmartPortalEntities);
+            commodity.RestoreProcedure();
+
             //return;
 
             Helpers.SqlProgrammability.Productions.PlannedOrder plannedOrder = new Helpers.SqlProgrammability.Productions.PlannedOrder(totalSmartPortalEntities);

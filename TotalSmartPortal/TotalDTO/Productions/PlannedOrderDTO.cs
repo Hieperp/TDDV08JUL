@@ -24,8 +24,16 @@ namespace TotalDTO.Productions
         [Display(Name = "Chứng")]
         public string Code { get; set; }
 
-        //public virtual Nullable<int> CustomerID { get; set; }
-        public virtual Nullable<int> CustomerID { get { return 68; } }
+        //public virtual int  CustomerID { get; set; }
+        public virtual int CustomerID { get { return 68; } }
+
+
+        public override void PerformPresaveRule()
+        {
+            base.PerformPresaveRule();
+
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; });
+        }
     }
 
     public class PlannedOrderDTO : PlannedOrderPrimitiveDTO, IBaseDetailEntity<PlannedOrderDetailDTO>
