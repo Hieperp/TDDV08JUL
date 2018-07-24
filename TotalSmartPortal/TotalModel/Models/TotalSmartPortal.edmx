@@ -10506,11 +10506,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Int32" Name="WorkshiftID" Nullable="false" />
           <Property Type="String" Name="WorkshiftCode" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="CommodityID" Nullable="false" />
-          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
-          <Property Type="Int32" Name="MaterialID" Nullable="false" />
-          <Property Type="String" Name="MaterialCode" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="GoodsReceiptDetailID" Nullable="true" />
           <Property Type="DateTime" Name="GoodsReceiptDetailEntryDate" Nullable="true" Precision="23" />
           <Property Type="Decimal" Name="PlannedOrderRemains" Nullable="true" Precision="19" Scale="2" />
@@ -10522,7 +10518,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Int32" Name="Quantity" Nullable="false" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
-        </ComplexType>
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          </ComplexType>
         <ComplexType Name="MaterialIssuePendingProductionOrder">
           <Property Type="Int32" Name="MaterialIssueTypeID" Nullable="false" />
           <Property Type="Int32" Name="ProductionOrderID" Nullable="false" />
@@ -10557,11 +10558,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
-          <Property Type="Int32" Name="MaterialID" Nullable="false" />
-          <Property Type="String" Name="MaterialCode" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="200" />
         </ComplexType>
         <EntityType Name="GoodsReceiptDetail">
           <Key>
@@ -13786,11 +13788,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="WorkshiftID" ColumnName="WorkshiftID" />
                 <ScalarProperty Name="WorkshiftCode" ColumnName="WorkshiftCode" />
                 <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
-                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
-                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
                 <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
-                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
-                <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
                 <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
                 <ScalarProperty Name="GoodsReceiptDetailEntryDate" ColumnName="GoodsReceiptDetailEntryDate" />
                 <ScalarProperty Name="PlannedOrderRemains" ColumnName="PlannedOrderRemains" />
@@ -13802,7 +13800,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
-              </ComplexTypeMapping>
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetMaterialIssuePendingProductionOrders" FunctionName="TotalSmartPortalModel.Store.GetMaterialIssuePendingProductionOrders">
@@ -13849,11 +13852,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
                 <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
                 <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
-                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
-                <ScalarProperty Name="MaterialCode" ColumnName="MaterialCode" />
                 <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

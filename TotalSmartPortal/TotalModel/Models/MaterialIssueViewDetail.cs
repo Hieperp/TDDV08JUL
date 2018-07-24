@@ -30,10 +30,11 @@ namespace TotalModel.Models
         public string CommodityCode { get; set; }
         public string CommodityName { get; set; }
         public int CommodityTypeID { get; set; }
-        public int MaterialID { get; set; }
-        public string MaterialCode { get; set; }
         public Nullable<decimal> QuantityRemains { get; set; }
         public decimal Quantity { get; set; }
         public string Remarks { get; set; }
+        public int ProductID { get; set; }
+        public string ProductCode { get; set; }
+        public string ProductName { get; set; }
     }
 }

@@ -1,13 +1,13 @@
 ﻿@using TotalPortal.Configuration
 @using TotalModel.Models;
 
-@(Html.Kendo().Grid<GoodsReceiptPendingPurchaseRequisition>()
-    .Name("goodsReceiptPendingPurchaseRequisitionGrid")
+@(Html.Kendo().Grid<MaterialIssuePendingProductionOrder>()
+    .Name("materialIssuePendingProductionOrderGrid")
     .Columns(columns =>
     {
-        columns.Bound(c => c.PurchaseRequisitionCode).Title("Số ĐH").Width(50);
-        columns.Bound(c => c.PurchaseRequisitionEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + SettingsManager.DateFormat + "}");
-        columns.Bound(c => c.CustomerName).Title("khách hàng").Width(140);
+        columns.Bound(c => c.ProductionOrderCode).Title("Số ĐH").Width(50);
+        columns.Bound(c => c.ProductionOrderEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.WorkshiftCode).Title("khách hàng").Width(140);
         columns.Bound(c => c.Description).Title("Diễn giải").Width(80);
     })
     .ToolBar(toolbar =>
@@ -15,35 +15,35 @@
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
                 <label>Nhập số đơn hàng/ hoặc mã, tên, MST khách hàng hay đơn vị, người nhận hàng, hoặc mã kho</label>
-                <input id="goodsReceiptPendingPurchaseRequisitionFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="goodsReceiptPendingPurchaseRequisitionFilter_KeyUp()" />
+                <input id="materialIssuePendingProductionOrderFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="materialIssuePendingProductionOrderFilter_KeyUp()" />
             </div>
         </text>);
     })
         .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
         .DataSource(ds => ds.Ajax()
-            .Read(read => read.Action("GetPurchaseRequisitions", "GoodsReceiptAPIs", new { area = "Inventories" }).Data("onAdditionalGetPurchaseRequisitions"))
+            .Read(read => read.Action("GetProductionOrders", "MaterialIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetProductionOrders"))
             .ServerOperation(false)
         )
         .Selectable()
 )
 
 <script type="text/javascript">
-    function onAdditionalGetPurchaseRequisitions(e) {
+    function onAdditionalGetProductionOrders(e) {
         return {
             locationID: window.parent.requireConfig.pageOptions.LocationID
         };
     }
 
-    function goodsReceiptPendingPurchaseRequisitionFilter_KeyUp() {
-        var goodsReceiptPendingPurchaseRequisitionFilter = $("#goodsReceiptPendingPurchaseRequisitionFilter").val(), gridDetails = $("#goodsReceiptPendingPurchaseRequisitionGrid").data("kendoGrid");
+    function materialIssuePendingProductionOrderFilter_KeyUp() {
+        var materialIssuePendingProductionOrderFilter = $("#materialIssuePendingProductionOrderFilter").val(), gridDetails = $("#materialIssuePendingProductionOrderGrid").data("kendoGrid");
 
-        if (goodsReceiptPendingPurchaseRequisitionFilter && goodsReceiptPendingPurchaseRequisitionFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (materialIssuePendingProductionOrderFilter && materialIssuePendingProductionOrderFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "PurchaseRequisitionCode", operator: "contains", value: goodsReceiptPendingPurchaseRequisitionFilter },
+                    { field: "ProductionOrderCode", operator: "contains", value: materialIssuePendingProductionOrderFilter },
 
-                    { field: "CustomerName", operator: "contains", value: goodsReceiptPendingPurchaseRequisitionFilter },
+                    { field: "WorkshiftCode", operator: "contains", value: materialIssuePendingProductionOrderFilter },
                 ]
             });
 
@@ -54,7 +54,7 @@
         }
     }
 
-    $("#goodsReceiptPendingPurchaseRequisitionGrid").dblclick(function (e) {
+    $("#materialIssuePendingProductionOrderGrid").dblclick(function (e) {
         okButton_Click();
     })
 </script>

@@ -2,21 +2,21 @@
     window.parent.$("#myWindow").data("kendoWindow").close();
 }
 
-function handleOKEvent(goodsReceiptGridDataSource, pendingPurchaseRequisitionDetailGridDataSource) {
-    if (goodsReceiptGridDataSource != undefined && pendingPurchaseRequisitionDetailGridDataSource != undefined) {
-        var pendingPurchaseRequisitionDetailGridDataItems = pendingPurchaseRequisitionDetailGridDataSource.view();
-        var goodsReceiptJSON = goodsReceiptGridDataSource.data().toJSON();
-        for (var i = 0; i < pendingPurchaseRequisitionDetailGridDataItems.length; i++) {
-            if (pendingPurchaseRequisitionDetailGridDataItems[i].IsSelected === true)
-                _setParentInput(goodsReceiptJSON, pendingPurchaseRequisitionDetailGridDataItems[i]);
+function handleOKEvent(materialIssueGridDataSource, pendingProductionOrderDetailGridDataSource) {
+    if (materialIssueGridDataSource != undefined && pendingProductionOrderDetailGridDataSource != undefined) {
+        var pendingProductionOrderDetailGridDataItems = pendingProductionOrderDetailGridDataSource.view();
+        var materialIssueJSON = materialIssueGridDataSource.data().toJSON();
+        for (var i = 0; i < pendingProductionOrderDetailGridDataItems.length; i++) {
+            if (pendingProductionOrderDetailGridDataItems[i].IsSelected === true)
+                _setParentInput(materialIssueJSON, pendingProductionOrderDetailGridDataItems[i]);
         }
 
-        goodsReceiptJSON.push(new Object()); //Add a temporary empty row
+        materialIssueJSON.push(new Object()); //Add a temporary empty row
 
-        goodsReceiptGridDataSource.data(goodsReceiptJSON);
+        materialIssueGridDataSource.data(materialIssueJSON);
 
-        var rawData = goodsReceiptGridDataSource.data()
-        goodsReceiptGridDataSource.remove(rawData[rawData.length - 1]); //Remove the last row: this is the temporary empty row
+        var rawData = materialIssueGridDataSource.data()
+        materialIssueGridDataSource.remove(rawData[rawData.length - 1]); //Remove the last row: this is the temporary empty row
 
         cancelButton_Click();
     }
@@ -34,36 +34,57 @@ function handleOKEvent(goodsReceiptGridDataSource, pendingPurchaseRequisitionDet
     //grid.dataSource.data(data); //set changed data as data of the Grid
 
 
-    function _setParentInput(goodsReceiptJSON, purchaseRequisitionGridDataItem) {
+    function _setParentInput(materialIssueJSON, productionOrderGridDataItem) {
 
-        //var dataRow = goodsReceiptJSON.add({});
+        //var dataRow = materialIssueJSON.add({});
 
         var dataRow = new Object();
 
         dataRow.LocationID = null;
         dataRow.EntryDate = null;
 
-        dataRow.GoodsReceiptDetailID = 0;
-        dataRow.GoodsReceiptID = window.parent.$("#GoodsReceiptID").val();
+        dataRow.MaterialIssueDetailID = 0;
+        dataRow.MaterialIssueID = window.parent.$("#MaterialIssueID").val();
 
-        dataRow.PurchaseRequisitionID = purchaseRequisitionGridDataItem.PurchaseRequisitionID;
-        dataRow.PurchaseRequisitionDetailID = purchaseRequisitionGridDataItem.PurchaseRequisitionDetailID;
-        dataRow.PurchaseRequisitionCode = purchaseRequisitionGridDataItem.PurchaseRequisitionCode;
-        dataRow.PurchaseRequisitionReference = purchaseRequisitionGridDataItem.PurchaseRequisitionReference;
-        dataRow.PurchaseRequisitionEntryDate = purchaseRequisitionGridDataItem.PurchaseRequisitionEntryDate;
+        dataRow.PlannedOrderID = productionOrderGridDataItem.PlannedOrderID;
+        dataRow.PlannedOrderDetailID = productionOrderGridDataItem.PlannedOrderDetailID;
+        dataRow.PlannedOrderCode = productionOrderGridDataItem.PlannedOrderCode;
+        dataRow.PlannedOrderReference = productionOrderGridDataItem.PlannedOrderReference;
+        dataRow.PlannedOrderEntryDate = productionOrderGridDataItem.PlannedOrderEntryDate;
 
-        dataRow.CommodityID = purchaseRequisitionGridDataItem.CommodityID;
-        dataRow.CommodityName = purchaseRequisitionGridDataItem.CommodityName;
-        dataRow.CommodityCode = purchaseRequisitionGridDataItem.CommodityCode;
-        dataRow.CommodityTypeID = purchaseRequisitionGridDataItem.CommodityTypeID;
+        dataRow.ProductionOrderID = productionOrderGridDataItem.ProductionOrderID;
+        dataRow.ProductionOrderDetailID = productionOrderGridDataItem.ProductionOrderDetailID;
+        dataRow.ProductionOrderCode = productionOrderGridDataItem.ProductionOrderCode;
+        dataRow.ProductionOrderReference = productionOrderGridDataItem.ProductionOrderReference;
+        dataRow.ProductionOrderEntryDate = productionOrderGridDataItem.ProductionOrderEntryDate;
 
-        dataRow.QuantityRemains = purchaseRequisitionGridDataItem.QuantityRemains;
-        dataRow.Quantity = purchaseRequisitionGridDataItem.Quantity;
+        dataRow.WorkshiftID = productionOrderGridDataItem.WorkshiftID;
+
+        dataRow.ProductionLineID = productionOrderGridDataItem.ProductionLineID;
+        dataRow.ProductionLineCode = productionOrderGridDataItem.ProductionLineCode;
+
+        dataRow.ProductID = productionOrderGridDataItem.ProductID;
+        dataRow.ProductName = productionOrderGridDataItem.ProductName;
+        dataRow.ProductCode = productionOrderGridDataItem.ProductCode;
+        
+        dataRow.GoodsReceiptID = productionOrderGridDataItem.GoodsReceiptID;
+        dataRow.GoodsReceiptDetailID = productionOrderGridDataItem.GoodsReceiptDetailID;
+        dataRow.GoodsReceiptCode = productionOrderGridDataItem.GoodsReceiptCode;
+        dataRow.GoodsReceiptReference = productionOrderGridDataItem.GoodsReceiptReference;
+        dataRow.GoodsReceiptEntryDate = productionOrderGridDataItem.GoodsReceiptEntryDate;
+
+        dataRow.CommodityID = productionOrderGridDataItem.CommodityID;
+        dataRow.CommodityName = productionOrderGridDataItem.CommodityName;
+        dataRow.CommodityCode = productionOrderGridDataItem.CommodityCode;
+        dataRow.CommodityTypeID = productionOrderGridDataItem.CommodityTypeID;
+
+        dataRow.QuantityRemains = productionOrderGridDataItem.QuantityRemains;
+        dataRow.Quantity = productionOrderGridDataItem.Quantity;
 
         dataRow.Remarks = null;
 
 
-        goodsReceiptJSON.push(dataRow);
+        materialIssueJSON.push(dataRow);
     }
 }
 

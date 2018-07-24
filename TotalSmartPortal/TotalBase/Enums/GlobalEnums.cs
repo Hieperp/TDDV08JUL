@@ -112,7 +112,7 @@ namespace TotalBase.Enums
         public enum MaterialIssueTypeID
         {
             AllMaterialIssue = 999,
-            ProductionOrder = 6
+            PlannedOrder = 6
         };
 
         public enum SalesInvoiceTypeID

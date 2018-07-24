@@ -26,20 +26,20 @@ namespace TotalDTO.Inventories
 
         public virtual Nullable<int> WarehouseID { get; set; }
 
-        public int MaterialIssueTypeID { get { return (int)GlobalEnums.MaterialIssueTypeID.ProductionOrder; } }
+        public int MaterialIssueTypeID { get { return (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder; } }
         //public int MaterialIssueTypeID { get; set; }
 
-        public Nullable<int> ProductionOrderID { get; set; }
-        public string ProductionOrderReference { get; set; }
-        public string ProductionOrderReferences { get; set; }
-        public string ProductionOrderCode { get; set; }
-        public string ProductionOrderCodes { get; set; }
+        public Nullable<int> PlannedOrderID { get; set; }
+        public string PlannedOrderReference { get; set; }
+        public string PlannedOrderReferences { get; set; }
+        public string PlannedOrderCode { get; set; }
+        public string PlannedOrderCodes { get; set; }
         [Display(Name = "Phiếu đặt hàng")]
-        public string ProductionOrderReferenceNote { get { return this.ProductionOrderID != null ? this.ProductionOrderReference : (this.ProductionOrderReferences != "" ? this.ProductionOrderReferences : "Giao hàng tổng hợp của nhiều ĐH"); } }
+        public string PlannedOrderReferenceNote { get { return this.PlannedOrderID != null ? this.PlannedOrderReference : (this.PlannedOrderReferences != "" ? this.PlannedOrderReferences : "Giao hàng tổng hợp của nhiều ĐH"); } }
         [Display(Name = "Số đơn hàng")]
-        public string ProductionOrderCodeNote { get { return this.ProductionOrderID != null ? this.ProductionOrderCode : (this.ProductionOrderCodes != "" ? this.ProductionOrderCodes : ""); } }
+        public string PlannedOrderCodeNote { get { return this.PlannedOrderID != null ? this.PlannedOrderCode : (this.PlannedOrderCodes != "" ? this.PlannedOrderCodes : ""); } }
         [Display(Name = "Ngày đặt hàng")]
-        public Nullable<System.DateTime> ProductionOrderEntryDate { get; set; }
+        public Nullable<System.DateTime> PlannedOrderEntryDate { get; set; }
 
         [Display(Name = "Số đơn hàng")]
         [UIHint("Commons/SOCode")]
@@ -53,8 +53,8 @@ namespace TotalDTO.Inventories
             base.PerformPresaveRule();
 
             string purchaseRequisitionReferences = ""; string purchaseRequisitionCodes = "";
-            this.DtoDetails().ToList().ForEach(e => { e.WorkshiftID = this.WorkshiftID; e.WarehouseID = this.WarehouseID; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.ProductionOrder && purchaseRequisitionReferences.IndexOf(e.ProductionOrderReference) < 0) purchaseRequisitionReferences = purchaseRequisitionReferences + (purchaseRequisitionReferences != "" ? ", " : "") + e.ProductionOrderReference; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.ProductionOrder && e.ProductionOrderCode != null && purchaseRequisitionCodes.IndexOf(e.ProductionOrderCode) < 0) purchaseRequisitionCodes = purchaseRequisitionCodes + (purchaseRequisitionCodes != "" ? ", " : "") + e.ProductionOrderCode; });
-            this.ProductionOrderReferences = purchaseRequisitionReferences; this.ProductionOrderCodes = purchaseRequisitionCodes != "" ? purchaseRequisitionCodes : null; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.ProductionOrder) this.Code = this.ProductionOrderCodes;
+            this.DtoDetails().ToList().ForEach(e => { e.WorkshiftID = this.WorkshiftID; e.WarehouseID = this.WarehouseID; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && purchaseRequisitionReferences.IndexOf(e.PlannedOrderReference) < 0) purchaseRequisitionReferences = purchaseRequisitionReferences + (purchaseRequisitionReferences != "" ? ", " : "") + e.PlannedOrderReference; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && e.PlannedOrderCode != null && purchaseRequisitionCodes.IndexOf(e.PlannedOrderCode) < 0) purchaseRequisitionCodes = purchaseRequisitionCodes + (purchaseRequisitionCodes != "" ? ", " : "") + e.PlannedOrderCode; });
+            this.PlannedOrderReferences = purchaseRequisitionReferences; this.PlannedOrderCodes = purchaseRequisitionCodes != "" ? purchaseRequisitionCodes : null; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder) this.Code = this.PlannedOrderCodes;
         }
     }
 

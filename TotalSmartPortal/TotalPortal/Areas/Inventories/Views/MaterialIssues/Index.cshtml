@@ -5,22 +5,22 @@
 <div id="popupWindow"></div>
 
 <div>
-    @(Html.Kendo().Grid<TotalModel.Models.GoodsReceiptIndex>()
+    @(Html.Kendo().Grid<TotalModel.Models.MaterialIssueIndex>()
         .Name("kendoGridIndex")
         .Columns(columns =>
         {
-            columns.Bound(p => p.GoodsReceiptID).DisplayNameTitle().Hidden();
+            columns.Bound(p => p.MaterialIssueID).DisplayNameTitle().Hidden();
             columns.Bound(p => p.LocationCode).Title("CN").Hidden().Width(1);
             columns.Bound(p => p.EntryDate).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(90).Filterable(false);
 
-            columns.Bound(p => p.Reference).Title("#").Width(10).Filterable(false).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Inventories/GoodsReceipts", action = "Edit" }) + "/#= GoodsReceiptID #'>#=Reference#</a>");
-            columns.Bound(p => p.CustomerName).Title("Khách hàng").Width(190);
+            columns.Bound(p => p.Reference).Title("#").Width(10).Filterable(false).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Inventories/MaterialIssues", action = "Edit" }) + "/#= MaterialIssueID #'>#=Reference#</a>");
+            //columns.Bound(p => p.WorkshiftCode).Title("Khách hàng").Width(190);
             columns.Bound(p => p.Description).Title("Diễn giải").Width(130);
 
             columns.Bound(p => p.TotalQuantity).Title("Đặt hàng").Format("{0:n0}").HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Filterable(false).Width(60).ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #").FooterHtmlAttributes(new { @class = "grid-number-column" });
 
             columns.Template(model => null).HtmlAttributes(new { @class = "grid-column-center" }).Width(92)
-                .ClientTemplate("<a class='k-button' style='padding-left:5px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/GoodsReceipts", action = "Void" }) + "/#= GoodsReceiptID #'><span class='k-icon k-edit'></span></a> <a class='k-button' style='padding-left:0px; padding-right:0px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/GoodsReceipts", action = "Print" }) + "/#= GoodsReceiptID #'><span class='k-icon k-i-folder-add'></span></a>");
+                .ClientTemplate("<a class='k-button' style='padding-left:5px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/MaterialIssues", action = "Void" }) + "/#= MaterialIssueID #'><span class='k-icon k-edit'></span></a> <a class='k-button' style='padding-left:0px; padding-right:0px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/MaterialIssues", action = "Print" }) + "/#= MaterialIssueID #'><span class='k-icon k-i-folder-add'></span></a>");
         })
         .ToolBar(toolbar =>
         {
@@ -43,17 +43,17 @@
             })
             .DataSource(dataSource => dataSource
                 .Ajax()
-                .Read(read => read.Action("GetGoodsReceiptIndexes", "GoodsReceiptAPIs", new { area = "Inventories" }))
+                .Read(read => read.Action("GetMaterialIssueIndexes", "MaterialIssueAPIs", new { area = "Inventories" }))
                 .Sort(sort =>
                     {
                         sort.Add(p => p.EntryDate).Descending();
-                        sort.Add(p => p.GoodsReceiptID).Descending();
+                        sort.Add(p => p.MaterialIssueID).Descending();
                     })
                 .PageSize(20)
                 .Model(model =>
                 {
-                    model.Id(x => x.GoodsReceiptID);
-                    model.Field(m => m.GoodsReceiptID).DefaultValue(0);
+                    model.Id(x => x.MaterialIssueID);
+                    model.Field(m => m.MaterialIssueID).DefaultValue(0);
                 })
                 .ServerOperation(true)
                 .Aggregates(a => a.Add(x => x.TotalQuantity).Sum())
@@ -69,14 +69,14 @@
     function hightLightSelectedRow(e) {
         require(["kindexGrid"], function (kindexGrid) {
             var kindexGridInstance = new kindexGrid("kendoGridIndex");
-            kindexGridInstance.setSelectedRow("GoodsReceiptID", '@ViewBag.SelectedEntityID');
+            kindexGridInstance.setSelectedRow("MaterialIssueID", '@ViewBag.SelectedEntityID');
         });
     }
 
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "GoodsReceipts")", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "MaterialIssues")", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
         });
     }
 
@@ -100,7 +100,7 @@
                 logic: "or",
                 filters: [
                     { field: "Reference", operator: "contains", value: indexFilterText },
-                    { field: "CustomerName", operator: "contains", value: indexFilterText }
+                    { field: "WorkshiftCode", operator: "contains", value: indexFilterText }
                 ]
             });
 

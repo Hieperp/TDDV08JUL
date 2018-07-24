@@ -2,47 +2,47 @@
 @using TotalPortal.Configuration
 @using TotalModel.Models;
 
-@(Html.Kendo().Grid<GoodsReceiptPendingCustomer>()
-    .Name("goodsReceiptPendingCustomerGrid")
+@(Html.Kendo().Grid<MaterialIssuePendingWorkshift>()
+    .Name("materialIssuePendingWorkshiftGrid")
 
     .Columns(columns =>
     {
-        columns.Bound(c => c.CustomerCode).Title("Mã khách hàng").Width(90);
-        columns.Bound(c => c.CustomerName).Title("Tên khách hàng").Width(190);
+        columns.Bound(c => c.WorkshiftCode).Title("Mã khách hàng").Width(90);
+        columns.Bound(c => c.WorkshiftCode).Title("Tên khách hàng").Width(190);
     })
     .ToolBar(toolbar =>
     {
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
                 <label>Nhập mã, tên, MST, địa chỉ, địa bàn khách hàng, hoặc mã kho</label>
-                <input id="goodsReceiptPendingCustomerFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="goodsReceiptPendingCustomerFilter_KeyUp()" />
+                <input id="materialIssuePendingWorkshiftFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="materialIssuePendingWorkshiftFilter_KeyUp()" />
             </div>
         </text>);
     })
     .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
     .DataSource(ds => ds.Ajax()
-        .Read(read => read.Action("GetCustomers", "GoodsReceiptAPIs", new { area = "Inventories" }).Data("onAdditionalGetCustomers"))
+        .Read(read => read.Action("GetWorkshifts", "MaterialIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetWorkshifts"))
         .ServerOperation(false)
     )
     .Selectable()
 )
 
 <script type="text/javascript">
-    function onAdditionalGetCustomers(e) {
+    function onAdditionalGetWorkshifts(e) {
         return {
             locationID: window.parent.requireConfig.pageOptions.LocationID
         };
     }
 
-    function goodsReceiptPendingCustomerFilter_KeyUp() {
-        var goodsReceiptPendingCustomerFilter = $("#goodsReceiptPendingCustomerFilter").val(), gridDetails = $("#goodsReceiptPendingCustomerGrid").data("kendoGrid");
+    function materialIssuePendingWorkshiftFilter_KeyUp() {
+        var materialIssuePendingWorkshiftFilter = $("#materialIssuePendingWorkshiftFilter").val(), gridDetails = $("#materialIssuePendingWorkshiftGrid").data("kendoGrid");
 
-        if (goodsReceiptPendingCustomerFilter && goodsReceiptPendingCustomerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (materialIssuePendingWorkshiftFilter && materialIssuePendingWorkshiftFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "CustomerCode", operator: "contains", value: goodsReceiptPendingCustomerFilter },
-                    { field: "CustomerName", operator: "contains", value: goodsReceiptPendingCustomerFilter },
+                    { field: "WorkshiftCode", operator: "contains", value: materialIssuePendingWorkshiftFilter },
+                    { field: "WorkshiftCode", operator: "contains", value: materialIssuePendingWorkshiftFilter },
                 ]
             });
 
@@ -54,7 +54,7 @@
     }
 
 
-    $("#goodsReceiptPendingCustomerGrid").dblclick(function (e) {
+    $("#materialIssuePendingWorkshiftGrid").dblclick(function (e) {
         okButton_Click();
     })
 </script>

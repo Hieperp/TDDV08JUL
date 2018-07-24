@@ -22,7 +22,7 @@
         {
             source.Read(read =>
             {
-                read.Action("GetWarehouses", "WarehouseAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {customerID: ($("#Customer_CustomerID").val() != ""? $("#Customer_CustomerID").val() : 0), searchText: e.filter.filters[0].value, warehouseTaskIDList: ($("#WarehouseTaskIDList").val() != undefined? $("#WarehouseTaskIDList").val(): 0)};} </text>);//Send parameter to controller search action
+                read.Action("GetWarehouses", "WarehouseAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {customerID: ($("#Customer_CustomerID").val() != undefined && $("#Customer_CustomerID").val() != ""? $("#Customer_CustomerID").val() : 0), searchText: e.filter.filters[0].value, warehouseTaskIDList: ($("#WarehouseTaskIDList").val() != undefined? $("#WarehouseTaskIDList").val(): 0)};} </text>);//Send parameter to controller search action
             })
             .ServerFiltering(true);
         })

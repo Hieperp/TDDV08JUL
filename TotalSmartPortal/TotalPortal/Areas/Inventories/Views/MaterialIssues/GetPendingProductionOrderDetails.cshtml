@@ -4,13 +4,14 @@
 @{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
 
 
-@(Html.Kendo().Grid<GoodsReceiptPendingPurchaseRequisitionDetail>()
-    .Name("gridPendingPurchaseRequisitionDetails")
+@(Html.Kendo().Grid<MaterialIssuePendingProductionOrderDetail>()
+    .Name("gridPendingProductionOrderDetails")
     .Columns(columns =>
     {
-        columns.Bound(c => c.PurchaseRequisitionReference).Title("Phiếu ĐH").Width(30);
-        columns.Bound(c => c.PurchaseRequisitionCode).Title("Số đơn hàng").Width(50);
-        columns.Bound(c => c.PurchaseRequisitionEntryDate).Title("Ngày đặt hàng").Width(50).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+        columns.Bound(c => c.PlannedOrderReference).Title("Phiếu ĐH").Width(30);
+        columns.Bound(c => c.PlannedOrderCode).Title("Số đơn hàng").Width(50);
+        columns.Bound(c => c.ProductionOrderEntryDate).Title("Ngày đặt hàng").Width(50).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+        columns.Bound(c => c.ProductCode).Title("Mã hàng").Width(130);
         columns.Bound(c => c.CommodityCode).Title("Mã hàng").Width(130);
         columns.Bound(c => c.QuantityRemains).Title("SL").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" });
 
@@ -27,17 +28,19 @@
     })
     .Scrollable(s => s.Height(SettingsManager.PopupContentHeightLarge))
     .DataSource(ds => ds.Ajax()
-            .Read(read => read.Action("GetPendingPurchaseRequisitionDetails", "GoodsReceiptAPIs", new { area = "Inventories" }).Data(@<text>
+            .Read(read => read.Action("GetPendingProductionOrderDetails", "MaterialIssueAPIs", new { area = "Inventories" }).Data(@<text>
             function(e) {
 
-            var goodsReceiptJSON = window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource.data().toJSON();
+            var materialIssueJSON = window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource.data().toJSON();
 
             return {
             locationID: window.parent.requireConfig.pageOptions.LocationID,
-            goodsReceiptID: window.parent.$("#GoodsReceiptID").val(),
-            purchaseRequisitionID: window.parent.$("#PurchaseRequisitionID").val(),
-            customerID: window.parent.$("#Customer_CustomerID").val(),
-            purchaseRequisitionDetailIDs : goodsReceiptJSON.map(function(elem){return elem.PurchaseRequisitionDetailID;}).join(","),
+            materialIssueID: window.parent.$("#MaterialIssueID").val(),
+            productionOrderID: window.parent.$("#ProductionOrderID").val(),
+            workshiftID: window.parent.$("#WorkshiftID").val(),
+            warehouseID: window.parent.$("#Warehouse_WarehouseID").val(),
+            productionOrderDetailIDs : materialIssueJSON.map(function(elem){return elem.ProductionOrderDetailID;}).join(","),
+            goodsReceiptDetailIDs : materialIssueJSON.map(function(elem){return elem.GoodsReceiptDetailID;}).join(","),
             isReadOnly: false
             };}
             </text>))
@@ -53,16 +56,16 @@
     </div>
 </div>
 
-<script src="@Url.Content("~/Scripts/Controllers/Inventories/GoodsReceipts/AddPendingPurchaseRequisitionDetail.js")"></script>
+<script src="@Url.Content("~/Scripts/Controllers/Inventories/MaterialIssues/AddPendingProductionOrderDetail.js")"></script>
 
 <script type="text/javascript">
     function okButton_Click() {
-        handleOKEvent(window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource, $("#gridPendingPurchaseRequisitionDetails").data("kendoGrid").dataSource);
+        handleOKEvent(window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource, $("#gridPendingProductionOrderDetails").data("kendoGrid").dataSource);
     }
 
-    $('#gridPendingPurchaseRequisitionDetails').on('click', '.IsSelected', function () {
+    $('#gridPendingProductionOrderDetails').on('click', '.IsSelected', function () {
         var checked = $(this).is(':checked');
-        var grid = $('#gridPendingPurchaseRequisitionDetails').data().kendoGrid;
+        var grid = $('#gridPendingProductionOrderDetails').data().kendoGrid;
         var dataItem = grid.dataItem($(this).closest('tr'));
         dataItem.set('IsSelected', checked);
     })
@@ -72,14 +75,14 @@
 
 <script>
     function filterText_KeyUp() {
-        var filterText = $("#filterText").val(), gridDetails = $("#gridPendingPurchaseRequisitionDetails").data("kendoGrid");
+        var filterText = $("#filterText").val(), gridDetails = $("#gridPendingProductionOrderDetails").data("kendoGrid");
 
         if (filterText && filterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "PurchaseRequisitionCode", operator: "contains", value: filterText },
-                    { field: "PurchaseRequisitionReference", operator: "contains", value: filterText },
+                    { field: "ProductionOrderCode", operator: "contains", value: filterText },
+                    { field: "ProductionOrderReference", operator: "contains", value: filterText },
 
                     { field: "CommodityCode", operator: "contains", value: filterText },
                     { field: "CommodityName", operator: "contains", value: filterText }

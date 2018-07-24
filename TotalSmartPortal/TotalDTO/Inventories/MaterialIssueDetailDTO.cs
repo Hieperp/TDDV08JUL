@@ -49,6 +49,16 @@ namespace TotalDTO.Inventories
         [UIHint("StringReadonly")]
         public string ProductionLineCode { get; set; }
 
+
+        public int ProductID { get; set; }
+        [Display(Name = "Mặt hàng")]
+        [UIHint("StringReadonly")]
+        public string ProductCode { get; set; }
+        [Display(Name = "Mã hàng")]
+        [UIHint("StringReadonly")]
+        public string ProductName { get; set; }
+
+
         public Nullable<int> WarehouseID { get; set; }
 
         [Display(Name = "Kho")]
