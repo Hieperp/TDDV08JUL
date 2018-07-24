@@ -76,6 +76,8 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.MaterialIssueID; }
 
+        public virtual Employee Storekeeper { get { return this.Employee; } }
+
         public ICollection<MaterialIssueDetail> GetDetails() { return this.MaterialIssueDetails; }
     }
 

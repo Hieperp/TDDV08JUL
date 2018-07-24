@@ -10602,7 +10602,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
           <Property Type="Int32" Name="GoodsReceiptDetailID" Nullable="true" />
-          <Property Type="DateTime" Name="GoodsReceiptDetailEntryDate" Nullable="true" Precision="23" />
           <Property Type="Decimal" Name="PlannedOrderRemains" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Decimal" Name="WorkingHours" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="CyclePerHours" Nullable="false" Precision="18" Scale="2" />
@@ -10612,6 +10611,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Int32" Name="Quantity" Nullable="false" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+          <Property Type="Int32" Name="GoodsReceiptID" Nullable="true" />
+          <Property Type="DateTime" Name="GoodsReceiptEntryDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="GoodsReceiptReference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="GoodsReceiptCode" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="MaterialIssuePendingPlannedOrder">
           <Property Type="Int32" Name="MaterialIssueTypeID" Nullable="false" />
@@ -13858,7 +13861,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
                 <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
                 <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
-                <ScalarProperty Name="GoodsReceiptDetailEntryDate" ColumnName="GoodsReceiptDetailEntryDate" />
                 <ScalarProperty Name="PlannedOrderRemains" ColumnName="PlannedOrderRemains" />
                 <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
                 <ScalarProperty Name="CyclePerHours" ColumnName="CyclePerHours" />
@@ -13868,6 +13870,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
+                <ScalarProperty Name="GoodsReceiptEntryDate" ColumnName="GoodsReceiptEntryDate" />
+                <ScalarProperty Name="GoodsReceiptReference" ColumnName="GoodsReceiptReference" />
+                <ScalarProperty Name="GoodsReceiptCode" ColumnName="GoodsReceiptCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

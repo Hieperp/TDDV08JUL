@@ -38,7 +38,6 @@ namespace TotalModel.Models
         public string CommodityName { get; set; }
         public int CommodityTypeID { get; set; }
         public Nullable<int> GoodsReceiptDetailID { get; set; }
-        public Nullable<System.DateTime> GoodsReceiptDetailEntryDate { get; set; }
         public Nullable<decimal> PlannedOrderRemains { get; set; }
         public decimal WorkingHours { get; set; }
         public decimal CyclePerHours { get; set; }
@@ -48,5 +47,9 @@ namespace TotalModel.Models
         public Nullable<decimal> QuantityRemains { get; set; }
         public int Quantity { get; set; }
         public Nullable<bool> IsSelected { get; set; }
+        public Nullable<int> GoodsReceiptID { get; set; }
+        public Nullable<System.DateTime> GoodsReceiptEntryDate { get; set; }
+        public string GoodsReceiptReference { get; set; }
+        public string GoodsReceiptCode { get; set; }
     }
 }

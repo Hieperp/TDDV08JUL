@@ -1149,6 +1149,7 @@
     <Content Include="Areas\Inventories\Views\MaterialIssues\_GetProductionOrder.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\_GetWorkshift.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\_MaterialIssue.cshtml" />
+    <Content Include="Areas\Inventories\Views\MaterialIssues\Approve.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>

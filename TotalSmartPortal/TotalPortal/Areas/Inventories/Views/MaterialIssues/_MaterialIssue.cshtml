@@ -153,6 +153,21 @@
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
 
 
+
+                    columns.Bound(p => p.GoodsReceiptID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (GoodsReceiptID == null)? '' : GoodsReceiptID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptID' value='#= (GoodsReceiptID == null) ? '' : GoodsReceiptID #' />");
+                    columns.Bound(p => p.GoodsReceiptDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (GoodsReceiptDetailID == null)? '' : GoodsReceiptDetailID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptDetailID' value='#= (GoodsReceiptDetailID == null) ? '' : GoodsReceiptDetailID #' />");
+
+                    columns.Bound(p => p.GoodsReceiptCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
+                        .ClientTemplate("#= (GoodsReceiptCode == null)? '' : GoodsReceiptCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptCode' value='#= (GoodsReceiptCode == null) ? '' : GoodsReceiptCode #' />");
+                    columns.Bound(p => p.GoodsReceiptReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
+                        .ClientTemplate("#= (GoodsReceiptReference == null)? '' : GoodsReceiptReference #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptReference' value='#= (GoodsReceiptReference == null) ? '' : GoodsReceiptReference #' />");
+                    columns.Bound(p => p.GoodsReceiptEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
+                        .Format("{0:" + @SettingsManager.DateFormat + "}")
+                        .ClientTemplate("#= (GoodsReceiptEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptEntryDate' value='#= (GoodsReceiptEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #' />");
+
+                    
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
@@ -284,14 +299,21 @@
         <div class="right-botton-panel">
             @if (Model.Editable)
             {
-                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "MaterialIssues")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Save" formaction="@Url.Action("Edit", "MaterialIssues")" onclick="$('#Approved').val(false);"> <img src="~/Content/Images/New/save-icon.png" /> Lưu PXK </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "MaterialIssues")" onclick="$('#Approved').val(false);"> <img src="~/Content/Images/New/Actions-document-print-icon.png" /> Lưu và in phiếu xuất kho</button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "MaterialIssues")" onclick="$('#Approved').val(true);"> <img src="~/Content/Images/New/Ok-icon-1.png" /> Hoàn tất xuất kho </button>
             }
             else
             {
-                if (!Model.Voidable && !Model.UnVoidable)
+                if (Model.Approved && !Model.Approvable && !Model.UnApprovable)
                 {
-                    <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "MaterialIssues", new { id = @Model.MaterialIssueID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In tổng hợp xuất kho </button>
+                    <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Approve", "MaterialIssues", new {id = @Model.MaterialIssueID })'"> <img src="~/Content/Images/Mains/Cross-icon-cancel32.png" /> Hủy duyệt phiếu xuất kho </button>
                 }
+            }
+
+            @if (Model.MaterialIssueID > 0)
+            {
+                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "MaterialIssues", new { id = @Model.MaterialIssueID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In phiếu xuất kho </button>
             }
         </div>
 
