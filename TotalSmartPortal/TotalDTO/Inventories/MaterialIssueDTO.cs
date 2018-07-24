@@ -26,7 +26,8 @@ namespace TotalDTO.Inventories
 
         public virtual Nullable<int> WarehouseID { get; set; }
 
-        public int MaterialIssueTypeID { get; set; }
+        public int MaterialIssueTypeID { get { return (int)GlobalEnums.MaterialIssueTypeID.ProductionOrder; } }
+        //public int MaterialIssueTypeID { get; set; }
 
         public Nullable<int> ProductionOrderID { get; set; }
         public string ProductionOrderReference { get; set; }
@@ -65,6 +66,7 @@ namespace TotalDTO.Inventories
             this.MaterialIssueViewDetails = new List<MaterialIssueDetailDTO>();
         }
 
+        public override int WorkshiftID { get { return (1); } }
         //public override int WorkshiftID { get { return (this.Workshift != null ? this.Workshift.WorkshiftID : 0); } }
         //[Display(Name = "Khách hàng")]
         //[UIHint("Commons/WorkshiftBase")]
