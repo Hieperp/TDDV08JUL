@@ -2466,7 +2466,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssueIndex>("GetMaterialIssueIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
         }
     
-        public virtual ObjectResult<MaterialIssuePendingProductionOrderDetail> GetMaterialIssuePendingProductionOrderDetails(Nullable<int> locationID, Nullable<int> materialIssueID, Nullable<int> productionOrderID, Nullable<int> workshiftID, string productionOrderDetailIDs, string goodsReceiptDetailIDs, Nullable<bool> isReadonly)
+        public virtual ObjectResult<MaterialIssuePendingProductionOrderDetail> GetMaterialIssuePendingProductionOrderDetails(Nullable<int> locationID, Nullable<int> materialIssueID, Nullable<int> productionOrderID, Nullable<int> workshiftID, Nullable<int> warehouseID, string productionOrderDetailIDs, string goodsReceiptDetailIDs, Nullable<bool> isReadonly)
         {
             var locationIDParameter = locationID.HasValue ?
                 new ObjectParameter("LocationID", locationID) :
@@ -2484,6 +2484,10 @@ namespace TotalModel.Models
                 new ObjectParameter("WorkshiftID", workshiftID) :
                 new ObjectParameter("WorkshiftID", typeof(int));
     
+            var warehouseIDParameter = warehouseID.HasValue ?
+                new ObjectParameter("WarehouseID", warehouseID) :
+                new ObjectParameter("WarehouseID", typeof(int));
+    
             var productionOrderDetailIDsParameter = productionOrderDetailIDs != null ?
                 new ObjectParameter("ProductionOrderDetailIDs", productionOrderDetailIDs) :
                 new ObjectParameter("ProductionOrderDetailIDs", typeof(string));
@@ -2496,7 +2500,7 @@ namespace TotalModel.Models
                 new ObjectParameter("IsReadonly", isReadonly) :
                 new ObjectParameter("IsReadonly", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingProductionOrderDetail>("GetMaterialIssuePendingProductionOrderDetails", locationIDParameter, materialIssueIDParameter, productionOrderIDParameter, workshiftIDParameter, productionOrderDetailIDsParameter, goodsReceiptDetailIDsParameter, isReadonlyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingProductionOrderDetail>("GetMaterialIssuePendingProductionOrderDetails", locationIDParameter, materialIssueIDParameter, productionOrderIDParameter, workshiftIDParameter, warehouseIDParameter, productionOrderDetailIDsParameter, goodsReceiptDetailIDsParameter, isReadonlyParameter);
         }
     
         public virtual ObjectResult<MaterialIssuePendingProductionOrder> GetMaterialIssuePendingProductionOrders(Nullable<int> locationID)

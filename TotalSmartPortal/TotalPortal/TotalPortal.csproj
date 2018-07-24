@@ -264,6 +264,7 @@
     <Compile Include="Areas\Inventories\Builders\GoodsIssueViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsReceiptViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\HandlingUnitViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Inventories\Builders\MaterialIssueViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsDeliveriesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsReceiptsController.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Areas\Inventories\ViewModels\GoodsIssueViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsReceiptViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
+    <Compile Include="Areas\Inventories\ViewModels\MaterialIssueViewModel.cs" />
     <Compile Include="Areas\Productions\APIs\ProductionOrderAPIsController.cs" />
     <Compile Include="Areas\Productions\Builders\ProductionOrderViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Productions\Controllers\ProductionOrdersController.cs" />

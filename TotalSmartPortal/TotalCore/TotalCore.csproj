@@ -71,6 +71,7 @@
     <Compile Include="Repositories\Inventories\IGoodsDeliveryRepository.cs" />
     <Compile Include="Repositories\Inventories\IGoodsReceiptRepository.cs" />
     <Compile Include="Repositories\Inventories\IHandlingUnitRepository.cs" />
+    <Compile Include="Repositories\Inventories\IMaterialIssueRepository.cs" />
     <Compile Include="Repositories\Productions\IProductionOrderRepository.cs" />
     <Compile Include="Repositories\Purchases\IPurchaseRequisitionRepository.cs" />
     <Compile Include="Repositories\Sales\ISalesOrderRepository.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Services\Inventories\IGoodsIssueService.cs" />
     <Compile Include="Services\Inventories\IGoodsReceiptService.cs" />
     <Compile Include="Services\Inventories\IHandlingUnitService.cs" />
+    <Compile Include="Services\Inventories\IMaterialIssueService.cs" />
     <Compile Include="Services\Productions\IProductionOrderService.cs" />
     <Compile Include="Services\Purchases\IPurchaseRequisitionService.cs" />
     <Compile Include="Services\Sales\IDeliveryAdviceService.cs" />

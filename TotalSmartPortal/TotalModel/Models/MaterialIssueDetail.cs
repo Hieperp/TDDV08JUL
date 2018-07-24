@@ -32,6 +32,7 @@ namespace TotalModel.Models
         public decimal QuantitySemifinished { get; set; }
         public string Remarks { get; set; }
         public bool Approved { get; set; }
+        public int WorkshiftID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual MaterialIssue MaterialIssue { get; set; }
