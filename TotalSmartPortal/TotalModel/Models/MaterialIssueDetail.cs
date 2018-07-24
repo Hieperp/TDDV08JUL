@@ -35,8 +35,8 @@ namespace TotalModel.Models
         public int WorkshiftID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
-        public virtual MaterialIssue MaterialIssue { get; set; }
         public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
         public virtual GoodsReceiptDetail GoodsReceiptDetail { get; set; }
+        public virtual MaterialIssue MaterialIssue { get; set; }
     }
 }

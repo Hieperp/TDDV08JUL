@@ -1143,7 +1143,7 @@
     <Content Include="Areas\Inventories\Views\MaterialIssues\CreateWizard.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\Delete.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\Edit.cshtml" />
-    <Content Include="Areas\Inventories\Views\MaterialIssues\GetPendingProductionOrderDetails.cshtml" />
+    <Content Include="Areas\Inventories\Views\MaterialIssues\GetPendingPlannedOrderDetails.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\Index.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\Print.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\_GetProductionOrder.cshtml" />
@@ -1222,7 +1222,7 @@
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Edit.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Open.js" />
-    <Content Include="Scripts\Controllers\Inventories\MaterialIssues\AddPendingProductionOrderDetail.js" />
+    <Content Include="Scripts\Controllers\Inventories\MaterialIssues\AddPendingPlannedOrderDetail.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Approve.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Delete.js" />

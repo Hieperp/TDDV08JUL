@@ -102,6 +102,19 @@
                     columns.Bound(p => p.MaterialIssueID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= MaterialIssueID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].MaterialIssueID' value='#= MaterialIssueID #' />");
 
+                    
+                    columns.Bound(p => p.PlannedOrderID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (PlannedOrderID == null)? '' : PlannedOrderID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderID' value='#= (PlannedOrderID == null) ? '' : PlannedOrderID #' />");
+                    columns.Bound(p => p.PlannedOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (PlannedOrderDetailID == null)? '' : PlannedOrderDetailID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderDetailID' value='#= (PlannedOrderDetailID == null) ? '' : PlannedOrderDetailID #' />");
+
+                    columns.Bound(p => p.PlannedOrderCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
+                        .ClientTemplate("#= (PlannedOrderCode == null)? '' : PlannedOrderCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderCode' value='#= (PlannedOrderCode == null) ? '' : PlannedOrderCode #' />");
+                    columns.Bound(p => p.PlannedOrderReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
+                        .ClientTemplate("#= (PlannedOrderReference == null)? '' : PlannedOrderReference #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderReference' value='#= (PlannedOrderReference == null) ? '' : PlannedOrderReference #' />");
+                    
+                    
+                    
                     columns.Bound(p => p.ProductionOrderID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (ProductionOrderID == null)? '' : ProductionOrderID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderID' value='#= (ProductionOrderID == null) ? '' : ProductionOrderID #' />");
                     columns.Bound(p => p.ProductionOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
@@ -166,7 +179,7 @@
                             //toolbar.Create().HtmlAttributes(new { @class = "fa fa-map-marker" }).Text("Add new aa le ea1");
                             if (Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder)
                                 toolbar.Template(@<text>
-                                    <button type="button" class="k-button" onclick="GetPendingProductionOrderDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
+                                    <button type="button" class="k-button" onclick="GetPendingPlannedOrderDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
                                     <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Giao hàng toàn bộ đơn hàng </button>
                                 </text>);
                             else
@@ -287,10 +300,10 @@
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
 
 <script type="text/javascript">
-    function GetPendingProductionOrderDetails() {
+    function GetPendingPlannedOrderDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingProductionOrderDetails", "MaterialIssues", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPlannedOrderDetails", "MaterialIssues", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
         });
     }
 

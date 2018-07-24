@@ -41,22 +41,22 @@ namespace TotalDAL.Repositories.Inventories
             return pendingProductionOrderWorkshifts;
         }
 
-        public IEnumerable<MaterialIssuePendingProductionOrder> GetProductionOrders(int? locationID)
+        public IEnumerable<MaterialIssuePendingPlannedOrder> GetPlannedOrders(int? locationID)
         {
             this.TotalSmartPortalEntities.Configuration.ProxyCreationEnabled = false;
-            IEnumerable<MaterialIssuePendingProductionOrder> pendingProductionOrders = base.TotalSmartPortalEntities.GetMaterialIssuePendingProductionOrders(locationID).ToList();
+            IEnumerable<MaterialIssuePendingPlannedOrder> pendingPlannedOrders = base.TotalSmartPortalEntities.GetMaterialIssuePendingPlannedOrders(locationID).ToList();
             this.TotalSmartPortalEntities.Configuration.ProxyCreationEnabled = true;
 
-            return pendingProductionOrders;
+            return pendingPlannedOrders;
         }
 
-        public IEnumerable<MaterialIssuePendingProductionOrderDetail> GetPendingProductionOrderDetails(int? locationID, int? materialIssueID, int? productionOrderID, int? workshiftID, int warehouseID, string productionOrderDetailIDs, string goodsReceiptDetailIDs, bool isReadonly)
+        public IEnumerable<MaterialIssuePendingPlannedOrderDetail> GetPendingPlannedOrderDetails(int? locationID, int? materialIssueID, int? plannedOrderID, int? workshiftID, int warehouseID, string productionOrderDetailIDs, string goodsReceiptDetailIDs, bool isReadonly)
         {
             this.TotalSmartPortalEntities.Configuration.ProxyCreationEnabled = false;
-            IEnumerable<MaterialIssuePendingProductionOrderDetail> pendingProductionOrderDetails = base.TotalSmartPortalEntities.GetMaterialIssuePendingProductionOrderDetails(locationID, materialIssueID, productionOrderID, workshiftID, warehouseID, productionOrderDetailIDs, goodsReceiptDetailIDs, isReadonly).ToList();
+            IEnumerable<MaterialIssuePendingPlannedOrderDetail> pendingPlannedOrderDetails = base.TotalSmartPortalEntities.GetMaterialIssuePendingPlannedOrderDetails(locationID, materialIssueID, plannedOrderID, workshiftID, warehouseID, productionOrderDetailIDs, goodsReceiptDetailIDs, isReadonly).ToList();
             this.TotalSmartPortalEntities.Configuration.ProxyCreationEnabled = true;
 
-            return pendingProductionOrderDetails;
+            return pendingPlannedOrderDetails;
         }
 
     }

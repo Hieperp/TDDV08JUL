@@ -1,12 +1,12 @@
 ﻿@using TotalPortal.Configuration
 @using TotalModel.Models;
 
-@(Html.Kendo().Grid<MaterialIssuePendingProductionOrder>()
-    .Name("materialIssuePendingProductionOrderGrid")
+@(Html.Kendo().Grid<MaterialIssuePendingPlannedOrder>()
+    .Name("materialIssuePendingPlannedOrderGrid")
     .Columns(columns =>
     {
-        columns.Bound(c => c.ProductionOrderCode).Title("Số ĐH").Width(50);
-        columns.Bound(c => c.ProductionOrderEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.PlannedOrderCode).Title("Số ĐH").Width(50);
+        columns.Bound(c => c.PlannedOrderEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + SettingsManager.DateFormat + "}");
         columns.Bound(c => c.WorkshiftCode).Title("khách hàng").Width(140);
         columns.Bound(c => c.Description).Title("Diễn giải").Width(80);
     })
@@ -15,35 +15,35 @@
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
                 <label>Nhập số đơn hàng/ hoặc mã, tên, MST khách hàng hay đơn vị, người nhận hàng, hoặc mã kho</label>
-                <input id="materialIssuePendingProductionOrderFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="materialIssuePendingProductionOrderFilter_KeyUp()" />
+                <input id="materialIssuePendingPlannedOrderFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="materialIssuePendingPlannedOrderFilter_KeyUp()" />
             </div>
         </text>);
     })
         .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
         .DataSource(ds => ds.Ajax()
-            .Read(read => read.Action("GetProductionOrders", "MaterialIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetProductionOrders"))
+            .Read(read => read.Action("GetPlannedOrders", "MaterialIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetPlannedOrders"))
             .ServerOperation(false)
         )
         .Selectable()
 )
 
 <script type="text/javascript">
-    function onAdditionalGetProductionOrders(e) {
+    function onAdditionalGetPlannedOrders(e) {
         return {
             locationID: window.parent.requireConfig.pageOptions.LocationID
         };
     }
 
-    function materialIssuePendingProductionOrderFilter_KeyUp() {
-        var materialIssuePendingProductionOrderFilter = $("#materialIssuePendingProductionOrderFilter").val(), gridDetails = $("#materialIssuePendingProductionOrderGrid").data("kendoGrid");
+    function materialIssuePendingPlannedOrderFilter_KeyUp() {
+        var materialIssuePendingPlannedOrderFilter = $("#materialIssuePendingPlannedOrderFilter").val(), gridDetails = $("#materialIssuePendingPlannedOrderGrid").data("kendoGrid");
 
-        if (materialIssuePendingProductionOrderFilter && materialIssuePendingProductionOrderFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (materialIssuePendingPlannedOrderFilter && materialIssuePendingPlannedOrderFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "ProductionOrderCode", operator: "contains", value: materialIssuePendingProductionOrderFilter },
+                    { field: "PlannedOrderCode", operator: "contains", value: materialIssuePendingPlannedOrderFilter },
 
-                    { field: "WorkshiftCode", operator: "contains", value: materialIssuePendingProductionOrderFilter },
+                    { field: "WorkshiftCode", operator: "contains", value: materialIssuePendingPlannedOrderFilter },
                 ]
             });
 
@@ -54,7 +54,7 @@
         }
     }
 
-    $("#materialIssuePendingProductionOrderGrid").dblclick(function (e) {
+    $("#materialIssuePendingPlannedOrderGrid").dblclick(function (e) {
         okButton_Click();
     })
 </script>

@@ -11,7 +11,7 @@ namespace TotalModel.Models
 {
     using System;
     
-    public partial class MaterialIssuePendingProductionOrderDetail
+    public partial class MaterialIssuePendingPlannedOrderDetail
     {
         public int PlannedOrderID { get; set; }
         public int PlannedOrderDetailID { get; set; }
@@ -30,7 +30,12 @@ namespace TotalModel.Models
         public string MoldCode { get; set; }
         public int WorkshiftID { get; set; }
         public string WorkshiftCode { get; set; }
+        public int ProductID { get; set; }
+        public string ProductCode { get; set; }
+        public string ProductName { get; set; }
         public int CommodityID { get; set; }
+        public string CommodityCode { get; set; }
+        public string CommodityName { get; set; }
         public int CommodityTypeID { get; set; }
         public Nullable<int> GoodsReceiptDetailID { get; set; }
         public Nullable<System.DateTime> GoodsReceiptDetailEntryDate { get; set; }
@@ -43,10 +48,5 @@ namespace TotalModel.Models
         public Nullable<decimal> QuantityRemains { get; set; }
         public int Quantity { get; set; }
         public Nullable<bool> IsSelected { get; set; }
-        public int ProductID { get; set; }
-        public string ProductCode { get; set; }
-        public string ProductName { get; set; }
-        public string CommodityCode { get; set; }
-        public string CommodityName { get; set; }
     }
 }

@@ -23,9 +23,10 @@ namespace TotalModel.Models
         public int MaterialIssueID { get; set; }
         public System.DateTime EntryDate { get; set; }
         public string Reference { get; set; }
+        public string Code { get; set; }
         public int WorkshiftID { get; set; }
-        public Nullable<int> ProductionOrderID { get; set; }
-        public string ProductionOrderReferences { get; set; }
+        public Nullable<int> PlannedOrderID { get; set; }
+        public string PlannedOrderReferences { get; set; }
         public int WarehouseID { get; set; }
         public int SalespersonID { get; set; }
         public int UserID { get; set; }
@@ -41,7 +42,6 @@ namespace TotalModel.Models
         public System.DateTime EditedDate { get; set; }
         public bool Approved { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
-        public string Code { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Location Location { get; set; }
