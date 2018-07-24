@@ -90,6 +90,7 @@
     <Compile Include="Repositories\Inventories\GoodsReceiptRepository.cs" />
     <Compile Include="Repositories\Inventories\HandlingUnitRepository.cs" />
     <Compile Include="Repositories\Inventories\MaterialIssueRepository.cs" />
+    <Compile Include="Repositories\Productions\PlannedOrderRepository.cs" />
     <Compile Include="Repositories\Productions\ProductionOrderRepository.cs" />
     <Compile Include="Repositories\Purchases\PurchaseRequisitionRepository.cs" />
     <Compile Include="Repositories\Sales\SalesOrderRepository.cs" />

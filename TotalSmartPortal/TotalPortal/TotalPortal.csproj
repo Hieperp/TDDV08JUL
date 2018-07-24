@@ -280,10 +280,14 @@
     <Compile Include="Areas\Inventories\ViewModels\GoodsReceiptViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\MaterialIssueViewModel.cs" />
+    <Compile Include="Areas\Productions\APIs\PlannedOrderAPIsController.cs" />
     <Compile Include="Areas\Productions\APIs\ProductionOrderAPIsController.cs" />
+    <Compile Include="Areas\Productions\Builders\PlannedOrderViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Productions\Builders\ProductionOrderViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Productions\Controllers\PlannedOrdersController.cs" />
     <Compile Include="Areas\Productions\Controllers\ProductionOrdersController.cs" />
     <Compile Include="Areas\Productions\ProductionsAreaRegistration.cs" />
+    <Compile Include="Areas\Productions\ViewModels\PlannedOrderViewModel.cs" />
     <Compile Include="Areas\Productions\ViewModels\ProductionOrderViewModel.cs" />
     <Compile Include="Areas\Purchases\APIs\PurchaseRequisitionAPIsController.cs" />
     <Compile Include="Areas\Purchases\Builders\PurchaseRequisitionViewModelSelectListBuilder.cs" />
@@ -1150,6 +1154,16 @@
     <Content Include="Areas\Inventories\Views\MaterialIssues\_GetWorkshift.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\_MaterialIssue.cshtml" />
     <Content Include="Areas\Inventories\Views\MaterialIssues\Approve.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\Approve.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\Create.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\Delete.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\Edit.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\Index.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\Print.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\Void.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\VoidDetail.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\VoidDetailSuccess.cshtml" />
+    <Content Include="Areas\Productions\Views\PlannedOrders\_PlannedOrder.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1231,6 +1245,14 @@
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Open.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Print.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Approve.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Create.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Delete.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Edit.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Index.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Open.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Print.js" />
+    <Content Include="Scripts\Controllers\Productions\PlannedOrders\Void.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Approve.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Create.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Delete.js" />

@@ -53,6 +53,12 @@ namespace TotalPortal.App_Start
 
 
 
+                cfg.CreateMap<PlannedOrder, PlannedOrderViewModel>();
+                cfg.CreateMap<PlannedOrder, PlannedOrderDTO>();
+                cfg.CreateMap<PlannedOrderPrimitiveDTO, PlannedOrder>();
+                cfg.CreateMap<PlannedOrderViewDetail, PlannedOrderDetailDTO>();
+                cfg.CreateMap<PlannedOrderDetailDTO, PlannedOrderDetail>();
+
                 cfg.CreateMap<ProductionOrder, ProductionOrderViewModel>();
                 cfg.CreateMap<ProductionOrder, ProductionOrderDTO>();
                 cfg.CreateMap<ProductionOrderPrimitiveDTO, ProductionOrder>();

@@ -129,6 +129,10 @@ namespace TotalPortal.App_Start
 
 
 
+                kernel.Bind<IPlannedOrderService>().To<PlannedOrderService>();
+                kernel.Bind<IPlannedOrderRepository>().To<PlannedOrderRepository>();
+                kernel.Bind<IPlannedOrderAPIRepository>().To<PlannedOrderAPIRepository>();
+                kernel.Bind<IPlannedOrderViewModelSelectListBuilder>().To<PlannedOrderViewModelSelectListBuilder>();
 
                 kernel.Bind<IProductionOrderService>().To<ProductionOrderService>();
                 kernel.Bind<IProductionOrderRepository>().To<ProductionOrderRepository>();
