@@ -45,6 +45,7 @@ namespace TotalDTO.Inventories
         [UIHint("Commons/SOCode")]
         public string Code { get; set; }
 
+        public virtual int StorekeeperID { get; set; }
 
         public override void PerformPresaveRule()
         {
@@ -76,6 +77,12 @@ namespace TotalDTO.Inventories
         [Display(Name = "Kho hàng")]
         [UIHint("AutoCompletes/WarehouseBase")]
         public WarehouseBaseDTO Warehouse { get; set; }
+
+        public override int StorekeeperID { get { return (this.Storekeeper != null ? this.Storekeeper.EmployeeID : 0); } }
+        [Display(Name = "Nhân viên kho")]
+        [UIHint("AutoCompletes/EmployeeBase")]
+        public EmployeeBaseDTO Storekeeper { get; set; }
+
 
         public List<MaterialIssueDetailDTO> MaterialIssueViewDetails { get; set; }
         public List<MaterialIssueDetailDTO> ViewDetails { get { return this.MaterialIssueViewDetails; } set { this.MaterialIssueViewDetails = value; } }

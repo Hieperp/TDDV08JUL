@@ -780,7 +780,7 @@
           <Property Name="PlannedOrderID" Type="int" />
           <Property Name="PlannedOrderReferences" Type="nvarchar" MaxLength="200" />
           <Property Name="WarehouseID" Type="int" Nullable="false" />
-          <Property Name="SalespersonID" Type="int" Nullable="false" />
+          <Property Name="StorekeeperID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="PreparedPersonID" Type="int" Nullable="false" />
           <Property Name="OrganizationalUnitID" Type="int" Nullable="false" />
@@ -2468,7 +2468,7 @@ warning 6035: The relationship 'FK_MaterialIssues_AspNetUsers2' has columns that
               <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="MaterialIssues">
-              <PropertyRef Name="SalespersonID" />
+              <PropertyRef Name="StorekeeperID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8675,6 +8675,19 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Workshift" EntitySet="Workshifts" />
             <End Role="ProductionOrder" EntitySet="ProductionOrders" />
           </AssociationSet>
+          <FunctionImport Name="GetMaterialIssuePendingPlannedOrderDetails" ReturnType="Collection(TotalSmartPortalModel.MaterialIssuePendingPlannedOrderDetail)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="MaterialIssueID" Mode="In" Type="Int32" />
+            <Parameter Name="PlannedOrderID" Mode="In" Type="Int32" />
+            <Parameter Name="WorkshiftID" Mode="In" Type="Int32" />
+            <Parameter Name="WarehouseID" Mode="In" Type="Int32" />
+            <Parameter Name="ProductionOrderDetailIDs" Mode="In" Type="String" />
+            <Parameter Name="GoodsReceiptDetailIDs" Mode="In" Type="String" />
+            <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetMaterialIssuePendingPlannedOrders" ReturnType="Collection(TotalSmartPortalModel.MaterialIssuePendingPlannedOrder)">
+          <Parameter Name="LocationID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="MaterialIssues" EntityType="TotalSmartPortalModel.MaterialIssue" />
           <AssociationSet Name="FK_MaterialIssues_Employees" Association="TotalSmartPortalModel.FK_MaterialIssues_Employees">
             <End Role="Employee" EntitySet="Employees" />
@@ -8696,19 +8709,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="MaterialIssue" EntitySet="MaterialIssues" />
           </AssociationSet>
-          <FunctionImport Name="GetMaterialIssuePendingPlannedOrderDetails" ReturnType="Collection(TotalSmartPortalModel.MaterialIssuePendingPlannedOrderDetail)">
-            <Parameter Name="LocationID" Mode="In" Type="Int32" />
-            <Parameter Name="MaterialIssueID" Mode="In" Type="Int32" />
-            <Parameter Name="PlannedOrderID" Mode="In" Type="Int32" />
-            <Parameter Name="WorkshiftID" Mode="In" Type="Int32" />
-            <Parameter Name="WarehouseID" Mode="In" Type="Int32" />
-            <Parameter Name="ProductionOrderDetailIDs" Mode="In" Type="String" />
-            <Parameter Name="GoodsReceiptDetailIDs" Mode="In" Type="String" />
-            <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="GetMaterialIssuePendingPlannedOrders" ReturnType="Collection(TotalSmartPortalModel.MaterialIssuePendingPlannedOrder)">
-            <Parameter Name="LocationID" Mode="In" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -10576,6 +10576,54 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="MaterialIssuePendingPlannedOrderDetail">
+          <Property Type="Int32" Name="PlannedOrderID" Nullable="false" />
+          <Property Type="Int32" Name="PlannedOrderDetailID" Nullable="false" />
+          <Property Type="DateTime" Name="PlannedOrderEntryDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="PlannedOrderReference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PlannedOrderCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ProductionOrderID" Nullable="false" />
+          <Property Type="Int32" Name="ProductionOrderDetailID" Nullable="false" />
+          <Property Type="DateTime" Name="ProductionOrderEntryDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ProductionLineID" Nullable="false" />
+          <Property Type="String" Name="ProductionLineCode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="MoldID" Nullable="false" />
+          <Property Type="String" Name="MoldCode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="WorkshiftID" Nullable="false" />
+          <Property Type="String" Name="WorkshiftCode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsReceiptDetailID" Nullable="true" />
+          <Property Type="DateTime" Name="GoodsReceiptDetailEntryDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PlannedOrderRemains" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Decimal" Name="WorkingHours" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="CyclePerHours" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="MoldQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="BlockUnit" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="BlockQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Int32" Name="Quantity" Nullable="false" />
+          <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MaterialIssuePendingPlannedOrder">
+          <Property Type="Int32" Name="MaterialIssueTypeID" Nullable="false" />
+          <Property Type="Int32" Name="PlannedOrderID" Nullable="false" />
+          <Property Type="String" Name="PlannedOrderReference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PlannedOrderCode" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="PlannedOrderEntryDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="WorkshiftID" Nullable="false" />
+          <Property Type="String" Name="WorkshiftCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
         <EntityType Name="MaterialIssue">
           <Key>
             <PropertyRef Name="MaterialIssueID" />
@@ -10588,7 +10636,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="PlannedOrderID" Type="Int32" />
           <Property Name="PlannedOrderReferences" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="WarehouseID" Type="Int32" Nullable="false" />
-          <Property Name="SalespersonID" Type="Int32" Nullable="false" />
+          <Property Name="StorekeeperID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="PreparedPersonID" Type="Int32" Nullable="false" />
           <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
@@ -10616,7 +10664,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="MaterialIssue">
-              <PropertyRef Name="SalespersonID" />
+              <PropertyRef Name="StorekeeperID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -10668,54 +10716,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="MaterialIssuePendingPlannedOrderDetail">
-          <Property Type="Int32" Name="PlannedOrderID" Nullable="false" />
-          <Property Type="Int32" Name="PlannedOrderDetailID" Nullable="false" />
-          <Property Type="DateTime" Name="PlannedOrderEntryDate" Nullable="false" Precision="23" />
-          <Property Type="String" Name="PlannedOrderReference" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="PlannedOrderCode" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="CustomerID" Nullable="false" />
-          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="ProductionOrderID" Nullable="false" />
-          <Property Type="Int32" Name="ProductionOrderDetailID" Nullable="false" />
-          <Property Type="DateTime" Name="ProductionOrderEntryDate" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="ProductionLineID" Nullable="false" />
-          <Property Type="String" Name="ProductionLineCode" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="MoldID" Nullable="false" />
-          <Property Type="String" Name="MoldCode" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="WorkshiftID" Nullable="false" />
-          <Property Type="String" Name="WorkshiftCode" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="ProductID" Nullable="false" />
-          <Property Type="String" Name="ProductCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="CommodityID" Nullable="false" />
-          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
-          <Property Type="Int32" Name="GoodsReceiptDetailID" Nullable="true" />
-          <Property Type="DateTime" Name="GoodsReceiptDetailEntryDate" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="PlannedOrderRemains" Nullable="true" Precision="19" Scale="2" />
-          <Property Type="Decimal" Name="WorkingHours" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="CyclePerHours" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="MoldQuantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="BlockUnit" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="BlockQuantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
-          <Property Type="Int32" Name="Quantity" Nullable="false" />
-          <Property Type="Boolean" Name="IsSelected" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="MaterialIssuePendingPlannedOrder">
-          <Property Type="Int32" Name="MaterialIssueTypeID" Nullable="false" />
-          <Property Type="Int32" Name="PlannedOrderID" Nullable="false" />
-          <Property Type="String" Name="PlannedOrderReference" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="PlannedOrderCode" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="PlannedOrderEntryDate" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="WorkshiftID" Nullable="false" />
-          <Property Type="String" Name="WorkshiftCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13830,34 +13830,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MaterialIssues">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.MaterialIssue">
-              <MappingFragment StoreEntitySet="MaterialIssues">
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TotalQuantitySemifinished" ColumnName="TotalQuantitySemifinished" />
-                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
-                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="SalespersonID" ColumnName="SalespersonID" />
-                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
-                <ScalarProperty Name="PlannedOrderReferences" ColumnName="PlannedOrderReferences" />
-                <ScalarProperty Name="PlannedOrderID" ColumnName="PlannedOrderID" />
-                <ScalarProperty Name="WorkshiftID" ColumnName="WorkshiftID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="MaterialIssueID" ColumnName="MaterialIssueID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetMaterialIssuePendingPlannedOrderDetails" FunctionName="TotalSmartPortalModel.Store.GetMaterialIssuePendingPlannedOrderDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.MaterialIssuePendingPlannedOrderDetail">
@@ -13914,6 +13886,34 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MaterialIssues">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.MaterialIssue">
+              <MappingFragment StoreEntitySet="MaterialIssues">
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalQuantitySemifinished" ColumnName="TotalQuantitySemifinished" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
+                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="StorekeeperID" ColumnName="StorekeeperID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="PlannedOrderReferences" ColumnName="PlannedOrderReferences" />
+                <ScalarProperty Name="PlannedOrderID" ColumnName="PlannedOrderID" />
+                <ScalarProperty Name="WorkshiftID" ColumnName="WorkshiftID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="MaterialIssueID" ColumnName="MaterialIssueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

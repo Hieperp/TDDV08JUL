@@ -28,7 +28,7 @@ namespace TotalModel.Models
         public Nullable<int> PlannedOrderID { get; set; }
         public string PlannedOrderReferences { get; set; }
         public int WarehouseID { get; set; }
-        public int SalespersonID { get; set; }
+        public int StorekeeperID { get; set; }
         public int UserID { get; set; }
         public int PreparedPersonID { get; set; }
         public int OrganizationalUnitID { get; set; }
