@@ -58,7 +58,7 @@ namespace TotalDTO.Inventories
         [UIHint("StringReadonly")]
         public string ProductName { get; set; }
 
-
+        public int MaterialIssueTypeID { get; set; }
         public Nullable<int> WarehouseID { get; set; }
 
         [Display(Name = "Kho")]

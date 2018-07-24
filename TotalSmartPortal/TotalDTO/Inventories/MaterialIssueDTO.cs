@@ -22,12 +22,12 @@ namespace TotalDTO.Inventories
 
         public int MaterialIssueID { get; set; }
 
+        public int MaterialIssueTypeID { get { return (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder; } }
+        //public int MaterialIssueTypeID { get; set; }
+
         public virtual int WorkshiftID { get; set; }
 
         public virtual Nullable<int> WarehouseID { get; set; }
-
-        public int MaterialIssueTypeID { get { return (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder; } }
-        //public int MaterialIssueTypeID { get; set; }
 
         public Nullable<int> PlannedOrderID { get; set; }
         public string PlannedOrderReference { get; set; }
@@ -54,7 +54,7 @@ namespace TotalDTO.Inventories
             base.PerformPresaveRule();
 
             string purchaseRequisitionReferences = ""; string purchaseRequisitionCodes = "";
-            this.DtoDetails().ToList().ForEach(e => { e.WorkshiftID = this.WorkshiftID; e.WarehouseID = this.WarehouseID; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && purchaseRequisitionReferences.IndexOf(e.PlannedOrderReference) < 0) purchaseRequisitionReferences = purchaseRequisitionReferences + (purchaseRequisitionReferences != "" ? ", " : "") + e.PlannedOrderReference; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && e.PlannedOrderCode != null && purchaseRequisitionCodes.IndexOf(e.PlannedOrderCode) < 0) purchaseRequisitionCodes = purchaseRequisitionCodes + (purchaseRequisitionCodes != "" ? ", " : "") + e.PlannedOrderCode; });
+            this.DtoDetails().ToList().ForEach(e => { e.MaterialIssueTypeID = this.MaterialIssueTypeID; e.WorkshiftID = this.WorkshiftID; e.WarehouseID = this.WarehouseID; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && purchaseRequisitionReferences.IndexOf(e.PlannedOrderReference) < 0) purchaseRequisitionReferences = purchaseRequisitionReferences + (purchaseRequisitionReferences != "" ? ", " : "") + e.PlannedOrderReference; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && e.PlannedOrderCode != null && purchaseRequisitionCodes.IndexOf(e.PlannedOrderCode) < 0) purchaseRequisitionCodes = purchaseRequisitionCodes + (purchaseRequisitionCodes != "" ? ", " : "") + e.PlannedOrderCode; });
             this.PlannedOrderReferences = purchaseRequisitionReferences; this.PlannedOrderCodes = purchaseRequisitionCodes != "" ? purchaseRequisitionCodes : null; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder) this.Code = this.PlannedOrderCodes;
         }
     }

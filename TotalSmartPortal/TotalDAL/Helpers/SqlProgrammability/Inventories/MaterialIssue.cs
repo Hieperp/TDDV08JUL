@@ -266,36 +266,46 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
-            this.totalSmartPortalEntities.CreateStoredProcedure("MaterialIssueSaveRelative", queryString);
+            queryString = queryString + "       BEGIN  " + "\r\n";
+            queryString = queryString + "           DECLARE         @MaterialIssueDetails TABLE (GoodsReceiptDetailID int NOT NULL PRIMARY KEY, MaterialIssueTypeID int NOT NULL, Quantity decimal(18, 2) NOT NULL)" + "\r\n";
+            queryString = queryString + "           INSERT INTO     @MaterialIssueDetails (GoodsReceiptDetailID, MaterialIssueTypeID, Quantity) SELECT GoodsReceiptDetailID, MIN(MaterialIssueTypeID) AS MaterialIssueTypeID, SUM(Quantity) AS Quantity FROM MaterialIssueDetails WHERE MaterialIssueID = @EntityID GROUP BY GoodsReceiptDetailID " + "\r\n";
+
+            queryString = queryString + "           DECLARE         @MaterialIssueTypeID int, @AffectedROWCOUNT int ";
+            queryString = queryString + "           SELECT          @MaterialIssueTypeID = MaterialIssueTypeID FROM @MaterialIssueDetails ";
+
+            #region UPDATE GoodsReceiptDetails
+            queryString = queryString + "           UPDATE          GoodsReceiptDetails " + "\r\n";
+            queryString = queryString + "           SET             GoodsReceiptDetails.QuantityIssued = ROUND(GoodsReceiptDetails.QuantityIssued + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + ") " + "\r\n";
+            queryString = queryString + "           FROM            GoodsReceiptDetails " + "\r\n";
+            queryString = queryString + "                           INNER JOIN @MaterialIssueDetails MaterialIssueDetails ON GoodsReceiptDetails.GoodsReceiptDetailID = MaterialIssueDetails.GoodsReceiptDetailID AND GoodsReceiptDetails.Approved = 1 " + "\r\n";
+
+            queryString = queryString + "           IF @@ROWCOUNT <> (SELECT COUNT(*) FROM @MaterialIssueDetails) " + "\r\n";
+            queryString = queryString + "               BEGIN " + "\r\n";
+            queryString = queryString + "                   DECLARE     @msg NVARCHAR(300) = N'Phiếu nhập kho đã hủy, chưa duyệt hoặc đã xóa.' ; " + "\r\n";
+            queryString = queryString + "                   THROW       61001,  @msg, 1; " + "\r\n";
+            queryString = queryString + "               END " + "\r\n";
+            #endregion
 
 
-            //queryString = queryString + "           IF (@SaveRelativeOption = 1) ";
-            //queryString = queryString + "               BEGIN ";
-            //queryString = queryString + "                   UPDATE          MaterialIssueDetails " + "\r\n";
-            //queryString = queryString + "                   SET             MaterialIssueDetails.Reference = MaterialIssues.Reference " + "\r\n";
-            //queryString = queryString + "                   FROM            MaterialIssues INNER JOIN MaterialIssueDetails ON MaterialIssues.MaterialIssueID = @EntityID AND MaterialIssues.MaterialIssueID = MaterialIssueDetails.MaterialIssueID " + "\r\n";
-            //queryString = queryString + "               END ";
-
-            queryString = queryString + "           DECLARE @MaterialIssueTypeID int, @AffectedROWCOUNT int ";
-            queryString = queryString + "           SELECT  @MaterialIssueTypeID = MaterialIssueTypeID FROM MaterialIssues WHERE MaterialIssueID = @EntityID ";
-
-            queryString = queryString + "           IF (@MaterialIssueTypeID > 0) " + "\r\n";
-            queryString = queryString + "               BEGIN  " + "\r\n";
-
-            queryString = queryString + "                   IF (@MaterialIssueTypeID = " + (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder + ") " + "\r\n";
-            queryString = queryString + "                       BEGIN  " + "\r\n";
-            queryString = queryString + "                           UPDATE          ProductionOrderDetails " + "\r\n";
-            queryString = queryString + "                           SET             ProductionOrderDetails.QuantitySemifinished = ROUND(ProductionOrderDetails.QuantitySemifinished + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + ") " + "\r\n";
-            queryString = queryString + "                           FROM            MaterialIssueDetails " + "\r\n";
-            queryString = queryString + "                                           INNER JOIN ProductionOrderDetails ON ((ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0) OR @SaveRelativeOption = -1) AND MaterialIssueDetails.MaterialIssueID = @EntityID AND MaterialIssueDetails.ProductionOrderDetailID = ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
-            queryString = queryString + "                           SET @AffectedROWCOUNT = @@ROWCOUNT " + "\r\n";
-            queryString = queryString + "                       END " + "\r\n";
+            #region ISSUE ADVICE
+            //queryString = queryString + "           IF (@MaterialIssueTypeID > 0) " + "\r\n";
+            //queryString = queryString + "               BEGIN  " + "\r\n";
+            
+            
+            //queryString = queryString + "                   IF (@MaterialIssueTypeID = " + (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder + ") " + "\r\n";
+            //queryString = queryString + "                       BEGIN  " + "\r\n";
+            //queryString = queryString + "                           UPDATE          ProductionOrderDetails " + "\r\n";
+            //queryString = queryString + "                           SET             ProductionOrderDetails.QuantityIssued = ROUND(ProductionOrderDetails.QuantityIssued + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + ") " + "\r\n";
+            //queryString = queryString + "                           FROM            MaterialIssueDetails " + "\r\n";
+            //queryString = queryString + "                                           INNER JOIN ProductionOrderDetails ON ((ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0) OR @SaveRelativeOption = -1) AND MaterialIssueDetails.MaterialIssueID = @EntityID AND MaterialIssueDetails.ProductionOrderDetailID = ProductionOrderDetails.ProductionOrderDetailID " + "\r\n";
+            //queryString = queryString + "                           SET @AffectedROWCOUNT = @@ROWCOUNT " + "\r\n";
+            //queryString = queryString + "                       END " + "\r\n";
 
 
             //queryString = queryString + "                   IF (@MaterialIssueTypeID = " + (int)GlobalEnums.MaterialIssueTypeID.GoodsIssueTransfer + ") " + "\r\n";
             //queryString = queryString + "                       BEGIN  " + "\r\n";
             //queryString = queryString + "                           UPDATE          GoodsIssueTransferDetails " + "\r\n";
-            //queryString = queryString + "                           SET             GoodsIssueTransferDetails.QuantitySemifinished = ROUND(GoodsIssueTransferDetails.QuantitySemifinished + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), GoodsIssueTransferDetails.LineVolumeReceipt = ROUND(GoodsIssueTransferDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
+            //queryString = queryString + "                           SET             GoodsIssueTransferDetails.QuantityIssued = ROUND(GoodsIssueTransferDetails.QuantityIssued + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), GoodsIssueTransferDetails.LineVolumeReceipt = ROUND(GoodsIssueTransferDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
             //queryString = queryString + "                           FROM            MaterialIssueDetails " + "\r\n";
             //queryString = queryString + "                                           INNER JOIN GoodsIssueTransferDetails ON MaterialIssueDetails.MaterialIssueID = @EntityID AND GoodsIssueTransferDetails.Approved = 1 AND MaterialIssueDetails.GoodsIssueTransferDetailID = GoodsIssueTransferDetails.GoodsIssueTransferDetailID " + "\r\n";
             //queryString = queryString + "                           SET @AffectedROWCOUNT = @@ROWCOUNT " + "\r\n";
@@ -305,32 +315,35 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             //queryString = queryString + "                   IF (@MaterialIssueTypeID = " + (int)GlobalEnums.MaterialIssueTypeID.WarehouseAdjustments + ") " + "\r\n";
             //queryString = queryString + "                       BEGIN  " + "\r\n";
             //queryString = queryString + "                           UPDATE          WarehouseAdjustmentDetails " + "\r\n";
-            //queryString = queryString + "                           SET             WarehouseAdjustmentDetails.QuantitySemifinished = ROUND(WarehouseAdjustmentDetails.QuantitySemifinished + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), WarehouseAdjustmentDetails.LineVolumeReceipt = ROUND(WarehouseAdjustmentDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
+            //queryString = queryString + "                           SET             WarehouseAdjustmentDetails.QuantityIssued = ROUND(WarehouseAdjustmentDetails.QuantityIssued + MaterialIssueDetails.Quantity * @SaveRelativeOption, " + (int)GlobalEnums.rndQuantity + "), WarehouseAdjustmentDetails.LineVolumeReceipt = ROUND(WarehouseAdjustmentDetails.LineVolumeReceipt + MaterialIssueDetails.LineVolume * @SaveRelativeOption, " + (int)GlobalEnums.rndVolume + ") " + "\r\n";
             //queryString = queryString + "                           FROM            MaterialIssueDetails " + "\r\n";
             //queryString = queryString + "                                           INNER JOIN WarehouseAdjustmentDetails ON MaterialIssueDetails.MaterialIssueID = @EntityID AND WarehouseAdjustmentDetails.Quantity > 0 AND MaterialIssueDetails.WarehouseAdjustmentDetailID = WarehouseAdjustmentDetails.WarehouseAdjustmentDetailID " + "\r\n";
             //queryString = queryString + "                           SET @AffectedROWCOUNT = @@ROWCOUNT " + "\r\n";
             ////------------------------------------------------------SHOULD UPDATE MaterialIssueID, MaterialIssueDetailID BACK TO WarehouseAdjustmentDetails FOR MaterialIssues OF WarehouseAdjustmentDetails? THE ANSWER: WE CAN DO IT HERE, BUT IT BREAK THE RELATIONSHIP (cyclic redundancy relationship: MaterialIssueDetails => WarehouseAdjustmentDetails => THUS: WE SHOULD NOT MAKE ANOTHER RELATIONSHIP FROM WarehouseAdjustmentDetails => MaterialIssueDetails ) => SO: SHOULD NOT!!!
             //queryString = queryString + "                       END " + "\r\n";
 
-            queryString = queryString + "                   IF @AffectedROWCOUNT <> (SELECT COUNT(*) FROM MaterialIssueDetails WHERE MaterialIssueID = @EntityID) " + "\r\n";
-            queryString = queryString + "                       BEGIN " + "\r\n";
-            queryString = queryString + "                           DECLARE     @msg NVARCHAR(300) = N'Phiếu giao hàng đã hủy, hoặc chưa duyệt' ; " + "\r\n";
-            queryString = queryString + "                           THROW       61001,  @msg, 1; " + "\r\n";
-            queryString = queryString + "                       END " + "\r\n";
+            //queryString = queryString + "                   IF @AffectedROWCOUNT <> (SELECT COUNT(*) FROM MaterialIssueDetails WHERE MaterialIssueID = @EntityID) " + "\r\n";
+            //queryString = queryString + "                       BEGIN " + "\r\n";
+            //queryString = queryString + "                           DECLARE     @msg NVARCHAR(300) = N'Phiếu giao hàng đã hủy, hoặc chưa duyệt' ; " + "\r\n";
+            //queryString = queryString + "                           THROW       61001,  @msg, 1; " + "\r\n";
+            //queryString = queryString + "                       END " + "\r\n";
+            
 
-            queryString = queryString + "               END  " + "\r\n";
+            //queryString = queryString + "               END  " + "\r\n";
+            #endregion
+
 
             queryString = queryString + "       END " + "\r\n";
 
-            //this.totalSmartPortalEntities.CreateStoredProcedure("MaterialIssueSaveRelative", queryString);
+            this.totalSmartPortalEntities.CreateStoredProcedure("MaterialIssueSaveRelative", queryString);
         }
 
         private void MaterialIssuePostSaveValidate()
         {
-            string[] queryArray = new string[0];
+            string[] queryArray = new string[2];
 
-            //queryArray[0] = " SELECT TOP 1 @FoundEntity = N'Ngày đặt hàng: ' + CAST(ProductionOrders.EntryDate AS nvarchar) FROM MaterialIssueDetails INNER JOIN ProductionOrders ON MaterialIssueDetails.MaterialIssueID = @EntityID AND MaterialIssueDetails.ProductionOrderID = ProductionOrders.ProductionOrderID AND MaterialIssueDetails.EntryDate < ProductionOrders.EntryDate ";
-            //queryArray[1] = " SELECT TOP 1 @FoundEntity = N'Số lượng xuất vượt quá số lượng đặt hàng: ' + CAST(ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") AS nvarchar) FROM ProductionOrderDetails WHERE (ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") < 0) ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = N'Ngày đặt hàng: ' + CAST(GoodsReceipts.EntryDate AS nvarchar) FROM MaterialIssueDetails INNER JOIN GoodsReceipts ON MaterialIssueDetails.MaterialIssueID = @EntityID AND MaterialIssueDetails.GoodsReceiptID = GoodsReceipts.GoodsReceiptID AND MaterialIssueDetails.EntryDate < GoodsReceipts.EntryDate ";
+            queryArray[1] = " SELECT TOP 1 @FoundEntity = N'Số lượng xuất vượt quá số lượng tồn kho: ' + CAST(ROUND(Quantity - QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") AS nvarchar) FROM GoodsReceiptDetails WHERE (ROUND(Quantity - QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") < 0) ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("MaterialIssuePostSaveValidate", queryArray);
         }

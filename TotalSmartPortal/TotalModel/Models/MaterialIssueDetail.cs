@@ -33,6 +33,7 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public bool Approved { get; set; }
         public int WorkshiftID { get; set; }
+        public int MaterialIssueTypeID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }

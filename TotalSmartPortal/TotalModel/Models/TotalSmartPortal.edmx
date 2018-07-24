@@ -752,6 +752,7 @@
           <Property Name="MaterialIssueID" Type="int" Nullable="false" />
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="MaterialIssueTypeID" Type="int" Nullable="false" />
           <Property Name="WorkshiftID" Type="int" Nullable="false" />
           <Property Name="PlannedOrderID" Type="int" Nullable="false" />
           <Property Name="PlannedOrderDetailID" Type="int" Nullable="false" />
@@ -776,6 +777,7 @@
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="Reference" Type="nvarchar" MaxLength="10" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialIssueTypeID" Type="int" Nullable="false" />
           <Property Name="WorkshiftID" Type="int" Nullable="false" />
           <Property Name="PlannedOrderID" Type="int" />
           <Property Name="PlannedOrderReferences" Type="nvarchar" MaxLength="200" />
@@ -10164,6 +10166,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="GoodsReceiptDetail" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_GoodsReceiptDetails" FromRole="MaterialIssueDetail" ToRole="GoodsReceiptDetail" />
           <Property Name="WorkshiftID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MaterialIssue" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_MaterialIssues" FromRole="MaterialIssueDetail" ToRole="MaterialIssue" />
+          <Property Name="MaterialIssueTypeID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductionOrderDetail">
           <Key>
@@ -10658,6 +10661,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="MaterialIssueDetails" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_MaterialIssues" FromRole="MaterialIssue" ToRole="MaterialIssueDetail" />
           <NavigationProperty Name="ProductionOrder" Relationship="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrders" FromRole="MaterialIssue" ToRole="ProductionOrder" />
           <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Warehouses" FromRole="MaterialIssue" ToRole="Warehouse" />
+          <Property Name="MaterialIssueTypeID" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_MaterialIssues_Employees">
           <End Type="TotalSmartPortalModel.Employee" Role="Employee" Multiplicity="1" />
@@ -13642,6 +13646,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="MaterialIssueDetails">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.MaterialIssueDetail">
               <MappingFragment StoreEntitySet="MaterialIssueDetails">
+                <ScalarProperty Name="MaterialIssueTypeID" ColumnName="MaterialIssueTypeID" />
                 <ScalarProperty Name="WorkshiftID" ColumnName="WorkshiftID" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
@@ -13895,6 +13900,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="MaterialIssues">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.MaterialIssue">
               <MappingFragment StoreEntitySet="MaterialIssues">
+                <ScalarProperty Name="MaterialIssueTypeID" ColumnName="MaterialIssueTypeID" />
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
