@@ -889,6 +889,81 @@
           <Property Name="IsDefault" Type="bit" Nullable="false" />
           <Property Name="CalculateID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PlannedOrderDetails">
+          <Key>
+            <PropertyRef Name="PlannedOrderDetailID" />
+          </Key>
+          <Property Name="PlannedOrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlannedOrderID" Type="int" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="CommodityID" Type="int" Nullable="false" />
+          <Property Name="CommodityTypeID" Type="int" Nullable="false" />
+          <Property Name="CommodityMaterialID" Type="int" Nullable="false" />
+          <Property Name="MoldID" Type="int" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="QuantitySemifinished" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="VoidTypeID" Type="int" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
+          <Property Name="InActive" Type="bit" Nullable="false" />
+          <Property Name="InActivePartial" Type="bit" Nullable="false" />
+          <Property Name="InActivePartialDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PlannedOrderMaterials">
+          <Key>
+            <PropertyRef Name="PlannedOrderMaterialID" />
+          </Key>
+          <Property Name="PlannedOrderMaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlannedOrderDetailID" Type="int" Nullable="false" />
+          <Property Name="PlannedOrderID" Type="int" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="CommodityID" Type="int" Nullable="false" />
+          <Property Name="CommodityTypeID" Type="int" Nullable="false" />
+          <Property Name="CommodityMaterialID" Type="int" Nullable="false" />
+          <Property Name="MaterialID" Type="int" Nullable="false" />
+          <Property Name="MoldID" Type="int" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="QuantityIssued" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="VoidTypeID" Type="int" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
+          <Property Name="InActive" Type="bit" Nullable="false" />
+          <Property Name="InActivePartial" Type="bit" Nullable="false" />
+          <Property Name="InActivePartialDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PlannedOrders">
+          <Key>
+            <PropertyRef Name="PlannedOrderID" />
+          </Key>
+          <Property Name="PlannedOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="Reference" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="PreparedPersonID" Type="int" Nullable="false" />
+          <Property Name="OrganizationalUnitID" Type="int" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="ApproverID" Type="int" Nullable="false" />
+          <Property Name="TotalQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalQuantitySemifinished" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="EditedDate" Type="datetime" Nullable="false" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="VoidTypeID" Type="int" />
+          <Property Name="InActive" Type="bit" Nullable="false" />
+          <Property Name="InActivePartial" Type="bit" Nullable="false" />
+          <Property Name="InActiveDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="PriceCategories">
           <Key>
             <PropertyRef Name="PriceCategoryID" />
@@ -2441,6 +2516,18 @@ warning 6035: The relationship 'FK_HandlingUnits_AspNetUsers2' has columns that 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MaterialIssueDetails_PlannedOrderDetails">
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="1" />
+          <End Role="MaterialIssueDetails" Type="Self.MaterialIssueDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrderDetails">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Principal>
+            <Dependent Role="MaterialIssueDetails">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MaterialIssueDetails_ProductionOrderDetails">
           <End Role="ProductionOrderDetails" Type="Self.ProductionOrderDetails" Multiplicity="1" />
           <End Role="MaterialIssueDetails" Type="Self.MaterialIssueDetails" Multiplicity="*" />
@@ -2537,6 +2624,183 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PlannedOrderDetails_Commodities">
+          <End Role="Commodities" Type="Self.Commodities" Multiplicity="1" />
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodities">
+              <PropertyRef Name="CommodityID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetails">
+              <PropertyRef Name="CommodityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetails">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_Molds">
+          <End Role="Molds" Type="Self.Molds" Multiplicity="1" />
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Molds">
+              <PropertyRef Name="MoldID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetails">
+              <PropertyRef Name="MoldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_PlannedOrders">
+          <End Role="PlannedOrders" Type="Self.PlannedOrders" Multiplicity="1" />
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrders">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetails">
+              <PropertyRef Name="PlannedOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_VoidTypes">
+          <End Role="VoidTypes" Type="Self.VoidTypes" Multiplicity="0..1" />
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidTypes">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetails">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_Commodities">
+          <End Role="Commodities" Type="Self.Commodities" Multiplicity="1" />
+          <End Role="PlannedOrderMaterials" Type="Self.PlannedOrderMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodities">
+              <PropertyRef Name="CommodityID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterials">
+              <PropertyRef Name="CommodityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="PlannedOrderMaterials" Type="Self.PlannedOrderMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterials">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_Molds">
+          <End Role="Molds" Type="Self.Molds" Multiplicity="1" />
+          <End Role="PlannedOrderMaterials" Type="Self.PlannedOrderMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Molds">
+              <PropertyRef Name="MoldID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterials">
+              <PropertyRef Name="MoldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_PlannedOrderDetails">
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="1" />
+          <End Role="PlannedOrderMaterials" Type="Self.PlannedOrderMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrderDetails">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterials">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_PlannedOrders">
+          <End Role="PlannedOrders" Type="Self.PlannedOrders" Multiplicity="1" />
+          <End Role="PlannedOrderMaterials" Type="Self.PlannedOrderMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrders">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterials">
+              <PropertyRef Name="PlannedOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_VoidTypes">
+          <End Role="VoidTypes" Type="Self.VoidTypes" Multiplicity="0..1" />
+          <End Role="PlannedOrderMaterials" Type="Self.PlannedOrderMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidTypes">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterials">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_PlannedOrders_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_PlannedOrders_AspNetUsers" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_PlannedOrders_AspNetUsers1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_PlannedOrders_AspNetUsers1" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_PlannedOrders_AspNetUsers2' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_PlannedOrders_AspNetUsers2" />-->
+        <Association Name="FK_PlannedOrders_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="PlannedOrders" Type="Self.PlannedOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="PlannedOrders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrders_Locations">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="PlannedOrders" Type="Self.PlannedOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="PlannedOrders">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrders_VoidTypes">
+          <End Role="VoidTypes" Type="Self.VoidTypes" Multiplicity="0..1" />
+          <End Role="PlannedOrders" Type="Self.PlannedOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidTypes">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="PlannedOrders">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductionOrderDetails_Commodities">
           <End Role="Commodities" Type="Self.Commodities" Multiplicity="1" />
           <End Role="ProductionOrderDetails" Type="Self.ProductionOrderDetails" Multiplicity="*" />
@@ -2570,6 +2834,30 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Principal>
             <Dependent Role="ProductionOrderDetails">
               <PropertyRef Name="MoldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrderDetails_PlannedOrderDetails">
+          <End Role="PlannedOrderDetails" Type="Self.PlannedOrderDetails" Multiplicity="1" />
+          <End Role="ProductionOrderDetails" Type="Self.ProductionOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrderDetails">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetails">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrderDetails_PlannedOrders">
+          <End Role="PlannedOrders" Type="Self.PlannedOrders" Multiplicity="1" />
+          <End Role="ProductionOrderDetails" Type="Self.ProductionOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrders">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetails">
+              <PropertyRef Name="PlannedOrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3561,6 +3849,14 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Parameter Name="HandlingUnitIDs" Type="varchar" Mode="In" />
           <Parameter Name="IsReadonly" Type="bit" Mode="In" />
         </Function>
+        <Function Name="GetPlannedOrderIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ToDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetPlannedOrderViewDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PlannedOrderID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetProductionLineBases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
@@ -3768,6 +4064,37 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
         <Function Name="MaterialIssueToggleApproved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EntityID" Type="int" Mode="In" />
           <Parameter Name="Approved" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderApproved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderEditable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderPostSaveValidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderSaveRelative" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+          <Parameter Name="SaveRelativeOption" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderToggleApproved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+          <Parameter Name="Approved" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderToggleVoid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+          <Parameter Name="InActive" Type="bit" Mode="In" />
+          <Parameter Name="VoidTypeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderToggleVoidDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+          <Parameter Name="EntityDetailID" Type="int" Mode="In" />
+          <Parameter Name="InActivePartial" Type="bit" Mode="In" />
+          <Parameter Name="VoidTypeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlannedOrderVoidable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
         </Function>
         <Function Name="ProductionOrderApproved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EntityID" Type="int" Mode="In" />
@@ -4006,6 +4333,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySet Name="OrganizationalUnitUsers" EntityType="Self.OrganizationalUnitUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackingMaterials" EntityType="Self.PackingMaterials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentTerms" EntityType="Self.PaymentTerms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlannedOrderDetails" EntityType="Self.PlannedOrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlannedOrderMaterials" EntityType="Self.PlannedOrderMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlannedOrders" EntityType="Self.PlannedOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceCategories" EntityType="Self.PriceCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductionLines" EntityType="Self.ProductionLines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductionOrderDetails" EntityType="Self.ProductionOrderDetails" Schema="dbo" store:Type="Tables" />
@@ -4358,6 +4688,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="MaterialIssues" EntitySet="MaterialIssues" />
             <End Role="MaterialIssueDetails" EntitySet="MaterialIssueDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_MaterialIssueDetails_PlannedOrderDetails" Association="Self.FK_MaterialIssueDetails_PlannedOrderDetails">
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+            <End Role="MaterialIssueDetails" EntitySet="MaterialIssueDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_MaterialIssueDetails_ProductionOrderDetails" Association="Self.FK_MaterialIssueDetails_ProductionOrderDetails">
             <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
             <End Role="MaterialIssueDetails" EntitySet="MaterialIssueDetails" />
@@ -4386,6 +4720,62 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Locations" EntitySet="Locations" />
             <End Role="OrganizationalUnits" EntitySet="OrganizationalUnits" />
           </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_Commodities" Association="Self.FK_PlannedOrderDetails_Commodities">
+            <End Role="Commodities" EntitySet="Commodities" />
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_Customers" Association="Self.FK_PlannedOrderDetails_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_Molds" Association="Self.FK_PlannedOrderDetails_Molds">
+            <End Role="Molds" EntitySet="Molds" />
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_PlannedOrders" Association="Self.FK_PlannedOrderDetails_PlannedOrders">
+            <End Role="PlannedOrders" EntitySet="PlannedOrders" />
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_VoidTypes" Association="Self.FK_PlannedOrderDetails_VoidTypes">
+            <End Role="VoidTypes" EntitySet="VoidTypes" />
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_Commodities" Association="Self.FK_PlannedOrderMaterials_Commodities">
+            <End Role="Commodities" EntitySet="Commodities" />
+            <End Role="PlannedOrderMaterials" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_Customers" Association="Self.FK_PlannedOrderMaterials_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="PlannedOrderMaterials" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_Molds" Association="Self.FK_PlannedOrderMaterials_Molds">
+            <End Role="Molds" EntitySet="Molds" />
+            <End Role="PlannedOrderMaterials" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_PlannedOrderDetails" Association="Self.FK_PlannedOrderMaterials_PlannedOrderDetails">
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+            <End Role="PlannedOrderMaterials" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_PlannedOrders" Association="Self.FK_PlannedOrderMaterials_PlannedOrders">
+            <End Role="PlannedOrders" EntitySet="PlannedOrders" />
+            <End Role="PlannedOrderMaterials" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_VoidTypes" Association="Self.FK_PlannedOrderMaterials_VoidTypes">
+            <End Role="VoidTypes" EntitySet="VoidTypes" />
+            <End Role="PlannedOrderMaterials" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrders_Customers" Association="Self.FK_PlannedOrders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="PlannedOrders" EntitySet="PlannedOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrders_Locations" Association="Self.FK_PlannedOrders_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="PlannedOrders" EntitySet="PlannedOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrders_VoidTypes" Association="Self.FK_PlannedOrders_VoidTypes">
+            <End Role="VoidTypes" EntitySet="VoidTypes" />
+            <End Role="PlannedOrders" EntitySet="PlannedOrders" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductionOrderDetails_Commodities" Association="Self.FK_ProductionOrderDetails_Commodities">
             <End Role="Commodities" EntitySet="Commodities" />
             <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
@@ -4396,6 +4786,14 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           </AssociationSet>
           <AssociationSet Name="FK_ProductionOrderDetails_Molds" Association="Self.FK_ProductionOrderDetails_Molds">
             <End Role="Molds" EntitySet="Molds" />
+            <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrderDetails_PlannedOrderDetails" Association="Self.FK_ProductionOrderDetails_PlannedOrderDetails">
+            <End Role="PlannedOrderDetails" EntitySet="PlannedOrderDetails" />
+            <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrderDetails_PlannedOrders" Association="Self.FK_ProductionOrderDetails_PlannedOrders">
+            <End Role="PlannedOrders" EntitySet="PlannedOrders" />
             <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductionOrderDetails_ProductionLines" Association="Self.FK_ProductionOrderDetails_ProductionLines">
@@ -4793,6 +5191,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="MaterialIssueDetails" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_Commodities" FromRole="Commodity" ToRole="MaterialIssueDetail" />
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Commodities" FromRole="Commodity" ToRole="ProductionOrderDetail" />
           <NavigationProperty Name="GoodsReceiptDetails" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_Commodities" FromRole="Commodity" ToRole="GoodsReceiptDetail" />
+          <NavigationProperty Name="PlannedOrderDetails" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_Commodities" FromRole="Commodity" ToRole="PlannedOrderDetail" />
+          <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_Commodities" FromRole="Commodity" ToRole="PlannedOrderMaterial" />
         </EntityType>
         <EntityType Name="CommodityBrand">
           <Key>
@@ -4999,6 +5399,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" FromRole="Customer" ToRole="PurchaseRequisition" />
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Customers" FromRole="Customer" ToRole="ProductionOrderDetail" />
           <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Customers" FromRole="Customer" ToRole="GoodsReceipt" />
+          <NavigationProperty Name="PlannedOrderDetails" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_Customers" FromRole="Customer" ToRole="PlannedOrderDetail" />
+          <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_Customers" FromRole="Customer" ToRole="PlannedOrderMaterial" />
+          <NavigationProperty Name="PlannedOrders" Relationship="TotalSmartPortalModel.FK_PlannedOrders_Customers" FromRole="Customer" ToRole="PlannedOrder" />
         </EntityType>
         <EntityType Name="CustomerType">
           <Key>
@@ -5451,6 +5854,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Locations" FromRole="Location" ToRole="GoodsReceipt" />
           <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_Locations" FromRole="Location" ToRole="ProductionOrder" />
           <NavigationProperty Name="MaterialIssues" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Locations" FromRole="Location" ToRole="MaterialIssue" />
+          <NavigationProperty Name="PlannedOrders" Relationship="TotalSmartPortalModel.FK_PlannedOrders_Locations" FromRole="Location" ToRole="PlannedOrder" />
         </EntityType>
         <EntityType Name="ModuleDetail">
           <Key>
@@ -5970,6 +6374,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" FromRole="VoidType" ToRole="PurchaseRequisition" />
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" FromRole="VoidType" ToRole="ProductionOrderDetail" />
           <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_VoidTypes" FromRole="VoidType" ToRole="ProductionOrder" />
+          <NavigationProperty Name="PlannedOrderDetails" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_VoidTypes" FromRole="VoidType" ToRole="PlannedOrderDetail" />
+          <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_VoidTypes" FromRole="VoidType" ToRole="PlannedOrderMaterial" />
+          <NavigationProperty Name="PlannedOrders" Relationship="TotalSmartPortalModel.FK_PlannedOrders_VoidTypes" FromRole="VoidType" ToRole="PlannedOrder" />
         </EntityType>
         <EntityType Name="Warehouse">
           <Key>
@@ -8711,6 +9118,116 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="MaterialIssue" EntitySet="MaterialIssues" />
           </AssociationSet>
+          <EntitySet Name="PlannedOrderDetails" EntityType="TotalSmartPortalModel.PlannedOrderDetail" />
+          <EntitySet Name="PlannedOrderMaterials" EntityType="TotalSmartPortalModel.PlannedOrderMaterial" />
+          <EntitySet Name="PlannedOrders" EntityType="TotalSmartPortalModel.PlannedOrder" />
+          <AssociationSet Name="FK_PlannedOrderDetails_Commodities" Association="TotalSmartPortalModel.FK_PlannedOrderDetails_Commodities">
+            <End Role="Commodity" EntitySet="Commodities" />
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_Commodities" Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_Commodities">
+            <End Role="Commodity" EntitySet="Commodities" />
+            <End Role="PlannedOrderMaterial" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_Customers" Association="TotalSmartPortalModel.FK_PlannedOrderDetails_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_Customers" Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="PlannedOrderMaterial" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrders_Customers" Association="TotalSmartPortalModel.FK_PlannedOrders_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="PlannedOrder" EntitySet="PlannedOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrders_Locations" Association="TotalSmartPortalModel.FK_PlannedOrders_Locations">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="PlannedOrder" EntitySet="PlannedOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialIssueDetails_PlannedOrderDetails" Association="TotalSmartPortalModel.FK_MaterialIssueDetails_PlannedOrderDetails">
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+            <End Role="MaterialIssueDetail" EntitySet="MaterialIssueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_Molds" Association="TotalSmartPortalModel.FK_PlannedOrderDetails_Molds">
+            <End Role="Mold" EntitySet="Molds" />
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_Molds" Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_Molds">
+            <End Role="Mold" EntitySet="Molds" />
+            <End Role="PlannedOrderMaterial" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_PlannedOrders" Association="TotalSmartPortalModel.FK_PlannedOrderDetails_PlannedOrders">
+            <End Role="PlannedOrder" EntitySet="PlannedOrders" />
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderDetails_VoidTypes" Association="TotalSmartPortalModel.FK_PlannedOrderDetails_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_PlannedOrderDetails" Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrderDetails">
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+            <End Role="PlannedOrderMaterial" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrderDetails_PlannedOrderDetails" Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrderDetails">
+            <End Role="PlannedOrderDetail" EntitySet="PlannedOrderDetails" />
+            <End Role="ProductionOrderDetail" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_PlannedOrders" Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrders">
+            <End Role="PlannedOrder" EntitySet="PlannedOrders" />
+            <End Role="PlannedOrderMaterial" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrderMaterials_VoidTypes" Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="PlannedOrderMaterial" EntitySet="PlannedOrderMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedOrders_VoidTypes" Association="TotalSmartPortalModel.FK_PlannedOrders_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="PlannedOrder" EntitySet="PlannedOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrderDetails_PlannedOrders" Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders">
+            <End Role="PlannedOrder" EntitySet="PlannedOrders" />
+            <End Role="ProductionOrderDetail" EntitySet="ProductionOrderDetails" />
+          </AssociationSet>
+          <FunctionImport Name="GetPlannedOrderIndexes" ReturnType="Collection(TotalSmartPortalModel.PlannedOrderIndex)">
+            <Parameter Name="AspUserID" Mode="In" Type="String" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetPlannedOrderViewDetails" ReturnType="Collection(TotalSmartPortalModel.PlannedOrderViewDetail)">
+            <Parameter Name="PlannedOrderID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderApproved" ReturnType="Collection(String)">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderEditable" ReturnType="Collection(String)">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderPostSaveValidate" ReturnType="Collection(String)">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderSaveRelative">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="SaveRelativeOption" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderToggleApproved">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="Approved" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderToggleVoid">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="InActive" Mode="In" Type="Boolean" />
+            <Parameter Name="VoidTypeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderToggleVoidDetail">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="EntityDetailID" Mode="In" Type="Int32" />
+            <Parameter Name="InActivePartial" Mode="In" Type="Boolean" />
+            <Parameter Name="VoidTypeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlannedOrderVoidable" ReturnType="Collection(String)">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -10044,6 +10561,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CyclePerHours" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Molds" FromRole="Mold" ToRole="ProductionOrderDetail" />
+          <NavigationProperty Name="PlannedOrderDetails" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_Molds" FromRole="Mold" ToRole="PlannedOrderDetail" />
+          <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_Molds" FromRole="Mold" ToRole="PlannedOrderMaterial" />
         </EntityType>
         <EntityType Name="ProductionLine">
           <Key>
@@ -10167,6 +10686,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="WorkshiftID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MaterialIssue" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_MaterialIssues" FromRole="MaterialIssueDetail" ToRole="MaterialIssue" />
           <Property Name="MaterialIssueTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PlannedOrderDetail" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_PlannedOrderDetails" FromRole="MaterialIssueDetail" ToRole="PlannedOrderDetail" />
         </EntityType>
         <EntityType Name="ProductionOrderDetail">
           <Key>
@@ -10199,6 +10719,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" FromRole="ProductionOrderDetail" ToRole="VoidType" />
           <NavigationProperty Name="Workshift" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_Workshifts" FromRole="ProductionOrderDetail" ToRole="Workshift" />
           <NavigationProperty Name="ProductionOrder" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionOrders" FromRole="ProductionOrderDetail" ToRole="ProductionOrder" />
+          <NavigationProperty Name="PlannedOrderDetail" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrderDetails" FromRole="ProductionOrderDetail" ToRole="PlannedOrderDetail" />
+          <NavigationProperty Name="PlannedOrder" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders" FromRole="ProductionOrderDetail" ToRole="PlannedOrder" />
         </EntityType>
         <EntityType Name="Workshift">
           <Key>
@@ -10723,6 +11245,334 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PlannedOrderDetail">
+          <Key>
+            <PropertyRef Name="PlannedOrderDetailID" />
+          </Key>
+          <Property Name="PlannedOrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlannedOrderID" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="CommodityID" Type="Int32" Nullable="false" />
+          <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CommodityMaterialID" Type="Int32" Nullable="false" />
+          <Property Name="MoldID" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="QuantitySemifinished" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VoidTypeID" Type="Int32" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
+          <Property Name="InActivePartialDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Commodity" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_Commodities" FromRole="PlannedOrderDetail" ToRole="Commodity" />
+          <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_Customers" FromRole="PlannedOrderDetail" ToRole="Customer" />
+          <NavigationProperty Name="MaterialIssueDetails" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_PlannedOrderDetails" FromRole="PlannedOrderDetail" ToRole="MaterialIssueDetail" />
+          <NavigationProperty Name="Mold" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_Molds" FromRole="PlannedOrderDetail" ToRole="Mold" />
+          <NavigationProperty Name="PlannedOrder" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_PlannedOrders" FromRole="PlannedOrderDetail" ToRole="PlannedOrder" />
+          <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_VoidTypes" FromRole="PlannedOrderDetail" ToRole="VoidType" />
+          <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrderDetails" FromRole="PlannedOrderDetail" ToRole="PlannedOrderMaterial" />
+          <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrderDetails" FromRole="PlannedOrderDetail" ToRole="ProductionOrderDetail" />
+        </EntityType>
+        <EntityType Name="PlannedOrderMaterial">
+          <Key>
+            <PropertyRef Name="PlannedOrderMaterialID" />
+          </Key>
+          <Property Name="PlannedOrderMaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlannedOrderDetailID" Type="Int32" Nullable="false" />
+          <Property Name="PlannedOrderID" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="CommodityID" Type="Int32" Nullable="false" />
+          <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CommodityMaterialID" Type="Int32" Nullable="false" />
+          <Property Name="MaterialID" Type="Int32" Nullable="false" />
+          <Property Name="MoldID" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="QuantityIssued" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VoidTypeID" Type="Int32" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
+          <Property Name="InActivePartialDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Commodity" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_Commodities" FromRole="PlannedOrderMaterial" ToRole="Commodity" />
+          <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_Customers" FromRole="PlannedOrderMaterial" ToRole="Customer" />
+          <NavigationProperty Name="Mold" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_Molds" FromRole="PlannedOrderMaterial" ToRole="Mold" />
+          <NavigationProperty Name="PlannedOrderDetail" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrderDetails" FromRole="PlannedOrderMaterial" ToRole="PlannedOrderDetail" />
+          <NavigationProperty Name="PlannedOrder" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrders" FromRole="PlannedOrderMaterial" ToRole="PlannedOrder" />
+          <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_VoidTypes" FromRole="PlannedOrderMaterial" ToRole="VoidType" />
+        </EntityType>
+        <EntityType Name="PlannedOrder">
+          <Key>
+            <PropertyRef Name="PlannedOrderID" />
+          </Key>
+          <Property Name="PlannedOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="PreparedPersonID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="ApproverID" Type="Int32" Nullable="false" />
+          <Property Name="TotalQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalQuantitySemifinished" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="VoidTypeID" Type="Int32" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
+          <Property Name="InActiveDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_PlannedOrders_Customers" FromRole="PlannedOrder" ToRole="Customer" />
+          <NavigationProperty Name="Location" Relationship="TotalSmartPortalModel.FK_PlannedOrders_Locations" FromRole="PlannedOrder" ToRole="Location" />
+          <NavigationProperty Name="PlannedOrderDetails" Relationship="TotalSmartPortalModel.FK_PlannedOrderDetails_PlannedOrders" FromRole="PlannedOrder" ToRole="PlannedOrderDetail" />
+          <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrders" FromRole="PlannedOrder" ToRole="PlannedOrderMaterial" />
+          <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PlannedOrders_VoidTypes" FromRole="PlannedOrder" ToRole="VoidType" />
+          <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders" FromRole="PlannedOrder" ToRole="ProductionOrderDetail" />
+        </EntityType>
+        <Association Name="FK_PlannedOrderDetails_Commodities">
+          <End Type="TotalSmartPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="CommodityID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetail">
+              <PropertyRef Name="CommodityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_Commodities">
+          <End Type="TotalSmartPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderMaterial" Role="PlannedOrderMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="CommodityID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterial">
+              <PropertyRef Name="CommodityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_Customers">
+          <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetail">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_Customers">
+          <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderMaterial" Role="PlannedOrderMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterial">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrders_Customers">
+          <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrder" Role="PlannedOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="PlannedOrder">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrders_Locations">
+          <End Type="TotalSmartPortalModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrder" Role="PlannedOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="PlannedOrder">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialIssueDetails_PlannedOrderDetails">
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.MaterialIssueDetail" Role="MaterialIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrderDetail">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Principal>
+            <Dependent Role="MaterialIssueDetail">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_Molds">
+          <End Type="TotalSmartPortalModel.Mold" Role="Mold" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mold">
+              <PropertyRef Name="MoldID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetail">
+              <PropertyRef Name="MoldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_Molds">
+          <End Type="TotalSmartPortalModel.Mold" Role="Mold" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderMaterial" Role="PlannedOrderMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mold">
+              <PropertyRef Name="MoldID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterial">
+              <PropertyRef Name="MoldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_PlannedOrders">
+          <End Type="TotalSmartPortalModel.PlannedOrder" Role="PlannedOrder" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrder">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetail">
+              <PropertyRef Name="PlannedOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderDetails_VoidTypes">
+          <End Type="TotalSmartPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidType">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="PlannedOrderDetail">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_PlannedOrderDetails">
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderMaterial" Role="PlannedOrderMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrderDetail">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterial">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrderDetails_PlannedOrderDetails">
+          <End Type="TotalSmartPortalModel.PlannedOrderDetail" Role="PlannedOrderDetail" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.ProductionOrderDetail" Role="ProductionOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrderDetail">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetail">
+              <PropertyRef Name="PlannedOrderDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_PlannedOrders">
+          <End Type="TotalSmartPortalModel.PlannedOrder" Role="PlannedOrder" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderMaterial" Role="PlannedOrderMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrder">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterial">
+              <PropertyRef Name="PlannedOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrderMaterials_VoidTypes">
+          <End Type="TotalSmartPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.PlannedOrderMaterial" Role="PlannedOrderMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidType">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="PlannedOrderMaterial">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedOrders_VoidTypes">
+          <End Type="TotalSmartPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.PlannedOrder" Role="PlannedOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidType">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="PlannedOrder">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrderDetails_PlannedOrders">
+          <End Type="TotalSmartPortalModel.PlannedOrder" Role="PlannedOrder" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.ProductionOrderDetail" Role="ProductionOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrder">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="ProductionOrderDetail">
+              <PropertyRef Name="PlannedOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="PlannedOrderIndex">
+          <Property Type="Int32" Name="PlannedOrderID" Nullable="false" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="true" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="VoidTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Approved" Nullable="false" />
+          <Property Type="Boolean" Name="InActive" Nullable="false" />
+          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PlannedOrderViewDetail">
+          <Property Type="Int32" Name="PlannedOrderDetailID" Nullable="false" />
+          <Property Type="Int32" Name="PlannedOrderID" Nullable="false" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Int32" Name="MoldID" Nullable="false" />
+          <Property Type="String" Name="MoldCode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="VoidTypeID" Nullable="true" />
+          <Property Type="String" Name="VoidTypeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VoidTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VoidClassID" Nullable="true" />
+          <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
+          <Property Type="DateTime" Name="InActivePartialDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13926,6 +14776,129 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PlannedOrderDetails">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.PlannedOrderDetail">
+              <MappingFragment StoreEntitySet="PlannedOrderDetails">
+                <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="QuantitySemifinished" ColumnName="QuantitySemifinished" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="MoldID" ColumnName="MoldID" />
+                <ScalarProperty Name="CommodityMaterialID" ColumnName="CommodityMaterialID" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="PlannedOrderID" ColumnName="PlannedOrderID" />
+                <ScalarProperty Name="PlannedOrderDetailID" ColumnName="PlannedOrderDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlannedOrderMaterials">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.PlannedOrderMaterial">
+              <MappingFragment StoreEntitySet="PlannedOrderMaterials">
+                <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="QuantityIssued" ColumnName="QuantityIssued" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="MoldID" ColumnName="MoldID" />
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="CommodityMaterialID" ColumnName="CommodityMaterialID" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="PlannedOrderID" ColumnName="PlannedOrderID" />
+                <ScalarProperty Name="PlannedOrderDetailID" ColumnName="PlannedOrderDetailID" />
+                <ScalarProperty Name="PlannedOrderMaterialID" ColumnName="PlannedOrderMaterialID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlannedOrders">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.PlannedOrder">
+              <MappingFragment StoreEntitySet="PlannedOrders">
+                <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalQuantitySemifinished" ColumnName="TotalQuantitySemifinished" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
+                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="PlannedOrderID" ColumnName="PlannedOrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPlannedOrderIndexes" FunctionName="TotalSmartPortalModel.Store.GetPlannedOrderIndexes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.PlannedOrderIndex">
+                <ScalarProperty Name="PlannedOrderID" ColumnName="PlannedOrderID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPlannedOrderViewDetails" FunctionName="TotalSmartPortalModel.Store.GetPlannedOrderViewDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.PlannedOrderViewDetail">
+                <ScalarProperty Name="PlannedOrderDetailID" ColumnName="PlannedOrderDetailID" />
+                <ScalarProperty Name="PlannedOrderID" ColumnName="PlannedOrderID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="MoldID" ColumnName="MoldID" />
+                <ScalarProperty Name="MoldCode" ColumnName="MoldCode" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="VoidTypeCode" ColumnName="VoidTypeCode" />
+                <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
+                <ScalarProperty Name="VoidClassID" ColumnName="VoidClassID" />
+                <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PlannedOrderApproved" FunctionName="TotalSmartPortalModel.Store.PlannedOrderApproved" />
+          <FunctionImportMapping FunctionImportName="PlannedOrderEditable" FunctionName="TotalSmartPortalModel.Store.PlannedOrderEditable" />
+          <FunctionImportMapping FunctionImportName="PlannedOrderPostSaveValidate" FunctionName="TotalSmartPortalModel.Store.PlannedOrderPostSaveValidate" />
+          <FunctionImportMapping FunctionImportName="PlannedOrderSaveRelative" FunctionName="TotalSmartPortalModel.Store.PlannedOrderSaveRelative" />
+          <FunctionImportMapping FunctionImportName="PlannedOrderToggleApproved" FunctionName="TotalSmartPortalModel.Store.PlannedOrderToggleApproved" />
+          <FunctionImportMapping FunctionImportName="PlannedOrderToggleVoid" FunctionName="TotalSmartPortalModel.Store.PlannedOrderToggleVoid" />
+          <FunctionImportMapping FunctionImportName="PlannedOrderToggleVoidDetail" FunctionName="TotalSmartPortalModel.Store.PlannedOrderToggleVoidDetail" />
+          <FunctionImportMapping FunctionImportName="PlannedOrderVoidable" FunctionName="TotalSmartPortalModel.Store.PlannedOrderVoidable" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

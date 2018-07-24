@@ -118,6 +118,8 @@
     <Compile Include="Inventories\MaterialIssueDetailDTO.cs" />
     <Compile Include="Inventories\MaterialIssueDTO.cs" />
     <Compile Include="IPrimitiveDTO.cs" />
+    <Compile Include="Productions\PlannedOrderDetailDTO.cs" />
+    <Compile Include="Productions\PlannedOrderDTO.cs" />
     <Compile Include="Productions\ProductionOrderDetailDTO.cs" />
     <Compile Include="Productions\ProductionOrderDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

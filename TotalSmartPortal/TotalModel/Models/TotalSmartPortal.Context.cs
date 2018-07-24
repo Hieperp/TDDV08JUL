@@ -84,6 +84,9 @@ namespace TotalModel.Models
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
         public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
         public virtual DbSet<MaterialIssue> MaterialIssues { get; set; }
+        public virtual DbSet<PlannedOrderDetail> PlannedOrderDetails { get; set; }
+        public virtual DbSet<PlannedOrderMaterial> PlannedOrderMaterials { get; set; }
+        public virtual DbSet<PlannedOrder> PlannedOrders { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -2581,6 +2584,132 @@ namespace TotalModel.Models
                 new ObjectParameter("LocationID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingPlannedOrder>("GetMaterialIssuePendingPlannedOrders", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<PlannedOrderIndex> GetPlannedOrderIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlannedOrderIndex>("GetPlannedOrderIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<PlannedOrderViewDetail> GetPlannedOrderViewDetails(Nullable<int> plannedOrderID)
+        {
+            var plannedOrderIDParameter = plannedOrderID.HasValue ?
+                new ObjectParameter("PlannedOrderID", plannedOrderID) :
+                new ObjectParameter("PlannedOrderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlannedOrderViewDetail>("GetPlannedOrderViewDetails", plannedOrderIDParameter);
+        }
+    
+        public virtual ObjectResult<string> PlannedOrderApproved(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PlannedOrderApproved", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> PlannedOrderEditable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PlannedOrderEditable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> PlannedOrderPostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PlannedOrderPostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int PlannedOrderSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlannedOrderSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual int PlannedOrderToggleApproved(Nullable<int> entityID, Nullable<bool> approved)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var approvedParameter = approved.HasValue ?
+                new ObjectParameter("Approved", approved) :
+                new ObjectParameter("Approved", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlannedOrderToggleApproved", entityIDParameter, approvedParameter);
+        }
+    
+        public virtual int PlannedOrderToggleVoid(Nullable<int> entityID, Nullable<bool> inActive, Nullable<int> voidTypeID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var inActiveParameter = inActive.HasValue ?
+                new ObjectParameter("InActive", inActive) :
+                new ObjectParameter("InActive", typeof(bool));
+    
+            var voidTypeIDParameter = voidTypeID.HasValue ?
+                new ObjectParameter("VoidTypeID", voidTypeID) :
+                new ObjectParameter("VoidTypeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlannedOrderToggleVoid", entityIDParameter, inActiveParameter, voidTypeIDParameter);
+        }
+    
+        public virtual int PlannedOrderToggleVoidDetail(Nullable<int> entityID, Nullable<int> entityDetailID, Nullable<bool> inActivePartial, Nullable<int> voidTypeID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var entityDetailIDParameter = entityDetailID.HasValue ?
+                new ObjectParameter("EntityDetailID", entityDetailID) :
+                new ObjectParameter("EntityDetailID", typeof(int));
+    
+            var inActivePartialParameter = inActivePartial.HasValue ?
+                new ObjectParameter("InActivePartial", inActivePartial) :
+                new ObjectParameter("InActivePartial", typeof(bool));
+    
+            var voidTypeIDParameter = voidTypeID.HasValue ?
+                new ObjectParameter("VoidTypeID", voidTypeID) :
+                new ObjectParameter("VoidTypeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlannedOrderToggleVoidDetail", entityIDParameter, entityDetailIDParameter, inActivePartialParameter, voidTypeIDParameter);
+        }
+    
+        public virtual ObjectResult<string> PlannedOrderVoidable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PlannedOrderVoidable", entityIDParameter);
         }
     }
 }

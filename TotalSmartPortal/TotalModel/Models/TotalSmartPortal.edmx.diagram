@@ -205,6 +205,26 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_MaterialIssues" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrders" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Warehouses" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PlannedOrderDetail" Width="1.5" PointX="23.875" PointY="9.125" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PlannedOrderMaterial" Width="1.5" PointX="35.125" PointY="24.125" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.PlannedOrder" Width="1.5" PointX="18.25" PointY="36.375" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrders_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrders_Locations" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_PlannedOrderDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_Molds" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_Molds" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_PlannedOrders" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_VoidTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrderDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrderDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrders" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_VoidTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrders_VoidTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

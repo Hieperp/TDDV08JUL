@@ -39,5 +39,6 @@ namespace TotalModel.Models
         public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
         public virtual GoodsReceiptDetail GoodsReceiptDetail { get; set; }
         public virtual MaterialIssue MaterialIssue { get; set; }
+        public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
     }
 }

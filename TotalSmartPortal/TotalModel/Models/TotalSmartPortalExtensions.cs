@@ -95,7 +95,21 @@ namespace TotalModel.Models
 
 
 
+    public partial class PlannedOrder : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<PlannedOrderDetail>
+    {
+        public int GetID() { return this.PlannedOrderID; }
 
+        public ICollection<PlannedOrderDetail> GetDetails() { return this.PlannedOrderDetails; }
+    }
+
+
+    public partial class PlannedOrderDetail : IPrimitiveEntity, IHelperEntryDate, IHelperCommodityID, IHelperCommodityTypeID
+    {
+        public int GetID() { return this.PlannedOrderDetailID; }
+    }
+
+
+    
     public partial class ProductionOrder : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<ProductionOrderDetail>
     {
         public int GetID() { return this.ProductionOrderID; }
