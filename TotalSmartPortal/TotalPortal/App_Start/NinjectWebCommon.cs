@@ -121,12 +121,20 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IGoodsReceiptAPIRepository>().To<GoodsReceiptAPIRepository>();
                 kernel.Bind<IGoodsReceiptViewModelSelectListBuilder>().To<GoodsReceiptViewModelSelectListBuilder>();
 
+                
+                kernel.Bind<IMaterialIssueService>().To<MaterialIssueService>();
+                kernel.Bind<IMaterialIssueRepository>().To<MaterialIssueRepository>();
+                kernel.Bind<IMaterialIssueAPIRepository>().To<MaterialIssueAPIRepository>();
+                kernel.Bind<IMaterialIssueViewModelSelectListBuilder>().To<MaterialIssueViewModelSelectListBuilder>();
+
+
 
 
                 kernel.Bind<IProductionOrderService>().To<ProductionOrderService>();
                 kernel.Bind<IProductionOrderRepository>().To<ProductionOrderRepository>();
                 kernel.Bind<IProductionOrderAPIRepository>().To<ProductionOrderAPIRepository>();
                 kernel.Bind<IProductionOrderViewModelSelectListBuilder>().To<ProductionOrderViewModelSelectListBuilder>();
+
 
 
 

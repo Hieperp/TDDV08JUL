@@ -1,0 +1,292 @@
+﻿@using TotalBase.Enums;
+@using TotalPortal.Configuration
+
+@model TotalPortal.Areas.Inventories.ViewModels.GoodsReceiptViewModel
+
+<div id="popupWindow"></div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MainForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
+    @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTopB.cshtml")
+
+    @Html.Hidden("WarehouseTaskID", (int)@ViewBag.WarehouseTaskID);
+    @Html.Hidden("WarehouseTaskIDList", (string)@ViewBag.WarehouseTaskIDList);
+    
+    @Html.HiddenFor(model => model.GoodsReceiptID)
+    @Html.HiddenFor(model => model.GoodsReceiptTypeID)
+
+    <div class="left-panel">
+
+        @Html.Partial("~/Views/Helpers/Bases/_BaseSectionLeftA.cshtml")
+
+
+        @Html.HiddenFor(model => model.PurchaseRequisitionID)
+        @Html.HiddenFor(model => model.PurchaseRequisitionCode)
+        @Html.HiddenFor(model => model.PurchaseRequisitionReference)
+        @if (Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.PurchaseRequisitionReferenceNote)
+                <div class="div-input">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.PurchaseRequisitionReferenceNote).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                </div>
+                <div class="div-validation-message">
+                    @Html.ValidationMessageFor(model => model.PurchaseRequisitionReferenceNote, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PurchaseRequisitionCodeNote)
+                <div class="div-input">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.PurchaseRequisitionCodeNote).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                </div>
+                <div class="div-validation-message">
+                    @Html.ValidationMessageFor(model => model.PurchaseRequisitionCodeNote, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            if (Model.PurchaseRequisitionEntryDate != null)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PurchaseRequisitionEntryDate)
+                    <div class="div-input">
+                        @Html.Kendo().DateTimePickerFor(model => model.PurchaseRequisitionEntryDate).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                    </div>
+                    <div class="div-validation-message">
+                        @Html.ValidationMessageFor(model => model.PurchaseRequisitionEntryDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code)
+                <div class="div-input">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.Code).HtmlAttributes(new { @class = "left-panel-input" })
+                </div>
+                <div class="div-validation-message">
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
+
+    </div>
+
+    <div class="right-panel">
+
+        <div class="right-top-panel right-top-panel-H1">
+
+            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+
+            @*@Html.DisplayFor(d => d.Warehouse, "Commons/WarehouseBase")*@
+
+        </div>
+
+        <div class="div-k-grid-detail">
+            @(Html.Kendo().Grid(Model.GoodsReceiptViewDetails)
+                .Name("kendoGridDetails")
+                .Columns(columns =>
+                {
+
+                    columns.Bound(p => p.GoodsReceiptDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= GoodsReceiptDetailID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].GoodsReceiptDetailID' value='#= GoodsReceiptDetailID #' />");
+                    columns.Bound(p => p.GoodsReceiptID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= GoodsReceiptID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].GoodsReceiptID' value='#= GoodsReceiptID #' />");
+
+                    columns.Bound(p => p.PurchaseRequisitionID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (PurchaseRequisitionID == null)? '' : PurchaseRequisitionID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionID' value='#= (PurchaseRequisitionID == null) ? '' : PurchaseRequisitionID #' />");
+                    columns.Bound(p => p.PurchaseRequisitionDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (PurchaseRequisitionDetailID == null)? '' : PurchaseRequisitionDetailID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionDetailID' value='#= (PurchaseRequisitionDetailID == null) ? '' : PurchaseRequisitionDetailID #' />");
+
+                    columns.Bound(p => p.PurchaseRequisitionCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
+                        .ClientTemplate("#= (PurchaseRequisitionCode == null)? '' : PurchaseRequisitionCode #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionCode' value='#= (PurchaseRequisitionCode == null) ? '' : PurchaseRequisitionCode #' />");
+                    columns.Bound(p => p.PurchaseRequisitionReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && @Model.PurchaseRequisitionID == null ? false : true)
+                        .ClientTemplate("#= (PurchaseRequisitionReference == null)? '' : PurchaseRequisitionReference #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionReference' value='#= (PurchaseRequisitionReference == null) ? '' : PurchaseRequisitionReference #' />");
+                    columns.Bound(p => p.PurchaseRequisitionEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && @Model.PurchaseRequisitionID == null ? false : true)
+                        .Format("{0:" + @SettingsManager.DateFormat + "}")
+                        .ClientTemplate("#= (PurchaseRequisitionEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PurchaseRequisitionEntryDate) #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionEntryDate' value='#= (PurchaseRequisitionEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PurchaseRequisitionEntryDate) #' />");
+
+
+                    columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
+                    columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
+                        .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
+                    columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition ? "StringReadonly" : "AutoCompletes/CommodityAvailable")
+                        .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
+                        .ClientTemplate("#= CommodityCode #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
+
+                    columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
+
+
+                    columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition ? false : true)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+
+
+
+                    columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
+
+                    
+                    columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50).Hidden(!@Model.Editable).HtmlAttributes(new { @class = "grid-column-center" });
+
+                    columns.Template(model => null).HtmlAttributes(new { @class = "grid-column-center" }).Width(50).Hidden(!@Model.Voidable && !@Model.UnVoidable)
+                        .ClientTemplate("<a class='k-button' style='padding:0px;' onclick='callVoidDetail(#= GoodsReceiptDetailID #)'><span class='k-icon k-edit'></span></a>");
+                })
+                    .Filterable()
+                    .Navigatable()
+
+                    .ToolBar(toolbar =>
+                    {
+                        if (Model.Editable)
+                        {
+                            //toolbar.Create().HtmlAttributes(new { @class = "fa fa-map-marker" }).Text("Add new aa le ea1");
+                            if (Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition)
+                                toolbar.Template(@<text>
+                                    <button type="button" class="k-button" onclick="GetPendingPurchaseRequisitionDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
+                                    <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Giao hàng toàn bộ đơn hàng </button>
+                                </text>);
+                            else
+                                toolbar.Template(@<text>
+                                <button type="button" class="k-button" onclick="$('#kendoGridDetails').data('kendoGrid').addRow()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Thêm mặt hàng </button>
+                                </text>);
+                        }
+                        else
+                        {//Add a functionless button for display purpose only
+                            toolbar.Template(
+                                @<text>
+                                    <div>
+                                        @(Html.Kendo().Button()
+                                            .Name("iconButton")
+                                            .HtmlAttributes(new { type = "button" })
+                                            .SpriteCssClass("k-icon k-i-ungroup") //.Content("My button label")
+                                        )
+                                    </div>
+                                </text>);
+                        }
+                    })
+
+                    .Editable(editable => { editable.Enabled(Model.Editable); editable.Mode(GridEditMode.InCell).DisplayDeleteConfirmation(true).CreateAt(GridInsertRowPosition.Bottom); })
+                    .Selectable(settings =>
+                    {
+                        settings.Mode(GridSelectionMode.Multiple);
+                        settings.Type(GridSelectionType.Row);
+                    })
+                    .Events(events =>
+                    {
+                        events.DataBound(@<text>
+                            function(e) {
+
+                            var grid = $("#kendoGridDetails").data("kendoGrid");
+                            var data = grid.dataSource.data();
+                            $.each(data, function (i, row) {
+                            var isWarrantyClaim = row.VoidTypeName;
+                            if (isWarrantyClaim != null && isWarrantyClaim != '') {
+                            $('tr[data-uid="' + row.uid + '"]').addClass("isBonus");
+                            }
+                            });
+                            }
+                        </text>);
+                    }).DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Batch(true)
+                        .ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(x => x.GoodsReceiptDetailID);
+                            model.Field(m => m.GoodsReceiptDetailID).DefaultValue(0);
+                            model.Field(m => m.GoodsReceiptID).DefaultValue(@Model.GoodsReceiptID);
+                        })
+                        .Events(events =>
+                        {
+                            events.Error("kendGrid_ErrorHandler");
+                        })
+                        .Aggregates(a => a.Add(x => x.CommodityCode).Count())
+                        .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
+                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                    )
+            )
+        </div>
+
+        <div class="div-k-panel">
+            @(Html.Kendo().PanelBar()
+                .Name("IntroPanelBar")
+                .Items(items =>
+                {
+                    items.Add()
+                        .Text("Thông tin khác")
+                        .Selected(true)
+                        .Expanded(false)
+                        .Content(@<text>
+                            <div class="right-first-panel">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, new { @class = "right-panel-label" })
+                                    <div class="div-input">
+                                        @Html.Kendo().MaskedTextBoxFor(model => model.Description).HtmlAttributes(new { @class = "right-panel-input" })
+                                    </div>
+                                    <div class="div-validation-message">
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="right-second-panel">
+                                @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/PreparedPerson.cshtml")
+                                @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/Approver.cshtml")
+                            </div>
+
+                        </text>).HtmlAttributes(new { @class = "panel-class" });
+                })
+            )
+        </div>
+
+
+        <div class="right-botton-panel">
+            @if (Model.Editable)
+            {
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsReceipts")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
+            }
+            else
+            {
+                if (!Model.Voidable && !Model.UnVoidable)
+                {
+                    <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "GoodsReceipts", new { id = @Model.GoodsReceiptID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In tổng hợp xuất kho </button>
+                }
+            }
+        </div>
+
+        @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
+
+    </div>
+}
+
+
+<script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
+
+<script type="text/javascript">
+    function GetPendingPurchaseRequisitionDetails() {
+        require(["kpopupWindow"], function (kpopupWindow) {
+            var createWizardWindow = new kpopupWindow();
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPurchaseRequisitionDetails", "GoodsReceipts", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+        });
+    }
+
+    function callVoidDetail(goodsReceiptDetailID) {
+        require(["kpopupWindow"], function (kpopupWindow) {
+            var voidDetailWindow = new kpopupWindow();
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "GoodsReceipts")" + "/" + $("#GoodsReceiptID").val() + "/" + goodsReceiptDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+        });
+    }
+</script>

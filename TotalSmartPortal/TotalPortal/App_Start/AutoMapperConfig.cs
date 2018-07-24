@@ -45,6 +45,12 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<GoodsReceiptDetailDTO, GoodsReceiptDetail>();
 
 
+                cfg.CreateMap<MaterialIssue, MaterialIssueViewModel>();
+                cfg.CreateMap<MaterialIssue, MaterialIssueDTO>();
+                cfg.CreateMap<MaterialIssuePrimitiveDTO, MaterialIssue>();
+                cfg.CreateMap<MaterialIssueViewDetail, MaterialIssueDetailDTO>();
+                cfg.CreateMap<MaterialIssueDetailDTO, MaterialIssueDetail>();
+
 
 
                 cfg.CreateMap<ProductionOrder, ProductionOrderViewModel>();

@@ -1,0 +1,116 @@
+﻿@using TotalPortal.Configuration
+
+@model TotalPortal.ViewModels.Home.OptionViewModel
+
+<div id="popupWindow"></div>
+
+<div>
+    @(Html.Kendo().Grid<TotalModel.Models.GoodsReceiptIndex>()
+        .Name("kendoGridIndex")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.GoodsReceiptID).DisplayNameTitle().Hidden();
+            columns.Bound(p => p.LocationCode).Title("CN").Hidden().Width(1);
+            columns.Bound(p => p.EntryDate).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(90).Filterable(false);
+
+            columns.Bound(p => p.Reference).Title("#").Width(10).Filterable(false).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Inventories/GoodsReceipts", action = "Edit" }) + "/#= GoodsReceiptID #'>#=Reference#</a>");
+            columns.Bound(p => p.CustomerName).Title("Khách hàng").Width(190);
+            columns.Bound(p => p.Description).Title("Diễn giải").Width(130);
+
+            columns.Bound(p => p.TotalQuantity).Title("Đặt hàng").Format("{0:n0}").HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Filterable(false).Width(60).ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #").FooterHtmlAttributes(new { @class = "grid-number-column" });
+
+            columns.Template(model => null).HtmlAttributes(new { @class = "grid-column-center" }).Width(92)
+                .ClientTemplate("<a class='k-button' style='padding-left:5px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/GoodsReceipts", action = "Void" }) + "/#= GoodsReceiptID #'><span class='k-icon k-edit'></span></a> <a class='k-button' style='padding-left:0px; padding-right:0px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/GoodsReceipts", action = "Print" }) + "/#= GoodsReceiptID #'><span class='k-icon k-i-folder-add'></span></a>");
+        })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Template(@<text>
+                <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập đề nghị giao hàng </button>
+                <div class="toolbar" style="float: right;">
+                    <label>Nhập số phiếu, số đơn hàng hoặc tên KH</label>
+                    <input id="indexFilterText" class="k-textbox" style="text-align: center; " onkeyup="indexFilterText_KeyUp()" />
+                </div>
+            </text>);
+        })
+            .Pageable()
+            .Groupable(g => g.Messages(messages => messages.Empty("Phân nhóm dữ liệu: Kéo và thả tiêu đề một hoặc nhiều cột dữ liệu ngay bên dưới vào đây để phân nhóm hiển thị theo phân cấp của các cột dữ liệu")))
+            .Filterable()
+            .Selectable()
+            .Sortable()
+            .Events(e =>
+            {
+                e.DataBound("hightLightSelectedRow");
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("GetGoodsReceiptIndexes", "GoodsReceiptAPIs", new { area = "Inventories" }))
+                .Sort(sort =>
+                    {
+                        sort.Add(p => p.EntryDate).Descending();
+                        sort.Add(p => p.GoodsReceiptID).Descending();
+                    })
+                .PageSize(20)
+                .Model(model =>
+                {
+                    model.Id(x => x.GoodsReceiptID);
+                    model.Field(m => m.GoodsReceiptID).DefaultValue(0);
+                })
+                .ServerOperation(true)
+                .Aggregates(a => a.Add(x => x.TotalQuantity).Sum())
+                )
+            .HtmlAttributes(new { @class = "grid-class" })
+    )
+</div>
+
+
+
+<script type="text/javascript">
+
+    function hightLightSelectedRow(e) {
+        require(["kindexGrid"], function (kindexGrid) {
+            var kindexGridInstance = new kindexGrid("kendoGridIndex");
+            kindexGridInstance.setSelectedRow("GoodsReceiptID", '@ViewBag.SelectedEntityID');
+        });
+    }
+
+    function createWizard() {
+        require(["kpopupWindow"], function (kpopupWindow) {
+            var createWizardWindow = new kpopupWindow();
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "GoodsReceipts")", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
+        });
+    }
+
+
+    decoratingKindex = function (idx, elem) {
+        if (elem.Approved == null || elem.Approved == false) {
+            $('tr[data-uid="' + elem.uid + '"]').addClass("NotApproved");
+        }
+    }
+
+
+
+
+
+
+    function indexFilterText_KeyUp() {
+        var indexFilterText = $("#indexFilterText").val(), gridDetails = $("#kendoGridIndex").data("kendoGrid");
+
+        if ((indexFilterText && indexFilterText.length >= "@SettingsManager.AutoCompleteMinLenght") || $("#ShowPendingOnly").val() != "0") {
+            gridDetails.dataSource.filter({
+                logic: "or",
+                filters: [
+                    { field: "Reference", operator: "contains", value: indexFilterText },
+                    { field: "CustomerName", operator: "contains", value: indexFilterText }
+                ]
+            });
+
+
+        } else {
+            if (gridDetails.dataSource.filter() != undefined)
+                gridDetails.dataSource.filter({});
+        }
+    }
+
+</script>
+
+
