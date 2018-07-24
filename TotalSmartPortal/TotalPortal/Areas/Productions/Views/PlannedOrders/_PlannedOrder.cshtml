@@ -1,7 +1,7 @@
 ﻿@using TotalBase.Enums;
 @using TotalPortal.Configuration
 
-@model TotalPortal.Areas.Productions.ViewModels.ProductionOrderViewModel
+@model TotalPortal.Areas.Productions.ViewModels.PlannedOrderViewModel
 
 <div id="popupWindow"></div>
 
@@ -12,7 +12,7 @@
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTopB.cshtml")
 
-    @Html.HiddenFor(model => model.ProductionOrderID)
+    @Html.HiddenFor(model => model.PlannedOrderID)
 
     <div class="left-panel">
 
@@ -47,69 +47,57 @@
             </div>*@
 
         <div class="div-k-grid-detail">
-            @(Html.Kendo().Grid(Model.ProductionOrderViewDetails)
+            @(Html.Kendo().Grid(Model.PlannedOrderViewDetails)
                 .Name("kendoGridDetails")
                 .Columns(columns =>
                 {
 
-                    columns.Bound(p => p.ProductionOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= ProductionOrderDetailID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionOrderDetailID' value='#= ProductionOrderDetailID #' />");
-                    columns.Bound(p => p.ProductionOrderID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= ProductionOrderID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionOrderID' value='#= ProductionOrderID #' />");
+                    columns.Bound(p => p.PlannedOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= PlannedOrderDetailID #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].PlannedOrderDetailID' value='#= PlannedOrderDetailID #' />");
+                    columns.Bound(p => p.PlannedOrderID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= PlannedOrderID #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].PlannedOrderID' value='#= PlannedOrderID #' />");
 
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
+                        .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
                     columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
-                        .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
+                        .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
                     columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
                         .ClientTemplate("<div> #= CommodityCode #</div>" +
                         //"<div> #= '[' ##= WarehouseCode ##= ']' #</div>" +
                                 "<div> #= (VoidTypeName == null)? '' : VoidTypeName #</div>" +
-                                "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
+                                "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
 
                     columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
+                        .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
 
-
-
-                    columns.Bound(p => p.CustomerID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= CustomerID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CustomerID' value='#= CustomerID #' />");
-                    columns.Bound(p => p.CustomerCode).DisplayNameTitle().Filterable(false).Width(200)
-                        .ClientTemplate("#= CustomerCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CustomerCode' value='#= CustomerCode #' />");
-
-                    
-                    columns.Bound(p => p.ProductionLineID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= ProductionLineID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineID' value='#= ProductionLineID #' />");
-                    columns.Bound(p => p.ProductionLineCode).DisplayNameTitle().Filterable(false).Width(200)
-                        .ClientTemplate("#= ProductionLineCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineCode' value='#= ProductionLineCode #' />");
 
                     columns.Bound(p => p.MoldID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= MoldID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].MoldID' value='#= MoldID #' />");
+                        .ClientTemplate("#= MoldID #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].MoldID' value='#= MoldID #' />");
                     columns.Bound(p => p.MoldCode).DisplayNameTitle().Filterable(false).Width(200)
-                        .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
+                        .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
 
                     
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
 
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
+                        .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
 
                     columns.Bound(p => p.InActivePartial).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= (InActivePartial == null)? '' : InActivePartial #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].InActivePartial' value='#= (InActivePartial == null) ? '' : InActivePartial #' />");
+                        .ClientTemplate("#= (InActivePartial == null)? '' : InActivePartial #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].InActivePartial' value='#= (InActivePartial == null) ? '' : InActivePartial #' />");
 
                     //columns.Bound(p => p.InActivePartialDate).DisplayNameTitle().Filterable(false).Hidden()
-                    //    .ClientTemplate("#= (InActivePartialDate == null)? '' : InActivePartialDate #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].InActivePartialDate' value='#= (InActivePartialDate == null) ? '' : InActivePartialDate #' />");
+                    //    .ClientTemplate("#= (InActivePartialDate == null)? '' : InActivePartialDate #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].InActivePartialDate' value='#= (InActivePartialDate == null) ? '' : InActivePartialDate #' />");
 
                     columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50).Hidden(!@Model.Editable).HtmlAttributes(new { @class = "grid-column-center" });
 
                     columns.Template(model => null).HtmlAttributes(new { @class = "grid-column-center" }).Width(50).Hidden(!@Model.Voidable && !@Model.UnVoidable)
-                        .ClientTemplate("<a class='k-button' style='padding:0px;' onclick='callVoidDetail(#= ProductionOrderDetailID #)'><span class='k-icon k-edit'></span></a>");
+                        .ClientTemplate("<a class='k-button' style='padding:0px;' onclick='callVoidDetail(#= PlannedOrderDetailID #)'><span class='k-icon k-edit'></span></a>");
                 })
                     .Filterable()
                     .Navigatable()
@@ -165,9 +153,9 @@
                         .ServerOperation(false)
                         .Model(model =>
                         {
-                            model.Id(x => x.ProductionOrderDetailID);
-                            model.Field(m => m.ProductionOrderDetailID).DefaultValue(0);
-                            model.Field(m => m.ProductionOrderID).DefaultValue(@Model.ProductionOrderID);
+                            model.Id(x => x.PlannedOrderDetailID);
+                            model.Field(m => m.PlannedOrderDetailID).DefaultValue(0);
+                            model.Field(m => m.PlannedOrderID).DefaultValue(@Model.PlannedOrderID);
                         })
                         .Events(events =>
                         {
@@ -215,12 +203,12 @@
         <div class="right-botton-panel">
             @if (Model.Editable)
             {
-                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "ProductionOrders")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "PlannedOrders")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
             }
 
-            @if (Model.ProductionOrderID > 0 && !Model.Approvable && !Model.UnApprovable)
+            @if (Model.PlannedOrderID > 0 && !Model.Approvable && !Model.UnApprovable)
             {
-                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Approve", "ProductionOrders", new {id = @Model.ProductionOrderID })'"> <img src="~/Content/Images/Mains/@(!@Model.Approved ? "Actions-ok-icon32.png" : "Cross-icon-cancel32.png")" /> @(!Model.Approved ? "Duyệt đơn hàng" : "Hủy duyệt đơn hàng này") </button>
+                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Approve", "PlannedOrders", new {id = @Model.PlannedOrderID })'"> <img src="~/Content/Images/Mains/@(!@Model.Approved ? "Actions-ok-icon32.png" : "Cross-icon-cancel32.png")" /> @(!Model.Approved ? "Duyệt đơn hàng" : "Hủy duyệt đơn hàng này") </button>
             }
 
         </div>
@@ -239,10 +227,10 @@
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
 
 <script type="text/javascript">
-    function callVoidDetail(productionOrderDetailID) {
+    function callVoidDetail(plannedOrderDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "ProductionOrders")" + "/" + $("#ProductionOrderID").val() + "/" + productionOrderDetailID, "Hủy/ phục hồi một phần đơn hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "PlannedOrders")" + "/" + $("#PlannedOrderID").val() + "/" + plannedOrderDetailID, "Hủy/ phục hồi một phần đơn hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
         });
     }
 </script>
