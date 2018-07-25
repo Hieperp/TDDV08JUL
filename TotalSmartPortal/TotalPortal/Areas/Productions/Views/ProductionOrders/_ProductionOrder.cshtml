@@ -43,17 +43,17 @@
             </div>
         </div>
 
-        if (Model.PlannedOrderEntryDate != null)
+        @if (Model.PlannedOrderEntryDate != null)
         {
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlannedOrderEntryDate)
-            <div class="div-input">
-                @Html.Kendo().DateTimePickerFor(model => model.PlannedOrderEntryDate).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.PlannedOrderEntryDate)
+                <div class="div-input">
+                    @Html.Kendo().DateTimePickerFor(model => model.PlannedOrderEntryDate).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                </div>
+                <div class="div-validation-message">
+                    @Html.ValidationMessageFor(model => model.PlannedOrderEntryDate, "", new { @class = "text-danger" })
+                </div>
             </div>
-            <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.PlannedOrderEntryDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
         }
 
 
@@ -135,6 +135,10 @@
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
 
+                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
 
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
@@ -202,22 +206,23 @@
                             }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                                                                                                .Ajax()
-                                                                                                .Batch(true)
-                                                                                                .ServerOperation(false)
-                                                                                                .Model(model =>
-                                                                                                {
-                                                                                                    model.Id(x => x.ProductionOrderDetailID);
-                                                                                                    model.Field(m => m.ProductionOrderDetailID).DefaultValue(0);
-                                                                                                    model.Field(m => m.ProductionOrderID).DefaultValue(@Model.ProductionOrderID);
-                                                                                                })
-                                                                                                .Events(events =>
-                                                                                                {
-                                                                                                    events.Error("kendGrid_ErrorHandler");
-                                                                                                })
-                                                                                                .Aggregates(a => a.Add(x => x.CommodityCode).Count())
-                                                                                                .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
-                                                                                            )
+                        .Ajax()
+                        .Batch(true)
+                        .ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(x => x.ProductionOrderDetailID);
+                            model.Field(m => m.ProductionOrderDetailID).DefaultValue(0);
+                            model.Field(m => m.ProductionOrderID).DefaultValue(@Model.ProductionOrderID);
+                        })
+                        .Events(events =>
+                        {
+                            events.Error("kendGrid_ErrorHandler");
+                        })
+                        .Aggregates(a => a.Add(x => x.CommodityCode).Count())
+                        .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
+                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                    )
             )
         </div>
 

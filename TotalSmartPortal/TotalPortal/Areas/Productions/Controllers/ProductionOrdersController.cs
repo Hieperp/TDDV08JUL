@@ -33,6 +33,13 @@ namespace TotalPortal.Areas.Productions.Controllers
 
             RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
         }
+
+        public virtual ActionResult GetPendingPlannedOrderDetails()
+        {
+            this.AddRequireJsOptions();
+            return View();
+        }
+
     }
 
 }

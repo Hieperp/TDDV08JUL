@@ -25,6 +25,6 @@ namespace TotalModel.Models
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public string Code { get; set; }
-        public decimal TotalQuantityReceipt { get; set; }
+        public decimal TotalQuantityReceipted { get; set; }
     }
 }

@@ -22,7 +22,7 @@
             .ToolBar(toolbar =>
             {
                 toolbar.Template(@<text>
-                    <button type="button" class="k-button" onclick="location.href='@Url.Action("Create", "ProductionOrders")'"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập phiếu đề nghị mua hàng </button>
+                    <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập đề nghị giao hàng </button>
                     <div class="toolbar" style="float: right;">
                         <label>Nhập số đơn hàng hoặc tên khách hàng để tìm</label>
                         <input id="indexFilterText" class="k-textbox" style="text-align: center; " onkeyup="indexFilterText_KeyUp()" />

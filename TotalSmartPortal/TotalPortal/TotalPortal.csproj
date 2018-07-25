@@ -1138,7 +1138,6 @@
     <Content Include="Areas\Productions\Views\ProductionOrders\Index.cshtml" />
     <Content Include="Areas\Productions\Views\ProductionOrders\_ProductionOrder.cshtml" />
     <Content Include="Areas\Productions\Views\ProductionOrders\Approve.cshtml" />
-    <Content Include="Areas\Productions\Views\ProductionOrders\Create.cshtml" />
     <Content Include="Areas\Productions\Views\ProductionOrders\Delete.cshtml" />
     <Content Include="Areas\Productions\Views\ProductionOrders\Edit.cshtml" />
     <Content Include="Areas\Productions\Views\ProductionOrders\Print.cshtml" />
@@ -1165,6 +1164,10 @@
     <Content Include="Areas\Productions\Views\PlannedOrders\VoidDetail.cshtml" />
     <Content Include="Areas\Productions\Views\PlannedOrders\VoidDetailSuccess.cshtml" />
     <Content Include="Areas\Productions\Views\PlannedOrders\_PlannedOrder.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\_GetCustomer.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\_GetPlannedOrder.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\CreateWizard.cshtml" />
+    <Content Include="Areas\Productions\Views\ProductionOrders\GetPendingPlannedOrderDetails.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1254,8 +1257,9 @@
     <Content Include="Scripts\Controllers\Productions\PlannedOrders\Open.js" />
     <Content Include="Scripts\Controllers\Productions\PlannedOrders\Print.js" />
     <Content Include="Scripts\Controllers\Productions\PlannedOrders\Void.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\AddPendingPlannedOrderDetail.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Approve.js" />
-    <Content Include="Scripts\Controllers\Productions\ProductionOrders\Create.js" />
+    <Content Include="Scripts\Controllers\Productions\ProductionOrders\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Delete.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Edit.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Index.js" />
