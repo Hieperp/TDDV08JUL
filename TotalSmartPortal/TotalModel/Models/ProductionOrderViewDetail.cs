@@ -33,5 +33,11 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
         public string Remarks { get; set; }
+        public int PlannedOrderID { get; set; }
+        public int PlannedOrderDetailID { get; set; }
+        public string PlannedOrderReference { get; set; }
+        public string PlannedOrderCode { get; set; }
+        public System.DateTime PlannedOrderEntryDate { get; set; }
+        public Nullable<decimal> QuantityRemains { get; set; }
     }
 }

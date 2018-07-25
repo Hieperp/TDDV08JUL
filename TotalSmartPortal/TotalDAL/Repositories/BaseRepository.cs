@@ -295,7 +295,7 @@ namespace TotalDAL.Repositories
             Helpers.SqlProgrammability.Productions.PlannedOrder plannedOrder = new Helpers.SqlProgrammability.Productions.PlannedOrder(totalSmartPortalEntities);
             plannedOrder.RestoreProcedure();
 
-            return;
+            //return;
 
             Helpers.SqlProgrammability.Inventories.MaterialIssue materialIssue = new Helpers.SqlProgrammability.Inventories.MaterialIssue(totalSmartPortalEntities);
             materialIssue.RestoreProcedure();

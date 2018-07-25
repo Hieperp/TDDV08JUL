@@ -48,7 +48,7 @@ namespace TotalModel.Models
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
-        public virtual ProductionOrder ProductionOrder { get; set; }
         public virtual Warehouse Warehouse { get; set; }
+        public virtual ProductionOrder ProductionOrder { get; set; }
     }
 }

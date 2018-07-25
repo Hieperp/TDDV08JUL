@@ -21,6 +21,11 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
             this.GetProductionOrderIndexes();
 
             this.GetProductionOrderViewDetails();
+
+            this.GetProductionOrderPendingCustomers();
+            this.GetProductionOrderPendingPlannedOrders();
+            this.GetProductionOrderPendingPlannedOrderDetails();
+
             this.ProductionOrderSaveRelative();
             this.ProductionOrderPostSaveValidate();
 
@@ -69,13 +74,16 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      ProductionOrderDetails.ProductionOrderDetailID, ProductionOrderDetails.ProductionOrderID, " + "\r\n";
+            queryString = queryString + "       SELECT      ProductionOrderDetails.ProductionOrderDetailID, ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.PlannedOrderID, ProductionOrderDetails.PlannedOrderDetailID, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.Code AS PlannedOrderCode, PlannedOrders.EntryDate AS PlannedOrderEntryDate, " + "\r\n";
             queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, ProductionOrderDetails.CommodityTypeID, " + "\r\n";
             queryString = queryString + "                   ProductionOrderDetails.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, ProductionOrderDetails.ProductionLineID, ProductionLines.Code AS ProductionLineCode, ProductionOrderDetails.MoldID, Molds.Code AS MoldCode, " + "\r\n";
             queryString = queryString + "                   VoidTypes.VoidTypeID, VoidTypes.Code AS VoidTypeCode, VoidTypes.Name AS VoidTypeName, VoidTypes.VoidClassID, " + "\r\n";
+            queryString = queryString + "                   ROUND(CASE WHEN PlannedOrderDetails.Approved = 1 AND PlannedOrderDetails.InActive = 0 AND PlannedOrderDetails.InActivePartial = 0 THEN PlannedOrderDetails.Quantity - PlannedOrderDetails.QuantitySemifinished ELSE 0 END, " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, " + "\r\n";
             queryString = queryString + "                   ProductionOrderDetails.InActivePartial, ProductionOrderDetails.InActivePartialDate, ProductionOrderDetails.Remarks " + "\r\n";
             queryString = queryString + "       FROM        ProductionOrderDetails " + "\r\n";
             queryString = queryString + "                   INNER JOIN Commodities ON ProductionOrderDetails.ProductionOrderID = @ProductionOrderID AND ProductionOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrderDetails ON ProductionOrderDetails.PlannedOrderDetailID = PlannedOrderDetails.PlannedOrderDetailID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrders ON PlannedOrderDetails.PlannedOrderID = PlannedOrders.PlannedOrderID " + "\r\n";
             queryString = queryString + "                   INNER JOIN Customers ON ProductionOrderDetails.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                   INNER JOIN ProductionLines ON ProductionOrderDetails.ProductionLineID = ProductionLines.ProductionLineID " + "\r\n";
             queryString = queryString + "                   INNER JOIN Molds ON ProductionOrderDetails.MoldID = Molds.MoldID " + "\r\n";
@@ -85,6 +93,148 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
 
             this.totalSmartPortalEntities.CreateStoredProcedure("GetProductionOrderViewDetails", queryString);
         }
+
+        private void GetProductionOrderPendingPlannedOrders()
+        {
+            string queryString = " @LocationID int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       SELECT          PlannedOrders.PlannedOrderID, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.Code AS PlannedOrderCode, PlannedOrders.EntryDate AS PlannedOrderEntryDate, PlannedOrders.Description, PlannedOrders.Remarks, " + "\r\n";
+            queryString = queryString + "                       PlannedOrders.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.OfficialName AS CustomerOfficialName " + "\r\n";
+
+            queryString = queryString + "       FROM            PlannedOrders " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON PlannedOrders.PlannedOrderID IN (SELECT PlannedOrderID FROM PlannedOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0 AND ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") > 0) AND PlannedOrders.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("GetProductionOrderPendingPlannedOrders", queryString);
+        }
+
+        private void GetProductionOrderPendingCustomers()
+        {
+            string queryString = " @LocationID int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       SELECT          Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.OfficialName AS CustomerOfficialName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.TerritoryID AS CustomerTerritoryID, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
+
+            queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID FROM PlannedOrders WHERE PlannedOrderID IN (SELECT PlannedOrderID FROM PlannedOrderDetails WHERE LocationID = @LocationID AND Approved = 1 AND InActive = 0 AND InActivePartial = 0  AND ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") > 0)) CustomerPENDING " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON CustomerPENDING.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN CustomerCategories ON Customers.CustomerCategoryID = CustomerCategories.CustomerCategoryID " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("GetProductionOrderPendingCustomers", queryString);
+        }
+
+
+
+        private void GetProductionOrderPendingPlannedOrderDetails()
+        {
+            string queryString;
+
+            SqlProgrammability.Inventories.Inventories inventories = new SqlProgrammability.Inventories.Inventories(this.totalSmartPortalEntities);
+
+            queryString = " @LocationID Int, @ProductionOrderID Int, @PlannedOrderID Int, @CustomerID Int, @PlannedOrderDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "   BEGIN " + "\r\n";
+
+            queryString = queryString + "       IF  (@PlannedOrderID <> 0) " + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPlannedOrder(true) + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPlannedOrder(false) + "\r\n";
+
+            queryString = queryString + "   END " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("GetProductionOrderPendingPlannedOrderDetails", queryString);
+        }
+
+        private string BuildSQLPlannedOrder(bool isPlannedOrderID)
+        {
+            string queryString = "";
+            queryString = queryString + "   BEGIN " + "\r\n";
+            queryString = queryString + "       IF  (@PlannedOrderDetailIDs <> '') " + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPlannedOrderPlannedOrderDetailIDs(isPlannedOrderID, true) + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           " + this.BuildSQLPlannedOrderPlannedOrderDetailIDs(isPlannedOrderID, false) + "\r\n";
+            queryString = queryString + "   END " + "\r\n";
+
+            return queryString;
+        }
+
+        private string BuildSQLPlannedOrderPlannedOrderDetailIDs(bool isPlannedOrderID, bool isPlannedOrderDetailIDs)
+        {
+            string queryString = "";
+            queryString = queryString + "   BEGIN " + "\r\n";
+
+            queryString = queryString + "       IF (@ProductionOrderID <= 0) " + "\r\n";
+            queryString = queryString + "               BEGIN " + "\r\n";
+            queryString = queryString + "                   " + this.BuildSQLNew(isPlannedOrderID, isPlannedOrderDetailIDs) + "\r\n";
+            queryString = queryString + "                   ORDER BY PlannedOrders.EntryDate, PlannedOrders.PlannedOrderID, PlannedOrderDetails.PlannedOrderDetailID " + "\r\n";
+            queryString = queryString + "               END " + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+
+            queryString = queryString + "               IF (@IsReadonly = 1) " + "\r\n";
+            queryString = queryString + "                   BEGIN " + "\r\n";
+            queryString = queryString + "                       " + this.BuildSQLEdit(isPlannedOrderID, isPlannedOrderDetailIDs) + "\r\n";
+            queryString = queryString + "                       ORDER BY PlannedOrders.EntryDate, PlannedOrders.PlannedOrderID, PlannedOrderDetails.PlannedOrderDetailID " + "\r\n";
+            queryString = queryString + "                   END " + "\r\n";
+
+            queryString = queryString + "               ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
+
+            queryString = queryString + "                   BEGIN " + "\r\n";
+            queryString = queryString + "                       " + this.BuildSQLNew(isPlannedOrderID, isPlannedOrderDetailIDs) + " WHERE PlannedOrderDetails.PlannedOrderDetailID NOT IN (SELECT PlannedOrderDetailID FROM ProductionOrderDetails WHERE ProductionOrderID = @ProductionOrderID) " + "\r\n";
+            queryString = queryString + "                       UNION ALL " + "\r\n";
+            queryString = queryString + "                       " + this.BuildSQLEdit(isPlannedOrderID, isPlannedOrderDetailIDs) + "\r\n";
+            queryString = queryString + "                       ORDER BY PlannedOrders.EntryDate, PlannedOrders.PlannedOrderID, PlannedOrderDetails.PlannedOrderDetailID " + "\r\n";
+            queryString = queryString + "                   END " + "\r\n";
+
+            queryString = queryString + "   END " + "\r\n";
+
+            return queryString;
+        }
+
+        private string BuildSQLNew(bool isPlannedOrderID, bool isPlannedOrderDetailIDs)
+        {
+            string queryString = "";
+
+            queryString = queryString + "       SELECT      PlannedOrders.PlannedOrderID, PlannedOrderDetails.PlannedOrderDetailID, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.Code AS PlannedOrderCode, PlannedOrders.EntryDate AS PlannedOrderEntryDate, " + "\r\n";
+            queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, " + "\r\n";
+            queryString = queryString + "                   PlannedOrderDetails.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, PlannedOrderDetails.MoldID, Molds.Code AS MoldCode, " + "\r\n";
+
+            queryString = queryString + "                   ROUND(PlannedOrderDetails.Quantity - PlannedOrderDetails.QuantitySemifinished, 0) AS QuantityRemains, " + "\r\n";
+            queryString = queryString + "                   PlannedOrders.Description, PlannedOrderDetails.Remarks, CAST(1 AS bit) AS IsSelected " + "\r\n";
+
+            queryString = queryString + "       FROM        PlannedOrders " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrderDetails ON " + (isPlannedOrderID ? " PlannedOrders.PlannedOrderID = @PlannedOrderID " : "PlannedOrders.LocationID = @LocationID AND PlannedOrders.CustomerID = @CustomerID ") + " AND PlannedOrderDetails.Approved = 1 AND PlannedOrderDetails.InActive = 0 AND PlannedOrderDetails.InActivePartial = 0 AND ROUND(PlannedOrderDetails.Quantity- PlannedOrderDetails.QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") > 0 AND PlannedOrders.PlannedOrderID = PlannedOrderDetails.PlannedOrderID" + (isPlannedOrderDetailIDs ? " AND PlannedOrderDetails.PlannedOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@PlannedOrderDetailIDs))" : "") + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities ON PlannedOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers ON PlannedOrderDetails.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Molds ON PlannedOrderDetails.MoldID = Molds.MoldID " + "\r\n";
+
+            return queryString;
+        }
+
+        private string BuildSQLEdit(bool isPlannedOrderID, bool isPlannedOrderDetailIDs)
+        {
+            string queryString = "";
+
+            queryString = queryString + "       SELECT      PlannedOrders.PlannedOrderID, PlannedOrderDetails.PlannedOrderDetailID, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.Code AS PlannedOrderCode, PlannedOrders.EntryDate AS PlannedOrderEntryDate, " + "\r\n";
+            queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, " + "\r\n";
+            queryString = queryString + "                   PlannedOrderDetails.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, PlannedOrderDetails.MoldID, Molds.Code AS MoldCode, " + "\r\n";
+            queryString = queryString + "                   ROUND(PlannedOrderDetails.Quantity - PlannedOrderDetails.QuantitySemifinished, 0) AS QuantityRemains, " + "\r\n";
+            queryString = queryString + "                   PlannedOrders.Description, PlannedOrderDetails.Remarks, CAST(1 AS bit) AS IsSelected " + "\r\n";
+
+            queryString = queryString + "       FROM        PlannedOrderDetails " + "\r\n";
+            queryString = queryString + "                   INNER JOIN ProductionOrderDetails ON ProductionOrderDetails.ProductionOrderID = @ProductionOrderID AND PlannedOrderDetails.PlannedOrderDetailID = ProductionOrderDetails.PlannedOrderDetailID" + (isPlannedOrderDetailIDs ? " AND PlannedOrderDetails.PlannedOrderDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@PlannedOrderDetailIDs))" : "") + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities ON PlannedOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PlannedOrders ON PlannedOrderDetails.PlannedOrderID = PlannedOrders.PlannedOrderID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers ON PlannedOrderDetails.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Molds ON PlannedOrderDetails.MoldID = Molds.MoldID " + "\r\n";
+
+            return queryString;
+        }
+
 
         private void ProductionOrderSaveRelative()
         {
@@ -97,10 +247,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
 
         private void ProductionOrderPostSaveValidate()
         {
-            string[] queryArray = new string[0];
+            string[] queryArray = new string[2];
 
-            //queryArray[0] = " SELECT TOP 1 @FoundEntity = 'TEST Date: ' + CAST(EntryDate AS nvarchar) FROM ProductionOrders WHERE ProductionOrderID = @EntityID "; //FOR TEST TO BREAK OUT WHEN SAVE -> CHECK ROLL BACK OF TRANSACTION
-            //queryArray[0] = " SELECT TOP 1 @FoundEntity = 'Service Date: ' + CAST(ServiceInvoices.EntryDate AS nvarchar) FROM ProductionOrders INNER JOIN ProductionOrders AS ServiceInvoices ON ProductionOrders.ProductionOrderID = @EntityID AND ProductionOrders.ServiceInvoiceID = ServiceInvoices.ProductionOrderID AND ProductionOrders.EntryDate < ServiceInvoices.EntryDate ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = N'Ngày đặt hàng: ' + CAST(PlannedOrders.EntryDate AS nvarchar) FROM ProductionOrderDetails INNER JOIN PlannedOrders ON ProductionOrderDetails.ProductionOrderID = @EntityID AND ProductionOrderDetails.PlannedOrderID = PlannedOrders.PlannedOrderID AND ProductionOrderDetails.EntryDate < PlannedOrders.EntryDate ";
+            queryArray[1] = " SELECT TOP 1 @FoundEntity = N'Số lượng xuất vượt quá số lượng đặt hàng: ' + CAST(ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") AS nvarchar) FROM PlannedOrderDetails WHERE (ROUND(Quantity - QuantitySemifinished, " + (int)GlobalEnums.rndQuantity + ") < 0) ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("ProductionOrderPostSaveValidate", queryArray);
         }

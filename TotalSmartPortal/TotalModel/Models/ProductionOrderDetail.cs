@@ -48,9 +48,9 @@ namespace TotalModel.Models
         public virtual ProductionLine ProductionLine { get; set; }
         public virtual VoidType VoidType { get; set; }
         public virtual Workshift Workshift { get; set; }
-        public virtual ProductionOrder ProductionOrder { get; set; }
         public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
         public virtual PlannedOrder PlannedOrder { get; set; }
         public virtual CommodityMaterial CommodityMaterial { get; set; }
+        public virtual ProductionOrder ProductionOrder { get; set; }
     }
 }
