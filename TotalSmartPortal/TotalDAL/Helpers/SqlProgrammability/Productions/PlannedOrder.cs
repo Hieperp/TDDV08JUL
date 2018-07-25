@@ -119,20 +119,20 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
 
         private void PlannedOrderEditable()
         {
-            string[] queryArray = new string[2];
+            string[] queryArray = new string[3];
 
             queryArray[0] = " SELECT TOP 1 @FoundEntity = PlannedOrderID FROM PlannedOrders WHERE PlannedOrderID = @EntityID AND (InActive = 1 OR InActivePartial = 1)"; //Don't allow approve after void
             queryArray[1] = " SELECT TOP 1 @FoundEntity = PlannedOrderID FROM ProductionOrderDetails WHERE PlannedOrderID = @EntityID ";
+            queryArray[2] = " SELECT TOP 1 @FoundEntity = PlannedOrderID FROM MaterialIssueDetails WHERE PlannedOrderID = @EntityID ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("PlannedOrderEditable", queryArray);
         }
 
         private void PlannedOrderVoidable()
         {
-            string[] queryArray = new string[2];
+            string[] queryArray = new string[1];
 
             queryArray[0] = " SELECT TOP 1 @FoundEntity = PlannedOrderID FROM PlannedOrders WHERE PlannedOrderID = @EntityID AND Approved = 0"; //Must approve in order to allow void
-            queryArray[1] = " SELECT TOP 1 @FoundEntity = PlannedOrderID FROM ProductionOrderDetails WHERE PlannedOrderID = @EntityID ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("PlannedOrderVoidable", queryArray);
         }
@@ -149,6 +149,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
             queryString = queryString + "       IF @@ROWCOUNT = 1 " + "\r\n";
             queryString = queryString + "           BEGIN " + "\r\n";
             queryString = queryString + "               UPDATE          PlannedOrderDetails  SET Approved = @Approved WHERE PlannedOrderID = @EntityID ; " + "\r\n";
+            queryString = queryString + "               IF (@Approved = 1) " + "\r\n";
+            queryString = queryString + "                   INSERT INTO     PlannedOrderMaterials (PlannedOrderDetailID, PlannedOrderID, EntryDate, LocationID, CustomerID, CommodityID, CommodityTypeID, CommodityMaterialID, MaterialID, MoldID, DeliveryDate, Quantity, QuantityIssued, Remarks, VoidTypeID, Approved, InActive, InActivePartial, InActivePartialDate) " + "\r\n";
+            queryString = queryString + "                   SELECT          PlannedOrderDetails.PlannedOrderDetailID, PlannedOrderDetails.PlannedOrderID, PlannedOrderDetails.EntryDate, PlannedOrderDetails.LocationID, PlannedOrderDetails.CustomerID, PlannedOrderDetails.CommodityID, PlannedOrderDetails.CommodityTypeID, PlannedOrderDetails.CommodityMaterialID, CommodityMaterialDetails.MaterialID, PlannedOrderDetails.MoldID, PlannedOrderDetails.DeliveryDate, ROUND(PlannedOrderDetails.Quantity * CommodityMaterialDetails.BlockQuantity / CommodityMaterialDetails.BlockUnit, " + (int)GlobalEnums.rndQuantity + ") AS Quantity, 0 AS QuantityIssued, PlannedOrderDetails.Remarks, PlannedOrderDetails.VoidTypeID, PlannedOrderDetails.Approved, PlannedOrderDetails.InActive, PlannedOrderDetails.InActivePartial, PlannedOrderDetails.InActivePartialDate " + "\r\n";
+            queryString = queryString + "                   FROM            PlannedOrderDetails INNER JOIN CommodityMaterialDetails ON PlannedOrderDetails.PlannedOrderID = @EntityID AND PlannedOrderDetails.CommodityMaterialID = CommodityMaterialDetails.CommodityMaterialID " + "\r\n";
+            queryString = queryString + "                   ORDER BY        PlannedOrderDetails.PlannedOrderDetailID, CommodityMaterialDetails.CommodityMaterialDetailID ; " + "\r\n";
+            
+            queryString = queryString + "               ELSE " + "\r\n";
+            queryString = queryString + "                   DELETE FROM     PlannedOrderMaterials WHERE PlannedOrderID = @EntityID ; " + "\r\n";
             queryString = queryString + "           END " + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
             queryString = queryString + "           BEGIN " + "\r\n";
@@ -169,7 +177,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
 
             queryString = queryString + "       IF @@ROWCOUNT = 1 " + "\r\n";
             queryString = queryString + "           BEGIN " + "\r\n";
-            queryString = queryString + "               UPDATE          PlannedOrderDetails  SET InActive = @InActive WHERE PlannedOrderID = @EntityID ; " + "\r\n";
+            queryString = queryString + "               UPDATE          PlannedOrderMaterials   SET InActive = @InActive WHERE PlannedOrderID = @EntityID ; " + "\r\n";
+            queryString = queryString + "               UPDATE          PlannedOrderDetails     SET InActive = @InActive WHERE PlannedOrderID = @EntityID ; " + "\r\n";            
             queryString = queryString + "           END " + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
             queryString = queryString + "           BEGIN " + "\r\n";
@@ -187,7 +196,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
-            queryString = queryString + "       UPDATE      PlannedOrderDetails  SET InActivePartial = @InActivePartial, InActivePartialDate = GetDate(), VoidTypeID = IIF(@InActivePartial = 1, @VoidTypeID, NULL) WHERE PlannedOrderID = @EntityID AND PlannedOrderDetailID = @EntityDetailID AND InActivePartial = ~@InActivePartial ; " + "\r\n";
+            queryString = queryString + "       UPDATE      PlannedOrderMaterials   SET InActivePartial = @InActivePartial, InActivePartialDate = GetDate(), VoidTypeID = IIF(@InActivePartial = 1, @VoidTypeID, NULL) WHERE PlannedOrderID = @EntityID AND PlannedOrderDetailID = @EntityDetailID AND InActivePartial = ~@InActivePartial ; " + "\r\n";
+            queryString = queryString + "       UPDATE      PlannedOrderDetails     SET InActivePartial = @InActivePartial, InActivePartialDate = GetDate(), VoidTypeID = IIF(@InActivePartial = 1, @VoidTypeID, NULL) WHERE PlannedOrderID = @EntityID AND PlannedOrderDetailID = @EntityDetailID AND InActivePartial = ~@InActivePartial ; " + "\r\n";            
+
             queryString = queryString + "       IF @@ROWCOUNT = 1 " + "\r\n";
             queryString = queryString + "           BEGIN " + "\r\n";
             queryString = queryString + "               DECLARE         @MaxInActivePartial bit     SET @MaxInActivePartial = (SELECT MAX(CAST(InActivePartial AS int)) FROM PlannedOrderDetails WHERE PlannedOrderID = @EntityID) ;" + "\r\n";
