@@ -33,5 +33,25 @@ namespace TotalPortal.Areas.Productions.APIs
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+
+        public JsonResult GetCustomers([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID)
+        {
+            var result = this.productionOrderAPIRepository.GetCustomers(locationID);
+            return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPlannedOrders([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID)
+        {
+            var result = this.productionOrderAPIRepository.GetPlannedOrders(locationID);
+            return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPendingPlannedOrderDetails([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? productionOrderID, int? plannedOrderID, int? customerID, string plannedOrderDetailIDs, bool isReadonly)
+        {
+            var result = this.productionOrderAPIRepository.GetPendingPlannedOrderDetails(locationID, productionOrderID, plannedOrderID, customerID, plannedOrderDetailIDs, false);
+            return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

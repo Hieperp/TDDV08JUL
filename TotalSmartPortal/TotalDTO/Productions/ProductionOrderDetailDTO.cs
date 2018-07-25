@@ -13,6 +13,19 @@ namespace TotalDTO.Productions
         public int ProductionOrderDetailID { get; set; }
         public int ProductionOrderID { get; set; }
 
+        public Nullable<int> PlannedOrderID { get; set; }
+        public Nullable<int> PlannedOrderDetailID { get; set; }
+
+        [Display(Name = "Phiếu ĐH")]
+        [UIHint("StringReadonly")]
+        public string PlannedOrderReference { get; set; }
+        [Display(Name = "Số ĐH")]
+        [UIHint("StringReadonly")]
+        public string PlannedOrderCode { get; set; }
+        [Display(Name = "Ngày ĐH")]
+        [UIHint("DateTimeReadonly")]
+        public Nullable<System.DateTime> PlannedOrderEntryDate { get; set; }
+
         public int CustomerID { get; set; }
         [Display(Name = "Mã khách hàng")]
         [Required(ErrorMessage = "Vui lòng chọn khách hàng")]
@@ -46,8 +59,9 @@ namespace TotalDTO.Productions
         public string VoidTypeName { get; set; }
         public Nullable<int> VoidClassID { get; set; }
 
-        [UIHint("Decimal")]
-        public override decimal Quantity { get; set; }
+        [Display(Name = "Tồn đơn")]
+        [UIHint("DecimalReadonly")]
+        public decimal QuantityRemains { get; set; }
     }
 }
 

@@ -19,7 +19,7 @@ namespace TotalPortal.Areas.Productions.Controllers
     public class ProductionOrdersController : GenericViewDetailController<ProductionOrder, ProductionOrderDetail, ProductionOrderViewDetail, ProductionOrderDTO, ProductionOrderPrimitiveDTO, ProductionOrderDetailDTO, ProductionOrderViewModel>
     {
         public ProductionOrdersController(IProductionOrderService productionOrderService, IProductionOrderViewModelSelectListBuilder productionOrderViewModelSelectListBuilder)
-            : base(productionOrderService, productionOrderViewModelSelectListBuilder)
+            : base(productionOrderService, productionOrderViewModelSelectListBuilder, true)
         {
         }
 

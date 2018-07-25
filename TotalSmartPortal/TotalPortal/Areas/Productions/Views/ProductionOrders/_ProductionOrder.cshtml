@@ -19,15 +19,42 @@
         @Html.Partial("~/Views/Helpers/Bases/_BaseSectionLeftA.cshtml")
 
 
+        @Html.HiddenFor(model => model.PlannedOrderID)
+        @Html.HiddenFor(model => model.PlannedOrderCode)
+        @Html.HiddenFor(model => model.PlannedOrderReference)
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Code)
+            @Html.LabelFor(model => model.PlannedOrderReferenceNote)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.Code).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => model.PlannedOrderReferenceNote).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.PlannedOrderReferenceNote, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlannedOrderCodeNote)
+            <div class="div-input">
+                @Html.Kendo().MaskedTextBoxFor(model => model.PlannedOrderCodeNote).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.PlannedOrderCodeNote, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        if (Model.PlannedOrderEntryDate != null)
+        {
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlannedOrderEntryDate)
+            <div class="div-input">
+                @Html.Kendo().DateTimePickerFor(model => model.PlannedOrderEntryDate).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.PlannedOrderEntryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        }
 
 
         @if (@Model.Voidable || @Model.UnVoidable || @Model.VoidTypeID > 0)
@@ -41,10 +68,11 @@
 
     <div class="right-panel">
 
-        @*<div class="right-top-panel right-top-panel-H1">
+        <div class="right-top-panel right-top-panel-H1">
 
-                @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
-            </div>*@
+            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+
+        </div>
 
         <div class="div-k-grid-detail">
             @(Html.Kendo().Grid(Model.ProductionOrderViewDetails)
@@ -57,6 +85,19 @@
                     columns.Bound(p => p.ProductionOrderID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= ProductionOrderID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionOrderID' value='#= ProductionOrderID #' />");
 
+                    columns.Bound(p => p.PlannedOrderID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (PlannedOrderID == null)? '' : PlannedOrderID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderID' value='#= (PlannedOrderID == null) ? '' : PlannedOrderID #' />");
+                    columns.Bound(p => p.PlannedOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (PlannedOrderDetailID == null)? '' : PlannedOrderDetailID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderDetailID' value='#= (PlannedOrderDetailID == null) ? '' : PlannedOrderDetailID #' />");
+
+                    columns.Bound(p => p.PlannedOrderCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
+                        .ClientTemplate("#= (PlannedOrderCode == null)? '' : PlannedOrderCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderCode' value='#= (PlannedOrderCode == null) ? '' : PlannedOrderCode #' />");
+                    columns.Bound(p => p.PlannedOrderReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(@Model.PlannedOrderID == null ? false : true)
+                        .ClientTemplate("#= (PlannedOrderReference == null)? '' : PlannedOrderReference #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderReference' value='#= (PlannedOrderReference == null) ? '' : PlannedOrderReference #' />");
+                    columns.Bound(p => p.PlannedOrderEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(@Model.PlannedOrderID == null ? false : true)
+                        .Format("{0:" + @SettingsManager.DateFormat + "}")
+                        .ClientTemplate("#= (PlannedOrderEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PlannedOrderEntryDate) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderEntryDate' value='#= (PlannedOrderEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PlannedOrderEntryDate) #' />");
+
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
@@ -65,7 +106,6 @@
                     columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
                         .ClientTemplate("<div> #= CommodityCode #</div>" +
-                        //"<div> #= '[' ##= WarehouseCode ##= ']' #</div>" +
                                 "<div> #= (VoidTypeName == null)? '' : VoidTypeName #</div>" +
                                 "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
 
@@ -73,13 +113,12 @@
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
 
 
-
                     columns.Bound(p => p.CustomerID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CustomerID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CustomerID' value='#= CustomerID #' />");
                     columns.Bound(p => p.CustomerCode).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientTemplate("#= CustomerCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CustomerCode' value='#= CustomerCode #' />");
 
-                    
+
                     columns.Bound(p => p.ProductionLineID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= ProductionLineID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineID' value='#= ProductionLineID #' />");
                     columns.Bound(p => p.ProductionLineCode).DisplayNameTitle().Filterable(false).Width(200)
@@ -90,15 +129,17 @@
                     columns.Bound(p => p.MoldCode).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
 
-                    
-                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
+
+                    columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+
 
 
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
+
 
                     columns.Bound(p => p.InActivePartial).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (InActivePartial == null)? '' : InActivePartial #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].InActivePartial' value='#= (InActivePartial == null) ? '' : InActivePartial #' />");
@@ -118,9 +159,10 @@
                     {
                         if (Model.Editable)
                         {
+                            //toolbar.Create().HtmlAttributes(new { @class = "fa fa-map-marker" }).Text("Add new aa le ea1");
                             toolbar.Template(@<text>
-                                <button type="button" class="k-button" onclick="$('#kendoGridDetails').data('kendoGrid').addRow()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Thêm mặt hàng </button>
-
+                                <button type="button" class="k-button" onclick="GetPendingPlannedOrderDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
+                                <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Giao hàng toàn bộ đơn hàng </button>
                             </text>);
                         }
                         else
@@ -160,22 +202,22 @@
                             }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                        .Ajax()
-                        .Batch(true)
-                        .ServerOperation(false)
-                        .Model(model =>
-                        {
-                            model.Id(x => x.ProductionOrderDetailID);
-                            model.Field(m => m.ProductionOrderDetailID).DefaultValue(0);
-                            model.Field(m => m.ProductionOrderID).DefaultValue(@Model.ProductionOrderID);
-                        })
-                        .Events(events =>
-                        {
-                            events.Error("kendGrid_ErrorHandler");
-                        })
-                        .Aggregates(a => a.Add(x => x.CommodityCode).Count())
-                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                    )
+                                                                                                .Ajax()
+                                                                                                .Batch(true)
+                                                                                                .ServerOperation(false)
+                                                                                                .Model(model =>
+                                                                                                {
+                                                                                                    model.Id(x => x.ProductionOrderDetailID);
+                                                                                                    model.Field(m => m.ProductionOrderDetailID).DefaultValue(0);
+                                                                                                    model.Field(m => m.ProductionOrderID).DefaultValue(@Model.ProductionOrderID);
+                                                                                                })
+                                                                                                .Events(events =>
+                                                                                                {
+                                                                                                    events.Error("kendGrid_ErrorHandler");
+                                                                                                })
+                                                                                                .Aggregates(a => a.Add(x => x.CommodityCode).Count())
+                                                                                                .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
+                                                                                            )
             )
         </div>
 
@@ -217,20 +259,22 @@
             {
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "ProductionOrders")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
             }
+            else
+            {
+                if (!Model.Voidable && !Model.UnVoidable)
+                {
+                    <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "ProductionOrders", new { id = @Model.ProductionOrderID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In tổng hợp xuất kho </button>
+                }
+            }
 
             @if (Model.ProductionOrderID > 0 && !Model.Approvable && !Model.UnApprovable)
             {
                 <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Approve", "ProductionOrders", new {id = @Model.ProductionOrderID })'"> <img src="~/Content/Images/Mains/@(!@Model.Approved ? "Actions-ok-icon32.png" : "Cross-icon-cancel32.png")" /> @(!Model.Approved ? "Duyệt đơn hàng" : "Hủy duyệt đơn hàng này") </button>
             }
-
         </div>
 
-        @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
-        @if (Model.Editable)
-        {
-            <div><input style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></div>
-        }
+        @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
     </div>
 }
@@ -239,11 +283,18 @@
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
 
 <script type="text/javascript">
+    function GetPendingPlannedOrderDetails() {
+        require(["kpopupWindow"], function (kpopupWindow) {
+            var createWizardWindow = new kpopupWindow();
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPlannedOrderDetails", "ProductionOrders", new { area = "Productions" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+        });
+    }
+
     function callVoidDetail(productionOrderDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "ProductionOrders")" + "/" + $("#ProductionOrderID").val() + "/" + productionOrderDetailID, "Hủy/ phục hồi một phần đơn hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "ProductionOrders")" + "/" + $("#ProductionOrderID").val() + "/" + productionOrderDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
         });
     }
-</script>
 
+</script>

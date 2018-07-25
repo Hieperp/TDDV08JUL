@@ -21,8 +21,31 @@ namespace TotalDTO.Productions
 
         public int ProductionOrderID { get; set; }
 
+        public virtual int CustomerID { get; set; }
+
+        public Nullable<int> PlannedOrderID { get; set; }
+        public string PlannedOrderReference { get; set; }
+        public string PlannedOrderReferences { get; set; }
+        public string PlannedOrderCode { get; set; }
+        public string PlannedOrderCodes { get; set; }
+        [Display(Name = "Phiếu đặt hàng")]
+        public string PlannedOrderReferenceNote { get { return this.PlannedOrderID != null ? this.PlannedOrderReference : (this.PlannedOrderReferences != "" ? this.PlannedOrderReferences : "Giao hàng tổng hợp của nhiều ĐH"); } }
+        [Display(Name = "Số đơn hàng")]
+        public string PlannedOrderCodeNote { get { return this.PlannedOrderID != null ? this.PlannedOrderCode : (this.PlannedOrderCodes != "" ? this.PlannedOrderCodes : ""); } }
+        [Display(Name = "Ngày đặt hàng")]
+        public Nullable<System.DateTime> PlannedOrderEntryDate { get; set; }
+
         [Display(Name = "Chứng")]
         public string Code { get; set; }
+
+        public override void PerformPresaveRule()
+        {
+            base.PerformPresaveRule();
+
+            string plannedOrderReferences = ""; string plannedOrderCodes = "";
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; if (plannedOrderReferences.IndexOf(e.PlannedOrderReference) < 0) plannedOrderReferences = plannedOrderReferences + (plannedOrderReferences != "" ? ", " : "") + e.PlannedOrderReference; if (e.PlannedOrderCode != null && plannedOrderCodes.IndexOf(e.PlannedOrderCode) < 0) plannedOrderCodes = plannedOrderCodes + (plannedOrderCodes != "" ? ", " : "") + e.PlannedOrderCode; });
+            this.PlannedOrderReferences = plannedOrderReferences; this.PlannedOrderCodes = plannedOrderCodes != "" ? plannedOrderCodes : null; 
+        }
     }
 
     public class ProductionOrderDTO : ProductionOrderPrimitiveDTO, IBaseDetailEntity<ProductionOrderDetailDTO>
@@ -31,6 +54,11 @@ namespace TotalDTO.Productions
         {
             this.ProductionOrderViewDetails = new List<ProductionOrderDetailDTO>();
         }
+
+        public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
+        [Display(Name = "Khách hàng")]
+        [UIHint("Commons/CustomerBase")]
+        public CustomerBaseDTO Customer { get; set; }
 
         public override Nullable<int> VoidTypeID { get { return (this.VoidType != null ? this.VoidType.VoidTypeID : null); } }
         [UIHint("AutoCompletes/VoidType")]
