@@ -84,7 +84,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      TOP 30 CommodityMaterialID, Code AS CommodityMaterialCode, Reference AS CommodityMaterialReference " + " \r\n";
+            queryString = queryString + "       SELECT      TOP 30 CommodityMaterialID, Code AS CommodityMaterialCode, Name AS CommodityMaterialName, Reference AS CommodityMaterialReference " + " \r\n";
             queryString = queryString + "       FROM        CommodityMaterials " + "\r\n";
             queryString = queryString + "       WHERE       InActive = 0 AND (1 = 1 OR CommodityID = @CommodityID) AND (@SearchText = '' OR Code LIKE '%' + @SearchText + '%' OR Reference LIKE '%' + @SearchText + '%') " + "\r\n";
             queryString = queryString + "       ORDER BY    IsDefault " + "\r\n";

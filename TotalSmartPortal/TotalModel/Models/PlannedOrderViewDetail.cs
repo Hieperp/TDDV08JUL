@@ -28,5 +28,9 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
         public string Remarks { get; set; }
+        public int CommodityMaterialID { get; set; }
+        public string CommodityMaterialCode { get; set; }
+        public string CommodityMaterialName { get; set; }
+        public decimal Quantity { get; set; }
     }
 }

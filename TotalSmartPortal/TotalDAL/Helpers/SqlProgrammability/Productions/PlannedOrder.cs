@@ -71,12 +71,13 @@ namespace TotalDAL.Helpers.SqlProgrammability.Productions
 
             queryString = queryString + "       SELECT      PlannedOrderDetails.PlannedOrderDetailID, PlannedOrderDetails.PlannedOrderID, " + "\r\n";
             queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, PlannedOrderDetails.CommodityTypeID, " + "\r\n";
-            queryString = queryString + "                   PlannedOrderDetails.MoldID, Molds.Code AS MoldCode, " + "\r\n";
+            queryString = queryString + "                   PlannedOrderDetails.MoldID, Molds.Code AS MoldCode, PlannedOrderDetails.CommodityMaterialID, CommodityMaterials.Code AS CommodityMaterialCode, CommodityMaterials.Name AS CommodityMaterialName, " + "\r\n";
             queryString = queryString + "                   VoidTypes.VoidTypeID, VoidTypes.Code AS VoidTypeCode, VoidTypes.Name AS VoidTypeName, VoidTypes.VoidClassID, " + "\r\n";
-            queryString = queryString + "                   PlannedOrderDetails.InActivePartial, PlannedOrderDetails.InActivePartialDate, PlannedOrderDetails.Remarks " + "\r\n";
+            queryString = queryString + "                   PlannedOrderDetails.Quantity, PlannedOrderDetails.InActivePartial, PlannedOrderDetails.InActivePartialDate, PlannedOrderDetails.Remarks " + "\r\n";
             queryString = queryString + "       FROM        PlannedOrderDetails " + "\r\n";
             queryString = queryString + "                   INNER JOIN Commodities ON PlannedOrderDetails.PlannedOrderID = @PlannedOrderID AND PlannedOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
             queryString = queryString + "                   INNER JOIN Molds ON PlannedOrderDetails.MoldID = Molds.MoldID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN CommodityMaterials ON PlannedOrderDetails.CommodityMaterialID = CommodityMaterials.CommodityMaterialID " + "\r\n";
             queryString = queryString + "                   LEFT JOIN VoidTypes ON PlannedOrderDetails.VoidTypeID = VoidTypes.VoidTypeID " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";

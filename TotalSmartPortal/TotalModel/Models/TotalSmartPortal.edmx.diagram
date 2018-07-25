@@ -225,6 +225,11 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrders_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.CommodityMaterial" Width="1.5" PointX="10.375" PointY="2.75" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_CommodityMaterials_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_CommodityMaterials" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_CommodityMaterials" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_CommodityMaterials" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

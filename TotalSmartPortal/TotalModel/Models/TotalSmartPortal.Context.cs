@@ -87,6 +87,7 @@ namespace TotalModel.Models
         public virtual DbSet<PlannedOrderDetail> PlannedOrderDetails { get; set; }
         public virtual DbSet<PlannedOrderMaterial> PlannedOrderMaterials { get; set; }
         public virtual DbSet<PlannedOrder> PlannedOrders { get; set; }
+        public virtual DbSet<CommodityMaterial> CommodityMaterials { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {

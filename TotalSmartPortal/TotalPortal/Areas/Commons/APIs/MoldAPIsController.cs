@@ -14,7 +14,7 @@ using TotalPortal.APIs.Sessions;
 
 namespace TotalPortal.Areas.Commons.APIs
 {
-    //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class MoldAPIsController : Controller
     {
         private readonly IMoldAPIRepository moldAPIRepository;

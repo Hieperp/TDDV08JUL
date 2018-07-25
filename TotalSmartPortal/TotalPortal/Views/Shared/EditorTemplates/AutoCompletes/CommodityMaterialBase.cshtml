@@ -1,0 +1,100 @@
+﻿@using TotalPortal.Configuration
+
+@model string
+
+@(Html.Kendo().AutoCompleteFor(m => m)
+        .Name("CommodityMaterialCode")
+        .DataTextField("CommodityMaterialCode")
+        .Filter("contains")
+        .MinLength(SettingsManager.AutoCompleteMinLenght)
+        .Placeholder("Chọn mã khuôn...")
+        .HeaderTemplate("<div class=\"dropdown-header general-custom-header commodityMaterial-custom-header\">" +
+                "<span class=\"k-widget k-header\">Mã</span>" +
+                "<span class=\"k-widget k-header\">Tên khuôn</span>" +
+                "</div>")
+        .Template("<div class=\"dropdown-body general-custom-body commodityMaterial-custom-body\">" +
+                "<span class=\"k-state-default\"><p>#: data.CommodityMaterialCode #</p></span>" +
+                    "<span class=\"k-state-default\"><p>#: data.CommodityMaterialName #</p></span>" +
+                "</div>")
+
+        .DataSource(source =>
+        {
+            source.Read(read =>
+            {
+                read.Action("GetCommodityMaterialBases", "CommodityMaterialAPIs", new { area = "Commons" }).Data(@<text>
+
+                    function(e) {
+                    return {
+                    searchText: $("#CommodityMaterialCode").data("kendoAutoComplete").value(),
+                    warehouseTaskID: 0
+                    };}
+
+                </text>);//Send parameter to controller search action
+            })
+            .ServerFiltering(true);
+        })
+        .Events(e =>
+        {
+            e.Select("gridEditorCommodityMaterialSelect");
+            e.Change("gridEditorCommodityMaterialChange");
+            e.DataBound("gridEditorCommodityMaterialDataBound");
+        })
+        .Value(Model)
+        .HtmlAttributes(new { @class = "custom-control" })
+)
+
+<script type="text/javascript">
+    $("#CommodityMaterialCode").focus(function (e) {
+        window.commodityMaterialCodeBeforeChange = $("#CommodityMaterialCode").val();
+    });
+</script>
+
+
+<style>
+    /*#region styles for calculate span column with*/
+
+    /*Rule to calculate with:
+        1) Define column for each body span column
+        2) Header:
+            2.1) All header span column width = the same body span column width
+            2.2) Except: Last header width = Last body pan width + 10 (padding left 5, padding right 5 of .k-item) + 17 (17px is the scroll bar width)
+            2.3) Total header width = Sum (all header pan width): Using this total value => assign to .k-animation-container .css("width", "Total header span column width") AT the DataBound Events
+    */
+
+
+    .commodityMaterial-custom-header > span:first-child {
+        width: 85px;
+    }
+
+
+    .commodityMaterial-custom-header > span:last-child {
+        width: 297px;
+    }
+
+
+
+
+
+
+    .k-item > .commodityMaterial-custom-body > span:first-child {
+        width: 84px;
+    }
+
+
+    .k-item > .commodityMaterial-custom-body > span:last-child {
+        width: 270px;
+    }
+
+    /*#endregion */
+
+
+    /*#region styles for each use of the Editor tenplate CommodityMaterialAvailable.cshtml*/
+    #CommodityMaterialCode-list .k-item {
+        white-space: nowrap;
+    }
+    /*CURRENT: Editor tenplate CommodityMaterialAvailable.cshtml bind with model CommodityMaterialCode => the autocomplete editor ID will be #CommodityMaterialCode */
+    /*LATER: if this Editor tenplate CommodityMaterialAvailable.cshtml is used for another model, Ex model: XyzName => the ID will be #XyzName, then new css will be add. for this example #XyzName-list .k-item {padding: 0px; white-space: nowrap;} */
+
+    /*#endregion */
+</style>
+

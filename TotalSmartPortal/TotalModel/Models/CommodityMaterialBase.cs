@@ -16,5 +16,6 @@ namespace TotalModel.Models
         public int CommodityMaterialID { get; set; }
         public string CommodityMaterialCode { get; set; }
         public string CommodityMaterialReference { get; set; }
+        public string CommodityMaterialName { get; set; }
     }
 }

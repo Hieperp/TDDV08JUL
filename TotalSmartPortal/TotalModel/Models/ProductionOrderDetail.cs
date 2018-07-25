@@ -51,5 +51,6 @@ namespace TotalModel.Models
         public virtual ProductionOrder ProductionOrder { get; set; }
         public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
         public virtual PlannedOrder PlannedOrder { get; set; }
+        public virtual CommodityMaterial CommodityMaterial { get; set; }
     }
 }
