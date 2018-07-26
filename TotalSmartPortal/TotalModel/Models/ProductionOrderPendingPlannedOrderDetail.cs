@@ -31,5 +31,7 @@ namespace TotalModel.Models
         public string Description { get; set; }
         public string Remarks { get; set; }
         public Nullable<bool> IsSelected { get; set; }
+        public int CommodityMaterialID { get; set; }
+        public string CommodityMaterialCode { get; set; }
     }
 }

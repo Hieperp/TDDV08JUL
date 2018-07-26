@@ -20,6 +20,7 @@ namespace TotalModel.Models
             this.PlannedOrderDetails = new HashSet<PlannedOrderDetail>();
             this.PlannedOrderMaterials = new HashSet<PlannedOrderMaterial>();
             this.ProductionOrderDetails = new HashSet<ProductionOrderDetail>();
+            this.ProductionOrders = new HashSet<ProductionOrder>();
         }
     
         public int PlannedOrderID { get; set; }
@@ -54,5 +55,7 @@ namespace TotalModel.Models
         public virtual VoidType VoidType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductionOrder> ProductionOrders { get; set; }
     }
 }

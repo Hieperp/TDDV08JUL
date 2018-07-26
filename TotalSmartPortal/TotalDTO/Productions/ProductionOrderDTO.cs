@@ -9,6 +9,7 @@ using TotalModel;
 using TotalBase.Enums;
 using TotalDTO.Helpers;
 using TotalDTO.Commons;
+using TotalDTO.Helpers.Interfaces;
 
 namespace TotalDTO.Productions
 {
@@ -22,6 +23,7 @@ namespace TotalDTO.Productions
         public int ProductionOrderID { get; set; }
 
         public virtual int CustomerID { get; set; }
+        public virtual int WorkshiftID { get; set; }
 
         public Nullable<int> PlannedOrderID { get; set; }
         public string PlannedOrderReference { get; set; }
@@ -43,12 +45,12 @@ namespace TotalDTO.Productions
             base.PerformPresaveRule();
 
             string plannedOrderReferences = ""; string plannedOrderCodes = "";
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; if (plannedOrderReferences.IndexOf(e.PlannedOrderReference) < 0) plannedOrderReferences = plannedOrderReferences + (plannedOrderReferences != "" ? ", " : "") + e.PlannedOrderReference; if (e.PlannedOrderCode != null && plannedOrderCodes.IndexOf(e.PlannedOrderCode) < 0) plannedOrderCodes = plannedOrderCodes + (plannedOrderCodes != "" ? ", " : "") + e.PlannedOrderCode; });
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.WorkshiftID = this.WorkshiftID; if (plannedOrderReferences.IndexOf(e.PlannedOrderReference) < 0) plannedOrderReferences = plannedOrderReferences + (plannedOrderReferences != "" ? ", " : "") + e.PlannedOrderReference; if (e.PlannedOrderCode != null && plannedOrderCodes.IndexOf(e.PlannedOrderCode) < 0) plannedOrderCodes = plannedOrderCodes + (plannedOrderCodes != "" ? ", " : "") + e.PlannedOrderCode; });
             this.PlannedOrderReferences = plannedOrderReferences; this.PlannedOrderCodes = plannedOrderCodes != "" ? plannedOrderCodes : null; 
         }
     }
 
-    public class ProductionOrderDTO : ProductionOrderPrimitiveDTO, IBaseDetailEntity<ProductionOrderDetailDTO>
+    public class ProductionOrderDTO : ProductionOrderPrimitiveDTO, IBaseDetailEntity<ProductionOrderDetailDTO>, ISearchCustomer, IPriceCategory
     {
         public ProductionOrderDTO()
         {
@@ -78,6 +80,31 @@ namespace TotalDTO.Productions
                 this.VoidType = new VoidTypeBaseDTO() { VoidTypeID = this.ViewDetails[0].VoidTypeID, Code = this.ViewDetails[0].VoidTypeCode, Name = this.ViewDetails[0].VoidTypeName, VoidClassID = this.ViewDetails[0].VoidClassID };
             base.PrepareVoidDetail(detailID);
         }
+
+
+
+
+        #region implement ISearchCustomer only
+
+        [Display(Name = "PriceCategoryID")]
+        public int PriceCategoryID { get; set; }
+        [Display(Name = "PriceCategoryCode")]
+        public string PriceCategoryCode { get; set; }
+
+        [Display(Name = "Đơn vị, người nhận hàng")]
+        public int ReceiverID { get { return (this.Receiver != null ? this.Receiver.CustomerID : 0); } }
+        [Display(Name = "Đơn vị, người nhận hàng")]
+        [UIHint("Commons/CustomerBase")]
+        public CustomerBaseDTO Receiver { get; set; }
+
+        public WarehouseBaseDTO Warehouse { get; set; }
+
+        public virtual Nullable<int> TradePromotionID { get; set; }
+        [Display(Name = "Addressee")]
+        public string ShippingAddress { get; set; }
+        [Display(Name = "Addressee")]
+        public string Addressee { get; set; }
+        #endregion implement ISearchCustomer only
     }
 
 }

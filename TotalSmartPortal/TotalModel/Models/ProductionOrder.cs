@@ -53,5 +53,7 @@ namespace TotalModel.Models
         public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
         public virtual VoidType VoidType { get; set; }
         public virtual Workshift Workshift { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual PlannedOrder PlannedOrder { get; set; }
     }
 }

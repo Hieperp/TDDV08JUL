@@ -59,6 +59,9 @@ function handleOKEvent(productionOrderGridDataSource, pendingPlannedOrderDetailG
         dataRow.MoldID = plannedOrderGridDataItem.MoldID;
         dataRow.MoldCode = plannedOrderGridDataItem.MoldCode;
 
+        dataRow.CommodityMaterialID = plannedOrderGridDataItem.CommodityMaterialID;
+        dataRow.CommodityMaterialCode = plannedOrderGridDataItem.CommodityMaterialCode;
+
         dataRow.CommodityID = plannedOrderGridDataItem.CommodityID;
         dataRow.CommodityName = plannedOrderGridDataItem.CommodityName;
         dataRow.CommodityCode = plannedOrderGridDataItem.CommodityCode;
@@ -67,8 +70,8 @@ function handleOKEvent(productionOrderGridDataSource, pendingPlannedOrderDetailG
         dataRow.QuantityRemains = plannedOrderGridDataItem.QuantityRemains;
         dataRow.Quantity = 0;
 
-        dataRow.ProductionLineID = null;
-        dataRow.ProductionLineCode = null;
+        dataRow.ProductionLineID = 1;
+        dataRow.ProductionLineCode = "A";
 
         dataRow.Remarks = null;
         dataRow.VoidTypeID = null;

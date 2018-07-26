@@ -28,8 +28,7 @@
             tabStrip.Add().Text("Khách hàng không có đơn hàng")
                 .Selected(true)
                 .Content(@<text>
-                    "All customers"
-                    @*@Html.Partial("~/Views/Helpers/Commons/_SearchCustomer.cshtml")*@
+                    @Html.Partial("~/Views/Helpers/Commons/_SearchCustomer.cshtml")
                 </text>);
 
             tabStrip.Add().Text("Giao hàng theo đơn đặt hàng")

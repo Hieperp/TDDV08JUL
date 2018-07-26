@@ -22,10 +22,5 @@ namespace TotalService.Productions
             return this.GetViewDetails(parameters);
         }
 
-        public override bool Save(ProductionOrderDTO productionOrderDTO)
-        {
-            productionOrderDTO.ProductionOrderViewDetails.RemoveAll(x => x.Quantity == 0);
-            return base.Save(productionOrderDTO);
-        }
     }
 }

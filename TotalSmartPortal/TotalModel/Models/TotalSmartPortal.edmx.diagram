@@ -230,6 +230,8 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_PurchaseRequisitions" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_PlannedOrders" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

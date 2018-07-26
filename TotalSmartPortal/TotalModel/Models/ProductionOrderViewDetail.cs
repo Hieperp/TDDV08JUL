@@ -39,5 +39,7 @@ namespace TotalModel.Models
         public string PlannedOrderCode { get; set; }
         public System.DateTime PlannedOrderEntryDate { get; set; }
         public Nullable<decimal> QuantityRemains { get; set; }
+        public int CommodityMaterialID { get; set; }
+        public string CommodityMaterialCode { get; set; }
     }
 }

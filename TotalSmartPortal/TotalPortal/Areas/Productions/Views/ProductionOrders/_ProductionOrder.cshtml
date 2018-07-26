@@ -72,6 +72,7 @@
 
             @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
 
+            @Html.Kendo().NumericTextBoxFor(p => p.WorkshiftID);
         </div>
 
         <div class="div-k-grid-detail">
@@ -130,6 +131,12 @@
                         .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
 
 
+                    columns.Bound(p => p.CommodityMaterialID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CommodityMaterialID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityMaterialID' value='#= CommodityMaterialID #' />");
+                    columns.Bound(p => p.CommodityMaterialCode).DisplayNameTitle().Filterable(false).Width(200)
+                        .ClientTemplate("#= CommodityMaterialCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].CommodityMaterialCode' value='#= CommodityMaterialCode #' />");
+
+                    
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")

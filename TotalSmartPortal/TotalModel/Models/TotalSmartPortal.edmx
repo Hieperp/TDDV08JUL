@@ -2985,6 +2985,18 @@ warning 6035: The relationship 'FK_ProductionOrders_AspNetUsers1' has columns th
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_ProductionOrders_AspNetUsers2' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_ProductionOrders_AspNetUsers2" />-->
+        <Association Name="FK_ProductionOrders_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="ProductionOrders" Type="Self.ProductionOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="ProductionOrders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductionOrders_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
           <End Role="ProductionOrders" Type="Self.ProductionOrders" Multiplicity="*" />
@@ -2994,6 +3006,18 @@ warning 6035: The relationship 'FK_ProductionOrders_AspNetUsers2' has columns th
             </Principal>
             <Dependent Role="ProductionOrders">
               <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrders_PlannedOrders">
+          <End Role="PlannedOrders" Type="Self.PlannedOrders" Multiplicity="0..1" />
+          <End Role="ProductionOrders" Type="Self.ProductionOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrders">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="ProductionOrders">
+              <PropertyRef Name="PlannedOrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4914,8 +4938,16 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Workshifts" EntitySet="Workshifts" />
             <End Role="ProductionOrderDetails" EntitySet="ProductionOrderDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrders_Customers" Association="Self.FK_ProductionOrders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="ProductionOrders" EntitySet="ProductionOrders" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductionOrders_Locations" Association="Self.FK_ProductionOrders_Locations">
             <End Role="Locations" EntitySet="Locations" />
+            <End Role="ProductionOrders" EntitySet="ProductionOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrders_PlannedOrders" Association="Self.FK_ProductionOrders_PlannedOrders">
+            <End Role="PlannedOrders" EntitySet="PlannedOrders" />
             <End Role="ProductionOrders" EntitySet="ProductionOrders" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductionOrders_VoidTypes" Association="Self.FK_ProductionOrders_VoidTypes">
@@ -5505,6 +5537,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_Customers" FromRole="Customer" ToRole="PlannedOrderMaterial" />
           <NavigationProperty Name="PlannedOrders" Relationship="TotalSmartPortalModel.FK_PlannedOrders_Customers" FromRole="Customer" ToRole="PlannedOrder" />
           <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_Customers" FromRole="Customer" ToRole="PurchaseRequisition" />
+          <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_Customers" FromRole="Customer" ToRole="ProductionOrder" />
         </EntityType>
         <EntityType Name="CustomerType">
           <Key>
@@ -9366,6 +9399,14 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="VoidType" EntitySet="VoidTypes" />
             <End Role="PurchaseRequisition" EntitySet="PurchaseRequisitions" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrders_Customers" Association="TotalSmartPortalModel.FK_ProductionOrders_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="ProductionOrder" EntitySet="ProductionOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrders_PlannedOrders" Association="TotalSmartPortalModel.FK_ProductionOrders_PlannedOrders">
+            <End Role="PlannedOrder" EntitySet="PlannedOrders" />
+            <End Role="ProductionOrder" EntitySet="ProductionOrders" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -10632,6 +10673,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="PlannedOrderCode" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="PlannedOrderEntryDate" Nullable="false" Precision="23" />
           <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Int32" Name="CommodityMaterialID" Nullable="false" />
+          <Property Type="String" Name="CommodityMaterialCode" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="MoldBase">
           <Property Type="Int32" Name="MoldID" Nullable="false" />
@@ -11242,6 +11285,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="PlannedOrderMaterials" Relationship="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrders" FromRole="PlannedOrder" ToRole="PlannedOrderMaterial" />
           <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_PlannedOrders_VoidTypes" FromRole="PlannedOrder" ToRole="VoidType" />
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders" FromRole="PlannedOrder" ToRole="ProductionOrderDetail" />
+          <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_PlannedOrders" FromRole="PlannedOrder" ToRole="ProductionOrder" />
         </EntityType>
         <Association Name="FK_PlannedOrderDetails_Commodities">
           <End Type="TotalSmartPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -11582,6 +11626,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+          <Property Type="Int32" Name="CommodityMaterialID" Nullable="false" />
+          <Property Type="String" Name="CommodityMaterialCode" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="ProductionOrderPendingPlannedOrder">
           <Property Type="Int32" Name="PlannedOrderID" Nullable="false" />
@@ -11628,6 +11674,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="ProductionOrderDetails" Relationship="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionOrders" FromRole="ProductionOrder" ToRole="ProductionOrderDetail" />
           <NavigationProperty Name="VoidType" Relationship="TotalSmartPortalModel.FK_ProductionOrders_VoidTypes" FromRole="ProductionOrder" ToRole="VoidType" />
           <NavigationProperty Name="Workshift" Relationship="TotalSmartPortalModel.FK_ProductionOrders_Workshifts" FromRole="ProductionOrder" ToRole="Workshift" />
+          <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_ProductionOrders_Customers" FromRole="ProductionOrder" ToRole="Customer" />
+          <NavigationProperty Name="PlannedOrder" Relationship="TotalSmartPortalModel.FK_ProductionOrders_PlannedOrders" FromRole="ProductionOrder" ToRole="PlannedOrder" />
         </EntityType>
         <Association Name="FK_ProductionOrders_Locations">
           <End Type="TotalSmartPortalModel.Location" Role="Location" Multiplicity="1" />
@@ -11840,6 +11888,30 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="PurchaseRequisition">
               <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrders_Customers">
+          <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.ProductionOrder" Role="ProductionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="ProductionOrder">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrders_PlannedOrders">
+          <End Type="TotalSmartPortalModel.PlannedOrder" Role="PlannedOrder" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.ProductionOrder" Role="ProductionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedOrder">
+              <PropertyRef Name="PlannedOrderID" />
+            </Principal>
+            <Dependent Role="ProductionOrder">
+              <PropertyRef Name="PlannedOrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -14662,6 +14734,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="PlannedOrderCode" ColumnName="PlannedOrderCode" />
                 <ScalarProperty Name="PlannedOrderEntryDate" ColumnName="PlannedOrderEntryDate" />
                 <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
+                <ScalarProperty Name="CommodityMaterialID" ColumnName="CommodityMaterialID" />
+                <ScalarProperty Name="CommodityMaterialCode" ColumnName="CommodityMaterialCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -15163,6 +15237,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="CommodityMaterialID" ColumnName="CommodityMaterialID" />
+                <ScalarProperty Name="CommodityMaterialCode" ColumnName="CommodityMaterialCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
