@@ -48,6 +48,7 @@ function handleOKEvent(materialIssueGridDataSource, pendingProductionOrderDetail
 
         dataRow.PlannedOrderID = productionOrderGridDataItem.PlannedOrderID;
         dataRow.PlannedOrderDetailID = productionOrderGridDataItem.PlannedOrderDetailID;
+        dataRow.PlannedOrderMaterialID = productionOrderGridDataItem.PlannedOrderMaterialID;
         dataRow.PlannedOrderCode = productionOrderGridDataItem.PlannedOrderCode;
         dataRow.PlannedOrderReference = productionOrderGridDataItem.PlannedOrderReference;
         dataRow.PlannedOrderEntryDate = productionOrderGridDataItem.PlannedOrderEntryDate;
@@ -56,12 +57,18 @@ function handleOKEvent(materialIssueGridDataSource, pendingProductionOrderDetail
         dataRow.ProductionOrderDetailID = productionOrderGridDataItem.ProductionOrderDetailID;
         dataRow.ProductionOrderCode = productionOrderGridDataItem.ProductionOrderCode;
         dataRow.ProductionOrderReference = productionOrderGridDataItem.ProductionOrderReference;
-        dataRow.ProductionOrderEntryDate = productionOrderGridDataItem.ProductionOrderEntryDate;
 
         dataRow.WorkshiftID = productionOrderGridDataItem.WorkshiftID;
 
+        dataRow.CustomerID = productionOrderGridDataItem.CustomerID;
+        dataRow.CustomerName = productionOrderGridDataItem.CustomerName;
+        dataRow.CustomerCode = productionOrderGridDataItem.CustomerCode;
+
         dataRow.ProductionLineID = productionOrderGridDataItem.ProductionLineID;
         dataRow.ProductionLineCode = productionOrderGridDataItem.ProductionLineCode;
+
+        dataRow.MoldID = productionOrderGridDataItem.MoldID;
+        dataRow.MoldCode = productionOrderGridDataItem.MoldCode;
 
         dataRow.ProductID = productionOrderGridDataItem.ProductID;
         dataRow.ProductName = productionOrderGridDataItem.ProductName;
@@ -78,6 +85,7 @@ function handleOKEvent(materialIssueGridDataSource, pendingProductionOrderDetail
         dataRow.CommodityCode = productionOrderGridDataItem.CommodityCode;
         dataRow.CommodityTypeID = productionOrderGridDataItem.CommodityTypeID;
 
+        dataRow.WorkshiftPlannedOrderRemains = productionOrderGridDataItem.WorkshiftPlannedOrderRemains;
         dataRow.QuantityRemains = productionOrderGridDataItem.QuantityRemains;
         dataRow.Quantity = productionOrderGridDataItem.Quantity;
 

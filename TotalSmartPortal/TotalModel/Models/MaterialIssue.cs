@@ -24,6 +24,7 @@ namespace TotalModel.Models
         public System.DateTime EntryDate { get; set; }
         public string Reference { get; set; }
         public string Code { get; set; }
+        public int MaterialIssueTypeID { get; set; }
         public int WorkshiftID { get; set; }
         public Nullable<int> PlannedOrderID { get; set; }
         public string PlannedOrderReferences { get; set; }
@@ -42,13 +43,12 @@ namespace TotalModel.Models
         public System.DateTime EditedDate { get; set; }
         public bool Approved { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
-        public int MaterialIssueTypeID { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
         public virtual ProductionOrder ProductionOrder { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

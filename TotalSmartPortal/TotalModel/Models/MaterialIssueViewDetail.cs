@@ -17,9 +17,6 @@ namespace TotalModel.Models
         public int MaterialIssueID { get; set; }
         public int ProductionOrderID { get; set; }
         public int ProductionOrderDetailID { get; set; }
-        public string ProductionOrderReference { get; set; }
-        public string ProductionOrderCode { get; set; }
-        public System.DateTime ProductionOrderEntryDate { get; set; }
         public int PlannedOrderID { get; set; }
         public int PlannedOrderDetailID { get; set; }
         public string PlannedOrderReference { get; set; }
@@ -36,5 +33,25 @@ namespace TotalModel.Models
         public int ProductID { get; set; }
         public string ProductCode { get; set; }
         public string ProductName { get; set; }
+        public int PlannedOrderMaterialID { get; set; }
+        public int ProductionLineID { get; set; }
+        public int MoldID { get; set; }
+        public string MoldCode { get; set; }
+        public int CustomerID { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public int WorkshiftID { get; set; }
+        public string WorkshiftCode { get; set; }
+        public int GoodsReceiptID { get; set; }
+        public int GoodsReceiptDetailID { get; set; }
+        public System.DateTime GoodsReceiptEntryDate { get; set; }
+        public string GoodsReceiptReference { get; set; }
+        public string GoodsReceiptCode { get; set; }
+        public Nullable<decimal> PlannedOrderRemains { get; set; }
+        public decimal WorkingHours { get; set; }
+        public decimal CyclePerHours { get; set; }
+        public decimal MoldQuantity { get; set; }
+        public decimal BlockUnit { get; set; }
+        public decimal BlockQuantity { get; set; }
     }
 }

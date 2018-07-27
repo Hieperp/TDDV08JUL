@@ -23,7 +23,6 @@ namespace TotalModel.Models
         public string CustomerName { get; set; }
         public int ProductionOrderID { get; set; }
         public int ProductionOrderDetailID { get; set; }
-        public System.DateTime ProductionOrderEntryDate { get; set; }
         public int ProductionLineID { get; set; }
         public string ProductionLineCode { get; set; }
         public int MoldID { get; set; }
@@ -42,8 +41,6 @@ namespace TotalModel.Models
         public decimal WorkingHours { get; set; }
         public decimal CyclePerHours { get; set; }
         public decimal MoldQuantity { get; set; }
-        public decimal BlockUnit { get; set; }
-        public decimal BlockQuantity { get; set; }
         public Nullable<decimal> QuantityRemains { get; set; }
         public int Quantity { get; set; }
         public Nullable<bool> IsSelected { get; set; }
@@ -51,5 +48,8 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> GoodsReceiptEntryDate { get; set; }
         public string GoodsReceiptReference { get; set; }
         public string GoodsReceiptCode { get; set; }
+        public int PlannedOrderMaterialID { get; set; }
+        public decimal BlockUnit { get; set; }
+        public decimal BlockQuantity { get; set; }
     }
 }

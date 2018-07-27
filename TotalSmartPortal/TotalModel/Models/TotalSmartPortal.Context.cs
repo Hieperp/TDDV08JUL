@@ -75,12 +75,10 @@ namespace TotalModel.Models
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<Mold> Molds { get; set; }
         public virtual DbSet<ProductionLine> ProductionLines { get; set; }
-        public virtual DbSet<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         public virtual DbSet<ProductionOrderDetail> ProductionOrderDetails { get; set; }
         public virtual DbSet<Workshift> Workshifts { get; set; }
         public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
-        public virtual DbSet<MaterialIssue> MaterialIssues { get; set; }
         public virtual DbSet<PlannedOrderDetail> PlannedOrderDetails { get; set; }
         public virtual DbSet<PlannedOrderMaterial> PlannedOrderMaterials { get; set; }
         public virtual DbSet<PlannedOrder> PlannedOrders { get; set; }
@@ -88,6 +86,8 @@ namespace TotalModel.Models
         public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
         public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
         public virtual DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
+        public virtual DbSet<MaterialIssueDetail> MaterialIssueDetails { get; set; }
+        public virtual DbSet<MaterialIssue> MaterialIssues { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {

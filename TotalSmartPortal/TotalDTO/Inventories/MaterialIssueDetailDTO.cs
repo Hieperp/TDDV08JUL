@@ -18,6 +18,7 @@ namespace TotalDTO.Inventories
 
         public int PlannedOrderID { get; set; }
         public int PlannedOrderDetailID { get; set; }
+        public int PlannedOrderMaterialID { get; set; }
 
         [Display(Name = "Kế Hoạch")]
         [UIHint("StringReadonly")]
@@ -44,11 +45,23 @@ namespace TotalDTO.Inventories
 
         public int WorkshiftID { get; set; }
 
+        public int CustomerID { get; set; }
+        [Display(Name = "Mã KH")]
+        [UIHint("StringReadonly")]
+        public string CustomerCode { get; set; }
+        [Display(Name = "Khách hàng")]
+        [UIHint("StringReadonly")]
+        public string CustomerName { get; set; }
+
         public int ProductionLineID { get; set; }
         [Display(Name = "Line")]
         [UIHint("StringReadonly")]
         public string ProductionLineCode { get; set; }
 
+        public int MoldID { get; set; }
+        [Display(Name = "Khuôn")]
+        [UIHint("StringReadonly")]
+        public string MoldCode { get; set; }
 
         public int ProductID { get; set; }
         [Display(Name = "Mặt hàng")]
@@ -82,6 +95,10 @@ namespace TotalDTO.Inventories
 
 
         [Display(Name = "Tồn đơn")]
+        [UIHint("DecimalReadonly")]
+        public decimal WorkshiftPlannedOrderRemains { get; set; }
+
+        [Display(Name = "Tồn kho")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityRemains { get; set; }
 

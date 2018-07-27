@@ -111,7 +111,10 @@
                         .ClientTemplate("#= (PlannedOrderID == null)? '' : PlannedOrderID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderID' value='#= (PlannedOrderID == null) ? '' : PlannedOrderID #' />");
                     columns.Bound(p => p.PlannedOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (PlannedOrderDetailID == null)? '' : PlannedOrderDetailID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderDetailID' value='#= (PlannedOrderDetailID == null) ? '' : PlannedOrderDetailID #' />");
+                    columns.Bound(p => p.PlannedOrderMaterialID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (PlannedOrderMaterialID == null)? '' : PlannedOrderMaterialID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderMaterialID' value='#= (PlannedOrderMaterialID == null) ? '' : PlannedOrderMaterialID #' />");
 
+                    
                     columns.Bound(p => p.PlannedOrderCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
                         .ClientTemplate("#= (PlannedOrderCode == null)? '' : PlannedOrderCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderCode' value='#= (PlannedOrderCode == null) ? '' : PlannedOrderCode #' />");
                     columns.Bound(p => p.PlannedOrderReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
@@ -128,11 +131,27 @@
                         .ClientTemplate("#= (ProductionOrderCode == null)? '' : ProductionOrderCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderCode' value='#= (ProductionOrderCode == null) ? '' : ProductionOrderCode #' />");
                     columns.Bound(p => p.ProductionOrderReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
                         .ClientTemplate("#= (ProductionOrderReference == null)? '' : ProductionOrderReference #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderReference' value='#= (ProductionOrderReference == null) ? '' : ProductionOrderReference #' />");
-                    columns.Bound(p => p.ProductionOrderEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
-                        .Format("{0:" + @SettingsManager.DateFormat + "}")
-                        .ClientTemplate("#= (ProductionOrderEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', ProductionOrderEntryDate) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderEntryDate' value='#= (ProductionOrderEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', ProductionOrderEntryDate) #' />");
 
 
+                    columns.Bound(p => p.CustomerID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CustomerID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerID' value='#= CustomerID #' />");
+                    columns.Bound(p => p.CustomerName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
+                        .ClientTemplate("#= CustomerName #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerName' value='#= CustomerName #' />");
+                    columns.Bound(p => p.CustomerCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/CustomerAvailable")
+                        .ClientTemplate("#= CustomerCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerCode' value='#= CustomerCode #' />");
+
+
+                    columns.Bound(p => p.ProductionLineID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= ProductionLineID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionLineID' value='#= ProductionLineID #' />");
+                    columns.Bound(p => p.ProductionLineCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/ProductionLineAvailable")
+                        .ClientTemplate("#= ProductionLineCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionLineCode' value='#= ProductionLineCode #' />");
+
+                    columns.Bound(p => p.MoldID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= MoldID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].MoldID' value='#= MoldID #' />");
+                    columns.Bound(p => p.MoldCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/MoldAvailable")
+                        .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
+                    
+                    
                     columns.Bound(p => p.ProductID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= ProductID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductID' value='#= ProductID #' />");
                     columns.Bound(p => p.ProductName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
@@ -167,6 +186,11 @@
                         .Format("{0:" + @SettingsManager.DateFormat + "}")
                         .ClientTemplate("#= (GoodsReceiptEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptEntryDate' value='#= (GoodsReceiptEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #' />");
 
+
+                    columns.Bound(p => p.WorkshiftPlannedOrderRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', WorkshiftPlannedOrderRemains) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].WorkshiftPlannedOrderRemains' value='#= WorkshiftPlannedOrderRemains #' />");
                     
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
                         .Format("{0:n0}")
@@ -257,6 +281,7 @@
                             events.Error("kendGrid_ErrorHandler");
                         })
                         .Aggregates(a => a.Add(x => x.ProductCode).Count())
+                        .Aggregates(a => a.Add(x => x.WorkshiftPlannedOrderRemains).Sum())
                         .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
                         .Aggregates(a => a.Add(x => x.Quantity).Sum())
                     )

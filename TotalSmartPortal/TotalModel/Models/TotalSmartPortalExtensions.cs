@@ -88,6 +88,29 @@ namespace TotalModel.Models
     }
 
 
+    public partial class MaterialIssueViewDetail
+    {
+        public decimal WorkshiftPlannedOrderRemains
+        {
+            get
+            {
+                decimal workshiftQuantity = (this.WorkingHours * this.CyclePerHours * this.MoldQuantity) * this.BlockQuantity / this.BlockUnit;
+                return (decimal)this.PlannedOrderRemains > workshiftQuantity ? (decimal)this.PlannedOrderRemains : workshiftQuantity;
+            }
+        }
+    }
+
+    public partial class MaterialIssuePendingPlannedOrderDetail
+    {
+        public decimal WorkshiftPlannedOrderRemains
+        {
+            get
+            {
+                decimal workshiftQuantity = (this.WorkingHours * this.CyclePerHours * this.MoldQuantity) * this.BlockQuantity / this.BlockUnit;
+                return (decimal)this.PlannedOrderRemains > workshiftQuantity ? (decimal)this.PlannedOrderRemains : workshiftQuantity;
+            }
+        }
+    }
 
 
 
@@ -109,7 +132,7 @@ namespace TotalModel.Models
     }
 
 
-    
+
     public partial class ProductionOrder : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<ProductionOrderDetail>
     {
         public int GetID() { return this.ProductionOrderID; }
@@ -535,6 +558,6 @@ namespace TotalModel.Models
         public System.DateTime EditedDate { get; set; }
     }
 
-   
+
 
 }

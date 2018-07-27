@@ -17,9 +17,9 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PlannedOrderDetail()
         {
-            this.MaterialIssueDetails = new HashSet<MaterialIssueDetail>();
             this.PlannedOrderMaterials = new HashSet<PlannedOrderMaterial>();
             this.ProductionOrderDetails = new HashSet<ProductionOrderDetail>();
+            this.MaterialIssueDetails = new HashSet<MaterialIssueDetail>();
         }
     
         public int PlannedOrderDetailID { get; set; }
@@ -43,8 +43,6 @@ namespace TotalModel.Models
     
         public virtual Commodity Commodity { get; set; }
         public virtual Customer Customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         public virtual Mold Mold { get; set; }
         public virtual PlannedOrder PlannedOrder { get; set; }
         public virtual VoidType VoidType { get; set; }
@@ -53,5 +51,7 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
         public virtual CommodityMaterial CommodityMaterial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
     }
 }

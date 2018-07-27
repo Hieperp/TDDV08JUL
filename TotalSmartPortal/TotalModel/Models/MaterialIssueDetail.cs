@@ -18,11 +18,15 @@ namespace TotalModel.Models
         public int MaterialIssueID { get; set; }
         public System.DateTime EntryDate { get; set; }
         public int LocationID { get; set; }
+        public int MaterialIssueTypeID { get; set; }
+        public int WorkshiftID { get; set; }
         public int PlannedOrderID { get; set; }
         public int PlannedOrderDetailID { get; set; }
+        public int PlannedOrderMaterialID { get; set; }
         public int ProductionOrderID { get; set; }
         public int ProductionOrderDetailID { get; set; }
         public int ProductionLineID { get; set; }
+        public int MoldID { get; set; }
         public int GoodsReceiptID { get; set; }
         public int GoodsReceiptDetailID { get; set; }
         public int CommodityID { get; set; }
@@ -32,13 +36,12 @@ namespace TotalModel.Models
         public decimal QuantitySemifinished { get; set; }
         public string Remarks { get; set; }
         public bool Approved { get; set; }
-        public int WorkshiftID { get; set; }
-        public int MaterialIssueTypeID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
-        public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
         public virtual GoodsReceiptDetail GoodsReceiptDetail { get; set; }
         public virtual MaterialIssue MaterialIssue { get; set; }
         public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
+        public virtual PlannedOrderMaterial PlannedOrderMaterial { get; set; }
+        public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
     }
 }
