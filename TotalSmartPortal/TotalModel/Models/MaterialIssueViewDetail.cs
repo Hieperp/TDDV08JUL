@@ -27,7 +27,6 @@ namespace TotalModel.Models
         public string CommodityCode { get; set; }
         public string CommodityName { get; set; }
         public int CommodityTypeID { get; set; }
-        public Nullable<decimal> QuantityRemains { get; set; }
         public decimal Quantity { get; set; }
         public string Remarks { get; set; }
         public int ProductID { get; set; }
@@ -53,5 +52,6 @@ namespace TotalModel.Models
         public decimal MoldQuantity { get; set; }
         public decimal BlockUnit { get; set; }
         public decimal BlockQuantity { get; set; }
+        public Nullable<decimal> QuantityAvailables { get; set; }
     }
 }

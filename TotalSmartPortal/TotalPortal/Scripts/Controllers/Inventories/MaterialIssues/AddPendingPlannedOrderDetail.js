@@ -55,8 +55,6 @@ function handleOKEvent(materialIssueGridDataSource, pendingProductionOrderDetail
 
         dataRow.ProductionOrderID = productionOrderGridDataItem.ProductionOrderID;
         dataRow.ProductionOrderDetailID = productionOrderGridDataItem.ProductionOrderDetailID;
-        dataRow.ProductionOrderCode = productionOrderGridDataItem.ProductionOrderCode;
-        dataRow.ProductionOrderReference = productionOrderGridDataItem.ProductionOrderReference;
 
         dataRow.WorkshiftID = productionOrderGridDataItem.WorkshiftID;
 
@@ -86,6 +84,7 @@ function handleOKEvent(materialIssueGridDataSource, pendingProductionOrderDetail
         dataRow.CommodityTypeID = productionOrderGridDataItem.CommodityTypeID;
 
         dataRow.WorkshiftPlannedOrderRemains = productionOrderGridDataItem.WorkshiftPlannedOrderRemains;
+        dataRow.QuantityAvailables = productionOrderGridDataItem.QuantityAvailables;
         dataRow.QuantityRemains = productionOrderGridDataItem.QuantityRemains;
         dataRow.Quantity = productionOrderGridDataItem.Quantity;
 

@@ -32,17 +32,7 @@ namespace TotalDTO.Inventories
 
         public int ProductionOrderID { get; set; }
         public int ProductionOrderDetailID { get; set; }
-
-        [Display(Name = "Lệnh SX")]
-        [UIHint("StringReadonly")]
-        public string ProductionOrderReference { get; set; }
-        [Display(Name = "Số LSX")]
-        [UIHint("StringReadonly")]
-        public string ProductionOrderCode { get; set; }
-        [Display(Name = "Ngày SX")]
-        [UIHint("DateTimeReadonly")]
-        public Nullable<System.DateTime> ProductionOrderEntryDate { get; set; }
-
+        
         public int WorkshiftID { get; set; }
 
         public int CustomerID { get; set; }
@@ -99,6 +89,10 @@ namespace TotalDTO.Inventories
         public decimal WorkshiftPlannedOrderRemains { get; set; }
 
         [Display(Name = "Tồn kho")]
+        [UIHint("DecimalReadonly")]
+        public decimal QuantityAvailables { get; set; }
+
+        [Display(Name = "[MIN QuantityAvailables vs WorkshiftPlannedOrderRemains]Remains")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityRemains { get; set; }
 

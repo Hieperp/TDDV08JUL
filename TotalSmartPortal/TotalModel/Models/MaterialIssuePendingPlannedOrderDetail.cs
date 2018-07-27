@@ -41,7 +41,6 @@ namespace TotalModel.Models
         public decimal WorkingHours { get; set; }
         public decimal CyclePerHours { get; set; }
         public decimal MoldQuantity { get; set; }
-        public Nullable<decimal> QuantityRemains { get; set; }
         public int Quantity { get; set; }
         public Nullable<bool> IsSelected { get; set; }
         public Nullable<int> GoodsReceiptID { get; set; }
@@ -51,5 +50,6 @@ namespace TotalModel.Models
         public int PlannedOrderMaterialID { get; set; }
         public decimal BlockUnit { get; set; }
         public decimal BlockQuantity { get; set; }
+        public Nullable<decimal> QuantityAvailables { get; set; }
     }
 }

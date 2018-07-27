@@ -90,26 +90,28 @@ namespace TotalModel.Models
 
     public partial class MaterialIssueViewDetail
     {
-        public decimal WorkshiftPlannedOrderRemains
+        public Nullable<decimal> WorkshiftPlannedOrderRemains
         {
             get
             {
-                decimal workshiftQuantity = (this.WorkingHours * this.CyclePerHours * this.MoldQuantity) * this.BlockQuantity / this.BlockUnit;
-                return (decimal)this.PlannedOrderRemains > workshiftQuantity ? (decimal)this.PlannedOrderRemains : workshiftQuantity;
+                Nullable<decimal> workshiftQuantity = (this.WorkingHours * this.CyclePerHours * this.MoldQuantity) * this.BlockQuantity / this.BlockUnit;
+                return this.PlannedOrderRemains < workshiftQuantity ? this.PlannedOrderRemains : workshiftQuantity;
             }
         }
+        public Nullable<decimal> QuantityRemains { get { return this.WorkshiftPlannedOrderRemains < this.QuantityAvailables ? this.WorkshiftPlannedOrderRemains : this.QuantityAvailables; } }
     }
 
     public partial class MaterialIssuePendingPlannedOrderDetail
     {
-        public decimal WorkshiftPlannedOrderRemains
+        public Nullable<decimal> WorkshiftPlannedOrderRemains
         {
             get
             {
-                decimal workshiftQuantity = (this.WorkingHours * this.CyclePerHours * this.MoldQuantity) * this.BlockQuantity / this.BlockUnit;
-                return (decimal)this.PlannedOrderRemains > workshiftQuantity ? (decimal)this.PlannedOrderRemains : workshiftQuantity;
+                Nullable<decimal> workshiftQuantity = (this.WorkingHours * this.CyclePerHours * this.MoldQuantity) * this.BlockQuantity / this.BlockUnit;
+                return this.PlannedOrderRemains < workshiftQuantity ? this.PlannedOrderRemains : workshiftQuantity;
             }
         }
+        public Nullable<decimal> QuantityRemains { get { return this.WorkshiftPlannedOrderRemains < this.QuantityAvailables ? this.WorkshiftPlannedOrderRemains : this.QuantityAvailables; } }
     }
 
 

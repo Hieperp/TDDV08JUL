@@ -10890,7 +10890,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
-          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="ProductID" Nullable="false" />
@@ -10916,6 +10915,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Decimal" Name="MoldQuantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="BlockUnit" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="BlockQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="QuantityAvailables" Nullable="true" Precision="20" Scale="2" />
         </ComplexType>
         <EntityType Name="GoodsReceiptDetail">
           <Key>
@@ -11061,7 +11061,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Decimal" Name="WorkingHours" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="CyclePerHours" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="MoldQuantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Int32" Name="Quantity" Nullable="false" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
           <Property Type="Int32" Name="GoodsReceiptID" Nullable="true" />
@@ -11071,6 +11070,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Int32" Name="PlannedOrderMaterialID" Nullable="false" />
           <Property Type="Decimal" Name="BlockUnit" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="BlockQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="QuantityAvailables" Nullable="true" Precision="19" Scale="2" />
         </ComplexType>
         <ComplexType Name="MaterialIssuePendingPlannedOrder">
           <Property Type="Int32" Name="MaterialIssueTypeID" Nullable="false" />
@@ -14929,7 +14929,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
                 <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
                 <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
-                <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -14955,6 +14954,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="MoldQuantity" ColumnName="MoldQuantity" />
                 <ScalarProperty Name="BlockUnit" ColumnName="BlockUnit" />
                 <ScalarProperty Name="BlockQuantity" ColumnName="BlockQuantity" />
+                <ScalarProperty Name="QuantityAvailables" ColumnName="QuantityAvailables" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -15042,7 +15042,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
                 <ScalarProperty Name="CyclePerHours" ColumnName="CyclePerHours" />
                 <ScalarProperty Name="MoldQuantity" ColumnName="MoldQuantity" />
-                <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
                 <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
@@ -15052,6 +15051,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="PlannedOrderMaterialID" ColumnName="PlannedOrderMaterialID" />
                 <ScalarProperty Name="BlockUnit" ColumnName="BlockUnit" />
                 <ScalarProperty Name="BlockQuantity" ColumnName="BlockQuantity" />
+                <ScalarProperty Name="QuantityAvailables" ColumnName="QuantityAvailables" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -121,16 +121,10 @@
                         .ClientTemplate("#= (PlannedOrderReference == null)? '' : PlannedOrderReference #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderReference' value='#= (PlannedOrderReference == null) ? '' : PlannedOrderReference #' />");
                     
                     
-                    
                     columns.Bound(p => p.ProductionOrderID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (ProductionOrderID == null)? '' : ProductionOrderID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderID' value='#= (ProductionOrderID == null) ? '' : ProductionOrderID #' />");
                     columns.Bound(p => p.ProductionOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (ProductionOrderDetailID == null)? '' : ProductionOrderDetailID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderDetailID' value='#= (ProductionOrderDetailID == null) ? '' : ProductionOrderDetailID #' />");
-
-                    columns.Bound(p => p.ProductionOrderCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
-                        .ClientTemplate("#= (ProductionOrderCode == null)? '' : ProductionOrderCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderCode' value='#= (ProductionOrderCode == null) ? '' : ProductionOrderCode #' />");
-                    columns.Bound(p => p.ProductionOrderReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
-                        .ClientTemplate("#= (ProductionOrderReference == null)? '' : ProductionOrderReference #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderReference' value='#= (ProductionOrderReference == null) ? '' : ProductionOrderReference #' />");
 
 
                     columns.Bound(p => p.CustomerID).DisplayNameTitle().Filterable(false).Hidden()
@@ -191,11 +185,17 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', WorkshiftPlannedOrderRemains) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].WorkshiftPlannedOrderRemains' value='#= WorkshiftPlannedOrderRemains #' />");
+
+                    columns.Bound(p => p.QuantityAvailables).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailables) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].QuantityAvailables' value='#= QuantityAvailables #' />");
                     
-                    columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
+                    columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(true)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                    
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
@@ -282,6 +282,7 @@
                         })
                         .Aggregates(a => a.Add(x => x.ProductCode).Count())
                         .Aggregates(a => a.Add(x => x.WorkshiftPlannedOrderRemains).Sum())
+                        .Aggregates(a => a.Add(x => x.QuantityAvailables).Sum())
                         .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
                         .Aggregates(a => a.Add(x => x.Quantity).Sum())
                     )
