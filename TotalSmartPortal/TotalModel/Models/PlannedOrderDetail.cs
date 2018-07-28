@@ -41,7 +41,6 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
     
-        public virtual Commodity Commodity { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Mold Mold { get; set; }
         public virtual PlannedOrder PlannedOrder { get; set; }
@@ -53,5 +52,6 @@ namespace TotalModel.Models
         public virtual CommodityMaterial CommodityMaterial { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
+        public virtual Commodity Commodity { get; set; }
     }
 }

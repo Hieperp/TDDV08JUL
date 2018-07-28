@@ -36,7 +36,7 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public bool Approved { get; set; }
     
-        public virtual Commodity Commodity { get; set; }
         public virtual CreditNote CreditNote { get; set; }
+        public virtual Commodity Commodity { get; set; }
     }
 }

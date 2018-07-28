@@ -37,11 +37,11 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public bool Approved { get; set; }
     
-        public virtual Commodity Commodity { get; set; }
         public virtual GoodsReceiptDetail GoodsReceiptDetail { get; set; }
         public virtual MaterialIssue MaterialIssue { get; set; }
         public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
         public virtual PlannedOrderMaterial PlannedOrderMaterial { get; set; }
         public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
+        public virtual Commodity Commodity { get; set; }
     }
 }
