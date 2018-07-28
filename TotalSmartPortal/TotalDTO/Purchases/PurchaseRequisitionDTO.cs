@@ -22,7 +22,7 @@ namespace TotalDTO.Purchases
         public int PurchaseRequisitionID { get; set; }
 
         //public virtual Nullable<int> CustomerID { get; set; }
-        public virtual Nullable<int> CustomerID { get { return 68; } }
+        public virtual Nullable<int> CustomerID { get { return 1; } }
 
         [Display(Name = "Chứng")]
         public string Code { get; set; }

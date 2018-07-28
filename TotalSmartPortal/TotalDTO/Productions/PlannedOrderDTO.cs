@@ -25,7 +25,7 @@ namespace TotalDTO.Productions
         public string Code { get; set; }
 
         //public virtual int  CustomerID { get; set; }
-        public virtual int CustomerID { get { return 68; } }
+        public virtual int CustomerID { get { return 1; } }
 
 
         public override void PerformPresaveRule()
