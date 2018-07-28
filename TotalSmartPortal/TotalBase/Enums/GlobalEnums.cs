@@ -45,6 +45,7 @@ namespace TotalBase.Enums
 
             PlannedOrder = 680016,
             ProductionOrder = 680018,
+            SemifinishedProduct = 680020,
 
             Quotation = 8031,
             SalesOrder = 8032,

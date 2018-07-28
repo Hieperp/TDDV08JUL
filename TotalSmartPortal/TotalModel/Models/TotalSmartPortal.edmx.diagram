@@ -233,6 +233,8 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_Commodities" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrderDetails_Commodities" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturnDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_Workshifts" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

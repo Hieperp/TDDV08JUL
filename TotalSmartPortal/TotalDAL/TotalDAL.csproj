@@ -66,6 +66,7 @@
     <Compile Include="Helpers\SqlProgrammability\Inventories\MaterialIssue.cs" />
     <Compile Include="Helpers\SqlProgrammability\Productions\PlannedOrder.cs" />
     <Compile Include="Helpers\SqlProgrammability\Productions\ProductionOrder.cs" />
+    <Compile Include="Helpers\SqlProgrammability\Productions\SemifinishedProduct.cs" />
     <Compile Include="Helpers\SqlProgrammability\Purchases\PurchaseRequisition.cs" />
     <Compile Include="Helpers\SqlProgrammability\Reports\SaleReports.cs" />
     <Compile Include="Helpers\SqlProgrammability\Sales\SalesOrder.cs" />
