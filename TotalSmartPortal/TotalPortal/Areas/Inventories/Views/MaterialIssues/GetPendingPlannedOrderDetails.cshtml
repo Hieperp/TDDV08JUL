@@ -8,12 +8,16 @@
     .Name("gridPendingPlannedOrderDetails")
     .Columns(columns =>
     {
-        columns.Bound(c => c.PlannedOrderReference).Title("Phiếu ĐH").Width(30);
-        columns.Bound(c => c.PlannedOrderCode).Title("Số đơn hàng").Width(50);
-        columns.Bound(c => c.ProductCode).Title("Mã hàng").Width(130);
-        columns.Bound(c => c.CommodityCode).Title("Mã hàng").Width(130);
-        columns.Bound(c => c.WorkshiftPlannedOrderRemains).Title("SL").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" });
-        columns.Bound(c => c.QuantityAvailables).Title("SL").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" });
+        columns.Bound(c => c.PlannedOrderReference).Title("Số đơn hàng").Width(30);
+        columns.Bound(c => c.CustomerCode).Title("Mã KH").Width(35);
+        columns.Bound(c => c.CustomerName).Title("Tên KH").Width(60);
+        columns.Bound(c => c.ProductionLineCode).Title("Máy").Width(30);
+        columns.Bound(c => c.ProductCode).Title("Mã hàng").Width(30);
+        columns.Bound(c => c.CommodityCode).Title("Mã NVL").Width(30);
+        columns.Bound(c => c.GoodsReceiptReference).Title("Lô NVL").Width(30);
+        columns.Bound(c => c.GoodsReceiptEntryDate).Title("Ngày NVL").Width(30).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.WorkshiftPlannedOrderRemains).Title("Tồn Đơn").Format("{0:n0}").Width(20).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" });
+        columns.Bound(c => c.QuantityAvailables).Title("Tồn Kho").Format("{0:n0}").Width(20).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" });
 
         columns.Template(t => { }).Title("&nbsp;").ClientTemplate("<input class='IsSelected' #= IsSelected ? checked='checked':'' #  type='checkbox' />").Width(15);
     })
@@ -84,8 +88,15 @@
                     { field: "PlannedOrderCode", operator: "contains", value: filterText },
                     { field: "PlannedOrderReference", operator: "contains", value: filterText },
 
+                    { field: "CustomerCode", operator: "contains", value: filterText },
+                    { field: "ProductionLineCode", operator: "contains", value: filterText },
+
+                    { field: "ProductName", operator: "contains", value: filterText },
+
                     { field: "CommodityCode", operator: "contains", value: filterText },
-                    { field: "CommodityName", operator: "contains", value: filterText }
+                    { field: "CommodityName", operator: "contains", value: filterText },
+
+                    { field: "GoodsReceiptReference", operator: "contains", value: filterText }
                 ]
             });
 

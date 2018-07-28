@@ -129,11 +129,11 @@
 
                     columns.Bound(p => p.CustomerID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CustomerID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerID' value='#= CustomerID #' />");
-                    columns.Bound(p => p.CustomerName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
-                        .ClientTemplate("#= CustomerName #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerName' value='#= CustomerName #' />");
                     columns.Bound(p => p.CustomerCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/CustomerAvailable")
                         .ClientTemplate("#= CustomerCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerCode' value='#= CustomerCode #' />");
-
+                    columns.Bound(p => p.CustomerName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
+                        .ClientTemplate("#= CustomerName #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerName' value='#= CustomerName #' />");
+                    
 
                     columns.Bound(p => p.ProductionLineID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= ProductionLineID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionLineID' value='#= ProductionLineID #' />");
