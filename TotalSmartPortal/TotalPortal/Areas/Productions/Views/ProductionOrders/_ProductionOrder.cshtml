@@ -123,8 +123,8 @@
                     columns.Bound(p => p.ProductionLineID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= ProductionLineID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineID' value='#= ProductionLineID #' />");
                     columns.Bound(p => p.ProductionLineCode).DisplayNameTitle().Filterable(false).Width(200)
-                        .ClientTemplate("#= ProductionLineCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineCode' value='#= ProductionLineCode #' />");
-
+                        .ClientTemplate("#= (ProductionLineCode == null)? '' : ProductionLineCode #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].ProductionLineCode' value='#= (ProductionLineCode == null) ? '' : ProductionLineCode #' />");
+                    
                     columns.Bound(p => p.MoldID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= MoldID #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].MoldID' value='#= MoldID #' />");
                     columns.Bound(p => p.MoldCode).DisplayNameTitle().Filterable(false).Width(200)

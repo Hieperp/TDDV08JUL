@@ -76,8 +76,8 @@
                     columns.Bound(p => p.MoldID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= MoldID #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].MoldID' value='#= MoldID #' />");
                     columns.Bound(p => p.MoldCode).DisplayNameTitle().Filterable(false).Width(200)
-                        .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
-
+                        .ClientTemplate("#= (MoldCode == null)? '' : MoldCode #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].MoldCode' value='#= (MoldCode == null) ? '' : MoldCode #' />");
+                    
                     columns.Bound(p => p.CommodityMaterialID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityMaterialID #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].CommodityMaterialID' value='#= CommodityMaterialID #' />");
                     columns.Bound(p => p.CommodityMaterialCode).DisplayNameTitle().Filterable(false).Width(200)

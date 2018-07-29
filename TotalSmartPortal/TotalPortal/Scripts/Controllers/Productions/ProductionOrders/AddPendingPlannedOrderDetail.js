@@ -70,8 +70,8 @@ function handleOKEvent(productionOrderGridDataSource, pendingPlannedOrderDetailG
         dataRow.QuantityRemains = plannedOrderGridDataItem.QuantityRemains;
         dataRow.Quantity = 0;
 
-        dataRow.ProductionLineID = 1;
-        dataRow.ProductionLineCode = "A";
+        dataRow.ProductionLineID = null;
+        dataRow.ProductionLineCode = null;
 
         dataRow.Remarks = null;
         dataRow.VoidTypeID = null;
