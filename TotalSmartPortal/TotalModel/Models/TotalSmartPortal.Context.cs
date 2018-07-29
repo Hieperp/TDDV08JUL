@@ -85,9 +85,9 @@ namespace TotalModel.Models
         public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
         public virtual DbSet<PurchaseRequisitionDetail> PurchaseRequisitionDetails { get; set; }
         public virtual DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
+        public virtual DbSet<Commodity> Commodities { get; set; }
         public virtual DbSet<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         public virtual DbSet<MaterialIssue> MaterialIssues { get; set; }
-        public virtual DbSet<Commodity> Commodities { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -2470,15 +2470,6 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssueIndex>("GetMaterialIssueIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
         }
     
-        public virtual ObjectResult<MaterialIssuePendingWorkshift> GetMaterialIssuePendingWorkshifts(Nullable<int> locationID)
-        {
-            var locationIDParameter = locationID.HasValue ?
-                new ObjectParameter("LocationID", locationID) :
-                new ObjectParameter("LocationID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingWorkshift>("GetMaterialIssuePendingWorkshifts", locationIDParameter);
-        }
-    
         public virtual ObjectResult<MaterialIssueViewDetail> GetMaterialIssueViewDetails(Nullable<int> materialIssueID)
         {
             var materialIssueIDParameter = materialIssueID.HasValue ?
@@ -2541,7 +2532,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MaterialIssueToggleApproved", entityIDParameter, approvedParameter);
         }
     
-        public virtual ObjectResult<MaterialIssuePendingPlannedOrderDetail> GetMaterialIssuePendingPlannedOrderDetails(Nullable<int> locationID, Nullable<int> materialIssueID, Nullable<int> plannedOrderID, Nullable<int> workshiftID, Nullable<int> warehouseID, string productionOrderDetailIDs, string goodsReceiptDetailIDs, Nullable<bool> isReadonly)
+        public virtual ObjectResult<MaterialIssuePendingPlannedOrderDetail> GetMaterialIssuePendingPlannedOrderDetails(Nullable<int> locationID, Nullable<int> materialIssueID, Nullable<int> plannedOrderDetailID, Nullable<int> workshiftID, Nullable<int> moldID, Nullable<int> warehouseID, string plannedOrderMaterialIDs, Nullable<bool> isReadonly)
         {
             var locationIDParameter = locationID.HasValue ?
                 new ObjectParameter("LocationID", locationID) :
@@ -2551,31 +2542,31 @@ namespace TotalModel.Models
                 new ObjectParameter("MaterialIssueID", materialIssueID) :
                 new ObjectParameter("MaterialIssueID", typeof(int));
     
-            var plannedOrderIDParameter = plannedOrderID.HasValue ?
-                new ObjectParameter("PlannedOrderID", plannedOrderID) :
-                new ObjectParameter("PlannedOrderID", typeof(int));
+            var plannedOrderDetailIDParameter = plannedOrderDetailID.HasValue ?
+                new ObjectParameter("PlannedOrderDetailID", plannedOrderDetailID) :
+                new ObjectParameter("PlannedOrderDetailID", typeof(int));
     
             var workshiftIDParameter = workshiftID.HasValue ?
                 new ObjectParameter("WorkshiftID", workshiftID) :
                 new ObjectParameter("WorkshiftID", typeof(int));
     
+            var moldIDParameter = moldID.HasValue ?
+                new ObjectParameter("MoldID", moldID) :
+                new ObjectParameter("MoldID", typeof(int));
+    
             var warehouseIDParameter = warehouseID.HasValue ?
                 new ObjectParameter("WarehouseID", warehouseID) :
                 new ObjectParameter("WarehouseID", typeof(int));
     
-            var productionOrderDetailIDsParameter = productionOrderDetailIDs != null ?
-                new ObjectParameter("ProductionOrderDetailIDs", productionOrderDetailIDs) :
-                new ObjectParameter("ProductionOrderDetailIDs", typeof(string));
-    
-            var goodsReceiptDetailIDsParameter = goodsReceiptDetailIDs != null ?
-                new ObjectParameter("GoodsReceiptDetailIDs", goodsReceiptDetailIDs) :
-                new ObjectParameter("GoodsReceiptDetailIDs", typeof(string));
+            var plannedOrderMaterialIDsParameter = plannedOrderMaterialIDs != null ?
+                new ObjectParameter("PlannedOrderMaterialIDs", plannedOrderMaterialIDs) :
+                new ObjectParameter("PlannedOrderMaterialIDs", typeof(string));
     
             var isReadonlyParameter = isReadonly.HasValue ?
                 new ObjectParameter("IsReadonly", isReadonly) :
                 new ObjectParameter("IsReadonly", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingPlannedOrderDetail>("GetMaterialIssuePendingPlannedOrderDetails", locationIDParameter, materialIssueIDParameter, plannedOrderIDParameter, workshiftIDParameter, warehouseIDParameter, productionOrderDetailIDsParameter, goodsReceiptDetailIDsParameter, isReadonlyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MaterialIssuePendingPlannedOrderDetail>("GetMaterialIssuePendingPlannedOrderDetails", locationIDParameter, materialIssueIDParameter, plannedOrderDetailIDParameter, workshiftIDParameter, moldIDParameter, warehouseIDParameter, plannedOrderMaterialIDsParameter, isReadonlyParameter);
         }
     
         public virtual ObjectResult<MaterialIssuePendingPlannedOrder> GetMaterialIssuePendingPlannedOrders(Nullable<int> locationID)

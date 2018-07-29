@@ -46,21 +46,15 @@ namespace TotalPortal.Areas.Inventories.APIs
 
 
 
-        public JsonResult GetWorkshifts([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID)
-        {
-            var result = this.materialIssueAPIRepository.GetWorkshifts(locationID);
-            return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult GetPlannedOrders([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID)
         {
             var result = this.materialIssueAPIRepository.GetPlannedOrders(locationID);
             return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetPendingPlannedOrderDetails([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? materialIssueID, int? plannedOrderID, int? workshiftID, int warehouseID, string productionOrderDetailIDs, string goodsReceiptDetailIDs)
+        public JsonResult GetPendingPlannedOrderDetails([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? materialIssueID, int? plannedOrderDetailID, int? workshiftID, int? moldID, int? warehouseID, string plannedOrderMaterialIDs, bool isReadonly)
         {
-            var result = this.materialIssueAPIRepository.GetPendingPlannedOrderDetails(locationID, materialIssueID, plannedOrderID, workshiftID, warehouseID, productionOrderDetailIDs, goodsReceiptDetailIDs, false);
+            var result = this.materialIssueAPIRepository.GetPendingPlannedOrderDetails(locationID, materialIssueID, plannedOrderDetailID, workshiftID, moldID, warehouseID, plannedOrderMaterialIDs, isReadonly);
             return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 

@@ -26,8 +26,14 @@ namespace TotalModel.Models
         public string Code { get; set; }
         public int MaterialIssueTypeID { get; set; }
         public int WorkshiftID { get; set; }
-        public Nullable<int> PlannedOrderID { get; set; }
-        public string PlannedOrderReferences { get; set; }
+        public int CustomerID { get; set; }
+        public int CommodityID { get; set; }
+        public int PlannedOrderID { get; set; }
+        public int PlannedOrderDetailID { get; set; }
+        public int ProductionOrderID { get; set; }
+        public int ProductionOrderDetailID { get; set; }
+        public int ProductionLineID { get; set; }
+        public int MoldID { get; set; }
         public int WarehouseID { get; set; }
         public int StorekeeperID { get; set; }
         public int UserID { get; set; }
@@ -37,6 +43,8 @@ namespace TotalModel.Models
         public int ApproverID { get; set; }
         public decimal TotalQuantity { get; set; }
         public decimal TotalQuantitySemifinished { get; set; }
+        public decimal TotalQuantityWastage { get; set; }
+        public decimal TotalQuantityRejected { get; set; }
         public string Description { get; set; }
         public string Remarks { get; set; }
         public System.DateTime CreatedDate { get; set; }

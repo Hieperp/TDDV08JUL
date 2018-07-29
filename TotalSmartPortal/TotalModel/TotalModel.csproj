@@ -255,9 +255,6 @@
     <Compile Include="Models\MaterialIssuePendingPlannedOrderDetail.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MaterialIssuePendingWorkshift.cs">
-      <DependentUpon>TotalSmartPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MaterialIssueViewDetail.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>

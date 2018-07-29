@@ -25,37 +25,49 @@ namespace TotalDTO.Inventories
         public int MaterialIssueTypeID { get { return (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder; } }
         //public int MaterialIssueTypeID { get; set; }
 
-        public virtual int WorkshiftID { get; set; }
+        public virtual int CustomerID { get; set; }
+        public virtual int CommodityID { get; set; }
+        [Display(Name = "Mặt hàng")]
+        [UIHint("StringReadonly")]
+        public string CommodityCode { get; set; }
+        [Display(Name = "Mã hàng")]
+        [UIHint("StringReadonly")]
+        public string CommodityName { get; set; }
 
-        public virtual Nullable<int> WarehouseID { get; set; }
-
-        public Nullable<int> PlannedOrderID { get; set; }
+        public int PlannedOrderID { get; set; }
         public string PlannedOrderReference { get; set; }
-        public string PlannedOrderReferences { get; set; }
         public string PlannedOrderCode { get; set; }
-        public string PlannedOrderCodes { get; set; }
-        [Display(Name = "Phiếu đặt hàng")]
-        public string PlannedOrderReferenceNote { get { return this.PlannedOrderID != null ? this.PlannedOrderReference : (this.PlannedOrderReferences != "" ? this.PlannedOrderReferences : "Giao hàng tổng hợp của nhiều ĐH"); } }
-        [Display(Name = "Số đơn hàng")]
-        public string PlannedOrderCodeNote { get { return this.PlannedOrderID != null ? this.PlannedOrderCode : (this.PlannedOrderCodes != "" ? this.PlannedOrderCodes : ""); } }
-        [Display(Name = "Ngày đặt hàng")]
-        public Nullable<System.DateTime> PlannedOrderEntryDate { get; set; }
+        public DateTime PlannedOrderEntryDate { get; set; }
+
+        public int PlannedOrderDetailID { get; set; }
+
+        public int ProductionOrderID { get; set; }
+        public int ProductionOrderDetailID { get; set; }
 
         [Display(Name = "Số đơn hàng")]
         [UIHint("Commons/SOCode")]
         public string Code { get; set; }
 
+        public virtual int WorkshiftID { get; set; }
+        
+        public virtual int ProductionLineID { get; set; }
+        [Display(Name = "Line")]
+        public string ProductionLineCode { get; set; }
+
+        public virtual int MoldID { get; set; }
+        [Display(Name = "Khuôn")]
+        public string MoldCode { get; set; }
+
+
+        public virtual Nullable<int> WarehouseID { get; set; }
+
         public virtual int StorekeeperID { get; set; }
 
         public override void PerformPresaveRule()
         {
-            this.Approved = true; this.ApprovedDate = this.EntryDate; //At MaterialIssue, Approve right after save. Surely, It can be UnApprove later for editing
-
             base.PerformPresaveRule();
 
-            string purchaseRequisitionReferences = ""; string purchaseRequisitionCodes = "";
-            this.DtoDetails().ToList().ForEach(e => { e.MaterialIssueTypeID = this.MaterialIssueTypeID; e.WorkshiftID = this.WorkshiftID; e.WarehouseID = this.WarehouseID; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && purchaseRequisitionReferences.IndexOf(e.PlannedOrderReference) < 0) purchaseRequisitionReferences = purchaseRequisitionReferences + (purchaseRequisitionReferences != "" ? ", " : "") + e.PlannedOrderReference; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && e.PlannedOrderCode != null && purchaseRequisitionCodes.IndexOf(e.PlannedOrderCode) < 0) purchaseRequisitionCodes = purchaseRequisitionCodes + (purchaseRequisitionCodes != "" ? ", " : "") + e.PlannedOrderCode; });
-            this.PlannedOrderReferences = purchaseRequisitionReferences; this.PlannedOrderCodes = purchaseRequisitionCodes != "" ? purchaseRequisitionCodes : null; if (this.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder) this.Code = this.PlannedOrderCodes;
+            this.DtoDetails().ToList().ForEach(e => { e.MaterialIssueTypeID = this.MaterialIssueTypeID; e.PlannedOrderID = this.PlannedOrderID; e.PlannedOrderDetailID = this.PlannedOrderDetailID; e.ProductionOrderID = this.ProductionOrderID; e.ProductionOrderDetailID = this.ProductionOrderDetailID; e.CustomerID = this.CustomerID; e.WorkshiftID = this.WorkshiftID; e.ProductionLineID = this.ProductionLineID; e.MoldID = this.MoldID; e.WarehouseID = this.WarehouseID; });
         }
     }
 

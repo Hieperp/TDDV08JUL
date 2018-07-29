@@ -20,54 +20,18 @@ namespace TotalDTO.Inventories
         public int PlannedOrderDetailID { get; set; }
         public int PlannedOrderMaterialID { get; set; }
 
-        [Display(Name = "Kế Hoạch")]
-        [UIHint("StringReadonly")]
-        public string PlannedOrderReference { get; set; }
-        [Display(Name = "Mã KH")]
-        [UIHint("StringReadonly")]
-        public string PlannedOrderCode { get; set; }
-        [Display(Name = "Ngày KH")]
-        [UIHint("DateTimeReadonly")]
-        public Nullable<System.DateTime> PlannedOrderEntryDate { get; set; }
-
         public int ProductionOrderID { get; set; }
         public int ProductionOrderDetailID { get; set; }
-        
-        public int WorkshiftID { get; set; }
-
-        public int CustomerID { get; set; }
-        [Display(Name = "Mã KH")]
-        [UIHint("StringReadonly")]
-        public string CustomerCode { get; set; }
-        [Display(Name = "Khách hàng")]
-        [UIHint("StringReadonly")]
-        public string CustomerName { get; set; }
-
-        public int ProductionLineID { get; set; }
-        [Display(Name = "Line")]
-        [UIHint("StringReadonly")]
-        public string ProductionLineCode { get; set; }
-
-        public int MoldID { get; set; }
-        [Display(Name = "Khuôn")]
-        [UIHint("StringReadonly")]
-        public string MoldCode { get; set; }
-
-        public int ProductID { get; set; }
-        [Display(Name = "Mặt hàng")]
-        [UIHint("StringReadonly")]
-        public string ProductCode { get; set; }
-        [Display(Name = "Mã hàng")]
-        [UIHint("StringReadonly")]
-        public string ProductName { get; set; }
 
         public int MaterialIssueTypeID { get; set; }
+
+        public int CustomerID { get; set; }
+        public int WorkshiftID { get; set; }
+        public int ProductionLineID { get; set; }
+        public int MoldID { get; set; }
+
+        
         public Nullable<int> WarehouseID { get; set; }
-
-        [Display(Name = "Kho")]
-        [UIHint("StringReadonly")]
-        public string WarehouseCode { get; set; }
-
 
         public int GoodsReceiptID { get; set; }
         public int GoodsReceiptDetailID { get; set; }
@@ -81,7 +45,6 @@ namespace TotalDTO.Inventories
         [Display(Name = "Ngày KH")]
         [UIHint("DateTimeReadonly")]
         public Nullable<System.DateTime> GoodsReceiptEntryDate { get; set; }
-
 
 
         [Display(Name = "Tồn đơn")]

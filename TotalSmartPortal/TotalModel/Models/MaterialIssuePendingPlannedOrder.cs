@@ -15,12 +15,22 @@ namespace TotalModel.Models
     {
         public int MaterialIssueTypeID { get; set; }
         public int PlannedOrderID { get; set; }
-        public string PlannedOrderReference { get; set; }
         public string PlannedOrderCode { get; set; }
-        public System.DateTime PlannedOrderEntryDate { get; set; }
         public int WorkshiftID { get; set; }
         public string WorkshiftCode { get; set; }
-        public string Description { get; set; }
-        public string Remarks { get; set; }
+        public int ProductionOrderDetailID { get; set; }
+        public int ProductionOrderID { get; set; }
+        public int PlannedOrderDetailID { get; set; }
+        public int CustomerID { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public int CommodityID { get; set; }
+        public string CommodityCode { get; set; }
+        public int ProductionLineID { get; set; }
+        public string ProductionLineCode { get; set; }
+        public int MoldID { get; set; }
+        public string MoldCode { get; set; }
+        public string PlannedOrderReference { get; set; }
+        public System.DateTime PlannedOrderEntryDate { get; set; }
     }
 }

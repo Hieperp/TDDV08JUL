@@ -18,8 +18,25 @@
     @Html.HiddenFor(model => model.PlannedOrderReference)
     @Html.HiddenFor(model => model.PlannedOrderEntryDate)
 
+    @Html.HiddenFor(model => model.PlannedOrderDetailID)
+    @Html.HiddenFor(model => model.ProductionOrderID)
+    @Html.HiddenFor(model => model.ProductionOrderDetailID)
+
+    
+    @Html.HiddenFor(model => model.CustomerID)
     @Html.HiddenFor(model => model.WorkshiftID)
 
+    @Html.HiddenFor(model => model.CommodityID)
+    @Html.HiddenFor(model => model.CommodityCode)
+    @Html.HiddenFor(model => model.CommodityName)
+
+    @Html.HiddenFor(model => model.ProductionLineID)
+    @Html.HiddenFor(model => model.ProductionLineCode)
+
+    @Html.HiddenFor(model => model.MoldID)
+    @Html.HiddenFor(model => model.MoldCode)
+
+    
     @Html.HiddenFor(model => model.Description);
 
     @(Html.Kendo().TabStrip()
@@ -27,20 +44,11 @@
         .Name("tabStrip")
         .Items(tabStrip =>
         {
-            @*tabStrip.Add().Text("Khách hàng không có đơn hàng")
-                .Selected(true)
-                .Content(@<text>
-                    @Html.Partial("~/Views/Helpers/Commons/_SearchWorkshift.cshtml")
-                </text>);*@
-
             tabStrip.Add().Text("Giao hàng theo đơn đặt hàng")
+                .Selected(true)
                 .Content(@<text>
                     @Html.Partial("~/Areas/Inventories/Views/MaterialIssues/_GetProductionOrder.cshtml")
                 </text>);
-            tabStrip.Add().Text("Giao hàng tổng hợp của nhiều đơn đặt hàng")
-                    .Content(@<text>
-                    @Html.Partial("~/Areas/Inventories/Views/MaterialIssues/_GetWorkshift.cshtml")
-                    </text>);
         })
     )
 
@@ -73,28 +81,38 @@
 
     function handleOKEvent(promotionGrid) { //This javascript is now used only here. Later, if it is used somewhere else, it should be break into a standalone js file, and then just only add a link here
 
-        var hasProductionOrder = $("#tabStrip").data("kendoTabStrip").select().index() === 0 ? false : true;
+        //var hasProductionOrder = $("#tabStrip").data("kendoTabStrip").select().index() === 0 ? false : true;
 
-        if (hasProductionOrder == false) {
-            if ($("#Workshift_WorkshiftID").val() === null || $("#Workshift_WorkshiftID").val() === "")
-                return false;
+        //if (hasProductionOrder == false) {
+        //    if ($("#Workshift_WorkshiftID").val() === null || $("#Workshift_WorkshiftID").val() === "")
+        //        return false;
 
-            if (promotionGrid != undefined) {
-                var selectedPromotionItem = promotionGrid.dataItem(promotionGrid.select());
-                if (selectedPromotionItem === undefined || selectedPromotionItem === null)
-                    return false;
-            }
+        //    if (promotionGrid != undefined) {
+        //        var selectedPromotionItem = promotionGrid.dataItem(promotionGrid.select());
+        //        if (selectedPromotionItem === undefined || selectedPromotionItem === null)
+        //            return false;
+        //    }
 
-            _setModelInput();
-        }
-        else {
-            var selectedGrid = $($("#tabStrip").data("kendoTabStrip").select().index() === 1 ? "#materialIssuePendingProductionOrderGrid" : "#materialIssuePendingWorkshiftGrid").data("kendoGrid");
-            var selectedDataItem = selectedGrid.dataItem(selectedGrid.select());
-            if (selectedDataItem === undefined || selectedDataItem === null)
-                return false;
+        //    _setModelInput();
+        //}
+        //else {
+        //    var selectedGrid = $($("#tabStrip").data("kendoTabStrip").select().index() === 1 ? "#materialIssuePendingPlannedOrderGrid" : "#materialIssuePendingWorkshiftGrid").data("kendoGrid");
+        //    var selectedDataItem = selectedGrid.dataItem(selectedGrid.select());
+        //    if (selectedDataItem === undefined || selectedDataItem === null)
+        //        return false;
 
-            _setModelInput(selectedDataItem);
-        }
+        //    _setModelInput(selectedDataItem);
+        //}
+
+
+
+
+        var selectedGrid = $("#materialIssuePendingPlannedOrderGrid").data("kendoGrid");
+        var selectedDataItem = selectedGrid.dataItem(selectedGrid.select());
+        if (selectedDataItem === undefined || selectedDataItem === null)
+            return false;
+
+        _setModelInput(selectedDataItem);
 
 
         $("#submitCreateWizard").trigger("click");
@@ -102,45 +120,74 @@
 
         function _setModelInput(selectedDataItem) {
 
-            if (hasProductionOrder == false) {
-                $("#WorkshiftID").val(-1); //FOR TEMP ONLY
+            $("#MaterialIssueTypeID").val(selectedDataItem === undefined || selectedDataItem.MaterialIssueTypeID === undefined ? null : selectedDataItem.MaterialIssueTypeID);
 
-                //$("#Salesperson_EmployeeID").val($("#Workshift_SalespersonID").val()); //INIT DEFAULT Salesperson_EmployeeID, Salesperson_Name FROM Workshift_SalespersonID, Workshift_SalespersonName
-                //$("#Salesperson_Name").val($("#Workshift_SalespersonName").val());
-            }
-            else {
-                $("#MaterialIssueTypeID").val(selectedDataItem === undefined || selectedDataItem.MaterialIssueTypeID === undefined ? null : selectedDataItem.MaterialIssueTypeID);
+            $("#PlannedOrderID").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderID === undefined ? null : selectedDataItem.PlannedOrderID);
+            $("#PlannedOrderCode").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderCode === undefined ? null : selectedDataItem.PlannedOrderCode);
+            $("#PlannedOrderReference").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderReference === undefined ? null : selectedDataItem.PlannedOrderReference);
+            $("#PlannedOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.PlannedOrderEntryDate, SettingsManager.DateTimeFormat));
 
-                $("#Workshift_WorkshiftID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftID === undefined ? null : selectedDataItem.WorkshiftID);
-                $("#Workshift_Code").val(selectedDataItem === undefined || selectedDataItem.WorkshiftCode === undefined ? null : selectedDataItem.WorkshiftCode);
-                $("#Workshift_Name").val(selectedDataItem === undefined || selectedDataItem.WorkshiftCode === undefined ? null : selectedDataItem.WorkshiftCode);
-                $("#Workshift_OfficialName").val(selectedDataItem === undefined || selectedDataItem.WorkshiftOfficialName === undefined ? null : selectedDataItem.WorkshiftOfficialName);
-                $("#Workshift_Birthday").val(selectedDataItem === undefined || selectedDataItem.WorkshiftBirthday === undefined ? null : kendo.toString(selectedDataItem.WorkshiftBirthday, SettingsManager.DateFormat));
-                $("#Workshift_VATCode").val(selectedDataItem === undefined || selectedDataItem.WorkshiftVATCode === undefined ? null : selectedDataItem.WorkshiftVATCode);
-                $("#Workshift_Telephone").val(selectedDataItem === undefined || selectedDataItem.WorkshiftTelephone === undefined ? null : selectedDataItem.WorkshiftTelephone);
-                $("#Workshift_BillingAddress").val(selectedDataItem === undefined || selectedDataItem.WorkshiftBillingAddress === undefined ? null : selectedDataItem.WorkshiftBillingAddress);
-                $("#Workshift_ShippingAddress").val(selectedDataItem === undefined || selectedDataItem.WorkshiftShippingAddress === undefined ? null : selectedDataItem.WorkshiftShippingAddress);
-                $("#Workshift_TerritoryID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftTerritoryID === undefined ? null : selectedDataItem.WorkshiftTerritoryID);
-                $("#Workshift_EntireTerritoryEntireName").val(selectedDataItem === undefined || selectedDataItem.WorkshiftEntireTerritoryEntireName === undefined ? null : selectedDataItem.WorkshiftEntireTerritoryEntireName);
-                $("#Workshift_SalespersonID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftSalespersonID === undefined ? null : selectedDataItem.WorkshiftSalespersonID);
-                $("#Workshift_SalespersonName").val(selectedDataItem === undefined || selectedDataItem.WorkshiftSalespersonName === undefined ? null : selectedDataItem.WorkshiftSalespersonName);
-                $("#Workshift_PaymentTermID").val(selectedDataItem === undefined || selectedDataItem.PaymentTermID === undefined ? null : selectedDataItem.PaymentTermID);
-                $("#Workshift_PriceCategoryID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftPriceCategoryID === undefined ? null : selectedDataItem.WorkshiftPriceCategoryID);
-                $("#Workshift_PriceCategoryCode").val(selectedDataItem === undefined || selectedDataItem.WorkshiftPriceCategoryCode === undefined ? null : selectedDataItem.WorkshiftPriceCategoryCode);
+            $("#PlannedOrderDetailID").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderDetailID === undefined ? null : selectedDataItem.PlannedOrderDetailID);
 
-                $("#ProductionOrderID").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderID === undefined ? null : selectedDataItem.ProductionOrderID);
-                $("#ProductionOrderCode").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderCode === undefined ? null : selectedDataItem.ProductionOrderCode);
-                $("#ProductionOrderReference").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderReference === undefined ? null : selectedDataItem.ProductionOrderReference);
-                $("#ProductionOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.ProductionOrderEntryDate, SettingsManager.DateTimeFormat));
+            $("#ProductionOrderDetailID").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderDetailID === undefined ? null : selectedDataItem.ProductionOrderDetailID);
+            $("#ProductionOrderID").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderID === undefined ? null : selectedDataItem.ProductionOrderID);
+
+            $("#CustomerID").val(selectedDataItem === undefined || selectedDataItem.CustomerID === undefined ? null : selectedDataItem.CustomerID);
+            $("#WorkshiftID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftID === undefined ? null : selectedDataItem.WorkshiftID);
+
+            $("#CommodityID").val(selectedDataItem === undefined || selectedDataItem.CommodityID === undefined ? null : selectedDataItem.CommodityID);
+            $("#CommodityCode").val(selectedDataItem === undefined || selectedDataItem.CommodityCode === undefined ? null : selectedDataItem.CommodityCode);
+            $("#CommodityName").val(selectedDataItem === undefined || selectedDataItem.CommodityName === undefined ? null : selectedDataItem.CommodityName);
+
+            $("#ProductionLineID").val(selectedDataItem === undefined || selectedDataItem.ProductionLineID === undefined ? null : selectedDataItem.ProductionLineID);
+            $("#ProductionLineCode").val(selectedDataItem === undefined || selectedDataItem.ProductionLineCode === undefined ? null : selectedDataItem.ProductionLineCode);
+
+            $("#MoldID").val(selectedDataItem === undefined || selectedDataItem.MoldID === undefined ? null : selectedDataItem.MoldID);
+            $("#MoldCode").val(selectedDataItem === undefined || selectedDataItem.MoldCode === undefined ? null : selectedDataItem.MoldCode);
+
+            $("#Description").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
 
 
-                //$("#Warehouse_WarehouseID").val(selectedDataItem === undefined || selectedDataItem.WarehouseID === undefined ? null : selectedDataItem.WarehouseID);
-                //$("#Warehouse_Code").val(selectedDataItem === undefined || selectedDataItem.WarehouseCode === undefined ? null : selectedDataItem.WarehouseCode);
-                //$("#Warehouse_Name").val(selectedDataItem === undefined || selectedDataItem.WarehouseName === undefined ? null : selectedDataItem.WarehouseName);
 
-                $("#Description").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
+            //if (hasProductionOrder == false) {
+            //    $("#WorkshiftID").val(-1); //FOR TEMP ONLY
 
-            }
+            //    //$("#Salesperson_EmployeeID").val($("#Workshift_SalespersonID").val()); //INIT DEFAULT Salesperson_EmployeeID, Salesperson_Name FROM Workshift_SalespersonID, Workshift_SalespersonName
+            //    //$("#Salesperson_Name").val($("#Workshift_SalespersonName").val());
+            //}
+            //else {
+                //$("#MaterialIssueTypeID").val(selectedDataItem === undefined || selectedDataItem.MaterialIssueTypeID === undefined ? null : selectedDataItem.MaterialIssueTypeID);
+
+                //$("#Workshift_WorkshiftID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftID === undefined ? null : selectedDataItem.WorkshiftID);
+                //$("#Workshift_Code").val(selectedDataItem === undefined || selectedDataItem.WorkshiftCode === undefined ? null : selectedDataItem.WorkshiftCode);
+                //$("#Workshift_Name").val(selectedDataItem === undefined || selectedDataItem.WorkshiftCode === undefined ? null : selectedDataItem.WorkshiftCode);
+                //$("#Workshift_OfficialName").val(selectedDataItem === undefined || selectedDataItem.WorkshiftOfficialName === undefined ? null : selectedDataItem.WorkshiftOfficialName);
+                //$("#Workshift_Birthday").val(selectedDataItem === undefined || selectedDataItem.WorkshiftBirthday === undefined ? null : kendo.toString(selectedDataItem.WorkshiftBirthday, SettingsManager.DateFormat));
+                //$("#Workshift_VATCode").val(selectedDataItem === undefined || selectedDataItem.WorkshiftVATCode === undefined ? null : selectedDataItem.WorkshiftVATCode);
+                //$("#Workshift_Telephone").val(selectedDataItem === undefined || selectedDataItem.WorkshiftTelephone === undefined ? null : selectedDataItem.WorkshiftTelephone);
+                //$("#Workshift_BillingAddress").val(selectedDataItem === undefined || selectedDataItem.WorkshiftBillingAddress === undefined ? null : selectedDataItem.WorkshiftBillingAddress);
+                //$("#Workshift_ShippingAddress").val(selectedDataItem === undefined || selectedDataItem.WorkshiftShippingAddress === undefined ? null : selectedDataItem.WorkshiftShippingAddress);
+                //$("#Workshift_TerritoryID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftTerritoryID === undefined ? null : selectedDataItem.WorkshiftTerritoryID);
+                //$("#Workshift_EntireTerritoryEntireName").val(selectedDataItem === undefined || selectedDataItem.WorkshiftEntireTerritoryEntireName === undefined ? null : selectedDataItem.WorkshiftEntireTerritoryEntireName);
+                //$("#Workshift_SalespersonID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftSalespersonID === undefined ? null : selectedDataItem.WorkshiftSalespersonID);
+                //$("#Workshift_SalespersonName").val(selectedDataItem === undefined || selectedDataItem.WorkshiftSalespersonName === undefined ? null : selectedDataItem.WorkshiftSalespersonName);
+                //$("#Workshift_PaymentTermID").val(selectedDataItem === undefined || selectedDataItem.PaymentTermID === undefined ? null : selectedDataItem.PaymentTermID);
+                //$("#Workshift_PriceCategoryID").val(selectedDataItem === undefined || selectedDataItem.WorkshiftPriceCategoryID === undefined ? null : selectedDataItem.WorkshiftPriceCategoryID);
+                //$("#Workshift_PriceCategoryCode").val(selectedDataItem === undefined || selectedDataItem.WorkshiftPriceCategoryCode === undefined ? null : selectedDataItem.WorkshiftPriceCategoryCode);
+
+                //$("#ProductionOrderID").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderID === undefined ? null : selectedDataItem.ProductionOrderID);
+                //$("#ProductionOrderCode").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderCode === undefined ? null : selectedDataItem.ProductionOrderCode);
+                //$("#ProductionOrderReference").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderReference === undefined ? null : selectedDataItem.ProductionOrderReference);
+                //$("#ProductionOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.ProductionOrderEntryDate, SettingsManager.DateTimeFormat));
+
+
+                ////$("#Warehouse_WarehouseID").val(selectedDataItem === undefined || selectedDataItem.WarehouseID === undefined ? null : selectedDataItem.WarehouseID);
+                ////$("#Warehouse_Code").val(selectedDataItem === undefined || selectedDataItem.WarehouseCode === undefined ? null : selectedDataItem.WarehouseCode);
+                ////$("#Warehouse_Name").val(selectedDataItem === undefined || selectedDataItem.WarehouseName === undefined ? null : selectedDataItem.WarehouseName);
+
+                //$("#Description").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
+
+            //}
         }
     }
 

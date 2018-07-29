@@ -12,11 +12,18 @@
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTopB.cshtml")
 
+    
+    
+    @Html.HiddenFor(model => model.CustomerID)
     @Html.Hidden("Customer_CustomerID", 1); //JUST SET RANNDOMLY, NOT USE FOR ANY, EXCEPT: GetWarehouses()
+
+    
+    
+    
     
     @Html.Hidden("WarehouseTaskID", (int)@ViewBag.WarehouseTaskID);
     @Html.Hidden("WarehouseTaskIDList", (string)@ViewBag.WarehouseTaskIDList);
-    
+
     @Html.HiddenFor(model => model.MaterialIssueID)
     @Html.HiddenFor(model => model.MaterialIssueTypeID)
 
@@ -24,57 +31,100 @@
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSectionLeftA.cshtml")
 
+        @Html.HiddenFor(model => model.ProductionOrderID)
+        @Html.HiddenFor(model => model.ProductionOrderDetailID)
 
         @Html.HiddenFor(model => model.PlannedOrderID)
-        @Html.HiddenFor(model => model.PlannedOrderCode)
-        @Html.HiddenFor(model => model.PlannedOrderReference)
+        @Html.HiddenFor(model => model.PlannedOrderDetailID)
         @if (Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder)
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.PlannedOrderReferenceNote)
+                @Html.LabelFor(model => model.PlannedOrderReference)
                 <div class="div-input">
-                    @Html.Kendo().MaskedTextBoxFor(model => model.PlannedOrderReferenceNote).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.PlannedOrderReference).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
                 </div>
                 <div class="div-validation-message">
-                    @Html.ValidationMessageFor(model => model.PlannedOrderReferenceNote, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.PlannedOrderReference, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.PlannedOrderCodeNote)
+                @Html.LabelFor(model => model.PlannedOrderCode)
                 <div class="div-input">
-                    @Html.Kendo().MaskedTextBoxFor(model => model.PlannedOrderCodeNote).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.PlannedOrderCode).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
                 </div>
                 <div class="div-validation-message">
-                    @Html.ValidationMessageFor(model => model.PlannedOrderCodeNote, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.PlannedOrderCode, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            if (Model.PlannedOrderEntryDate != null)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PlannedOrderEntryDate)
-                    <div class="div-input">
-                        @Html.Kendo().DateTimePickerFor(model => model.PlannedOrderEntryDate).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
-                    </div>
-                    <div class="div-validation-message">
-                        @Html.ValidationMessageFor(model => model.PlannedOrderEntryDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Code)
+                @Html.LabelFor(model => model.PlannedOrderEntryDate)
                 <div class="div-input">
-                    @Html.Kendo().MaskedTextBoxFor(model => model.Code).HtmlAttributes(new { @class = "left-panel-input" })
+                    @Html.Kendo().DateTimePickerFor(model => model.PlannedOrderEntryDate).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
                 </div>
                 <div class="div-validation-message">
-                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.PlannedOrderEntryDate, "", new { @class = "text-danger" })
                 </div>
             </div>
         }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code)
+            <div class="div-input">
+                @Html.Kendo().MaskedTextBoxFor(model => model.Code).HtmlAttributes(new { @class = "left-panel-input" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @Html.HiddenFor(model => model.CommodityID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.CommodityCode)
+            <div class="div-input">
+                @Html.Kendo().MaskedTextBoxFor(model => model.CommodityCode).HtmlAttributes(new { @class = "left-panel-input" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.CommodityCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CommodityName)
+            <div class="div-input">
+                @Html.Kendo().MaskedTextBoxFor(model => model.CommodityName).HtmlAttributes(new { @class = "left-panel-input" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.CommodityName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @Html.HiddenFor(model => model.ProductionLineID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductionLineCode)
+            <div class="div-input">
+                @Html.Kendo().MaskedTextBoxFor(model => model.ProductionLineCode).HtmlAttributes(new { @class = "left-panel-input" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.ProductionLineCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.MoldID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoldCode)
+            <div class="div-input">
+                @Html.Kendo().MaskedTextBoxFor(model => model.MoldCode).HtmlAttributes(new { @class = "left-panel-input" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.MoldCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
 
         @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
 
@@ -88,7 +138,7 @@
 
         <div class="right-top-panel right-top-panel-H1">
 
-            @Html.Kendo().NumericTextBoxFor(p => p.WorkshiftID);
+            @Html.Kendo().NumericTextBoxFor(p => p.WorkshiftID)
             @*@Html.EditorFor(d => d.Workshift, new { WorkshiftDescriptionHidden = "true", WorkshiftDisplayName = @Model.GetDisplayName(m => m.Workshift) })*@
 
             @*@Html.DisplayFor(d => d.Warehouse, "Commons/WarehouseBase")*@
@@ -106,53 +156,9 @@
                     columns.Bound(p => p.MaterialIssueID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= MaterialIssueID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].MaterialIssueID' value='#= MaterialIssueID #' />");
 
-                    
-                    columns.Bound(p => p.PlannedOrderID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= (PlannedOrderID == null)? '' : PlannedOrderID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderID' value='#= (PlannedOrderID == null) ? '' : PlannedOrderID #' />");
-                    columns.Bound(p => p.PlannedOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= (PlannedOrderDetailID == null)? '' : PlannedOrderDetailID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderDetailID' value='#= (PlannedOrderDetailID == null) ? '' : PlannedOrderDetailID #' />");
+
                     columns.Bound(p => p.PlannedOrderMaterialID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (PlannedOrderMaterialID == null)? '' : PlannedOrderMaterialID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderMaterialID' value='#= (PlannedOrderMaterialID == null) ? '' : PlannedOrderMaterialID #' />");
-
-                    
-                    columns.Bound(p => p.PlannedOrderCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
-                        .ClientTemplate("#= (PlannedOrderCode == null)? '' : PlannedOrderCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderCode' value='#= (PlannedOrderCode == null) ? '' : PlannedOrderCode #' />");
-                    columns.Bound(p => p.PlannedOrderReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
-                        .ClientTemplate("#= (PlannedOrderReference == null)? '' : PlannedOrderReference #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].PlannedOrderReference' value='#= (PlannedOrderReference == null) ? '' : PlannedOrderReference #' />");
-                    
-                    
-                    columns.Bound(p => p.ProductionOrderID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= (ProductionOrderID == null)? '' : ProductionOrderID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderID' value='#= (ProductionOrderID == null) ? '' : ProductionOrderID #' />");
-                    columns.Bound(p => p.ProductionOrderDetailID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= (ProductionOrderDetailID == null)? '' : ProductionOrderDetailID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionOrderDetailID' value='#= (ProductionOrderDetailID == null) ? '' : ProductionOrderDetailID #' />");
-
-
-                    columns.Bound(p => p.CustomerID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= CustomerID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerID' value='#= CustomerID #' />");
-                    columns.Bound(p => p.CustomerCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/CustomerAvailable")
-                        .ClientTemplate("#= CustomerCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerCode' value='#= CustomerCode #' />");
-                    columns.Bound(p => p.CustomerName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
-                        .ClientTemplate("#= CustomerName #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].CustomerName' value='#= CustomerName #' />");
-                    
-
-                    columns.Bound(p => p.ProductionLineID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= ProductionLineID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionLineID' value='#= ProductionLineID #' />");
-                    columns.Bound(p => p.ProductionLineCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/ProductionLineAvailable")
-                        .ClientTemplate("#= ProductionLineCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductionLineCode' value='#= ProductionLineCode #' />");
-
-                    columns.Bound(p => p.MoldID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= MoldID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].MoldID' value='#= MoldID #' />");
-                    columns.Bound(p => p.MoldCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/MoldAvailable")
-                        .ClientTemplate("#= MoldCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].MoldCode' value='#= MoldCode #' />");
-                    
-                    
-                    columns.Bound(p => p.ProductID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= ProductID #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductID' value='#= ProductID #' />");
-                    columns.Bound(p => p.ProductName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
-                        .ClientTemplate("#= ProductName #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductName' value='#= ProductName #' />");
-                    columns.Bound(p => p.ProductCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? "StringReadonly" : "AutoCompletes/ProductAvailable")
-                        .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
-                        .ClientTemplate("#= ProductCode #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].ProductCode' value='#= ProductCode #' />");
 
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
@@ -190,12 +196,12 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailables) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].QuantityAvailables' value='#= QuantityAvailables #' />");
-                    
+
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(true)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
-                    
+
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
@@ -206,7 +212,7 @@
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
 
-                    
+
                     columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50).Hidden(!@Model.Editable).HtmlAttributes(new { @class = "grid-column-center" });
 
                     columns.Template(model => null).HtmlAttributes(new { @class = "grid-column-center" }).Width(50).Hidden(!@Model.Voidable && !@Model.UnVoidable)
@@ -267,25 +273,24 @@
                             }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                        .Ajax()
-                        .Batch(true)
-                        .ServerOperation(false)
-                        .Model(model =>
-                        {
-                            model.Id(x => x.MaterialIssueDetailID);
-                            model.Field(m => m.MaterialIssueDetailID).DefaultValue(0);
-                            model.Field(m => m.MaterialIssueID).DefaultValue(@Model.MaterialIssueID);
-                        })
-                        .Events(events =>
-                        {
-                            events.Error("kendGrid_ErrorHandler");
-                        })
-                        .Aggregates(a => a.Add(x => x.ProductCode).Count())
-                        .Aggregates(a => a.Add(x => x.WorkshiftPlannedOrderRemains).Sum())
-                        .Aggregates(a => a.Add(x => x.QuantityAvailables).Sum())
-                        .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
-                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                    )
+                                                                                                .Ajax()
+                                                                                                .Batch(true)
+                                                                                                .ServerOperation(false)
+                                                                                                .Model(model =>
+                                                                                                {
+                                                                                                    model.Id(x => x.MaterialIssueDetailID);
+                                                                                                    model.Field(m => m.MaterialIssueDetailID).DefaultValue(0);
+                                                                                                    model.Field(m => m.MaterialIssueID).DefaultValue(@Model.MaterialIssueID);
+                                                                                                })
+                                                                                                .Events(events =>
+                                                                                                {
+                                                                                                    events.Error("kendGrid_ErrorHandler");
+                                                                                                })
+                                                                                                .Aggregates(a => a.Add(x => x.WorkshiftPlannedOrderRemains).Sum())
+                                                                                                .Aggregates(a => a.Add(x => x.QuantityAvailables).Sum())
+                                                                                                .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
+                                                                                                .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                                                                            )
             )
         </div>
 

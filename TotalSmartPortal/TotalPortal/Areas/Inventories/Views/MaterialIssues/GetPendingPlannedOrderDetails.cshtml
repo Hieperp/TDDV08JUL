@@ -8,11 +8,6 @@
     .Name("gridPendingPlannedOrderDetails")
     .Columns(columns =>
     {
-        columns.Bound(c => c.PlannedOrderReference).Title("Số đơn hàng").Width(30);
-        columns.Bound(c => c.CustomerCode).Title("Mã KH").Width(35);
-        columns.Bound(c => c.CustomerName).Title("Tên KH").Width(60);
-        columns.Bound(c => c.ProductionLineCode).Title("Máy").Width(30);
-        columns.Bound(c => c.ProductCode).Title("Mã hàng").Width(30);
         columns.Bound(c => c.CommodityCode).Title("Mã NVL").Width(30);
         columns.Bound(c => c.GoodsReceiptReference).Title("Lô NVL").Width(30);
         columns.Bound(c => c.GoodsReceiptEntryDate).Title("Ngày NVL").Width(30).Format("{0:" + SettingsManager.DateFormat + "}");
@@ -38,14 +33,14 @@
             var materialIssueJSON = window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource.data().toJSON();
 
             return {
-            locationID: window.parent.requireConfig.pageOptions.LocationID,
-            materialIssueID: window.parent.$("#MaterialIssueID").val(),
-            plannedOrderID: window.parent.$("#PlannedOrderID").val(),
-            workshiftID: window.parent.$("#WorkshiftID").val(),
-            warehouseID: window.parent.$("#Warehouse_WarehouseID").val(),
-            productionOrderDetailIDs : materialIssueJSON.map(function(elem){return elem.ProductionOrderDetailID;}).join(","),
-            goodsReceiptDetailIDs : materialIssueJSON.map(function(elem){return elem.GoodsReceiptDetailID;}).join(","),
-            isReadOnly: false
+                locationID: window.parent.requireConfig.pageOptions.LocationID,
+                materialIssueID: window.parent.$("#MaterialIssueID").val(),
+                plannedOrderDetailID: window.parent.$("#PlannedOrderDetailID").val(),
+                workshiftID: window.parent.$("#WorkshiftID").val(),
+                moldID: window.parent.$("#MoldID").val(),
+                warehouseID: window.parent.$("#Warehouse_WarehouseID").val(),
+                plannedOrderMaterialIDs : materialIssueJSON.map(function(elem){return elem.PlannedOrderMaterialID;}).join(","),
+                isReadOnly: false
             };}
             </text>))
     .ServerOperation(false)) //If this is TRUE: Apply filter to datasource will call Ajax to get new datasource result. If this is FALSE: filter will run on client
@@ -85,14 +80,6 @@
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "PlannedOrderCode", operator: "contains", value: filterText },
-                    { field: "PlannedOrderReference", operator: "contains", value: filterText },
-
-                    { field: "CustomerCode", operator: "contains", value: filterText },
-                    { field: "ProductionLineCode", operator: "contains", value: filterText },
-
-                    { field: "ProductName", operator: "contains", value: filterText },
-
                     { field: "CommodityCode", operator: "contains", value: filterText },
                     { field: "CommodityName", operator: "contains", value: filterText },
 

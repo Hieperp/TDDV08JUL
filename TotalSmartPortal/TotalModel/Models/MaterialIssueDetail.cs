@@ -20,6 +20,7 @@ namespace TotalModel.Models
         public int LocationID { get; set; }
         public int MaterialIssueTypeID { get; set; }
         public int WorkshiftID { get; set; }
+        public int CustomerID { get; set; }
         public int PlannedOrderID { get; set; }
         public int PlannedOrderDetailID { get; set; }
         public int PlannedOrderMaterialID { get; set; }
@@ -34,17 +35,18 @@ namespace TotalModel.Models
         public int WarehouseID { get; set; }
         public decimal Quantity { get; set; }
         public decimal QuantitySemifinished { get; set; }
+        public decimal QuantityWastage { get; set; }
+        public decimal QuantityRejected { get; set; }
         public string Remarks { get; set; }
         public bool Approved { get; set; }
-        public int CustomerID { get; set; }
     
+        public virtual Commodity Commodity { get; set; }
+        public virtual Customer Customer { get; set; }
         public virtual GoodsReceiptDetail GoodsReceiptDetail { get; set; }
-        public virtual MaterialIssue MaterialIssue { get; set; }
         public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
         public virtual PlannedOrderMaterial PlannedOrderMaterial { get; set; }
         public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
-        public virtual Commodity Commodity { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Workshift Workshift { get; set; }
+        public virtual MaterialIssue MaterialIssue { get; set; }
     }
 }

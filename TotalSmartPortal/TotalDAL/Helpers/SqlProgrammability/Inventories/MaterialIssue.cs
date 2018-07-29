@@ -96,14 +96,15 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
-            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.PlannedOrder + " AS MaterialIssueTypeID, ProductionOrderDetails.ProductionOrderDetailID, ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.PlannedOrderID, ProductionOrderDetails.PlannedOrderDetailID, PlannedOrders.Code AS PlannedOrderCode, " + "\r\n";
-            queryString = queryString + "                       ProductionOrderDetails.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, ProductionOrderDetails.CommodityID, Commodities.Code AS CommodityCode, ProductionOrderDetails.WorkshiftID, Workshifts.Code AS WorkshiftCode, ProductionOrderDetails.ProductionLineID, ProductionLines.Code AS ProductionLineCode " + "\r\n";
+            queryString = queryString + "       SELECT          " + (int)@GlobalEnums.MaterialIssueTypeID.PlannedOrder + " AS MaterialIssueTypeID, ProductionOrderDetails.ProductionOrderDetailID, ProductionOrderDetails.ProductionOrderID, ProductionOrderDetails.PlannedOrderID, ProductionOrderDetails.PlannedOrderDetailID, PlannedOrders.Code AS PlannedOrderCode, PlannedOrders.Reference AS PlannedOrderReference, PlannedOrders.EntryDate AS PlannedOrderEntryDate, " + "\r\n";
+            queryString = queryString + "                       ProductionOrderDetails.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, ProductionOrderDetails.CommodityID, Commodities.Code AS CommodityCode, ProductionOrderDetails.WorkshiftID, Workshifts.Code AS WorkshiftCode, ProductionOrderDetails.MoldID, Molds.Code AS MoldCode, ProductionOrderDetails.ProductionLineID, ProductionLines.Code AS ProductionLineCode " + "\r\n";
 
             queryString = queryString + "       FROM            ProductionOrderDetails " + "\r\n";
             queryString = queryString + "                       INNER JOIN PlannedOrders ON ProductionOrderDetails.PlannedOrderDetailID IN (SELECT DISTINCT PlannedOrderDetailID FROM PlannedOrderMaterials WHERE PlannedOrderMaterials.LocationID = @LocationID AND PlannedOrderMaterials.Approved = 1 AND PlannedOrderMaterials.InActive = 0 AND PlannedOrderMaterials.InActivePartial = 0 AND ROUND(PlannedOrderMaterials.Quantity - PlannedOrderMaterials.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") > 0) AND ProductionOrderDetails.Approved = 1 AND ProductionOrderDetails.InActive = 0 AND ProductionOrderDetails.InActivePartial = 0 AND ProductionOrderDetails.PlannedOrderID = PlannedOrders.PlannedOrderID " + "\r\n";
 
             queryString = queryString + "                       INNER JOIN Customers ON ProductionOrderDetails.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Commodities ON ProductionOrderDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Molds ON ProductionOrderDetails.MoldID = Molds.MoldID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Workshifts ON ProductionOrderDetails.WorkshiftID = Workshifts.WorkshiftID " + "\r\n";
             queryString = queryString + "                       INNER JOIN ProductionLines ON ProductionOrderDetails.ProductionLineID = ProductionLines.ProductionLineID " + "\r\n";
             

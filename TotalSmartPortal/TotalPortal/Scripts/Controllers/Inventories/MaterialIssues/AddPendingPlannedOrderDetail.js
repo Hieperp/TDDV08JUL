@@ -46,42 +46,18 @@ function handleOKEvent(materialIssueGridDataSource, pendingProductionOrderDetail
         dataRow.MaterialIssueDetailID = 0;
         dataRow.MaterialIssueID = window.parent.$("#MaterialIssueID").val();
 
-        dataRow.PlannedOrderID = productionOrderGridDataItem.PlannedOrderID;
-        dataRow.PlannedOrderDetailID = productionOrderGridDataItem.PlannedOrderDetailID;
         dataRow.PlannedOrderMaterialID = productionOrderGridDataItem.PlannedOrderMaterialID;
-        dataRow.PlannedOrderCode = productionOrderGridDataItem.PlannedOrderCode;
-        dataRow.PlannedOrderReference = productionOrderGridDataItem.PlannedOrderReference;
-        dataRow.PlannedOrderEntryDate = productionOrderGridDataItem.PlannedOrderEntryDate;
-
-        dataRow.ProductionOrderID = productionOrderGridDataItem.ProductionOrderID;
-        dataRow.ProductionOrderDetailID = productionOrderGridDataItem.ProductionOrderDetailID;
-
-        dataRow.WorkshiftID = productionOrderGridDataItem.WorkshiftID;
-
-        dataRow.CustomerID = productionOrderGridDataItem.CustomerID;
-        dataRow.CustomerName = productionOrderGridDataItem.CustomerName;
-        dataRow.CustomerCode = productionOrderGridDataItem.CustomerCode;
-
-        dataRow.ProductionLineID = productionOrderGridDataItem.ProductionLineID;
-        dataRow.ProductionLineCode = productionOrderGridDataItem.ProductionLineCode;
-
-        dataRow.MoldID = productionOrderGridDataItem.MoldID;
-        dataRow.MoldCode = productionOrderGridDataItem.MoldCode;
-
-        dataRow.ProductID = productionOrderGridDataItem.ProductID;
-        dataRow.ProductName = productionOrderGridDataItem.ProductName;
-        dataRow.ProductCode = productionOrderGridDataItem.ProductCode;
-        
-        dataRow.GoodsReceiptID = productionOrderGridDataItem.GoodsReceiptID;
-        dataRow.GoodsReceiptDetailID = productionOrderGridDataItem.GoodsReceiptDetailID;
-        dataRow.GoodsReceiptCode = productionOrderGridDataItem.GoodsReceiptCode;
-        dataRow.GoodsReceiptReference = productionOrderGridDataItem.GoodsReceiptReference;
-        dataRow.GoodsReceiptEntryDate = productionOrderGridDataItem.GoodsReceiptEntryDate;
 
         dataRow.CommodityID = productionOrderGridDataItem.CommodityID;
         dataRow.CommodityName = productionOrderGridDataItem.CommodityName;
         dataRow.CommodityCode = productionOrderGridDataItem.CommodityCode;
         dataRow.CommodityTypeID = productionOrderGridDataItem.CommodityTypeID;
+
+        dataRow.GoodsReceiptID = productionOrderGridDataItem.GoodsReceiptID;
+        dataRow.GoodsReceiptDetailID = productionOrderGridDataItem.GoodsReceiptDetailID;
+        dataRow.GoodsReceiptCode = productionOrderGridDataItem.GoodsReceiptCode;
+        dataRow.GoodsReceiptReference = productionOrderGridDataItem.GoodsReceiptReference;
+        dataRow.GoodsReceiptEntryDate = productionOrderGridDataItem.GoodsReceiptEntryDate;
 
         dataRow.WorkshiftPlannedOrderRemains = productionOrderGridDataItem.WorkshiftPlannedOrderRemains;
         dataRow.QuantityAvailables = productionOrderGridDataItem.QuantityAvailables;
