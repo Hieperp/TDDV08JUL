@@ -235,6 +235,14 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_MaterialIssues" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrders" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Warehouses" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Molds" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_PlannedOrderDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_PlannedOrders" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionLines" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrderDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Workshifts" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
