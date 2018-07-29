@@ -286,7 +286,13 @@ namespace TotalDAL.Repositories
         public void CreateStoredProcedure()
         {
 
-            
+            //return;
+
+            Helpers.SqlProgrammability.Inventories.MaterialIssue materialIssue = new Helpers.SqlProgrammability.Inventories.MaterialIssue(totalSmartPortalEntities);
+            materialIssue.RestoreProcedure();
+
+            return;
+
             Helpers.SqlProgrammability.Commons.Commodity commodity = new Helpers.SqlProgrammability.Commons.Commodity(totalSmartPortalEntities);
             commodity.RestoreProcedure();
 
@@ -295,11 +301,7 @@ namespace TotalDAL.Repositories
             Helpers.SqlProgrammability.Productions.PlannedOrder plannedOrder = new Helpers.SqlProgrammability.Productions.PlannedOrder(totalSmartPortalEntities);
             plannedOrder.RestoreProcedure();
 
-            //return;
-
-            Helpers.SqlProgrammability.Inventories.MaterialIssue materialIssue = new Helpers.SqlProgrammability.Inventories.MaterialIssue(totalSmartPortalEntities);
-            materialIssue.RestoreProcedure();
-
+            
 
             //return;
 
