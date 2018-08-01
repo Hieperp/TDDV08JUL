@@ -425,7 +425,7 @@ tr:hover {
 
 
 .k-menu-vertical > li {
-    background: radial-gradient(#6596a9, #162b33); /*radial-gradient(darkred, #FF954C);*/
+    background: radial-gradient(#557298, #2d3f57); /*radial-gradient(darkred, #FF954C);*/
     background-color: #A5B8CB;
     border: 0px;
     /*font-size: small;*/
@@ -628,7 +628,7 @@ tr:hover {
     background-color: forestgreen;
     text-align: right;
     /*background-image: url("../Content/Images/New/header_Background.jpg");*/
-    background: linear-gradient(#6596a9, #162b33); /*linear-gradient(darkred, #FF954C);           #6596a9, #162b33        */
+    background: linear-gradient(#557298, #2d3f57); /*linear-gradient(darkred, #FF954C);          THIS IS AT VCP  #6596a9, #162b33        */
 }
 
 .MainMenu-left {
@@ -653,7 +653,7 @@ tr:hover {
         font-weight: normal;
         color: wheat;
         /*background-image: url("../Content/Images/New/header_Background.jpg");*/
-        background: linear-gradient(#6596a9, #162b33); /*linear-gradient(darkred, #FF954C);*/
+        background: linear-gradient(#557298, #2d3f57); /*linear-gradient(darkred, #FF954C);*/
     }
 
         #MainMenu > .k-item > span {

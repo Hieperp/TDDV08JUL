@@ -29,7 +29,7 @@ namespace TotalCore.Helpers
             string macAddress = SystemInfos.GetMACAddress();
             string boardMaker = SystemInfos.GetBoardMaker();
 
-            string systemInfos = processorAllInfos + boardMaker + macAddress + hddSerialNo;
+            string systemInfos = processorAllInfos + boardMaker + macAddress;// +hddSerialNo;
             if (secureEncoding) systemInfos = SecureEncoding.Encrypt(systemInfos);
 
             return systemInfos;
