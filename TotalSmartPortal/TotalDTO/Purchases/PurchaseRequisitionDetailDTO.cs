@@ -26,6 +26,7 @@ namespace TotalDTO.Purchases
         public Nullable<int> VoidClassID { get; set; }
 
         [UIHint("Decimal")]
+        [Range(0, 99999999999, ErrorMessage = "Số lượng không hợp lệ")]
         public override decimal Quantity { get; set; }
     }
 }
