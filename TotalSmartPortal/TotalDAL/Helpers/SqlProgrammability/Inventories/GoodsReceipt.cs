@@ -228,12 +228,12 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "       BEGIN " + "\r\n";
 
-            //queryString = queryString + "           IF (@SaveRelativeOption = 1) ";
-            //queryString = queryString + "               BEGIN ";
-            //queryString = queryString + "                   UPDATE          GoodsReceiptDetails " + "\r\n";
-            //queryString = queryString + "                   SET             GoodsReceiptDetails.Reference = GoodsReceipts.Reference " + "\r\n";
-            //queryString = queryString + "                   FROM            GoodsReceipts INNER JOIN GoodsReceiptDetails ON GoodsReceipts.GoodsReceiptID = @EntityID AND GoodsReceipts.GoodsReceiptID = GoodsReceiptDetails.GoodsReceiptID " + "\r\n";
-            //queryString = queryString + "               END ";
+            queryString = queryString + "           IF (@SaveRelativeOption = 1) ";
+            queryString = queryString + "               BEGIN ";
+            queryString = queryString + "                   UPDATE          GoodsReceiptDetails " + "\r\n";
+            queryString = queryString + "                   SET             GoodsReceiptDetails.Reference = GoodsReceipts.Reference " + "\r\n";
+            queryString = queryString + "                   FROM            GoodsReceipts INNER JOIN GoodsReceiptDetails ON GoodsReceipts.GoodsReceiptID = @EntityID AND GoodsReceipts.GoodsReceiptID = GoodsReceiptDetails.GoodsReceiptID " + "\r\n";
+            queryString = queryString + "               END ";
 
             queryString = queryString + "           DECLARE @GoodsReceiptTypeID int, @AffectedROWCOUNT int ";
             queryString = queryString + "           SELECT  @GoodsReceiptTypeID = GoodsReceiptTypeID FROM GoodsReceipts WHERE GoodsReceiptID = @EntityID ";

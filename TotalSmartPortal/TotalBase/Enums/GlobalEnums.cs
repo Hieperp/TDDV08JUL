@@ -52,6 +52,7 @@ namespace TotalBase.Enums
             DeliveryAdvice = 8035,
             GoodsIssue = 8037,
             MaterialIssue = 8039,
+            WarehouseAdjustment = 8036,
 
             SalesInvoice = 8051,
 

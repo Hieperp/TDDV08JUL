@@ -156,7 +156,7 @@ namespace TotalDAL
         /// <param name="storedProcedureName"></param>
         /// <param name="parameterString"></param>
         /// <param name="queryArray"></param>
-        public static void CreateProcedureToCheckExisting(this DbContext dbContext, string storedProcedureName, string[] queryArray)
+        public static void CreateProcedureToCheckExisting(this DbContext dbContext, string storedProcedureName, string[] queryArray, string predefineString)
         {
             string queryString = "";
 
@@ -166,6 +166,9 @@ namespace TotalDAL
             queryString = queryString + "   BEGIN " + "\r\n";
 
             queryString = queryString + "       DECLARE @FoundEntity nvarchar(100) " + "\r\n";
+
+            if (predefineString != null)
+                queryString = queryString + predefineString + "\r\n";
 
             if (queryArray != null)
             {
@@ -185,6 +188,11 @@ namespace TotalDAL
             queryString = queryString + "   END " + "\r\n";
 
             dbContext.CreateStoredProcedure(storedProcedureName, queryString);
+        }
+
+        public static void CreateProcedureToCheckExisting(this DbContext dbContext, string storedProcedureName, string[] queryArray)
+        {
+            dbContext.CreateProcedureToCheckExisting(storedProcedureName, queryArray, null);
         }
 
         public static void CreateProcedureToCheckExisting(this DbContext dbContext, string storedProcedureName)

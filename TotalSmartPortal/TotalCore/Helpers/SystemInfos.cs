@@ -8,10 +8,10 @@ namespace TotalCore.Helpers
         public static bool Validate()
         {
             string systemInfos = SystemInfos.GetSystemInfos(true);
-            //string systemInfoDecrypt = SecureEncoding.Decrypt("9AjMX2WmdH1+f1gY28KOSIrnL3TmPUpAWOsRtqiPRqvMGh2ghwBv2xaZX73H9J2HdhsEjFDPEREvvqZWNMhmNZnwzIpQM0n+8sSgl7GDLB7KbU7rEjaLkIMwkLnkPwloByCwe9AtKMRrK1iCQ+dYyd4imAny4UmhqsMVIsnK207HIOLx4f+6gtGCtXzQTaZ+Rwk/zUdHfrcaJ9//o4GZ8g=="); //E7240T
+            //string systemInfoDecrypt = SecureEncoding.Decrypt("9AjMX2WmdH1+f1gY28KOSIrnL3TmPUpAWOsRtqiPRqvMGh2ghwBv2xaZX73H9J2HdhsEjFDPEREvvqZWNMhmNZnwzIpQM0n+8sSgl7GDLB7KbU7rEjaLkIMwkLnkPwloByCwe9AtKMRrK1iCQ+dYyQTwZa6fHdaS/2ziwFyUsUQ="); //E7240T
             //string systemInfoDecrypt = SecureEncoding.Decrypt("AqSCdFEojixT1R7g9mYsC7P/RLTChZ2Y/nGSXg4MCCMoH+3cQ9mWmIc/ut8JYMX0uua5rejJyASktIBqHR/DiE3oy1QncbFDyGU2KtsPonCR8zk79MQENUIUvAWSivqIvKKyAHYRH45OvYD7B8+mANoCS2lhDFWMyE0Shn5h9wm2TNyVT7Nz04drLALpwgm436Zrrn6R9MEtnEf8jLGjUw=="); //VCP
 
-            if (systemInfos == "9AjMX2WmdH1+f1gY28KOSIrnL3TmPUpAWOsRtqiPRqvMGh2ghwBv2xaZX73H9J2HdhsEjFDPEREvvqZWNMhmNZnwzIpQM0n+8sSgl7GDLB7KbU7rEjaLkIMwkLnkPwloByCwe9AtKMRrK1iCQ+dYyd4imAny4UmhqsMVIsnK207HIOLx4f+6gtGCtXzQTaZ+Rwk/zUdHfrcaJ9//o4GZ8g==" || systemInfos == "AqSCdFEojixT1R7g9mYsC7P/RLTChZ2Y/nGSXg4MCCMoH+3cQ9mWmIc/ut8JYMX0uua5rejJyASktIBqHR/DiE3oy1QncbFDyGU2KtsPonCR8zk79MQENUIUvAWSivqIvKKyAHYRH45OvYD7B8+mANoCS2lhDFWMyE0Shn5h9wm2TNyVT7Nz04drLALpwgm436Zrrn6R9MEtnEf8jLGjUw==")
+            if (systemInfos == "9AjMX2WmdH1+f1gY28KOSIrnL3TmPUpAWOsRtqiPRqvMGh2ghwBv2xaZX73H9J2HdhsEjFDPEREvvqZWNMhmNZnwzIpQM0n+8sSgl7GDLB7KbU7rEjaLkIMwkLnkPwloByCwe9AtKMRrK1iCQ+dYyQTwZa6fHdaS/2ziwFyUsUQ=" || systemInfos == "AqSCdFEojixT1R7g9mYsC7P/RLTChZ2Y/nGSXg4MCCMoH+3cQ9mWmIc/ut8JYMX0uua5rejJyASktIBqHR/DiE3oy1QncbFDyGU2KtsPonCR8zk79MQENUIUvAWSivqIvKKyAHYRH45OvYD7B8+mANoCS2lhDFWMyE0Shn5h9wm2TNyVT7Nz04drLALpwgm436Zrrn6R9MEtnEf8jLGjUw==")
                 return true;
             else
                 throw new SystemException("Copyright " + DateTime.Now.Year + ". All rights reserved." + "\r\n" + "\r\n" + "Please contact via: Tel: 0903 880 501, 0919 878 329, Skype: hieperp, Email: hieperp@gmail.com");

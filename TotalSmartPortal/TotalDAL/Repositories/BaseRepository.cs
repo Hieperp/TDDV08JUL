@@ -285,13 +285,18 @@ namespace TotalDAL.Repositories
 
         public void CreateStoredProcedure()
         {
+            
+            //return;
+
+            Helpers.SqlProgrammability.Inventories.WarehouseAdjustment warehouseAdjustment = new Helpers.SqlProgrammability.Inventories.WarehouseAdjustment(totalSmartPortalEntities);
+            warehouseAdjustment.RestoreProcedure();
 
             //return;
 
             Helpers.SqlProgrammability.Inventories.MaterialIssue materialIssue = new Helpers.SqlProgrammability.Inventories.MaterialIssue(totalSmartPortalEntities);
             materialIssue.RestoreProcedure();
 
-            return;
+            //return;
 
             Helpers.SqlProgrammability.Commons.Commodity commodity = new Helpers.SqlProgrammability.Commons.Commodity(totalSmartPortalEntities);
             commodity.RestoreProcedure();
