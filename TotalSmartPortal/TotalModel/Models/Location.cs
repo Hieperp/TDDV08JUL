@@ -31,6 +31,7 @@ namespace TotalModel.Models
             this.ProductionOrders = new HashSet<ProductionOrder>();
             this.PurchaseRequisitions = new HashSet<PurchaseRequisition>();
             this.MaterialIssues = new HashSet<MaterialIssue>();
+            this.WarehouseAdjustments = new HashSet<WarehouseAdjustment>();
         }
     
         public int LocationID { get; set; }
@@ -73,5 +74,7 @@ namespace TotalModel.Models
         public virtual ICollection<PurchaseRequisition> PurchaseRequisitions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssue> MaterialIssues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WarehouseAdjustment> WarehouseAdjustments { get; set; }
     }
 }

@@ -88,6 +88,9 @@ namespace TotalModel.Models
         public virtual DbSet<Commodity> Commodities { get; set; }
         public virtual DbSet<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         public virtual DbSet<MaterialIssue> MaterialIssues { get; set; }
+        public virtual DbSet<WarehouseAdjustmentDetail> WarehouseAdjustmentDetails { get; set; }
+        public virtual DbSet<WarehouseAdjustment> WarehouseAdjustments { get; set; }
+        public virtual DbSet<WarehouseAdjustmentType> WarehouseAdjustmentTypes { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -2762,6 +2765,85 @@ namespace TotalModel.Models
                 new ObjectParameter("LocationID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductionOrderPendingPlannedOrder>("GetProductionOrderPendingPlannedOrders", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<WarehouseAdjustmentIndex> GetWarehouseAdjustmentIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WarehouseAdjustmentIndex>("GetWarehouseAdjustmentIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<WarehouseAdjustmentViewDetail> GetWarehouseAdjustmentViewDetails(Nullable<int> warehouseAdjustmentID)
+        {
+            var warehouseAdjustmentIDParameter = warehouseAdjustmentID.HasValue ?
+                new ObjectParameter("WarehouseAdjustmentID", warehouseAdjustmentID) :
+                new ObjectParameter("WarehouseAdjustmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WarehouseAdjustmentViewDetail>("GetWarehouseAdjustmentViewDetails", warehouseAdjustmentIDParameter);
+        }
+    
+        public virtual ObjectResult<string> WarehouseAdjustmentApproved(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("WarehouseAdjustmentApproved", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> WarehouseAdjustmentEditable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("WarehouseAdjustmentEditable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> WarehouseAdjustmentPostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("WarehouseAdjustmentPostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int WarehouseAdjustmentSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("WarehouseAdjustmentSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual int WarehouseAdjustmentToggleApproved(Nullable<int> entityID, Nullable<bool> approved)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var approvedParameter = approved.HasValue ?
+                new ObjectParameter("Approved", approved) :
+                new ObjectParameter("Approved", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("WarehouseAdjustmentToggleApproved", entityIDParameter, approvedParameter);
         }
     }
 }

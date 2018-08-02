@@ -243,6 +243,20 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionLines" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrderDetails" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Workshifts" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.WarehouseAdjustmentDetail" Width="1.5" PointX="38" PointY="24.625" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.WarehouseAdjustment" Width="1.5" PointX="26.25" PointY="37.125" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.WarehouseAdjustmentType" Width="1.5" PointX="24" PointY="39.5" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceiptDetails_WarehouseAdjustmentDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_GoodsReceiptDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_WarehouseAdjustments" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustments_Locations" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_WarehouseAdjustments" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses1" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustments_WarehouseAdjustmentTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

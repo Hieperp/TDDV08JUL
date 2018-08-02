@@ -18,6 +18,7 @@ namespace TotalModel.Models
         public GoodsReceiptDetail()
         {
             this.MaterialIssueDetails = new HashSet<MaterialIssueDetail>();
+            this.WarehouseAdjustmentDetails = new HashSet<WarehouseAdjustmentDetail>();
         }
     
         public int GoodsReceiptDetailID { get; set; }
@@ -34,11 +35,17 @@ namespace TotalModel.Models
         public decimal QuantityIssued { get; set; }
         public string Remarks { get; set; }
         public bool Approved { get; set; }
+        public string Reference { get; set; }
+        public Nullable<int> WarehouseAdjustmentID { get; set; }
+        public Nullable<int> WarehouseAdjustmentDetailID { get; set; }
     
         public virtual GoodsReceipt GoodsReceipt { get; set; }
         public virtual PurchaseRequisitionDetail PurchaseRequisitionDetail { get; set; }
         public virtual Commodity Commodity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
+        public virtual WarehouseAdjustmentDetail WarehouseAdjustmentDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WarehouseAdjustmentDetail> WarehouseAdjustmentDetails { get; set; }
     }
 }

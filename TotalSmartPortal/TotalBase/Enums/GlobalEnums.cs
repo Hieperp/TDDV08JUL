@@ -118,6 +118,12 @@ namespace TotalBase.Enums
             PlannedOrder = 6
         };
 
+        public enum WarehouseAdjustmentTypeID
+        {
+            AllMaterialIssue = 999,
+            OtherIssues = 90
+        };
+
         public enum SalesInvoiceTypeID
         {
             AllInvoice = 1,
