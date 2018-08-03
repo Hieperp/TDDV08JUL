@@ -36,6 +36,9 @@ namespace TotalDTO.Inventories
         [UIHint("StringReadonly")]
         public string WarehouseCode { get; set; }
 
+        public int BatchID {get {return 1;}} //{ get; set; }
+        public System.DateTime BatchEntryDate {get {return DateTime.Now;}} //{ get; set; }
+
         [UIHint("AutoCompletes/CommodityAvailable")]
         public override string CommodityCode { get; set; }
 

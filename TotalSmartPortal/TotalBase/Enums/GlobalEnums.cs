@@ -108,7 +108,8 @@ namespace TotalBase.Enums
             PurchaseInvoice = 1,
             GoodsReturn = 2,
             StockTransfer = 3,
-            InventoryAdjustment = 4,
+            InventoryAdjustment = 4, //ERP VCP VB6
+            WarehouseAdjustments = 5,
             PurchaseRequisition = 6
         };
 
