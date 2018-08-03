@@ -54,13 +54,6 @@ namespace TotalDTO.Inventories
         public WarehouseAdjustmentDTO()
         {
             this.WarehouseAdjustmentViewDetails = new List<WarehouseAdjustmentDetailDTO>();
-
-            this.PositivePalletDetails = new List<WarehouseAdjustmentDetailDTO>(this.WarehouseAdjustmentViewDetails);
-            this.NegativePalletDetails = new List<WarehouseAdjustmentDetailDTO>(this.WarehouseAdjustmentViewDetails);
-
-            this.PositivePalletDetails.Where(w => w.Quantity > 0);
-            //this.PositivePalletDetails.ApplyFilter(f => f.PalletID != null && f.Quantity >= 0);
-            //this.NegativePalletDetails.ApplyFilter(f => f.PalletID != null && f.Quantity < 0);
         }
 
         public override Nullable<int> WarehouseID { get { return (this.Warehouse != null ? this.Warehouse.WarehouseID : null); } }
@@ -85,12 +78,6 @@ namespace TotalDTO.Inventories
         public ICollection<WarehouseAdjustmentDetailDTO> GetDetails() { return this.WarehouseAdjustmentViewDetails; }
 
         protected override IEnumerable<WarehouseAdjustmentDetailDTO> DtoDetails() { return this.WarehouseAdjustmentViewDetails; }
-
-
-
-
-        public List<WarehouseAdjustmentDetailDTO> PositivePalletDetails { get; private set; }
-        public List<WarehouseAdjustmentDetailDTO> NegativePalletDetails { get; private set; }
     }
 
 }

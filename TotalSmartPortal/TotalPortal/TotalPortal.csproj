@@ -262,11 +262,13 @@
     <Compile Include="Areas\Inventories\APIs\GoodsReceiptAPIsController.cs" />
     <Compile Include="Areas\Inventories\APIs\HandlingUnitAPIsController.cs" />
     <Compile Include="Areas\Inventories\APIs\MaterialIssueAPIsController.cs" />
+    <Compile Include="Areas\Inventories\APIs\WarehouseAdjustmentAPIsController.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsDeliveryViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsIssueViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsReceiptViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\HandlingUnitViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\MaterialIssueViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Inventories\Builders\WarehouseAdjustmentViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsDeliveriesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsReceiptsController.cs" />
@@ -275,12 +277,14 @@
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsDeliverySession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsIssueSession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\HandlingUnitSession.cs" />
+    <Compile Include="Areas\Inventories\Controllers\WarehouseAdjustmentsController.cs" />
     <Compile Include="Areas\Inventories\InventoriesAreaRegistration.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsDeliveryViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsIssueViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsReceiptViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\MaterialIssueViewModel.cs" />
+    <Compile Include="Areas\Inventories\ViewModels\WarehouseAdjustmentViewModel.cs" />
     <Compile Include="Areas\Productions\APIs\PlannedOrderAPIsController.cs" />
     <Compile Include="Areas\Productions\APIs\ProductionOrderAPIsController.cs" />
     <Compile Include="Areas\Productions\Builders\PlannedOrderViewModelSelectListBuilder.cs" />
@@ -1167,6 +1171,7 @@
     <Content Include="Areas\Productions\Views\ProductionOrders\_GetPlannedOrder.cshtml" />
     <Content Include="Areas\Productions\Views\ProductionOrders\CreateWizard.cshtml" />
     <Content Include="Areas\Productions\Views\ProductionOrders\GetPendingPlannedOrderDetails.cshtml" />
+    <Content Include="Areas\Inventories\Views\WarehouseAdjustments\CreateWizard.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
