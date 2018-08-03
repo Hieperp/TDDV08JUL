@@ -1253,6 +1253,14 @@
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Open.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Print.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Approve.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\CreateWizard.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Delete.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Edit.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Index.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Open.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Print.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Void.js" />
     <Content Include="Scripts\Controllers\Productions\PlannedOrders\Approve.js" />
     <Content Include="Scripts\Controllers\Productions\PlannedOrders\Create.js" />
     <Content Include="Scripts\Controllers\Productions\PlannedOrders\Delete.js" />
