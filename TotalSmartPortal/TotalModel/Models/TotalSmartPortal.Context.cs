@@ -71,7 +71,6 @@ namespace TotalModel.Models
         public virtual DbSet<Territory> Territories { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VoidType> VoidTypes { get; set; }
-        public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<Mold> Molds { get; set; }
         public virtual DbSet<ProductionLine> ProductionLines { get; set; }
         public virtual DbSet<ProductionOrderDetail> ProductionOrderDetails { get; set; }
@@ -88,9 +87,10 @@ namespace TotalModel.Models
         public virtual DbSet<Commodity> Commodities { get; set; }
         public virtual DbSet<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         public virtual DbSet<MaterialIssue> MaterialIssues { get; set; }
+        public virtual DbSet<WarehouseAdjustmentType> WarehouseAdjustmentTypes { get; set; }
         public virtual DbSet<WarehouseAdjustmentDetail> WarehouseAdjustmentDetails { get; set; }
         public virtual DbSet<WarehouseAdjustment> WarehouseAdjustments { get; set; }
-        public virtual DbSet<WarehouseAdjustmentType> WarehouseAdjustmentTypes { get; set; }
+        public virtual DbSet<Warehouse> Warehouses { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {
@@ -1439,7 +1439,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetVoidablePermitted", userIDParameter, nMVNTaskIDParameter, organizationalUnitIDParameter);
         }
     
-        public virtual ObjectResult<Warehouse> GetWarehouses(Nullable<int> customerID, string searchText, string warehouseTaskIDList)
+        public virtual int GetWarehouses(Nullable<int> customerID, string searchText, string warehouseTaskIDList)
         {
             var customerIDParameter = customerID.HasValue ?
                 new ObjectParameter("CustomerID", customerID) :
@@ -1453,24 +1453,7 @@ namespace TotalModel.Models
                 new ObjectParameter("WarehouseTaskIDList", warehouseTaskIDList) :
                 new ObjectParameter("WarehouseTaskIDList", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Warehouse>("GetWarehouses", customerIDParameter, searchTextParameter, warehouseTaskIDListParameter);
-        }
-    
-        public virtual ObjectResult<Warehouse> GetWarehouses(Nullable<int> customerID, string searchText, string warehouseTaskIDList, MergeOption mergeOption)
-        {
-            var customerIDParameter = customerID.HasValue ?
-                new ObjectParameter("CustomerID", customerID) :
-                new ObjectParameter("CustomerID", typeof(int));
-    
-            var searchTextParameter = searchText != null ?
-                new ObjectParameter("SearchText", searchText) :
-                new ObjectParameter("SearchText", typeof(string));
-    
-            var warehouseTaskIDListParameter = warehouseTaskIDList != null ?
-                new ObjectParameter("WarehouseTaskIDList", warehouseTaskIDList) :
-                new ObjectParameter("WarehouseTaskIDList", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Warehouse>("GetWarehouses", mergeOption, customerIDParameter, searchTextParameter, warehouseTaskIDListParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetWarehouses", customerIDParameter, searchTextParameter, warehouseTaskIDListParameter);
         }
     
         public virtual ObjectResult<string> GoodsDeliveryPostSaveValidate(Nullable<int> entityID)
@@ -2844,6 +2827,43 @@ namespace TotalModel.Models
                 new ObjectParameter("Approved", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("WarehouseAdjustmentToggleApproved", entityIDParameter, approvedParameter);
+        }
+    
+        public virtual ObjectResult<GoodsReceiptDetailAvailable> GetGoodsReceiptDetailAvailables(Nullable<int> locationID, Nullable<int> warehouseID, Nullable<int> commodityID, string commodityIDs, Nullable<int> batchID, string goodsReceiptDetailIDs, Nullable<bool> onlyApproved, Nullable<bool> onlyIssuable)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var warehouseIDParameter = warehouseID.HasValue ?
+                new ObjectParameter("WarehouseID", warehouseID) :
+                new ObjectParameter("WarehouseID", typeof(int));
+    
+            var commodityIDParameter = commodityID.HasValue ?
+                new ObjectParameter("CommodityID", commodityID) :
+                new ObjectParameter("CommodityID", typeof(int));
+    
+            var commodityIDsParameter = commodityIDs != null ?
+                new ObjectParameter("CommodityIDs", commodityIDs) :
+                new ObjectParameter("CommodityIDs", typeof(string));
+    
+            var batchIDParameter = batchID.HasValue ?
+                new ObjectParameter("BatchID", batchID) :
+                new ObjectParameter("BatchID", typeof(int));
+    
+            var goodsReceiptDetailIDsParameter = goodsReceiptDetailIDs != null ?
+                new ObjectParameter("GoodsReceiptDetailIDs", goodsReceiptDetailIDs) :
+                new ObjectParameter("GoodsReceiptDetailIDs", typeof(string));
+    
+            var onlyApprovedParameter = onlyApproved.HasValue ?
+                new ObjectParameter("OnlyApproved", onlyApproved) :
+                new ObjectParameter("OnlyApproved", typeof(bool));
+    
+            var onlyIssuableParameter = onlyIssuable.HasValue ?
+                new ObjectParameter("OnlyIssuable", onlyIssuable) :
+                new ObjectParameter("OnlyIssuable", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptDetailAvailable>("GetGoodsReceiptDetailAvailables", locationIDParameter, warehouseIDParameter, commodityIDParameter, commodityIDsParameter, batchIDParameter, goodsReceiptDetailIDsParameter, onlyApprovedParameter, onlyIssuableParameter);
         }
     }
 }

@@ -86,7 +86,6 @@ namespace TotalModel.Models
         public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
         public virtual PaymentTerm PaymentTerm { get; set; }
         public virtual Promotion Promotion { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HandlingUnit> HandlingUnits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -95,5 +94,6 @@ namespace TotalModel.Models
         public virtual ICollection<Receipt> Receipts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalesReturn> SalesReturns { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

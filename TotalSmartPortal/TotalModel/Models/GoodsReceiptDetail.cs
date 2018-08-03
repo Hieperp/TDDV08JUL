@@ -30,7 +30,7 @@ namespace TotalModel.Models
         public Nullable<int> CustomerID { get; set; }
         public int CommodityID { get; set; }
         public int CommodityTypeID { get; set; }
-        public Nullable<int> WarehouseID { get; set; }
+        public int WarehouseID { get; set; }
         public decimal Quantity { get; set; }
         public decimal QuantityIssued { get; set; }
         public string Remarks { get; set; }
@@ -38,6 +38,12 @@ namespace TotalModel.Models
         public string Reference { get; set; }
         public Nullable<int> WarehouseAdjustmentID { get; set; }
         public Nullable<int> WarehouseAdjustmentDetailID { get; set; }
+        public Nullable<int> LocationIssueID { get; set; }
+        public Nullable<int> GoodsIssueID { get; set; }
+        public Nullable<int> GoodsIssueTransferDetailID { get; set; }
+        public int BatchID { get; set; }
+        public System.DateTime BatchEntryDate { get; set; }
+        public Nullable<int> WarehouseIssueID { get; set; }
     
         public virtual GoodsReceipt GoodsReceipt { get; set; }
         public virtual PurchaseRequisitionDetail PurchaseRequisitionDetail { get; set; }
@@ -45,6 +51,7 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         public virtual WarehouseAdjustmentDetail WarehouseAdjustmentDetail { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WarehouseAdjustmentDetail> WarehouseAdjustmentDetails { get; set; }
     }

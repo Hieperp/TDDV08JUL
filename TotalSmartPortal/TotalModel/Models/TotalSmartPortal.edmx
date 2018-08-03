@@ -647,14 +647,20 @@
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="Reference" Type="nvarchar" MaxLength="10" />
           <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="LocationIssueID" Type="int" />
           <Property Name="PurchaseRequisitionID" Type="int" />
           <Property Name="PurchaseRequisitionDetailID" Type="int" />
+          <Property Name="GoodsIssueID" Type="int" />
+          <Property Name="GoodsIssueTransferDetailID" Type="int" />
           <Property Name="WarehouseAdjustmentID" Type="int" />
           <Property Name="WarehouseAdjustmentDetailID" Type="int" />
           <Property Name="CustomerID" Type="int" />
+          <Property Name="BatchID" Type="int" Nullable="false" />
+          <Property Name="BatchEntryDate" Type="datetime" Nullable="false" />
           <Property Name="CommodityID" Type="int" Nullable="false" />
           <Property Name="CommodityTypeID" Type="int" Nullable="false" />
-          <Property Name="WarehouseID" Type="int" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="WarehouseIssueID" Type="int" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="QuantityIssued" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
@@ -1486,8 +1492,10 @@
           <Property Name="WarehouseID" Type="int" Nullable="false" />
           <Property Name="WarehouseReceiptID" Type="int" Nullable="false" />
           <Property Name="CommodityID" Type="int" Nullable="false" />
+          <Property Name="BatchID" Type="int" Nullable="false" />
+          <Property Name="BatchEntryDate" Type="datetime" Nullable="false" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="QuantityReceipt" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="QuantityReceipted" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OrganizationalUnitID" Type="int" Nullable="false" />
           <Property Name="AdjustmentJobs" Type="nvarchar" MaxLength="100" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
@@ -1541,8 +1549,8 @@
           <Property Name="WarehouseGroupID" Type="int" Nullable="false" />
           <Property Name="WarehouseClassID" Type="int" Nullable="false" />
           <Property Name="LocationID" Type="int" Nullable="false" />
-          <Property Name="IsBook" Type="bit" Nullable="false" />
-          <Property Name="IsInvoice" Type="bit" Nullable="false" />
+          <Property Name="Bookable" Type="bit" Nullable="false" />
+          <Property Name="Issuable" Type="bit" Nullable="false" />
           <Property Name="IsDefault" Type="bit" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
         </EntityType>
@@ -2434,6 +2442,18 @@ warning 6035: The relationship 'FK_GoodsDeliveries_AspNetUsers2' has columns tha
             </Principal>
             <Dependent Role="GoodsReceiptDetails">
               <PropertyRef Name="WarehouseAdjustmentDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsReceiptDetails_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="GoodsReceiptDetails" Type="Self.GoodsReceiptDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="GoodsReceiptDetails">
+              <PropertyRef Name="WarehouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4137,6 +4157,16 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Parameter Name="VATPercent" Type="decimal" Mode="In" />
           <Parameter Name="IsReadonly" Type="bit" Mode="In" />
         </Function>
+        <Function Name="GetGoodsReceiptDetailAvailables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="WarehouseID" Type="int" Mode="In" />
+          <Parameter Name="CommodityID" Type="int" Mode="In" />
+          <Parameter Name="CommodityIDs" Type="varchar" Mode="In" />
+          <Parameter Name="BatchID" Type="int" Mode="In" />
+          <Parameter Name="GoodsReceiptDetailIDs" Type="varchar" Mode="In" />
+          <Parameter Name="OnlyApproved" Type="bit" Mode="In" />
+          <Parameter Name="OnlyIssuable" Type="bit" Mode="In" />
+        </Function>
         <Function Name="GetGoodsReceiptIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
           <Parameter Name="FromDate" Type="datetime" Mode="In" />
@@ -5111,6 +5141,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="WarehouseAdjustmentDetails" EntitySet="WarehouseAdjustmentDetails" />
             <End Role="GoodsReceiptDetails" EntitySet="GoodsReceiptDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceiptDetails_Warehouses" Association="Self.FK_GoodsReceiptDetails_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="GoodsReceiptDetails" EntitySet="GoodsReceiptDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_GoodsReceipts_Customers" Association="Self.FK_GoodsReceipts_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="GoodsReceipts" EntitySet="GoodsReceipts" />
@@ -6076,8 +6110,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="SalesOrder" Relationship="Self.FK_DeliveryAdvices_SalesOrders" FromRole="DeliveryAdvices" ToRole="SalesOrders" />
           <NavigationProperty Name="Promotion1" Relationship="Self.FK_DeliveryAdvices_TradePromotions" FromRole="DeliveryAdvices" ToRole="Promotions" />
           <NavigationProperty Name="VoidType" Relationship="Self.FK_DeliveryAdvices_VoidTypes" FromRole="DeliveryAdvices" ToRole="VoidTypes" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_DeliveryAdvices_Warehouses" FromRole="DeliveryAdvices" ToRole="Warehouses" />
           <NavigationProperty Name="GoodsIssues" Relationship="Self.FK_GoodsIssues_DeliveryAdvices" FromRole="DeliveryAdvices" ToRole="GoodsIssues" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_DeliveryAdvices_Warehouses" FromRole="DeliveryAdvice" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -6225,10 +6259,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="DeliveryAdviceDetail" Relationship="Self.FK_GoodsIssueDetails_DeliveryAdviceDetails" FromRole="GoodsIssueDetails" ToRole="DeliveryAdviceDetails" />
           <NavigationProperty Name="GoodsIssue" Relationship="Self.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssueDetails" ToRole="GoodsIssues" />
           <NavigationProperty Name="VoidType" Relationship="Self.FK_GoodsIssueDetails_VoidTypes" FromRole="GoodsIssueDetails" ToRole="VoidTypes" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_GoodsIssueDetails_Warehouses" FromRole="GoodsIssueDetails" ToRole="Warehouses" />
           <NavigationProperty Name="HandlingUnitDetails" Relationship="Self.FK_HandlingUnitDetails_GoodsIssueDetails" FromRole="GoodsIssueDetails" ToRole="HandlingUnitDetails" />
           <NavigationProperty Name="SalesReturnDetails" Relationship="Self.FK_SalesReturnDetails_GoodsIssueDetails" FromRole="GoodsIssueDetails" ToRole="SalesReturnDetails" />
           <NavigationProperty Name="Commodity" Relationship="TotalSmartPortalModel.FK_GoodsIssueDetails_Commodities" FromRole="GoodsIssueDetail" ToRole="Commodity" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsIssueDetails_Warehouses" FromRole="GoodsIssueDetail" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="GoodsIssue">
           <Key>
@@ -6292,11 +6326,11 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="GoodsIssueDetails" Relationship="Self.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssues" ToRole="GoodsIssueDetails" />
           <NavigationProperty Name="PaymentTerm" Relationship="Self.FK_GoodsIssues_PaymentTerms" FromRole="GoodsIssues" ToRole="PaymentTerms" />
           <NavigationProperty Name="Promotion" Relationship="Self.FK_GoodsIssues_TradePromotions" FromRole="GoodsIssues" ToRole="Promotions" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_GoodsIssues_Warehouses" FromRole="GoodsIssues" ToRole="Warehouses" />
           <NavigationProperty Name="HandlingUnits" Relationship="Self.FK_HandlingUnits_GoodsIssues" FromRole="GoodsIssues" ToRole="HandlingUnits" />
           <NavigationProperty Name="ReceiptDetails" Relationship="Self.FK_ReceiptDetails_GoodsIssues" FromRole="GoodsIssues" ToRole="ReceiptDetails" />
           <NavigationProperty Name="Receipts" Relationship="Self.FK_Receipts_GoodsIssues" FromRole="GoodsIssues" ToRole="Receipts" />
           <NavigationProperty Name="SalesReturns" Relationship="Self.FK_SalesReturns_GoodsIssues" FromRole="GoodsIssues" ToRole="SalesReturns" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsIssues_Warehouses" FromRole="GoodsIssue" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="HandlingUnitDetail">
           <Key>
@@ -6749,7 +6783,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Promotion1" Relationship="Self.FK_SalesOrders_TradePromotions" FromRole="SalesOrders" ToRole="Promotions" />
           <NavigationProperty Name="SalesOrderDetails" Relationship="Self.FK_SalesOrderDetails_SalesOrders" FromRole="SalesOrders" ToRole="SalesOrderDetails" />
           <NavigationProperty Name="VoidType" Relationship="Self.FK_SalesOrders_VoidTypes" FromRole="SalesOrders" ToRole="VoidTypes" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_SalesOrders_Warehouses" FromRole="SalesOrders" ToRole="Warehouses" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_SalesOrders_Warehouses" FromRole="SalesOrder" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="SalesReturnDetail">
           <Key>
@@ -6869,7 +6903,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Promotion1" Relationship="Self.FK_SalesReturns_TradePromotions" FromRole="SalesReturns" ToRole="Promotions" />
           <NavigationProperty Name="Receipts" Relationship="Self.FK_Receipts_SalesReturns" FromRole="SalesReturns" ToRole="Receipts" />
           <NavigationProperty Name="SalesReturnDetails" Relationship="Self.FK_SalesReturnDetails_SalesReturns" FromRole="SalesReturns" ToRole="SalesReturnDetails" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_SalesReturns_Warehouses" FromRole="SalesReturns" ToRole="Warehouses" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_SalesReturns_Warehouses" FromRole="SalesReturn" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="Territory">
           <Key>
@@ -6917,33 +6951,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_VoidTypes" FromRole="VoidType" ToRole="ProductionOrder" />
           <NavigationProperty Name="PurchaseRequisitionDetails" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_VoidTypes" FromRole="VoidType" ToRole="PurchaseRequisitionDetail" />
           <NavigationProperty Name="PurchaseRequisitions" Relationship="TotalSmartPortalModel.FK_PurchaseRequisitions_VoidTypes" FromRole="VoidType" ToRole="PurchaseRequisition" />
-        </EntityType>
-        <EntityType Name="Warehouse">
-          <Key>
-            <PropertyRef Name="WarehouseID" />
-          </Key>
-          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="WarehouseCategoryID" Type="Int32" Nullable="false" />
-          <Property Name="WarehouseGroupID" Type="Int32" Nullable="false" />
-          <Property Name="WarehouseClassID" Type="Int32" Nullable="false" />
-          <Property Name="LocationID" Type="Int32" Nullable="false" />
-          <Property Name="IsBook" Type="Boolean" Nullable="false" />
-          <Property Name="IsInvoice" Type="Boolean" Nullable="false" />
-          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DeliveryAdvices" Relationship="Self.FK_DeliveryAdvices_Warehouses" FromRole="Warehouses" ToRole="DeliveryAdvices" />
-          <NavigationProperty Name="GoodsIssueDetails" Relationship="Self.FK_GoodsIssueDetails_Warehouses" FromRole="Warehouses" ToRole="GoodsIssueDetails" />
-          <NavigationProperty Name="GoodsIssues" Relationship="Self.FK_GoodsIssues_Warehouses" FromRole="Warehouses" ToRole="GoodsIssues" />
-          <NavigationProperty Name="SalesOrders" Relationship="Self.FK_SalesOrders_Warehouses" FromRole="Warehouses" ToRole="SalesOrders" />
-          <NavigationProperty Name="SalesReturns" Relationship="Self.FK_SalesReturns_Warehouses" FromRole="Warehouses" ToRole="SalesReturns" />
-          <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" FromRole="Warehouse" ToRole="GoodsReceipt" />
-          <NavigationProperty Name="MaterialIssues" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Warehouses" FromRole="Warehouse" ToRole="MaterialIssue" />
-          <NavigationProperty Name="WarehouseAdjustmentDetails" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses" FromRole="Warehouse" ToRole="WarehouseAdjustmentDetail" />
-          <NavigationProperty Name="WarehouseAdjustmentDetails1" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses1" FromRole="Warehouse" ToRole="WarehouseAdjustmentDetail" />
-          <NavigationProperty Name="WarehouseAdjustments" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses" FromRole="Warehouse" ToRole="WarehouseAdjustment" />
-          <NavigationProperty Name="WarehouseAdjustments1" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses1" FromRole="Warehouse" ToRole="WarehouseAdjustment" />
         </EntityType>
         <Association Name="FK_AccessControls_OrganizationalUnits">
           <End Role="OrganizationalUnits" Type="Self.OrganizationalUnit" Multiplicity="1" />
@@ -7557,18 +7564,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeliveryAdvices_Warehouses">
-          <End Role="Warehouses" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="DeliveryAdvices" Type="Self.DeliveryAdvice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouses">
-              <PropertyRef Name="WarehouseID" />
-            </Principal>
-            <Dependent Role="DeliveryAdvices">
-              <PropertyRef Name="WarehouseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_GoodsIssues_DeliveryAdvices">
           <End Role="DeliveryAdvices" Type="Self.DeliveryAdvice" Multiplicity="0..1" />
           <End Role="GoodsIssues" Type="Self.GoodsIssue" Multiplicity="*" />
@@ -7749,18 +7744,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GoodsIssueDetails_Warehouses">
-          <End Role="Warehouses" Type="Self.Warehouse" Multiplicity="0..1" />
-          <End Role="GoodsIssueDetails" Type="Self.GoodsIssueDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouses">
-              <PropertyRef Name="WarehouseID" />
-            </Principal>
-            <Dependent Role="GoodsIssueDetails">
-              <PropertyRef Name="WarehouseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HandlingUnitDetails_GoodsIssueDetails">
           <End Role="GoodsIssueDetails" Type="Self.GoodsIssueDetail" Multiplicity="1" />
           <End Role="HandlingUnitDetails" Type="Self.HandlingUnitDetail" Multiplicity="*" />
@@ -7806,18 +7789,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="GoodsIssues">
               <PropertyRef Name="TradePromotionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsIssues_Warehouses">
-          <End Role="Warehouses" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="GoodsIssues" Type="Self.GoodsIssue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouses">
-              <PropertyRef Name="WarehouseID" />
-            </Principal>
-            <Dependent Role="GoodsIssues">
-              <PropertyRef Name="WarehouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8133,18 +8104,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SalesOrders_Warehouses">
-          <End Role="Warehouses" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="SalesOrders" Type="Self.SalesOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouses">
-              <PropertyRef Name="WarehouseID" />
-            </Principal>
-            <Dependent Role="SalesOrders">
-              <PropertyRef Name="WarehouseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SalesReturnDetails_SalesReturns">
           <End Role="SalesReturns" Type="Self.SalesReturn" Multiplicity="1" />
           <End Role="SalesReturnDetails" Type="Self.SalesReturnDetail" Multiplicity="*" />
@@ -8154,18 +8113,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="SalesReturnDetails">
               <PropertyRef Name="SalesReturnID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalesReturns_Warehouses">
-          <End Role="Warehouses" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="SalesReturns" Type="Self.SalesReturn" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouses">
-              <PropertyRef Name="WarehouseID" />
-            </Principal>
-            <Dependent Role="SalesReturns">
-              <PropertyRef Name="WarehouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8226,7 +8173,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySet Name="Territories" EntityType="Self.Territory" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
           <EntitySet Name="VoidTypes" EntityType="Self.VoidType" />
-          <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
           <AssociationSet Name="FK_AccessControls_OrganizationalUnits" Association="Self.FK_AccessControls_OrganizationalUnits">
             <End Role="OrganizationalUnits" EntitySet="OrganizationalUnits" />
             <End Role="AccessControls" EntitySet="AccessControls" />
@@ -8431,10 +8377,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="VoidTypes" EntitySet="VoidTypes" />
             <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeliveryAdvices_Warehouses" Association="Self.FK_DeliveryAdvices_Warehouses">
-            <End Role="Warehouses" EntitySet="Warehouses" />
-            <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
-          </AssociationSet>
           <AssociationSet Name="FK_GoodsIssues_DeliveryAdvices" Association="Self.FK_GoodsIssues_DeliveryAdvices">
             <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
             <End Role="GoodsIssues" EntitySet="GoodsIssues" />
@@ -8495,10 +8437,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="VoidTypes" EntitySet="VoidTypes" />
             <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_GoodsIssueDetails_Warehouses" Association="Self.FK_GoodsIssueDetails_Warehouses">
-            <End Role="Warehouses" EntitySet="Warehouses" />
-            <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_HandlingUnitDetails_GoodsIssueDetails" Association="Self.FK_HandlingUnitDetails_GoodsIssueDetails">
             <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
             <End Role="HandlingUnitDetails" EntitySet="HandlingUnitDetails" />
@@ -8513,10 +8451,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           </AssociationSet>
           <AssociationSet Name="FK_GoodsIssues_TradePromotions" Association="Self.FK_GoodsIssues_TradePromotions">
             <End Role="Promotions" EntitySet="Promotions" />
-            <End Role="GoodsIssues" EntitySet="GoodsIssues" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsIssues_Warehouses" Association="Self.FK_GoodsIssues_Warehouses">
-            <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="GoodsIssues" EntitySet="GoodsIssues" />
           </AssociationSet>
           <AssociationSet Name="FK_HandlingUnits_GoodsIssues" Association="Self.FK_HandlingUnits_GoodsIssues">
@@ -8623,17 +8557,9 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="VoidTypes" EntitySet="VoidTypes" />
             <End Role="SalesOrders" EntitySet="SalesOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK_SalesOrders_Warehouses" Association="Self.FK_SalesOrders_Warehouses">
-            <End Role="Warehouses" EntitySet="Warehouses" />
-            <End Role="SalesOrders" EntitySet="SalesOrders" />
-          </AssociationSet>
           <AssociationSet Name="FK_SalesReturnDetails_SalesReturns" Association="Self.FK_SalesReturnDetails_SalesReturns">
             <End Role="SalesReturns" EntitySet="SalesReturns" />
             <End Role="SalesReturnDetails" EntitySet="SalesReturnDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesReturns_Warehouses" Association="Self.FK_SalesReturns_Warehouses">
-            <End Role="Warehouses" EntitySet="Warehouses" />
-            <End Role="SalesReturns" EntitySet="SalesReturns" />
           </AssociationSet>
           <AssociationSet Name="FK_Territories_Territories" Association="Self.FK_Territories_Territories">
             <End Role="Territories" EntitySet="Territories" />
@@ -9031,7 +8957,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="NMVNTaskID" Mode="In" Type="Int32" />
             <Parameter Name="OrganizationalUnitID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetWarehouses" EntitySet="Warehouses" ReturnType="Collection(TotalSmartPortalModel.Warehouse)">
+          <FunctionImport Name="GetWarehouses">
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="SearchText" Mode="In" Type="String" />
             <Parameter Name="WarehouseTaskIDList" Mode="In" Type="String" />
@@ -9404,10 +9330,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Location" EntitySet="Locations" />
             <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
           </AssociationSet>
-          <AssociationSet Name="FK_GoodsReceipts_Warehouses" Association="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses">
-            <End Role="Warehouse" EntitySet="Warehouses" />
-            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
-          </AssociationSet>
           <FunctionImport Name="GetMaterialIssuePendingPlannedOrderDetails" ReturnType="Collection(TotalSmartPortalModel.MaterialIssuePendingPlannedOrderDetail)">
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="MaterialIssueID" Mode="In" Type="Int32" />
@@ -9712,10 +9634,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="ProductionOrder" EntitySet="ProductionOrders" />
             <End Role="MaterialIssue" EntitySet="MaterialIssues" />
           </AssociationSet>
-          <AssociationSet Name="FK_MaterialIssues_Warehouses" Association="TotalSmartPortalModel.FK_MaterialIssues_Warehouses">
-            <End Role="Warehouse" EntitySet="Warehouses" />
-            <End Role="MaterialIssue" EntitySet="MaterialIssues" />
-          </AssociationSet>
           <AssociationSet Name="FK_MaterialIssues_Commodities" Association="TotalSmartPortalModel.FK_MaterialIssues_Commodities">
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="MaterialIssue" EntitySet="MaterialIssues" />
@@ -9748,15 +9666,57 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Workshift" EntitySet="Workshifts" />
             <End Role="MaterialIssue" EntitySet="MaterialIssues" />
           </AssociationSet>
+          <EntitySet Name="WarehouseAdjustmentTypes" EntityType="TotalSmartPortalModel.WarehouseAdjustmentType" />
+          <FunctionImport Name="GetWarehouseAdjustmentIndexes" ReturnType="Collection(TotalSmartPortalModel.WarehouseAdjustmentIndex)">
+            <Parameter Name="AspUserID" Mode="In" Type="String" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetWarehouseAdjustmentViewDetails" ReturnType="Collection(TotalSmartPortalModel.WarehouseAdjustmentViewDetail)">
+          <Parameter Name="WarehouseAdjustmentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="WarehouseAdjustmentApproved" ReturnType="Collection(String)">
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="WarehouseAdjustmentEditable" ReturnType="Collection(String)">
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="WarehouseAdjustmentPostSaveValidate" ReturnType="Collection(String)">
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="WarehouseAdjustmentSaveRelative">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="SaveRelativeOption" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="WarehouseAdjustmentToggleApproved">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="Approved" Mode="In" Type="Boolean" />
+          </FunctionImport>
           <EntitySet Name="WarehouseAdjustmentDetails" EntityType="TotalSmartPortalModel.WarehouseAdjustmentDetail" />
           <EntitySet Name="WarehouseAdjustments" EntityType="TotalSmartPortalModel.WarehouseAdjustment" />
-          <EntitySet Name="WarehouseAdjustmentTypes" EntityType="TotalSmartPortalModel.WarehouseAdjustmentType" />
+          <EntitySet Name="Warehouses" EntityType="TotalSmartPortalModel.Warehouse" />
           <AssociationSet Name="FK_WarehouseAdjustmentDetails_Commodities" Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Commodities">
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="WarehouseAdjustmentDetail" EntitySet="WarehouseAdjustmentDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryAdvices_Warehouses" Association="TotalSmartPortalModel.FK_DeliveryAdvices_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="DeliveryAdvice" EntitySet="DeliveryAdvices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssueDetails_Warehouses" Association="TotalSmartPortalModel.FK_GoodsIssueDetails_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssues_Warehouses" Association="TotalSmartPortalModel.FK_GoodsIssues_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="GoodsIssue" EntitySet="GoodsIssues" />
+          </AssociationSet>
           <AssociationSet Name="FK_GoodsReceiptDetails_WarehouseAdjustmentDetails" Association="TotalSmartPortalModel.FK_GoodsReceiptDetails_WarehouseAdjustmentDetails">
             <End Role="WarehouseAdjustmentDetail" EntitySet="WarehouseAdjustmentDetails" />
+            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceiptDetails_Warehouses" Association="TotalSmartPortalModel.FK_GoodsReceiptDetails_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_WarehouseAdjustmentDetails_GoodsReceiptDetails" Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_GoodsReceiptDetails">
@@ -9767,9 +9727,25 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="WarehouseAdjustment" EntitySet="WarehouseAdjustments" />
             <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
           </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceipts_Warehouses" Association="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
+          </AssociationSet>
           <AssociationSet Name="FK_WarehouseAdjustments_Locations" Association="TotalSmartPortalModel.FK_WarehouseAdjustments_Locations">
             <End Role="Location" EntitySet="Locations" />
             <End Role="WarehouseAdjustment" EntitySet="WarehouseAdjustments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialIssues_Warehouses" Association="TotalSmartPortalModel.FK_MaterialIssues_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="MaterialIssue" EntitySet="MaterialIssues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrders_Warehouses" Association="TotalSmartPortalModel.FK_SalesOrders_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="SalesOrder" EntitySet="SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesReturns_Warehouses" Association="TotalSmartPortalModel.FK_SalesReturns_Warehouses">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="SalesReturn" EntitySet="SalesReturns" />
           </AssociationSet>
           <AssociationSet Name="FK_WarehouseAdjustmentDetails_WarehouseAdjustments" Association="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_WarehouseAdjustments">
             <End Role="WarehouseAdjustment" EntitySet="WarehouseAdjustments" />
@@ -9795,30 +9771,15 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="WarehouseAdjustment" EntitySet="WarehouseAdjustments" />
           </AssociationSet>
-          <FunctionImport Name="GetWarehouseAdjustmentIndexes" ReturnType="Collection(TotalSmartPortalModel.WarehouseAdjustmentIndex)">
-            <Parameter Name="AspUserID" Mode="In" Type="String" />
-            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
-            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="GetWarehouseAdjustmentViewDetails" ReturnType="Collection(TotalSmartPortalModel.WarehouseAdjustmentViewDetail)">
-            <Parameter Name="WarehouseAdjustmentID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="WarehouseAdjustmentApproved" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="WarehouseAdjustmentEditable" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="WarehouseAdjustmentPostSaveValidate" ReturnType="Collection(String)">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="WarehouseAdjustmentSaveRelative">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
-            <Parameter Name="SaveRelativeOption" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="WarehouseAdjustmentToggleApproved">
-            <Parameter Name="EntityID" Mode="In" Type="Int32" />
-            <Parameter Name="Approved" Mode="In" Type="Boolean" />
+          <FunctionImport Name="GetGoodsReceiptDetailAvailables" ReturnType="Collection(TotalSmartPortalModel.GoodsReceiptDetailAvailable)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="WarehouseID" Mode="In" Type="Int32" />
+            <Parameter Name="CommodityID" Mode="In" Type="Int32" />
+            <Parameter Name="CommodityIDs" Mode="In" Type="String" />
+            <Parameter Name="BatchID" Mode="In" Type="Int32" />
+            <Parameter Name="GoodsReceiptDetailIDs" Mode="In" Type="String" />
+            <Parameter Name="OnlyApproved" Mode="In" Type="Boolean" />
+            <Parameter Name="OnlyIssuable" Mode="In" Type="Boolean" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
@@ -11288,7 +11249,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="CustomerID" Type="Int32" />
           <Property Name="CommodityID" Type="Int32" Nullable="false" />
           <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
-          <Property Name="WarehouseID" Type="Int32" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="QuantityIssued" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -11300,9 +11261,16 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="WarehouseAdjustmentID" Type="Int32" />
           <Property Name="WarehouseAdjustmentDetailID" Type="Int32" />
+          <Property Name="LocationIssueID" Type="Int32" />
+          <Property Name="GoodsIssueID" Type="Int32" />
+          <Property Name="GoodsIssueTransferDetailID" Type="Int32" />
+          <Property Name="BatchID" Type="Int32" Nullable="false" />
+          <Property Name="BatchEntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WarehouseIssueID" Type="Int32" />
           <NavigationProperty Name="WarehouseAdjustmentDetail" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_WarehouseAdjustmentDetails" FromRole="GoodsReceiptDetail" ToRole="WarehouseAdjustmentDetail" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_Warehouses" FromRole="GoodsReceiptDetail" ToRole="Warehouse" />
           <NavigationProperty Name="WarehouseAdjustmentDetails" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_GoodsReceiptDetails" FromRole="GoodsReceiptDetail" ToRole="WarehouseAdjustmentDetail" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="GoodsReceipt">
           <Key>
             <PropertyRef Name="GoodsReceiptID" />
@@ -11332,10 +11300,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Customers" FromRole="GoodsReceipt" ToRole="Customer" />
           <NavigationProperty Name="GoodsReceiptDetails" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_GoodsReceipts" FromRole="GoodsReceipt" ToRole="GoodsReceiptDetail" />
           <NavigationProperty Name="Location" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Locations" FromRole="GoodsReceipt" ToRole="Location" />
-          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" FromRole="GoodsReceipt" ToRole="Warehouse" />
           <NavigationProperty Name="PurchaseRequisition" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_PurchaseRequisitions" FromRole="GoodsReceipt" ToRole="PurchaseRequisition" />
           <Property Name="WarehouseAdjustmentID" Type="Int32" />
           <NavigationProperty Name="WarehouseAdjustment" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_WarehouseAdjustments" FromRole="GoodsReceipt" ToRole="WarehouseAdjustment" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" FromRole="GoodsReceipt" ToRole="Warehouse" />
         </EntityType>
         <Association Name="FK_GoodsReceipts_Customers">
           <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="0..1" />
@@ -11370,18 +11338,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="GoodsReceipt">
               <PropertyRef Name="LocationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsReceipts_Warehouses">
-          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
-          <End Type="TotalSmartPortalModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="WarehouseID" />
-            </Principal>
-            <Dependent Role="GoodsReceipt">
-              <PropertyRef Name="WarehouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12479,7 +12435,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Location" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Locations" FromRole="MaterialIssue" ToRole="Location" />
           <NavigationProperty Name="MaterialIssueDetails" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_MaterialIssues" FromRole="MaterialIssue" ToRole="MaterialIssueDetail" />
           <NavigationProperty Name="ProductionOrder" Relationship="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrders" FromRole="MaterialIssue" ToRole="ProductionOrder" />
-          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Warehouses" FromRole="MaterialIssue" ToRole="Warehouse" />
           <NavigationProperty Name="Commodity" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Commodities" FromRole="MaterialIssue" ToRole="Commodity" />
           <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Customers" FromRole="MaterialIssue" ToRole="Customer" />
           <NavigationProperty Name="Mold" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Molds" FromRole="MaterialIssue" ToRole="Mold" />
@@ -12488,6 +12443,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="ProductionLine" Relationship="TotalSmartPortalModel.FK_MaterialIssues_ProductionLines" FromRole="MaterialIssue" ToRole="ProductionLine" />
           <NavigationProperty Name="ProductionOrderDetail" Relationship="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrderDetails" FromRole="MaterialIssue" ToRole="ProductionOrderDetail" />
           <NavigationProperty Name="Workshift" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Workshifts" FromRole="MaterialIssue" ToRole="Workshift" />
+          <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Warehouses" FromRole="MaterialIssue" ToRole="Warehouse" />
         </EntityType>
         <Association Name="FK_MaterialIssues_Employees">
           <End Type="TotalSmartPortalModel.Employee" Role="Employee" Multiplicity="1" />
@@ -12534,18 +12490,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="MaterialIssue">
               <PropertyRef Name="ProductionOrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MaterialIssues_Warehouses">
-          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
-          <End Type="TotalSmartPortalModel.MaterialIssue" Role="MaterialIssue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="WarehouseID" />
-            </Principal>
-            <Dependent Role="MaterialIssue">
-              <PropertyRef Name="WarehouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12645,6 +12589,42 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="WarehouseAdjustmentType">
+          <Key>
+            <PropertyRef Name="WarehouseAdjustmentTypeID" />
+          </Key>
+          <Property Name="WarehouseAdjustmentTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WarehouseAdjustments" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_WarehouseAdjustmentTypes" FromRole="WarehouseAdjustmentType" ToRole="WarehouseAdjustment" />
+        </EntityType>
+        <ComplexType Name="WarehouseAdjustmentIndex">
+          <Property Type="Int32" Name="WarehouseAdjustmentID" Nullable="false" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="true" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="WarehouseAdjustmentTypeID" Nullable="false" />
+          <Property Type="String" Name="WarehouseAdjustmentTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="AdjustmentJobs" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="Approved" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="WarehouseAdjustmentViewDetail">
+          <Property Type="Int32" Name="WarehouseAdjustmentDetailID" Nullable="false" />
+          <Property Type="Int32" Name="WarehouseAdjustmentID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsReceiptID" Nullable="true" />
+          <Property Type="Int32" Name="GoodsReceiptDetailID" Nullable="true" />
+          <Property Type="String" Name="GoodsReceiptReference" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="GoodsReceiptEntryDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
         <EntityType Name="WarehouseAdjustmentDetail">
           <Key>
             <PropertyRef Name="WarehouseAdjustmentDetailID" />
@@ -12660,8 +12640,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="WarehouseID" Type="Int32" Nullable="false" />
           <Property Name="WarehouseReceiptID" Type="Int32" Nullable="false" />
           <Property Name="CommodityID" Type="Int32" Nullable="false" />
+          <Property Name="BatchID" Type="Int32" Nullable="false" />
+          <Property Name="BatchEntryDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="QuantityReceipt" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="QuantityReceipted" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
           <Property Name="AdjustmentJobs" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -12707,15 +12689,33 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses" FromRole="WarehouseAdjustment" ToRole="Warehouse" />
           <NavigationProperty Name="Warehouse1" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses1" FromRole="WarehouseAdjustment" ToRole="Warehouse" />
         </EntityType>
-        <EntityType Name="WarehouseAdjustmentType">
+        <EntityType Name="Warehouse">
           <Key>
-            <PropertyRef Name="WarehouseAdjustmentTypeID" />
+            <PropertyRef Name="WarehouseID" />
           </Key>
-          <Property Name="WarehouseAdjustmentTypeID" Type="Int32" Nullable="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseGroupID" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseClassID" Type="Int32" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="Bookable" Type="Boolean" Nullable="false" />
+          <Property Name="Issuable" Type="Boolean" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="WarehouseAdjustments" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_WarehouseAdjustmentTypes" FromRole="WarehouseAdjustmentType" ToRole="WarehouseAdjustment" />
+          <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSmartPortalModel.FK_DeliveryAdvices_Warehouses" FromRole="Warehouse" ToRole="DeliveryAdvice" />
+          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSmartPortalModel.FK_GoodsIssueDetails_Warehouses" FromRole="Warehouse" ToRole="GoodsIssueDetail" />
+          <NavigationProperty Name="GoodsIssues" Relationship="TotalSmartPortalModel.FK_GoodsIssues_Warehouses" FromRole="Warehouse" ToRole="GoodsIssue" />
+          <NavigationProperty Name="GoodsReceiptDetails" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_Warehouses" FromRole="Warehouse" ToRole="GoodsReceiptDetail" />
+          <NavigationProperty Name="GoodsReceipts" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" FromRole="Warehouse" ToRole="GoodsReceipt" />
+          <NavigationProperty Name="MaterialIssues" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Warehouses" FromRole="Warehouse" ToRole="MaterialIssue" />
+          <NavigationProperty Name="SalesOrders" Relationship="TotalSmartPortalModel.FK_SalesOrders_Warehouses" FromRole="Warehouse" ToRole="SalesOrder" />
+          <NavigationProperty Name="SalesReturns" Relationship="TotalSmartPortalModel.FK_SalesReturns_Warehouses" FromRole="Warehouse" ToRole="SalesReturn" />
+          <NavigationProperty Name="WarehouseAdjustmentDetails" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses" FromRole="Warehouse" ToRole="WarehouseAdjustmentDetail" />
+          <NavigationProperty Name="WarehouseAdjustmentDetails1" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses1" FromRole="Warehouse" ToRole="WarehouseAdjustmentDetail" />
+          <NavigationProperty Name="WarehouseAdjustments" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses" FromRole="Warehouse" ToRole="WarehouseAdjustment" />
+          <NavigationProperty Name="WarehouseAdjustments1" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses1" FromRole="Warehouse" ToRole="WarehouseAdjustment" />
         </EntityType>
         <Association Name="FK_WarehouseAdjustmentDetails_Commodities">
           <End Type="TotalSmartPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -12729,6 +12729,42 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryAdvices_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.DeliveryAdvice" Role="DeliveryAdvice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="DeliveryAdvice">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsIssueDetails_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+          <End Type="TotalSmartPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="GoodsIssueDetail">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsIssues_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="GoodsIssue">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GoodsReceiptDetails_WarehouseAdjustmentDetails">
           <End Type="TotalSmartPortalModel.WarehouseAdjustmentDetail" Role="WarehouseAdjustmentDetail" Multiplicity="0..1" />
           <End Type="TotalSmartPortalModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
@@ -12738,6 +12774,18 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="GoodsReceiptDetail">
               <PropertyRef Name="WarehouseAdjustmentDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsReceiptDetails_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="GoodsReceiptDetail">
+              <PropertyRef Name="WarehouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12765,6 +12813,18 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GoodsReceipts_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="GoodsReceipt">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WarehouseAdjustments_Locations">
           <End Type="TotalSmartPortalModel.Location" Role="Location" Multiplicity="1" />
           <End Type="TotalSmartPortalModel.WarehouseAdjustment" Role="WarehouseAdjustment" Multiplicity="*" />
@@ -12774,6 +12834,42 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="WarehouseAdjustment">
               <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialIssues_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.MaterialIssue" Role="MaterialIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="MaterialIssue">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrders_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.SalesOrder" Role="SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="SalesOrder">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesReturns_Warehouses">
+          <End Type="TotalSmartPortalModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.SalesReturn" Role="SalesReturn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="SalesReturn">
+              <PropertyRef Name="WarehouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12849,31 +12945,24 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="WarehouseAdjustmentIndex">
-          <Property Type="Int32" Name="WarehouseAdjustmentID" Nullable="false" />
-          <Property Type="DateTime" Name="EntryDate" Nullable="true" />
-          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
-          <Property Type="Int32" Name="WarehouseAdjustmentTypeID" Nullable="false" />
-          <Property Type="String" Name="WarehouseAdjustmentTypeName" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="AdjustmentJobs" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="Approved" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="WarehouseAdjustmentViewDetail">
-          <Property Type="Int32" Name="WarehouseAdjustmentDetailID" Nullable="false" />
-          <Property Type="Int32" Name="WarehouseAdjustmentID" Nullable="false" />
-          <Property Type="Int32" Name="GoodsReceiptID" Nullable="true" />
-          <Property Type="Int32" Name="GoodsReceiptDetailID" Nullable="true" />
+        <ComplexType Name="GoodsReceiptDetailAvailable">
+          <Property Type="Int32" Name="GoodsReceiptID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsReceiptDetailID" Nullable="false" />
           <Property Type="String" Name="GoodsReceiptReference" Nullable="true" MaxLength="10" />
-          <Property Type="DateTime" Name="GoodsReceiptEntryDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="GoodsReceiptEntryDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="BatchID" Nullable="false" />
+          <Property Type="DateTime" Name="BatchEntryDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="WarehouseID" Nullable="false" />
+          <Property Type="String" Name="WarehouseCode" Nullable="false" MaxLength="10" />
           <Property Type="Int32" Name="CommodityID" Nullable="false" />
           <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
-          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="20" Scale="2" />
-          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LineReferences" Nullable="true" MaxLength="23" />
+          <Property Type="Boolean" Name="Approved" Nullable="false" />
+          <Property Type="Boolean" Name="Issuable" Nullable="false" />
+          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Boolean" Name="IsSelected" Nullable="false" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -14018,23 +14107,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="VoidClassID" ColumnName="VoidClassID" />
                 <ScalarProperty Name="VoidCategoryID" ColumnName="VoidCategoryID" />
                 <ScalarProperty Name="InActive" ColumnName="InActive" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Warehouses">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.Warehouse">
-              <MappingFragment StoreEntitySet="Warehouses">
-                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="WarehouseCategoryID" ColumnName="WarehouseCategoryID" />
-                <ScalarProperty Name="WarehouseGroupID" ColumnName="WarehouseGroupID" />
-                <ScalarProperty Name="WarehouseClassID" ColumnName="WarehouseClassID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="IsBook" ColumnName="IsBook" />
-                <ScalarProperty Name="IsInvoice" ColumnName="IsInvoice" />
-                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -15802,6 +15874,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="GoodsReceiptDetails">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.GoodsReceiptDetail">
               <MappingFragment StoreEntitySet="GoodsReceiptDetails">
+                <ScalarProperty Name="WarehouseIssueID" ColumnName="WarehouseIssueID" />
+                <ScalarProperty Name="BatchEntryDate" ColumnName="BatchEntryDate" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="GoodsIssueTransferDetailID" ColumnName="GoodsIssueTransferDetailID" />
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="LocationIssueID" ColumnName="LocationIssueID" />
                 <ScalarProperty Name="WarehouseAdjustmentDetailID" ColumnName="WarehouseAdjustmentDetailID" />
                 <ScalarProperty Name="WarehouseAdjustmentID" ColumnName="WarehouseAdjustmentID" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
@@ -16296,58 +16374,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WarehouseAdjustmentDetails">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.WarehouseAdjustmentDetail">
-              <MappingFragment StoreEntitySet="WarehouseAdjustmentDetails">
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="AdjustmentJobs" ColumnName="AdjustmentJobs" />
-                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
-                <ScalarProperty Name="QuantityReceipt" ColumnName="QuantityReceipt" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
-                <ScalarProperty Name="WarehouseReceiptID" ColumnName="WarehouseReceiptID" />
-                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
-                <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
-                <ScalarProperty Name="WarehouseAdjustmentTypeID" ColumnName="WarehouseAdjustmentTypeID" />
-                <ScalarProperty Name="WarehouseAdjustmentID" ColumnName="WarehouseAdjustmentID" />
-                <ScalarProperty Name="WarehouseAdjustmentDetailID" ColumnName="WarehouseAdjustmentDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WarehouseAdjustments">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.WarehouseAdjustment">
-              <MappingFragment StoreEntitySet="WarehouseAdjustments">
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
-                <ScalarProperty Name="TotalPalletCounts" ColumnName="TotalPalletCounts" />
-                <ScalarProperty Name="TotalCartonCounts" ColumnName="TotalCartonCounts" />
-                <ScalarProperty Name="TotalPackCounts" ColumnName="TotalPackCounts" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
-                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AdjustmentJobs" ColumnName="AdjustmentJobs" />
-                <ScalarProperty Name="HasPositiveLine" ColumnName="HasPositiveLine" />
-                <ScalarProperty Name="StorekeeperID" ColumnName="StorekeeperID" />
-                <ScalarProperty Name="WarehouseAdjustmentTypeID" ColumnName="WarehouseAdjustmentTypeID" />
-                <ScalarProperty Name="WarehouseReceiptID" ColumnName="WarehouseReceiptID" />
-                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="WarehouseAdjustmentID" ColumnName="WarehouseAdjustmentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WarehouseAdjustmentTypes">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.WarehouseAdjustmentType">
               <MappingFragment StoreEntitySet="WarehouseAdjustmentTypes">
@@ -16397,6 +16423,100 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="WarehouseAdjustmentPostSaveValidate" FunctionName="TotalSmartPortalModel.Store.WarehouseAdjustmentPostSaveValidate" />
           <FunctionImportMapping FunctionImportName="WarehouseAdjustmentSaveRelative" FunctionName="TotalSmartPortalModel.Store.WarehouseAdjustmentSaveRelative" />
           <FunctionImportMapping FunctionImportName="WarehouseAdjustmentToggleApproved" FunctionName="TotalSmartPortalModel.Store.WarehouseAdjustmentToggleApproved" />
+          <EntitySetMapping Name="WarehouseAdjustmentDetails">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.WarehouseAdjustmentDetail">
+              <MappingFragment StoreEntitySet="WarehouseAdjustmentDetails">
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="AdjustmentJobs" ColumnName="AdjustmentJobs" />
+                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
+                <ScalarProperty Name="QuantityReceipted" ColumnName="QuantityReceipted" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BatchEntryDate" ColumnName="BatchEntryDate" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="WarehouseReceiptID" ColumnName="WarehouseReceiptID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
+                <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
+                <ScalarProperty Name="WarehouseAdjustmentTypeID" ColumnName="WarehouseAdjustmentTypeID" />
+                <ScalarProperty Name="WarehouseAdjustmentID" ColumnName="WarehouseAdjustmentID" />
+                <ScalarProperty Name="WarehouseAdjustmentDetailID" ColumnName="WarehouseAdjustmentDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehouseAdjustments">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.WarehouseAdjustment">
+              <MappingFragment StoreEntitySet="WarehouseAdjustments">
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="TotalPalletCounts" ColumnName="TotalPalletCounts" />
+                <ScalarProperty Name="TotalCartonCounts" ColumnName="TotalCartonCounts" />
+                <ScalarProperty Name="TotalPackCounts" ColumnName="TotalPackCounts" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
+                <ScalarProperty Name="PreparedPersonID" ColumnName="PreparedPersonID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AdjustmentJobs" ColumnName="AdjustmentJobs" />
+                <ScalarProperty Name="HasPositiveLine" ColumnName="HasPositiveLine" />
+                <ScalarProperty Name="StorekeeperID" ColumnName="StorekeeperID" />
+                <ScalarProperty Name="WarehouseAdjustmentTypeID" ColumnName="WarehouseAdjustmentTypeID" />
+                <ScalarProperty Name="WarehouseReceiptID" ColumnName="WarehouseReceiptID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="WarehouseAdjustmentID" ColumnName="WarehouseAdjustmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouses">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="Issuable" ColumnName="Issuable" />
+                <ScalarProperty Name="Bookable" ColumnName="Bookable" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="WarehouseClassID" ColumnName="WarehouseClassID" />
+                <ScalarProperty Name="WarehouseGroupID" ColumnName="WarehouseGroupID" />
+                <ScalarProperty Name="WarehouseCategoryID" ColumnName="WarehouseCategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetGoodsReceiptDetailAvailables" FunctionName="TotalSmartPortalModel.Store.GetGoodsReceiptDetailAvailables">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSmartPortalModel.GoodsReceiptDetailAvailable">
+                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
+                <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
+                <ScalarProperty Name="GoodsReceiptReference" ColumnName="GoodsReceiptReference" />
+                <ScalarProperty Name="GoodsReceiptEntryDate" ColumnName="GoodsReceiptEntryDate" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="BatchEntryDate" ColumnName="BatchEntryDate" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="WarehouseCode" ColumnName="WarehouseCode" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="LineReferences" ColumnName="LineReferences" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Issuable" ColumnName="Issuable" />
+                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
+                <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

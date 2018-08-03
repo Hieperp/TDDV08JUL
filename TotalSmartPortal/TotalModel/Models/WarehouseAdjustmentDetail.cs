@@ -31,8 +31,10 @@ namespace TotalModel.Models
         public int WarehouseID { get; set; }
         public int WarehouseReceiptID { get; set; }
         public int CommodityID { get; set; }
+        public int BatchID { get; set; }
+        public System.DateTime BatchEntryDate { get; set; }
         public decimal Quantity { get; set; }
-        public decimal QuantityReceipt { get; set; }
+        public decimal QuantityReceipted { get; set; }
         public int OrganizationalUnitID { get; set; }
         public string AdjustmentJobs { get; set; }
         public string Remarks { get; set; }

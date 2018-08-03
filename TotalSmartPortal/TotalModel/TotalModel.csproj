@@ -198,6 +198,9 @@
     <Compile Include="Models\GoodsReceiptDetail.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GoodsReceiptDetailAvailable.cs">
+      <DependentUpon>TotalSmartPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GoodsReceiptIndex.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>

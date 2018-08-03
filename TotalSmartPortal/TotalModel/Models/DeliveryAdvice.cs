@@ -90,8 +90,8 @@ namespace TotalModel.Models
         public virtual SalesOrder SalesOrder { get; set; }
         public virtual Promotion Promotion1 { get; set; }
         public virtual VoidType VoidType { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }
