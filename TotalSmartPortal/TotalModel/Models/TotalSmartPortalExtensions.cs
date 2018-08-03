@@ -116,6 +116,19 @@ namespace TotalModel.Models
 
 
 
+    public partial class WarehouseAdjustment : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<WarehouseAdjustmentDetail>
+    {
+        public int GetID() { return this.WarehouseAdjustmentID; }
+
+        public ICollection<WarehouseAdjustmentDetail> GetDetails() { return this.WarehouseAdjustmentDetails; }
+    }
+
+
+    public partial class WarehouseAdjustmentDetail : IPrimitiveEntity, IHelperEntryDate, IHelperCommodityID, IHelperCommodityTypeID
+    {
+        public int GetID() { return this.WarehouseAdjustmentDetailID; }
+    }
+
 
 
 

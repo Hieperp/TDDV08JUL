@@ -39,6 +39,7 @@ namespace TotalModel.Models
         public string AdjustmentJobs { get; set; }
         public string Remarks { get; set; }
         public bool Approved { get; set; }
+        public int CommodityTypeID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

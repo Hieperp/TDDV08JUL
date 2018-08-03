@@ -1492,6 +1492,7 @@
           <Property Name="WarehouseID" Type="int" Nullable="false" />
           <Property Name="WarehouseReceiptID" Type="int" Nullable="false" />
           <Property Name="CommodityID" Type="int" Nullable="false" />
+          <Property Name="CommodityTypeID" Type="int" Nullable="false" />
           <Property Name="BatchID" Type="int" Nullable="false" />
           <Property Name="BatchEntryDate" Type="datetime" Nullable="false" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -8957,7 +8958,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="NMVNTaskID" Mode="In" Type="Int32" />
             <Parameter Name="OrganizationalUnitID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetWarehouses">
+          <FunctionImport Name="GetWarehouses" EntitySet="Warehouses" ReturnType="Collection(TotalSmartPortalModel.Warehouse)">
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="SearchText" Mode="In" Type="String" />
             <Parameter Name="WarehouseTaskIDList" Mode="In" Type="String" />
@@ -12654,6 +12655,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="WarehouseAdjustment" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_WarehouseAdjustments" FromRole="WarehouseAdjustmentDetail" ToRole="WarehouseAdjustment" />
           <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses" FromRole="WarehouseAdjustmentDetail" ToRole="Warehouse" />
           <NavigationProperty Name="Warehouse1" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_Warehouses1" FromRole="WarehouseAdjustmentDetail" ToRole="Warehouse" />
+          <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="WarehouseAdjustment">
           <Key>
@@ -16426,6 +16428,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="WarehouseAdjustmentDetails">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.WarehouseAdjustmentDetail">
               <MappingFragment StoreEntitySet="WarehouseAdjustmentDetails">
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="AdjustmentJobs" ColumnName="AdjustmentJobs" />

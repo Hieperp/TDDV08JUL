@@ -1439,7 +1439,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetVoidablePermitted", userIDParameter, nMVNTaskIDParameter, organizationalUnitIDParameter);
         }
     
-        public virtual int GetWarehouses(Nullable<int> customerID, string searchText, string warehouseTaskIDList)
+        public virtual ObjectResult<Warehouse> GetWarehouses(Nullable<int> customerID, string searchText, string warehouseTaskIDList)
         {
             var customerIDParameter = customerID.HasValue ?
                 new ObjectParameter("CustomerID", customerID) :
@@ -1453,7 +1453,24 @@ namespace TotalModel.Models
                 new ObjectParameter("WarehouseTaskIDList", warehouseTaskIDList) :
                 new ObjectParameter("WarehouseTaskIDList", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetWarehouses", customerIDParameter, searchTextParameter, warehouseTaskIDListParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Warehouse>("GetWarehouses", customerIDParameter, searchTextParameter, warehouseTaskIDListParameter);
+        }
+    
+        public virtual ObjectResult<Warehouse> GetWarehouses(Nullable<int> customerID, string searchText, string warehouseTaskIDList, MergeOption mergeOption)
+        {
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(int));
+    
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            var warehouseTaskIDListParameter = warehouseTaskIDList != null ?
+                new ObjectParameter("WarehouseTaskIDList", warehouseTaskIDList) :
+                new ObjectParameter("WarehouseTaskIDList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Warehouse>("GetWarehouses", mergeOption, customerIDParameter, searchTextParameter, warehouseTaskIDListParameter);
         }
     
         public virtual ObjectResult<string> GoodsDeliveryPostSaveValidate(Nullable<int> entityID)

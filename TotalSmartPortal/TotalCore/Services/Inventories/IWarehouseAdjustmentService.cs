@@ -1,5 +1,5 @@
 ﻿using TotalModel.Models;
-using TotalDTO.Productions;
+using TotalDTO.Inventories;
 
 namespace TotalCore.Services.Inventories
 {
