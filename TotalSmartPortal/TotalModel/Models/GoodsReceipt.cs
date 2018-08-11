@@ -49,7 +49,7 @@ namespace TotalModel.Models
         public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
         public virtual Location Location { get; set; }
         public virtual PurchaseRequisition PurchaseRequisition { get; set; }
-        public virtual WarehouseAdjustment WarehouseAdjustment { get; set; }
         public virtual Warehouse Warehouse { get; set; }
+        public virtual WarehouseAdjustment WarehouseAdjustment { get; set; }
     }
 }

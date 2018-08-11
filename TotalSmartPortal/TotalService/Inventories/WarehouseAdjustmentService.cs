@@ -12,7 +12,7 @@ namespace TotalService.Inventories
     public class WarehouseAdjustmentService : GenericWithViewDetailService<WarehouseAdjustment, WarehouseAdjustmentDetail, WarehouseAdjustmentViewDetail, WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IWarehouseAdjustmentService
     {
         public WarehouseAdjustmentService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
-            : base(warehouseAdjustmentRepository, "WarehouseAdjustmentPostSaveValidate", "WarehouseAdjustmentSaveRelative", "WarehouseAdjustmentToggleApproved", "WarehouseAdjustmentToggleVoid", "WarehouseAdjustmentToggleVoidDetail", "GetWarehouseAdjustmentViewDetails")
+            : base(warehouseAdjustmentRepository, "WarehouseAdjustmentPostSaveValidate", "WarehouseAdjustmentSaveRelative", "WarehouseAdjustmentToggleApproved", null, null, "GetWarehouseAdjustmentViewDetails")
         {
         }
 
@@ -110,6 +110,6 @@ namespace TotalService.Inventories
         //        }
         //    }
         //}
-    
+
     }
 }

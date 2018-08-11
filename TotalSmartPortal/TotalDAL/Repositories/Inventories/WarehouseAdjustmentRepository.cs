@@ -6,7 +6,7 @@ namespace TotalDAL.Repositories.Inventories
     public class WarehouseAdjustmentRepository : GenericWithDetailRepository<WarehouseAdjustment, WarehouseAdjustmentDetail>, IWarehouseAdjustmentRepository
     {
         public WarehouseAdjustmentRepository(TotalSmartPortalEntities totalSmartPortalEntities)
-            : base(totalSmartPortalEntities, "WarehouseAdjustmentEditable", "WarehouseAdjustmentApproved", null, "WarehouseAdjustmentVoidable")
+            : base(totalSmartPortalEntities, "WarehouseAdjustmentEditable", "WarehouseAdjustmentApproved")
         {
         }
     }

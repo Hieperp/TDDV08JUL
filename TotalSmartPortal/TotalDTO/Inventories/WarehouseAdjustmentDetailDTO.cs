@@ -32,18 +32,6 @@ namespace TotalDTO.Inventories
 
         public Nullable<int> WarehouseReceiptID { get; set; }
 
-        public int BinLocationID { get; set; }
-        public string BinLocationCode { get; set; }
-
-        public Nullable<int> PackID { get; set; }
-        public string PackCode { get; set; }
-
-        public Nullable<int> CartonID { get; set; }
-        public string CartonCode { get; set; }
-
-        public Nullable<int> PalletID { get; set; }
-        public string PalletCode { get; set; }
-
         [Display(Name = "Tồn kho")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityAvailables { get; set; }

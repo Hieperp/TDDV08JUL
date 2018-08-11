@@ -21,25 +21,25 @@ namespace TotalModel.Models
         }
     
         public int WarehouseAdjustmentDetailID { get; set; }
-        public int WarehouseAdjustmentID { get; set; }
-        public int WarehouseAdjustmentTypeID { get; set; }
-        public Nullable<int> GoodsReceiptDetailID { get; set; }
-        public Nullable<int> GoodsReceiptID { get; set; }
         public System.DateTime EntryDate { get; set; }
         public string Reference { get; set; }
+        public int WarehouseAdjustmentID { get; set; }
+        public int WarehouseAdjustmentTypeID { get; set; }
+        public string AdjustmentJobs { get; set; }
+        public Nullable<int> GoodsReceiptDetailID { get; set; }
+        public Nullable<int> GoodsReceiptID { get; set; }
+        public int OrganizationalUnitID { get; set; }
         public int LocationID { get; set; }
         public int WarehouseID { get; set; }
         public int WarehouseReceiptID { get; set; }
         public int CommodityID { get; set; }
+        public int CommodityTypeID { get; set; }
         public int BatchID { get; set; }
         public System.DateTime BatchEntryDate { get; set; }
         public decimal Quantity { get; set; }
         public decimal QuantityReceipted { get; set; }
-        public int OrganizationalUnitID { get; set; }
-        public string AdjustmentJobs { get; set; }
         public string Remarks { get; set; }
         public bool Approved { get; set; }
-        public int CommodityTypeID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
