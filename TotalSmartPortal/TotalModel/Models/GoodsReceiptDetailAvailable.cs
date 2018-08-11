@@ -28,7 +28,9 @@ namespace TotalModel.Models
         public string LineReferences { get; set; }
         public bool Approved { get; set; }
         public bool Issuable { get; set; }
-        public Nullable<decimal> QuantityAvailable { get; set; }
         public bool IsSelected { get; set; }
+        public Nullable<decimal> QuantityAvailables { get; set; }
+        public string GoodsReceiptCode { get; set; }
+        public int CommodityTypeID { get; set; }
     }
 }

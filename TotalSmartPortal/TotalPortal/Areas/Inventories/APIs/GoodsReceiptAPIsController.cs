@@ -69,12 +69,10 @@ namespace TotalPortal.Areas.Inventories.APIs
 
 
 
-        
-        public JsonResult GetGoodsReceiptDetailAvailables(int? locationID, int? warehouseID, int? commodityID, string commodityIDs, int? batchID, string goodsReceiptDetailIDs, bool onlyApproved, bool onlyIssuable)
+        public JsonResult GetGoodsReceiptDetailAvailables([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? warehouseID, int? commodityID, string commodityIDs, int? batchID, string goodsReceiptDetailIDs, bool onlyApproved, bool onlyIssuable)
         {
             var result = this.goodsReceiptAPIRepository.GetGoodsReceiptDetailAvailables(locationID, warehouseID, commodityID, commodityIDs, batchID, goodsReceiptDetailIDs, onlyApproved, onlyIssuable);
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+            return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
+        }       
     }
 }

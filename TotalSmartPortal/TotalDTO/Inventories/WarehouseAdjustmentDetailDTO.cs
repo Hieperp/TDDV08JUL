@@ -21,7 +21,14 @@ namespace TotalDTO.Inventories
         public Nullable<int> GoodsReceiptID { get; set; }
         public Nullable<int> GoodsReceiptDetailID { get; set; }
 
+        [Display(Name = "Kế Hoạch")]
+        [UIHint("StringReadonly")]
         public string GoodsReceiptReference { get; set; }
+        [Display(Name = "Mã KH")]
+        [UIHint("StringReadonly")]
+        public string GoodsReceiptCode { get; set; }
+        [Display(Name = "Ngày KH")]
+        [UIHint("DateTimeReadonly")]
         public Nullable<System.DateTime> GoodsReceiptEntryDate { get; set; }
 
         public int BatchID { get; set; }
@@ -35,12 +42,14 @@ namespace TotalDTO.Inventories
         [Display(Name = "Tồn kho")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityAvailables { get; set; }
+        [UIHint("DecimalWithMinus")]
+        public override decimal Quantity { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            if (this.Quantity > 0 || -this.Quantity <= this.QuantityAvailables) yield return new ValidationResult("Số lượng xuất không được lớn hơn số lượng còn lại [" + this.CommodityName + "]", new[] { "Quantity" });
+            if (!(this.Quantity > 0 || -this.Quantity <= this.QuantityAvailables)) yield return new ValidationResult("Số lượng xuất không được lớn hơn số lượng còn lại [" + this.CommodityName + "]", new[] { "Quantity" });
         }
     }
 

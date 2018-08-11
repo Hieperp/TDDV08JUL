@@ -22,8 +22,11 @@ namespace TotalModel.Models
         public int CommodityID { get; set; }
         public string CommodityCode { get; set; }
         public string CommodityName { get; set; }
-        public Nullable<decimal> QuantityAvailable { get; set; }
         public decimal Quantity { get; set; }
         public string Remarks { get; set; }
+        public int BatchID { get; set; }
+        public System.DateTime BatchEntryDate { get; set; }
+        public Nullable<decimal> QuantityAvailables { get; set; }
+        public int CommodityTypeID { get; set; }
     }
 }

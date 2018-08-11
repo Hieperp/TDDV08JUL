@@ -36,6 +36,7 @@
         <div class="right-top-panel right-top-panel-H1">
 
             @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
+            @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt) })
 
             @Html.Kendo().NumericTextBoxFor(p => p.WarehouseAdjustmentTypeID);
         </div>
@@ -58,11 +59,38 @@
                     columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
                         .ClientTemplate("<div> #= CommodityCode #</div>" +
-                                "<div> #= (VoidTypeName == null)? '' : VoidTypeName #</div>" +
+                                
                                 "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
 
                     columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
+
+
+                    columns.Bound(p => p.GoodsReceiptID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (GoodsReceiptID == null)? '' : GoodsReceiptID #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptID' value='#= (GoodsReceiptID == null) ? '' : GoodsReceiptID #' />");
+                    columns.Bound(p => p.GoodsReceiptDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (GoodsReceiptDetailID == null)? '' : GoodsReceiptDetailID #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptDetailID' value='#= (GoodsReceiptDetailID == null) ? '' : GoodsReceiptDetailID #' />");
+
+                    columns.Bound(p => p.GoodsReceiptCode).DisplayNameTitle().Filterable(false).Width(60).Hidden()
+                        .ClientTemplate("#= (GoodsReceiptCode == null)? '' : GoodsReceiptCode #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptCode' value='#= (GoodsReceiptCode == null) ? '' : GoodsReceiptCode #' />");
+                    columns.Bound(p => p.GoodsReceiptReference).DisplayNameTitle().Filterable(false).Width(60)
+                        .ClientTemplate("#= (GoodsReceiptReference == null)? '' : GoodsReceiptReference #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptReference' value='#= (GoodsReceiptReference == null) ? '' : GoodsReceiptReference #' />");
+                    columns.Bound(p => p.GoodsReceiptEntryDate).DisplayNameTitle().Filterable(false).Width(80)
+                        .Format("{0:" + @SettingsManager.DateFormat + "}")
+                        .ClientTemplate("#= (GoodsReceiptEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptEntryDate' value='#= (GoodsReceiptEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #' />");
+
+
+                    columns.Bound(p => p.BatchID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= BatchID #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].BatchID' value='#= BatchID #' />");
+                    columns.Bound(p => p.BatchEntryDate).DisplayNameTitle().Filterable(false).Width(80)
+                        .Format("{0:" + @SettingsManager.DateFormat + "}")
+                        .ClientTemplate("#= (BatchEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', BatchEntryDate) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].BatchEntryDate' value='#= (BatchEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', BatchEntryDate) #' />");
+
+                    
+                    columns.Bound(p => p.QuantityAvailables).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
+                     .Format("{0:n0}")
+                     .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                     .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailables) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityAvailables' value='#= QuantityAvailables #' />");
 
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
                         .Format("{0:n0}")
@@ -88,7 +116,7 @@
                         {
                             //toolbar.Create().HtmlAttributes(new { @class = "fa fa-map-marker" }).Text("Add new aa le ea1");
                             toolbar.Template(@<text>
-                                <button type="button" class="k-button" onclick="GetPendingPlannedOrderDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
+                                <button type="button" class="k-button" onclick="GetGoodsReceiptDetailAvailables()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
                                 <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Giao hàng toàn bộ đơn hàng </button>
                             </text>);
                         }
@@ -121,7 +149,7 @@
                             var grid = $("#kendoGridDetails").data("kendoGrid");
                             var data = grid.dataSource.data();
                             $.each(data, function (i, row) {
-                            var isWarrantyClaim = row.VoidTypeName;
+                            var isWarrantyClaim = null;
                             if (isWarrantyClaim != null && isWarrantyClaim != '') {
                             $('tr[data-uid="' + row.uid + '"]').addClass("isBonus");
                             }
@@ -143,6 +171,7 @@
                             events.Error("kendGrid_ErrorHandler");
                         })
                         .Aggregates(a => a.Add(x => x.CommodityCode).Count())
+                        .Aggregates(a => a.Add(x => x.QuantityAvailables).Sum())
                         .Aggregates(a => a.Add(x => x.Quantity).Sum())
                     )
             )
@@ -210,10 +239,10 @@
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
 
 <script type="text/javascript">
-    function GetPendingPlannedOrderDetails() {
+    function GetGoodsReceiptDetailAvailables() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPlannedOrderDetails", "WarehouseAdjustments", new { area = "Productions" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetGoodsReceiptDetailAvailables", "WarehouseAdjustments", new { area = "Inventories" })", "Xuất kho", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
         });
     }
 

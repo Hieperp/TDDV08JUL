@@ -646,6 +646,7 @@
           <Property Name="GoodsReceiptID" Type="int" Nullable="false" />
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="Reference" Type="nvarchar" MaxLength="10" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationID" Type="int" Nullable="false" />
           <Property Name="LocationIssueID" Type="int" />
           <Property Name="PurchaseRequisitionID" Type="int" />
@@ -11268,6 +11269,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_Warehouses" FromRole="GoodsReceiptDetail" ToRole="Warehouse" />
           <NavigationProperty Name="WarehouseAdjustmentDetail" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_WarehouseAdjustmentDetails" FromRole="GoodsReceiptDetail" ToRole="WarehouseAdjustmentDetail" />
           <NavigationProperty Name="WarehouseAdjustmentDetails" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_GoodsReceiptDetails" FromRole="GoodsReceiptDetail" ToRole="WarehouseAdjustmentDetail" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityType Name="GoodsReceipt">
           <Key>
@@ -12619,9 +12621,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Int32" Name="CommodityID" Nullable="false" />
           <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
-          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="BatchID" Nullable="false" />
+          <Property Type="DateTime" Name="BatchEntryDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="QuantityAvailables" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
         </ComplexType>
         <EntityType Name="Warehouse">
           <Key>
@@ -12763,8 +12768,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="LineReferences" Nullable="true" MaxLength="23" />
           <Property Type="Boolean" Name="Approved" Nullable="false" />
           <Property Type="Boolean" Name="Issuable" Nullable="false" />
-          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Boolean" Name="IsSelected" Nullable="false" />
+          <Property Type="Decimal" Name="QuantityAvailables" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="String" Name="GoodsReceiptCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
         </ComplexType>
         <EntityType Name="WarehouseAdjustmentDetail">
           <Key>
@@ -15870,6 +15877,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="GoodsReceiptDetails">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.GoodsReceiptDetail">
               <MappingFragment StoreEntitySet="GoodsReceiptDetails">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="WarehouseIssueID" ColumnName="WarehouseIssueID" />
                 <ScalarProperty Name="BatchEntryDate" ColumnName="BatchEntryDate" />
                 <ScalarProperty Name="BatchID" ColumnName="BatchID" />
@@ -16408,9 +16416,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
                 <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
                 <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
-                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="BatchEntryDate" ColumnName="BatchEntryDate" />
+                <ScalarProperty Name="QuantityAvailables" ColumnName="QuantityAvailables" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -16454,8 +16465,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="LineReferences" ColumnName="LineReferences" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="Issuable" ColumnName="Issuable" />
-                <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="QuantityAvailables" ColumnName="QuantityAvailables" />
+                <ScalarProperty Name="GoodsReceiptCode" ColumnName="GoodsReceiptCode" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

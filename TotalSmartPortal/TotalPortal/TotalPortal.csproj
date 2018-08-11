@@ -1178,6 +1178,7 @@
     <Content Include="Areas\Inventories\Views\WarehouseAdjustments\Index.cshtml" />
     <Content Include="Areas\Inventories\Views\WarehouseAdjustments\Print.cshtml" />
     <Content Include="Areas\Inventories\Views\WarehouseAdjustments\_WarehouseAdjustment.cshtml" />
+    <Content Include="Areas\Inventories\Views\WarehouseAdjustments\GetGoodsReceiptDetailAvailables.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1259,6 +1260,7 @@
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Open.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Print.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\AddWarehouseAdjustmentDetail.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Approve.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Delete.js" />

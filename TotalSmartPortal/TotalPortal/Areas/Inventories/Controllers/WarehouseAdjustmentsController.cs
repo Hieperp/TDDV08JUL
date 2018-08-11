@@ -18,8 +18,8 @@ namespace TotalPortal.Areas.Inventories.Controllers
 {
     public class WarehouseAdjustmentsController : GenericViewDetailController<WarehouseAdjustment, WarehouseAdjustmentDetail, WarehouseAdjustmentViewDetail, WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO, WarehouseAdjustmentViewModel>
     {
-        public WarehouseAdjustmentsController(IWarehouseAdjustmentService productionOrderService, IWarehouseAdjustmentViewModelSelectListBuilder productionOrderViewModelSelectListBuilder)
-            : base(productionOrderService, productionOrderViewModelSelectListBuilder, true)
+        public WarehouseAdjustmentsController(IWarehouseAdjustmentService warehouseAdjustmentService, IWarehouseAdjustmentViewModelSelectListBuilder warehouseAdjustmentViewModelSelectListBuilder)
+            : base(warehouseAdjustmentService, warehouseAdjustmentViewModelSelectListBuilder, true)
         {
         }
 
@@ -34,7 +34,7 @@ namespace TotalPortal.Areas.Inventories.Controllers
             RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
         }
 
-        public virtual ActionResult GetPendingPlannedOrderDetails()
+        public virtual ActionResult GetGoodsReceiptDetailAvailables()
         {
             this.AddRequireJsOptions();
             return View();

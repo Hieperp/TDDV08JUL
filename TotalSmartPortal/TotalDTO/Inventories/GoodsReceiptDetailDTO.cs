@@ -29,6 +29,8 @@ namespace TotalDTO.Inventories
         [UIHint("DateTimeReadonly")]
         public Nullable<System.DateTime> PurchaseRequisitionEntryDate { get; set; }
 
+        public string Code { get; set; }
+
         public int CustomerID { get; set; }
         public Nullable<int> WarehouseID { get; set; }
 
