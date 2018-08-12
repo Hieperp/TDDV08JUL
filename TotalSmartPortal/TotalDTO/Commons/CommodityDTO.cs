@@ -62,6 +62,8 @@ namespace TotalDTO.Commons
         public Nullable<bool> Discontinue { get; set; }
 
         public string HSCode { get; set; }
+
+        public override int PreparedPersonID { get { return 1; } }
     }
 
     public class CommodityDTO : CommodityPrimitiveDTO
