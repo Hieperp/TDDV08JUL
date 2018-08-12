@@ -18,9 +18,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
 
         public void RestoreProcedure()
         {
-            //this.GetCommodityIndexes();
+            this.GetCommodityIndexes();
 
-            //this.CommodityEditable();
+            this.CommodityEditable();
 
             this.GetCommodityBases();
             this.GetCommodityMaterialBases();
@@ -36,8 +36,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      CommodityID, Code, Name, Title, Birthday, Telephone, Address, Remarks " + "\r\n";
-            queryString = queryString + "       FROM        Commoditys " + "\r\n";
+            queryString = queryString + "       SELECT      CommodityID, Code, Name, OfficialName, Remarks " + "\r\n";
+            queryString = queryString + "       FROM        Commodities " + "\r\n";
             queryString = queryString + "       " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
