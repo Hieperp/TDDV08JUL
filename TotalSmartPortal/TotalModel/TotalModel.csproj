@@ -93,6 +93,9 @@
     <Compile Include="Models\CommodityCodePart.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommodityIndex.cs">
+      <DependentUpon>TotalSmartPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CommodityMaterial.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>
