@@ -7,7 +7,7 @@ namespace TotalPortal.Areas.Commons.ViewModels.Helpers
     public interface ICommodityCategoryDropDownViewModel
     {        
         int CommodityCategoryID { get; set; }
-        IEnumerable<SelectListItem> CommodityCategoryDropDown { get; set; }
+        IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }
     }
 }
 

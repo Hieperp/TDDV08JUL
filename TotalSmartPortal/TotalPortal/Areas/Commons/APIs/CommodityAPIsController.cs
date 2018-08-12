@@ -14,9 +14,11 @@ using TotalDTO.Commons;
 using TotalDAL.Repositories;
 using TotalService.Commons;
 
+using Microsoft.AspNet.Identity;
 
 
 using TotalModel.Models;
+using TotalPortal.APIs.Sessions;
 
 
 namespace TotalPortal.Areas.Commons.APIs
@@ -24,14 +26,23 @@ namespace TotalPortal.Areas.Commons.APIs
     public class CommodityAPIsController : Controller
     {
         private readonly ICommodityRepository commodityRepository;
+        private readonly ICommodityAPIRepository commodityAPIRepository;
 
-        public CommodityAPIsController(ICommodityRepository commodityRepository)
+        public CommodityAPIsController(ICommodityRepository commodityRepository, ICommodityAPIRepository commodityAPIRepository)
         {
             this.commodityRepository = commodityRepository;
+            this.commodityAPIRepository = commodityAPIRepository;
         }
 
 
+        public JsonResult GetCommodityIndexes([DataSourceRequest] DataSourceRequest request)
+        {
+            ICollection<CommodityIndex> CommodityIndexes = this.commodityAPIRepository.GetEntityIndexes<CommodityIndex>(User.Identity.GetUserId(), HomeSession.GetGlobalFromDate(this.HttpContext), HomeSession.GetGlobalToDate(this.HttpContext));
 
+            DataSourceResult response = CommodityIndexes.ToDataSourceResult(request);
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
 
 
         public JsonResult SearchCommodities(string searchText, string commodityTypeIDList, bool? isOnlyAlphaNumericString)

@@ -224,9 +224,7 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IPromotionAPIRepository>().To<PromotionAPIRepository>();
                 kernel.Bind<IPromotionViewModelSelectListBuilder>().To<PromotionViewModelSelectListBuilder>();
 
-                kernel.Bind<ISearchAPIRepository>().To<SearchAPIRepository>();
-
-                kernel.Bind<ICommodityBrandRepository>().To<CommodityBrandRepository>();
+                kernel.Bind<ISearchAPIRepository>().To<SearchAPIRepository>();                
 
                 kernel.Bind<IInventoryRepository>().To<InventoryRepository>();
 
@@ -240,13 +238,19 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IPackingMaterialSelectListBuilder>().To<PackingMaterialSelectListBuilder>();
                 kernel.Bind<IVehicleSelectListBuilder>().To<VehicleSelectListBuilder>();
 
-
+                kernel.Bind<ICommodityBrandSelectListBuilder>().To<CommodityBrandSelectListBuilder>();
+                kernel.Bind<ICommodityCategorySelectListBuilder>().To<CommodityCategorySelectListBuilder>();
+                kernel.Bind<ICommodityTypeSelectListBuilder>().To<CommodityTypeSelectListBuilder>();
 
                 kernel.Bind<IAspNetUserRepository>().To<AspNetUserRepository>();
                 kernel.Bind<IUserRepository>().To<UserRepository>();
                 kernel.Bind<IUserAPIRepository>().To<UserAPIRepository>();
+                
+                kernel.Bind<ICommodityService>().To<CommodityService>();
+                kernel.Bind<ICommodityRepository>().To<CommodityRepository>();
+                kernel.Bind<ICommodityAPIRepository>().To<CommodityAPIRepository>();
+                kernel.Bind<ICommoditySelectListBuilder>().To<CommoditySelectListBuilder>();
 
-                kernel.Bind<ICommodityRepository>().To<CommodityRepository>();                
                 kernel.Bind<IWarehouseRepository>().To<WarehouseRepository>();                
                 kernel.Bind<IVoidTypeRepository>().To<VoidTypeRepository>();
                 
@@ -258,6 +262,10 @@ namespace TotalPortal.App_Start
                 kernel.Bind<ITerritoryRepository>().To<TerritoryRepository>();
                 kernel.Bind<IPackingMaterialRepository>().To<PackingMaterialRepository>();
                 kernel.Bind<IVehicleRepository>().To<VehicleRepository>();
+
+                kernel.Bind<ICommodityBrandRepository>().To<CommodityBrandRepository>();
+                kernel.Bind<ICommodityCategoryRepository>().To<CommodityCategoryRepository>();
+                kernel.Bind<ICommodityTypeRepository>().To<CommodityTypeRepository>();
 
 
                 //kernel.Bind<IMoldService>().To<MoldService>();

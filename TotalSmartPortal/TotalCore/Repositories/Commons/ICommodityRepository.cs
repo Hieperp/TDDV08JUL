@@ -22,4 +22,8 @@ namespace TotalCore.Repositories.Commons
         IList<CommodityCodePart> GetCommodityCodePartB(string searchText);
         IList<CommodityCodePart> GetCommodityCodePartC(string searchText);
     }
+
+    public interface ICommodityAPIRepository : IGenericAPIRepository
+    {
+    }
 }

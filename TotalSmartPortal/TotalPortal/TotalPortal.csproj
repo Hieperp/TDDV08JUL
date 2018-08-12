@@ -230,7 +230,11 @@
     <Compile Include="Areas\Commons\APIs\VoidTypeAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\PromotionAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\WarehouseAPIsController.cs" />
+    <Compile Include="Areas\Commons\Builders\ICommodityBrandSelectListBuilder.cs" />
+    <Compile Include="Areas\Commons\Builders\ICommodityCategorySelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICommodityPriceSelectListBuilder.cs" />
+    <Compile Include="Areas\Commons\Builders\ICommoditySelectListBuilder.cs" />
+    <Compile Include="Areas\Commons\Builders\ICommodityTypeSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICustomerCategorySelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICustomerTypeSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICustomerSelectListBuilder.cs" />
@@ -242,13 +246,16 @@
     <Compile Include="Areas\Commons\Builders\ITerritorySelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\IVehicleSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\CommonsAreaRegistration.cs" />
+    <Compile Include="Areas\Commons\Controllers\CommoditiesController.cs" />
     <Compile Include="Areas\Commons\Controllers\CommodityPricesController.cs" />
     <Compile Include="Areas\Commons\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Commons\Controllers\EmployeesController.cs" />
     <Compile Include="Areas\Commons\Controllers\PromotionsController.cs" />
     <Compile Include="Areas\Commons\ViewModels\CommodityPriceViewModel.cs" />
+    <Compile Include="Areas\Commons\ViewModels\CommodityViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\CustomerViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\EmployeeViewModel.cs" />
+    <Compile Include="Areas\Commons\ViewModels\Helpers\ICommodityBrandDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IMonetaryAccountDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPackingMaterialDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPriceCategoryDropDownViewModel.cs" />
@@ -1179,6 +1186,10 @@
     <Content Include="Areas\Inventories\Views\WarehouseAdjustments\Print.cshtml" />
     <Content Include="Areas\Inventories\Views\WarehouseAdjustments\_WarehouseAdjustment.cshtml" />
     <Content Include="Areas\Inventories\Views\WarehouseAdjustments\GetGoodsReceiptDetailAvailables.cshtml" />
+    <Content Include="Areas\Commons\Views\Commodities\Create.cshtml" />
+    <Content Include="Areas\Commons\Views\Commodities\Edit.cshtml" />
+    <Content Include="Areas\Commons\Views\Commodities\Index.cshtml" />
+    <Content Include="Areas\Commons\Views\Commodities\_Commodity.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1207,6 +1218,10 @@
     <Content Include="Scripts\Controllers\Accounts\Receipts\Edit.js" />
     <Content Include="Scripts\Controllers\Accounts\Receipts\Index.js" />
     <Content Include="Scripts\Controllers\Accounts\Receipts\Open.js" />
+    <Content Include="Scripts\Controllers\Commons\Commodities\Create.js" />
+    <Content Include="Scripts\Controllers\Commons\Commodities\Delete.js" />
+    <Content Include="Scripts\Controllers\Commons\Commodities\Edit.js" />
+    <Content Include="Scripts\Controllers\Commons\Commodities\Index.js" />
     <Content Include="Scripts\Controllers\Commons\CommodityPrices\Create.js" />
     <Content Include="Scripts\Controllers\Commons\CommodityPrices\Delete.js" />
     <Content Include="Scripts\Controllers\Commons\CommodityPrices\Edit.js" />
@@ -2169,6 +2184,9 @@
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\MoldBase.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\CustomerBasic.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\CommodityMaterialBase.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityBrand.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityCategory.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityType.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

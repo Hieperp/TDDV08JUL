@@ -119,4 +119,12 @@ namespace TotalDAL.Repositories.Commons
         }
 
     }
+
+    public class CommodityAPIRepository : GenericAPIRepository, ICommodityAPIRepository
+    {
+        public CommodityAPIRepository(TotalSmartPortalEntities totalSmartPortalEntities)
+            : base(totalSmartPortalEntities, "GetCommodityIndexes")
+        {
+        }
+    }
 }
