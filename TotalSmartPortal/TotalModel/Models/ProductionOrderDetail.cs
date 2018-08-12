@@ -50,10 +50,10 @@ namespace TotalModel.Models
         public virtual PlannedOrder PlannedOrder { get; set; }
         public virtual CommodityMaterial CommodityMaterial { get; set; }
         public virtual ProductionOrder ProductionOrder { get; set; }
-        public virtual Commodity Commodity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssue> MaterialIssues { get; set; }
+        public virtual Commodity Commodity { get; set; }
     }
 }

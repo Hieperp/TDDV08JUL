@@ -49,9 +49,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
         {
             string[] queryArray = new string[1];
 
-            queryArray[0] = " SELECT TOP 1 @FoundEntity = CommodityID FROM Commoditys WHERE @EntityID = 1"; //AT TUE VIET ONLY: Don't allow edit default mold, because it is related to Customers
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = CommodityID FROM Commodities WHERE @EntityID = 1"; //AT TUE VIET ONLY: Don't allow edit default mold, because it is related to Customers
 
-            //queryArray[0] = " SELECT TOP 1 @FoundEntity = CommodityID FROM Commoditys WHERE CommodityID = @EntityID AND (InActive = 1 OR InActivePartial = 1)"; //Don't allow approve after void
+            //queryArray[0] = " SELECT TOP 1 @FoundEntity = CommodityID FROM Commodities WHERE CommodityID = @EntityID AND (InActive = 1 OR InActivePartial = 1)"; //Don't allow approve after void
             //queryArray[1] = " SELECT TOP 1 @FoundEntity = CommodityID FROM GoodsIssueDetails WHERE CommodityID = @EntityID ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("CommodityEditable", queryArray);
