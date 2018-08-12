@@ -40,6 +40,8 @@ namespace TotalDTO.Inventories
         [Display(Name = "Ngày đặt hàng")]
         public Nullable<System.DateTime> PurchaseRequisitionEntryDate { get; set; }
 
+        public Nullable<int> WarehouseAdjustmentID { get; set; }
+
         [Display(Name = "Số đơn hàng")]
         [UIHint("Commons/SOCode")]
         public string Code { get; set; }

@@ -60,6 +60,20 @@ namespace TotalDAL.Repositories.Inventories
         }
 
 
+
+
+        public List<PendingWarehouseAdjustmentDetail> GetPendingWarehouseAdjustmentDetails(int? locationID, int? goodsReceiptID, int? warehouseAdjustmentID, int? warehouseID, string warehouseAdjustmentDetailIDs, bool isReadonly)
+        {
+            return base.TotalSmartPortalEntities.GetPendingWarehouseAdjustmentDetails(locationID, goodsReceiptID, warehouseAdjustmentID, warehouseID, warehouseAdjustmentDetailIDs, isReadonly).ToList();
+        }
+
+        public int? GetGoodsReceiptIDofWarehouseAdjustment(int? warehouseAdjustmentID)
+        {
+            return base.TotalSmartPortalEntities.GetGoodsReceiptIDofWarehouseAdjustment(warehouseAdjustmentID).FirstOrDefault();
+        }
+
+
+
         public IEnumerable<GoodsReceiptDetailAvailable> GetGoodsReceiptDetailAvailables(int? locationID, int? warehouseID, int? commodityID, string commodityIDs, int? batchID, string goodsReceiptDetailIDs, bool onlyApproved, bool onlyIssuable)
         {
             this.TotalSmartPortalEntities.Configuration.ProxyCreationEnabled = false;

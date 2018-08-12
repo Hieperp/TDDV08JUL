@@ -6,6 +6,8 @@ using TotalModel.Models;
 using TotalDTO.Inventories;
 using TotalCore.Repositories.Inventories;
 using TotalCore.Services.Inventories;
+using TotalDAL.Repositories.Inventories;
+using TotalBase.Enums;
 
 namespace TotalService.Inventories
 {
@@ -34,8 +36,8 @@ namespace TotalService.Inventories
 
         //    if (warehouseAdjustment.HasPositiveLine)
         //    {
-        //        IGoodsReceiptAPIRepository goodsReceiptAPIRepository = new GoodsReceiptAPIRepository(this.GenericWithDetailRepository.TotalSmartCodingEntities);
-        //        IGoodsReceiptBaseService goodsReceiptBaseService = new GoodsReceiptBaseService(new GoodsReceiptRepository(this.GenericWithDetailRepository.TotalSmartCodingEntities));
+        //        IGoodsReceiptAPIRepository goodsReceiptAPIRepository = new GoodsReceiptAPIRepository(this.GenericWithDetailRepository.TotalSmartPortalEntities);
+        //        IGoodsReceiptBaseService goodsReceiptBaseService = new GoodsReceiptBaseService(new GoodsReceiptRepository(this.GenericWithDetailRepository.TotalSmartPortalEntities));
 
         //        //VERY IMPORTANT: THE BaseService.UserID IS AUTOMATICALLY SET BY CustomControllerAttribute OF CONTROLLER, ONLY WHEN BaseService IS INITIALIZED BY CONTROLLER. BUT HERE, THE this.goodsReceiptBaseService IS INITIALIZED BY VehiclesInvoiceService => SO SHOULD SET goodsReceiptBaseService.UserID = this.UserID
         //        goodsReceiptBaseService.UserID = this.UserID;
@@ -56,7 +58,7 @@ namespace TotalService.Inventories
         //            goodsReceiptDTO.Description = warehouseAdjustment.Description;
         //            goodsReceiptDTO.Remarks = warehouseAdjustment.Remarks;
 
-        //            List<PendingWarehouseAdjustmentDetail> pendingWarehouseAdjustmentDetails = goodsReceiptAPIRepository.GetPendingWarehouseAdjustmentDetails(warehouseAdjustment.LocationID, null, warehouseAdjustment.WarehouseAdjustmentID, warehouseAdjustment.WarehouseID, null, false);
+        //            List<PendingWarehouseAdjustmentDetail> pendingWarehouseAdjustmentDetails = goodsReceiptAPIRepository.GetPendingWarehouseAdjustmentDetails(warehouseAdjustment.LocationID, null, warehouseAdjustment.WarehouseAdjustmentID, warehouseAdjustment.WarehouseReceiptID, null, false);
         //            foreach (PendingWarehouseAdjustmentDetail pendingWarehouseAdjustmentDetail in pendingWarehouseAdjustmentDetails)
         //            {
         //                GoodsReceiptDetailDTO goodsReceiptDetailDTO = new GoodsReceiptDetailDTO()

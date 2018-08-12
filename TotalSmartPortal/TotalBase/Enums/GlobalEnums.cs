@@ -110,7 +110,11 @@ namespace TotalBase.Enums
             StockTransfer = 3,
             InventoryAdjustment = 4, //ERP VCP VB6
             WarehouseAdjustments = 5,
-            PurchaseRequisition = 6
+            PurchaseRequisition = 6,
+
+
+            GoodsIssueTransfer = 3333,
+            Pickup = 686868
         };
 
         public enum MaterialIssueTypeID

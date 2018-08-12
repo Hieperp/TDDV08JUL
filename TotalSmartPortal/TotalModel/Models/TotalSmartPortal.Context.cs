@@ -2882,5 +2882,43 @@ namespace TotalModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsReceiptDetailAvailable>("GetGoodsReceiptDetailAvailables", locationIDParameter, warehouseIDParameter, commodityIDParameter, commodityIDsParameter, batchIDParameter, goodsReceiptDetailIDsParameter, onlyApprovedParameter, onlyIssuableParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> GetGoodsReceiptIDofWarehouseAdjustment(Nullable<int> warehouseAdjustmentID)
+        {
+            var warehouseAdjustmentIDParameter = warehouseAdjustmentID.HasValue ?
+                new ObjectParameter("WarehouseAdjustmentID", warehouseAdjustmentID) :
+                new ObjectParameter("WarehouseAdjustmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetGoodsReceiptIDofWarehouseAdjustment", warehouseAdjustmentIDParameter);
+        }
+    
+        public virtual ObjectResult<PendingWarehouseAdjustmentDetail> GetPendingWarehouseAdjustmentDetails(Nullable<int> locationID, Nullable<int> goodsReceiptID, Nullable<int> warehouseAdjustmentID, Nullable<int> warehouseID, string warehouseAdjustmentDetailIDs, Nullable<bool> isReadonly)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var goodsReceiptIDParameter = goodsReceiptID.HasValue ?
+                new ObjectParameter("GoodsReceiptID", goodsReceiptID) :
+                new ObjectParameter("GoodsReceiptID", typeof(int));
+    
+            var warehouseAdjustmentIDParameter = warehouseAdjustmentID.HasValue ?
+                new ObjectParameter("WarehouseAdjustmentID", warehouseAdjustmentID) :
+                new ObjectParameter("WarehouseAdjustmentID", typeof(int));
+    
+            var warehouseIDParameter = warehouseID.HasValue ?
+                new ObjectParameter("WarehouseID", warehouseID) :
+                new ObjectParameter("WarehouseID", typeof(int));
+    
+            var warehouseAdjustmentDetailIDsParameter = warehouseAdjustmentDetailIDs != null ?
+                new ObjectParameter("WarehouseAdjustmentDetailIDs", warehouseAdjustmentDetailIDs) :
+                new ObjectParameter("WarehouseAdjustmentDetailIDs", typeof(string));
+    
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingWarehouseAdjustmentDetail>("GetPendingWarehouseAdjustmentDetails", locationIDParameter, goodsReceiptIDParameter, warehouseAdjustmentIDParameter, warehouseIDParameter, warehouseAdjustmentDetailIDsParameter, isReadonlyParameter);
+        }
     }
 }

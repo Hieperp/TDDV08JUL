@@ -39,6 +39,9 @@ namespace TotalDTO.Inventories
 
         public Nullable<int> WarehouseReceiptID { get; set; }
 
+        [UIHint("AutoCompletes/CommodityBase")]
+        public override string CommodityCode { get; set; }
+
         [Display(Name = "Tồn kho")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityAvailables { get; set; }

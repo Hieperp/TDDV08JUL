@@ -26,6 +26,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.GetGoodsReceiptPendingPurchaseRequisitions();
             this.GetGoodsReceiptPendingPurchaseRequisitionDetails();
 
+            GenerateSQLPendingDetails generatePendingWarehouseAdjustmentDetails = new GenerateSQLPendingDetails(this.totalSmartPortalEntities, GlobalEnums.GoodsReceiptTypeID.WarehouseAdjustments, "WarehouseAdjustments", "WarehouseAdjustmentDetails", "WarehouseAdjustmentID", "@WarehouseAdjustmentID", "WarehouseAdjustmentDetailID", "@WarehouseAdjustmentDetailIDs", "WarehouseReceiptID", "PrimaryReference", "PrimaryEntryDate");
+            generatePendingWarehouseAdjustmentDetails.GetPendingPickupDetails("GetPendingWarehouseAdjustmentDetails");
+
             this.GoodsReceiptSaveRelative();
             this.GoodsReceiptPostSaveValidate();
 
@@ -70,13 +73,15 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsReceiptDetails.GoodsReceiptDetailID, GoodsReceiptDetails.GoodsReceiptID, GoodsReceiptDetails.PurchaseRequisitionID, GoodsReceiptDetails.PurchaseRequisitionDetailID, PurchaseRequisitions.Reference AS PurchaseRequisitionReference, PurchaseRequisitions.Code AS PurchaseRequisitionCode, PurchaseRequisitions.EntryDate AS PurchaseRequisitionEntryDate, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsReceiptDetails.GoodsReceiptDetailID, GoodsReceiptDetails.GoodsReceiptID, GoodsReceiptDetails.PurchaseRequisitionID, GoodsReceiptDetails.PurchaseRequisitionDetailID, PurchaseRequisitions.Reference AS PurchaseRequisitionReference, PurchaseRequisitions.Code AS PurchaseRequisitionCode, PurchaseRequisitions.EntryDate AS PurchaseRequisitionEntryDate, GoodsReceiptDetails.WarehouseAdjustmentID, GoodsReceiptDetails.WarehouseAdjustmentDetailID, WarehouseAdjustmentDetails.Reference AS WarehouseAdjustmentReference, WarehouseAdjustmentDetails.EntryDate AS WarehouseAdjustmentEntryDate, WarehouseAdjustmentDetails.WarehouseAdjustmentTypeID, " + "\r\n";
             queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, GoodsReceiptDetails.CommodityTypeID, " + "\r\n";
             queryString = queryString + "                   ROUND(ISNULL(CASE WHEN PurchaseRequisitionDetails.Approved = 1 AND PurchaseRequisitionDetails.InActive = 0 AND PurchaseRequisitionDetails.InActivePartial = 0 THEN PurchaseRequisitionDetails.Quantity - PurchaseRequisitionDetails.QuantityReceipted ELSE 0 END, 0) + GoodsReceiptDetails.Quantity, " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, GoodsReceiptDetails.Quantity, GoodsReceiptDetails.Remarks " + "\r\n";
             queryString = queryString + "       FROM        GoodsReceiptDetails " + "\r\n";
             queryString = queryString + "                   INNER JOIN Commodities ON GoodsReceiptDetails.GoodsReceiptID = @GoodsReceiptID AND GoodsReceiptDetails.CommodityID = Commodities.CommodityID " + "\r\n";
             queryString = queryString + "                   LEFT JOIN PurchaseRequisitionDetails ON GoodsReceiptDetails.PurchaseRequisitionDetailID = PurchaseRequisitionDetails.PurchaseRequisitionDetailID " + "\r\n";
             queryString = queryString + "                   LEFT JOIN PurchaseRequisitions ON PurchaseRequisitionDetails.PurchaseRequisitionID = PurchaseRequisitions.PurchaseRequisitionID " + "\r\n";
+
+            queryString = queryString + "                   LEFT JOIN WarehouseAdjustmentDetails ON GoodsReceiptDetails.WarehouseAdjustmentDetailID = WarehouseAdjustmentDetails.WarehouseAdjustmentDetailID " + "\r\n";
 
             queryString = queryString + "       ORDER BY    Commodities.CommodityTypeID, GoodsReceiptDetails.GoodsReceiptID, GoodsReceiptDetails.GoodsReceiptDetailID " + "\r\n";
 
@@ -312,9 +317,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
         private void GoodsReceiptEditable()
         {
-            string[] queryArray = new string[1];
+            string[] queryArray = new string[2]; //IMPORTANT: THESE QUERIES SHOULD BE COPIED TO WarehouseAdjustmentEditable
 
             queryArray[0] = " SELECT TOP 1 @FoundEntity = GoodsReceiptID FROM MaterialIssueDetails WHERE GoodsReceiptID = @EntityID ";
+            queryArray[1] = " SELECT TOP 1 @FoundEntity = GoodsReceiptID FROM WarehouseAdjustmentDetails WHERE GoodsReceiptID = @EntityID ";
 
             this.totalSmartPortalEntities.CreateProcedureToCheckExisting("GoodsReceiptEditable", queryArray);
         }
@@ -453,5 +459,205 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         }
 
 
+
+
+        #region Generate Pending
+
+        private class GenerateSQLPendingDetails
+        {
+            private readonly GlobalEnums.GoodsReceiptTypeID goodsReceiptTypeID;
+
+            private readonly string primaryTables;
+            private readonly string primaryTableDetails;
+
+            private readonly string primaryKey;
+            private readonly string paraPrimaryKey;
+
+            private readonly string primaryKeyDetail;
+            private readonly string paraPrimaryKeyDetails;
+
+            private readonly string fieldNameWarehouseID;
+
+            private readonly string primaryReference;
+            private readonly string primaryEntryDate;
+
+            private readonly TotalSmartPortalEntities totalSmartPortalEntities;
+
+            public GenerateSQLPendingDetails(TotalSmartPortalEntities totalSmartPortalEntities, GlobalEnums.GoodsReceiptTypeID goodsReceiptTypeID, string primaryTables, string primaryTableDetails, string primaryKey, string paraPrimaryKey, string primaryKeyDetails, string paraPrimaryKeyDetails, string fieldNameWarehouseID, string primaryReference, string primaryEntryDate)
+            {
+                this.totalSmartPortalEntities = totalSmartPortalEntities;
+
+                this.goodsReceiptTypeID = goodsReceiptTypeID;
+
+                this.primaryTables = primaryTables;
+                this.primaryTableDetails = primaryTableDetails;
+
+                this.primaryKey = primaryKey;
+                this.paraPrimaryKey = paraPrimaryKey;
+
+                this.primaryKeyDetail = primaryKeyDetails;
+                this.paraPrimaryKeyDetails = paraPrimaryKeyDetails;
+
+                this.fieldNameWarehouseID = fieldNameWarehouseID;
+
+                this.primaryReference = primaryReference;
+                this.primaryEntryDate = primaryEntryDate;
+            }
+
+
+
+
+
+            public void GetPendingPickups(string myfunctionName)
+            {
+                string queryString = " @LocationID int " + "\r\n";
+                //queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+                queryString = queryString + " AS " + "\r\n";
+
+                queryString = queryString + "       SELECT          " + this.primaryTables + "." + this.primaryKey + ", " + this.primaryTables + ".Reference AS " + this.primaryReference + ", " + this.primaryTables + ".EntryDate AS " + this.primaryEntryDate + ", Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, Warehouses.Name AS WarehouseName, " + (int)this.goodsReceiptTypeID + " AS GoodsReceiptTypeID, (SELECT TOP 1 Name FROM GoodsReceiptTypes WHERE GoodsReceiptTypeID = " + (int)this.goodsReceiptTypeID + ") AS GoodsReceiptTypeName, " + this.primaryTables + ".Description, " + this.primaryTables + ".Remarks " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? ", GoodsIssues.VoucherCodes, SourceWarehouses.Name AS SourceWarehouseName " : "") + "\r\n";
+                queryString = queryString + "       FROM           (SELECT " + this.primaryKey + ", " + fieldNameWarehouseID + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer && fieldNameWarehouseID.IndexOf("WarehouseID") == -1 ? ", WarehouseID" : "") + ", Reference, EntryDate, Description, Remarks" + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? ", VoucherCodes" : "") + " FROM " + this.primaryTables + " WHERE " + this.primaryKey + " IN (SELECT " + this.primaryKey + " FROM " + this.primaryTableDetails + " WHERE LocationID = @LocationID AND Approved = 1 AND ROUND(Quantity - QuantityReceipted, " + (int)GlobalEnums.rndQuantity + ") > 0)) AS " + this.primaryTables + "\r\n";
+                queryString = queryString + "                       INNER JOIN Warehouses ON " + this.primaryTables + "." + fieldNameWarehouseID + " = Warehouses.WarehouseID " + "\r\n";
+                if (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer)
+                    queryString = queryString + "                   INNER JOIN Warehouses SourceWarehouses ON GoodsIssues.WarehouseID = SourceWarehouses.WarehouseID " + "\r\n";
+
+                this.totalSmartPortalEntities.CreateStoredProcedure(myfunctionName, queryString);
+            }
+
+            public void GetPendingPickupWarehouses(string myfunctionName)
+            {
+                string queryString = " @LocationID int " + "\r\n";
+                //queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+                queryString = queryString + " AS " + "\r\n";
+
+                queryString = queryString + "       SELECT          Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, Warehouses.Name AS WarehouseName, " + (int)this.goodsReceiptTypeID + " AS GoodsReceiptTypeID, (SELECT TOP 1 Name FROM GoodsReceiptTypes WHERE GoodsReceiptTypeID = " + (int)this.goodsReceiptTypeID + ") AS GoodsReceiptTypeName " + "\r\n";
+                queryString = queryString + "       FROM           (SELECT DISTINCT " + fieldNameWarehouseID + " FROM " + this.primaryTableDetails + " WHERE LocationID = @LocationID AND Approved = 1 AND ROUND(Quantity - QuantityReceipted, " + (int)GlobalEnums.rndQuantity + ") > 0) WarehousePENDING " + "\r\n";
+                queryString = queryString + "                       INNER JOIN Warehouses ON WarehousePENDING." + fieldNameWarehouseID + " = Warehouses.WarehouseID " + "\r\n";
+
+                this.totalSmartPortalEntities.CreateStoredProcedure(myfunctionName, queryString);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            public void GetPendingPickupDetails(string myfunctionName)
+            {
+                string queryString;
+
+                queryString = " @LocationID Int, @GoodsReceiptID Int, " + this.paraPrimaryKey + " Int, @WarehouseID Int, " + this.paraPrimaryKeyDetails + " varchar(3999), @IsReadonly bit " + "\r\n";
+                //queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+                queryString = queryString + " AS " + "\r\n";
+
+                queryString = queryString + "   BEGIN " + "\r\n";
+
+                queryString = queryString + "       IF  (" + this.paraPrimaryKey + " <> 0) " + "\r\n";
+                queryString = queryString + "           " + this.BuildSQLPickup(true) + "\r\n";
+                queryString = queryString + "       ELSE " + "\r\n";
+                queryString = queryString + "           " + this.BuildSQLPickup(false) + "\r\n";
+
+                queryString = queryString + "   END " + "\r\n";
+
+                this.totalSmartPortalEntities.CreateStoredProcedure(myfunctionName, queryString);
+            }
+
+            private string BuildSQLPickup(bool isPickupID)
+            {
+                string queryString = "";
+                queryString = queryString + "   BEGIN " + "\r\n";
+                queryString = queryString + "       IF  (" + this.paraPrimaryKeyDetails + " <> '') " + "\r\n";
+                queryString = queryString + "           " + this.BuildSQLPickupPickupDetailIDs(isPickupID, true) + "\r\n";
+                queryString = queryString + "       ELSE " + "\r\n";
+                queryString = queryString + "           " + this.BuildSQLPickupPickupDetailIDs(isPickupID, false) + "\r\n";
+                queryString = queryString + "   END " + "\r\n";
+
+                return queryString;
+            }
+
+            private string BuildSQLPickupPickupDetailIDs(bool isPickupID, bool isPickupDetailIDs)
+            {
+                string queryString = "";
+                queryString = queryString + "   BEGIN " + "\r\n";
+
+                queryString = queryString + "       IF (@GoodsReceiptID <= 0) " + "\r\n";
+                queryString = queryString + "               BEGIN " + "\r\n";
+                queryString = queryString + "                   " + this.BuildSQLNew(isPickupID, isPickupDetailIDs) + "\r\n";
+                queryString = queryString + "                   ORDER BY " + this.primaryTableDetails + ".EntryDate, " + this.primaryTableDetails + "." + this.primaryKey + ", " + this.primaryTableDetails + "." + this.primaryKeyDetail + " " + "\r\n";
+                queryString = queryString + "               END " + "\r\n";
+                queryString = queryString + "       ELSE " + "\r\n";
+
+                queryString = queryString + "               IF (@IsReadonly = 1) " + "\r\n";
+                queryString = queryString + "                   BEGIN " + "\r\n";
+                queryString = queryString + "                       " + this.BuildSQLEdit(isPickupID, isPickupDetailIDs) + "\r\n";
+                queryString = queryString + "                       ORDER BY " + this.primaryTableDetails + ".EntryDate, " + this.primaryTableDetails + "." + this.primaryKey + ", " + this.primaryTableDetails + "." + this.primaryKeyDetail + " " + "\r\n";
+                queryString = queryString + "                   END " + "\r\n";
+
+                queryString = queryString + "               ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
+
+                queryString = queryString + "                   BEGIN " + "\r\n";
+                queryString = queryString + "                       " + this.BuildSQLNew(isPickupID, isPickupDetailIDs) + " WHERE " + this.primaryTableDetails + "." + this.primaryKeyDetail + " NOT IN (SELECT " + this.primaryKeyDetail + " FROM GoodsReceiptDetails WHERE GoodsReceiptID = @GoodsReceiptID) " + "\r\n";
+                queryString = queryString + "                       UNION ALL " + "\r\n";
+                queryString = queryString + "                       " + this.BuildSQLEdit(isPickupID, isPickupDetailIDs) + "\r\n";
+                queryString = queryString + "                       ORDER BY " + this.primaryTableDetails + ".EntryDate, " + this.primaryTableDetails + "." + this.primaryKey + ", " + this.primaryTableDetails + "." + this.primaryKeyDetail + " " + "\r\n";
+                queryString = queryString + "                   END " + "\r\n";
+
+                queryString = queryString + "   END " + "\r\n";
+
+                return queryString;
+            }
+
+            private string BuildSQLNew(bool isPickupID, bool isPickupDetailIDs)
+            {
+                string queryString = "";
+
+                queryString = queryString + "       SELECT      " + this.primaryTableDetails + "." + this.primaryKey + ", " + this.primaryTableDetails + "." + this.primaryKeyDetail + ", " + this.primaryTableDetails + ".Reference " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? " + ' [' + GoodsIssues.VoucherCodes + ']' " : "") + " AS " + this.primaryReference + ", " + this.primaryTableDetails + ".EntryDate AS " + this.primaryEntryDate + ", " + "\r\n";
+                queryString = queryString + "                   " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? this.primaryTableDetails + ".LocationIssueID + 0" : "NULL") + " AS LocationIssueID, " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? this.primaryTableDetails + ".WarehouseID + 0" : "NULL") + " AS WarehouseIssueID, " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.WarehouseAdjustments ? this.primaryTableDetails + ".WarehouseAdjustmentTypeID + 0" : "NULL") + " AS WarehouseAdjustmentTypeID, " + "\r\n";
+                queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, " + this.primaryTableDetails + ".BatchID, " + this.primaryTableDetails + ".BatchEntryDate, " + "\r\n";
+                queryString = queryString + "                   ROUND(" + this.primaryTableDetails + ".Quantity - " + this.primaryTableDetails + ".QuantityReceipted,  " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, CAST(0 AS decimal(18, 2)) AS Quantity, " + this.primaryTableDetails + ".Remarks, CAST(" + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.Pickup ? "1" : "0") + " AS bit) AS IsSelected " + "\r\n";
+
+                queryString = queryString + "       FROM        " + this.primaryTableDetails + " " + "\r\n";
+                queryString = queryString + "                   INNER JOIN Commodities ON " + (isPickupID ? " " + this.primaryTableDetails + "." + this.primaryKey + " = " + this.paraPrimaryKey + " " : "" + this.primaryTableDetails + ".LocationID = @LocationID AND " + this.primaryTableDetails + "." + fieldNameWarehouseID + " = @WarehouseID ") + " AND " + this.primaryTableDetails + (this.primaryTableDetails == "WarehouseAdjustmentDetails" ? ".Quantity > 0" : ".Approved = 1") + " AND ROUND(" + this.primaryTableDetails + ".Quantity - " + this.primaryTableDetails + ".QuantityReceipted, " + (int)GlobalEnums.rndQuantity + ") > 0 AND " + this.primaryTableDetails + ".CommodityID = Commodities.CommodityID " + (isPickupDetailIDs ? " AND " + this.primaryTableDetails + "." + this.primaryKeyDetail + " NOT IN (SELECT Id FROM dbo.SplitToIntList (" + this.paraPrimaryKeyDetails + "))" : "") + "\r\n";
+
+                if (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer)
+                    queryString = queryString + "               INNER JOIN GoodsIssues ON GoodsIssueTransferDetails.GoodsIssueID = GoodsIssues.GoodsIssueID " + "\r\n";
+
+                return queryString;
+            }
+
+            private string BuildSQLEdit(bool isPickupID, bool isPickupDetailIDs)
+            {
+                string queryString = "";
+
+                queryString = queryString + "       SELECT      " + this.primaryTableDetails + "." + this.primaryKey + ", " + this.primaryTableDetails + "." + this.primaryKeyDetail + ", " + this.primaryTableDetails + ".Reference " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? " + ' [' + GoodsIssues.VoucherCodes + ']' " : "") + " AS " + this.primaryReference + ", " + this.primaryTableDetails + ".EntryDate AS " + this.primaryEntryDate + ", " + "\r\n";
+                queryString = queryString + "                   " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? this.primaryTableDetails + ".LocationIssueID + 0" : "NULL") + " AS LocationIssueID, " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer ? this.primaryTableDetails + ".WarehouseID + 0" : "NULL") + " AS WarehouseIssueID, " + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.WarehouseAdjustments ? this.primaryTableDetails + ".WarehouseAdjustmentTypeID + 0" : "NULL") + " AS WarehouseAdjustmentTypeID, " + "\r\n";
+                queryString = queryString + "                   Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, " + this.primaryTableDetails + ".BatchID, " + this.primaryTableDetails + ".BatchEntryDate, " + "\r\n";
+                queryString = queryString + "                   ROUND(" + this.primaryTableDetails + ".Quantity - " + this.primaryTableDetails + ".QuantityReceipted + GoodsReceiptDetails.Quantity,  " + (int)GlobalEnums.rndQuantity + ") AS QuantityRemains, CAST(0 AS decimal(18, 2)) AS Quantity, " + this.primaryTableDetails + ".Remarks, CAST(" + (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.Pickup ? "1" : "0") + " AS bit) AS IsSelected " + "\r\n";
+
+                queryString = queryString + "       FROM        " + this.primaryTableDetails + " " + "\r\n";
+                queryString = queryString + "                   INNER JOIN GoodsReceiptDetails ON GoodsReceiptDetails.GoodsReceiptID = @GoodsReceiptID AND " + this.primaryTableDetails + "." + this.primaryKeyDetail + " = GoodsReceiptDetails." + this.primaryKeyDetail + "" + (isPickupDetailIDs ? " AND " + this.primaryTableDetails + "." + this.primaryKeyDetail + " NOT IN (SELECT Id FROM dbo.SplitToIntList (" + this.paraPrimaryKeyDetails + "))" : "") + "\r\n";
+
+                if (this.goodsReceiptTypeID == GlobalEnums.GoodsReceiptTypeID.GoodsIssueTransfer)
+                    queryString = queryString + "               INNER JOIN GoodsIssues ON GoodsIssueTransferDetails.GoodsIssueID = GoodsIssues.GoodsIssueID " + "\r\n";
+
+                queryString = queryString + "                   INNER JOIN Commodities ON GoodsReceiptDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+
+                return queryString;
+            }
+        }
+        #endregion Generate Pending
     }
 }

@@ -31,7 +31,7 @@ namespace TotalDAL.Repositories
             get { return ((IObjectContextAdapter)this.totalSmartPortalEntities).ObjectContext; }
         }
 
-        protected TotalSmartPortalEntities TotalSmartPortalEntities { get { return this.totalSmartPortalEntities; } }
+        public TotalSmartPortalEntities TotalSmartPortalEntities { get { return this.totalSmartPortalEntities; } }
 
 
         public int GetModuleID(GlobalEnums.NmvnTaskID nmvnTaskID)

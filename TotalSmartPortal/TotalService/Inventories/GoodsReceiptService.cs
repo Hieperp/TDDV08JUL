@@ -9,11 +9,45 @@ using TotalCore.Services.Inventories;
 
 namespace TotalService.Inventories
 {
-    public class GoodsReceiptService : GenericWithViewDetailService<GoodsReceipt, GoodsReceiptDetail, GoodsReceiptViewDetail, GoodsReceiptDTO, GoodsReceiptPrimitiveDTO, GoodsReceiptDetailDTO>, IGoodsReceiptService
+    public class GoodsReceiptService : GoodsReceiptBaseService, IGoodsReceiptService
     {
         public GoodsReceiptService(IGoodsReceiptRepository goodsReceiptRepository)
+            : base(goodsReceiptRepository)
+        {
+        }
+
+        public override bool Approvable(GoodsReceiptDTO dto)
+        {
+            return (dto.WarehouseAdjustmentID == null) && base.Approvable(dto);
+        }
+
+        public override bool UnApprovable(GoodsReceiptDTO dto)
+        {
+            return (dto.WarehouseAdjustmentID == null) && base.UnApprovable(dto);
+        }
+
+        public override bool Editable(GoodsReceiptDTO dto)
+        {
+            return (dto.WarehouseAdjustmentID == null) && base.Editable(dto);
+        }
+    }
+
+    public class GoodsReceiptBaseService : GenericWithViewDetailService<GoodsReceipt, GoodsReceiptDetail, GoodsReceiptViewDetail, GoodsReceiptDTO, GoodsReceiptPrimitiveDTO, GoodsReceiptDetailDTO>, IGoodsReceiptBaseService
+    {
+        public GoodsReceiptBaseService(IGoodsReceiptRepository goodsReceiptRepository)
             : base(goodsReceiptRepository, "GoodsReceiptPostSaveValidate", "GoodsReceiptSaveRelative", "GoodsReceiptToggleApproved", null, null, "GetGoodsReceiptViewDetails")
         {
+        }
+
+        public new bool Save(GoodsReceiptDTO goodsReceiptDTO, bool useExistingTransaction)
+        {
+            goodsReceiptDTO.GoodsReceiptViewDetails.RemoveAll(x => x.Quantity == 0);
+            return base.Save(goodsReceiptDTO, useExistingTransaction);
+        }
+
+        public new bool Delete(int id, bool useExistingTransaction)
+        {
+            return base.Delete(id, useExistingTransaction);
         }
 
         public override ICollection<GoodsReceiptViewDetail> GetViewDetails(int goodsReceiptID)
@@ -21,11 +55,6 @@ namespace TotalService.Inventories
             ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("GoodsReceiptID", goodsReceiptID) };
             return this.GetViewDetails(parameters);
         }
-
-        public override bool Save(GoodsReceiptDTO goodsReceiptDTO)
-        {
-            goodsReceiptDTO.GoodsReceiptViewDetails.RemoveAll(x => x.Quantity == 0);
-            return base.Save(goodsReceiptDTO);
-        }
     }
+
 }

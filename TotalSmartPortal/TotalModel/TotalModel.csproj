@@ -321,6 +321,9 @@
     <Compile Include="Models\PendingHandlingUnitReceiver.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PendingWarehouseAdjustmentDetail.cs">
+      <DependentUpon>TotalSmartPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PlannedOrder.cs">
       <DependentUpon>TotalSmartPortal.tt</DependentUpon>
     </Compile>
