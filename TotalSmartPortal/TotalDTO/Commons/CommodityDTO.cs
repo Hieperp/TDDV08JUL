@@ -55,8 +55,8 @@ namespace TotalDTO.Commons
         public string Packing { get; set; }
         public string Origin { get; set; }
         
-        public Nullable<double> Weight { get; set; }
-        public Nullable<double> LeadTime { get; set; }
+        public double Weight { get; set; }
+        public double LeadTime { get; set; }
 
         public bool IsRegularCheckUps { get; set; }
         public Nullable<bool> Discontinue { get; set; }

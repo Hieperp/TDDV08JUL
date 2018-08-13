@@ -30,10 +30,7 @@ namespace TotalPortal.Areas.Commons.Controllers
 
         protected override CommodityViewModel InitViewModelByDefault(CommodityViewModel simpleViewModel)
         {
-            simpleViewModel = base.InitViewModelByDefault(simpleViewModel);
-
-            simpleViewModel.Weight = 0;
-            simpleViewModel.LeadTime = 0;
+            simpleViewModel = base.InitViewModelByDefault(simpleViewModel);         
 
             return simpleViewModel;
         }
