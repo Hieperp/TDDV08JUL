@@ -19,8 +19,8 @@ namespace TotalDTO.Commons
         public int GetID() { return this.CommodityID; }
         public void SetID(int id) { this.CommodityID = id; }
 
-        public int CommodityID { get; set; }
-        public string Code { get; set; }
+        public int CommodityID { get; set; }        
+        public string Code { get { return this.CodePartA + " " + this.CodePartB + " " + this.CodePartC + " " + this.CodePartD; } }
         public string OfficialCode { get { return TotalBase.CommonExpressions.AlphaNumericString(this.Code); } }
         public string CodePartA { get; set; }
         public string CodePartB { get; set; }
@@ -54,7 +54,7 @@ namespace TotalDTO.Commons
         public string SalesUnit { get; set; }
         public string Packing { get; set; }
         public string Origin { get; set; }
-
+        
         public Nullable<double> Weight { get; set; }
         public Nullable<double> LeadTime { get; set; }
 

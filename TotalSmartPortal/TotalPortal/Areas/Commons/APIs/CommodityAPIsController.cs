@@ -136,7 +136,7 @@ namespace TotalPortal.Areas.Commons.APIs
             DataSourceResult response = commodities.ToDataSourceResult(request, o => new CommodityPrimitiveDTO
             {
                 CommodityID = o.CommodityID,
-                Code = o.Code,
+                //Code = o.Code,
                 Name = o.Name,
                 OfficialName = o.OfficialName,
                 OriginalName = o.OriginalName,
