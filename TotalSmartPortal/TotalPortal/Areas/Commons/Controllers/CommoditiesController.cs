@@ -27,6 +27,16 @@ namespace TotalPortal.Areas.Commons.Controllers
         {
             this.commodityService = commodityService;            
         }
+
+        protected override CommodityViewModel InitViewModelByDefault(CommodityViewModel simpleViewModel)
+        {
+            simpleViewModel = base.InitViewModelByDefault(simpleViewModel);
+
+            simpleViewModel.Weight = 0;
+            simpleViewModel.LeadTime = 0;
+
+            return simpleViewModel;
+        }
                
 
     }
