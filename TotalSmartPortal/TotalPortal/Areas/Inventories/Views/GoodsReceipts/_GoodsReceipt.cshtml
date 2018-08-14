@@ -109,8 +109,8 @@
                     columns.Bound(p => p.PurchaseRequisitionReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && @Model.PurchaseRequisitionID == null ? false : true)
                         .ClientTemplate("#= (PurchaseRequisitionReference == null)? '' : PurchaseRequisitionReference #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionReference' value='#= (PurchaseRequisitionReference == null) ? '' : PurchaseRequisitionReference #' />");
                     columns.Bound(p => p.PurchaseRequisitionEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition && @Model.PurchaseRequisitionID == null ? false : true)
-                        .Format("{0:" + @SettingsManager.DateFormat + "}")
-                        .ClientTemplate("#= (PurchaseRequisitionEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PurchaseRequisitionEntryDate) #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionEntryDate' value='#= (PurchaseRequisitionEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PurchaseRequisitionEntryDate) #' />");
+                        .Format("{0:" + @Settings.DateFormat + "}")
+                        .ClientTemplate("#= (PurchaseRequisitionEntryDate == null)? '' : kendo.format('{0:" + @Settings.DateFormat + "}', PurchaseRequisitionEntryDate) #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].PurchaseRequisitionEntryDate' value='#= (PurchaseRequisitionEntryDate == null) ? '' : kendo.format('{0:" + @Settings.DateFormat + "}', PurchaseRequisitionEntryDate) #' />");
 
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
@@ -279,14 +279,14 @@
     function GetPendingPurchaseRequisitionDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPurchaseRequisitionDetails", "GoodsReceipts", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPurchaseRequisitionDetails", "GoodsReceipts", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 
     function callVoidDetail(goodsReceiptDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "GoodsReceipts")" + "/" + $("#GoodsReceiptID").val() + "/" + goodsReceiptDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "GoodsReceipts")" + "/" + $("#GoodsReceiptID").val() + "/" + goodsReceiptDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
 </script>

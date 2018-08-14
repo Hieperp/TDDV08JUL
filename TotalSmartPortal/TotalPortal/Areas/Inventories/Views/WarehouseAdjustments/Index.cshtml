@@ -1,4 +1,5 @@
-﻿@using TotalPortal.Configuration
+﻿@using TotalBase.Enums
+@using TotalPortal.Configuration
 
 <div id="popupWindow"></div>
 
@@ -15,6 +16,8 @@
                 columns.Bound(p => p.WarehouseAdjustmentTypeName).Title("Số ĐH").Width(10).Filterable(false);
                 columns.Bound(p => p.Description).Title("Diễn giải").Width(120);
 
+                columns.Bound(p => p.TotalQuantity).Title("Sl").Format(Settings.kfmQuantity).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Filterable(false).Width(80);
+                
                 columns.Template(model => null).HtmlAttributes(new { @class = "grid-column-center" }).Width(92)
                     .ClientTemplate("<a class='k-button' style='padding-left:5px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/WarehouseAdjustments", action = "Void" }) + "/#= WarehouseAdjustmentID #'><span class='k-icon k-edit'></span></a> <a class='k-button' style='padding-left:0px; padding-right:0px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "Inventories/WarehouseAdjustments", action = "Delete" }) + "/#= WarehouseAdjustmentID #'><span class='k-icon k-delete'></span></a>");
             })
@@ -69,7 +72,7 @@
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "WarehouseAdjustments")", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "WarehouseAdjustments")", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@Settings.PopupWidth", "@Settings.PopupHeightWithTab");
         });
     }
 
@@ -100,7 +103,7 @@
     function indexFilterText_KeyUp() {
         var indexFilterText = $("#indexFilterText").val(), gridDetails = $("#kendoGridIndex").data("kendoGrid");
 
-        if (indexFilterText && indexFilterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (indexFilterText && indexFilterText.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

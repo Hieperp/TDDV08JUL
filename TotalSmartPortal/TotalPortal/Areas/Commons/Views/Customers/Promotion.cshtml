@@ -75,8 +75,8 @@
 
         columns.Bound(c => c.DiscountPercent).Title("% CK").Width(5).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Format("{0:n1}");
         columns.Bound(c => c.ControlFreeQuantity).Title("SL/1 QT").Width(6).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Format("{0:n0}");
-        columns.Bound(c => c.StartDate).Title("Ngày bắt đầu").Width(12).Format("{0:" + SettingsManager.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
-        columns.Bound(c => c.EndDate).Title("Ngày kết thúc").Width(12).Format("{0:" + SettingsManager.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
+        columns.Bound(c => c.StartDate).Title("Ngày bắt đầu").Width(12).Format("{0:" + Settings.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
+        columns.Bound(c => c.EndDate).Title("Ngày kết thúc").Width(12).Format("{0:" + Settings.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
         columns.Template(t => { }).Title("CK 1 dòng").ClientTemplate("<input class='IsSelected' #= ApplyToTradeDiscount ? checked='checked':'' #  type='checkbox' />").HtmlAttributes(new { @class = "grid-column-center", @readonly = "readonly" }).HeaderHtmlAttributes(new { @style = "text-align: center" }).Width(7);
 
         columns.Template(t => { }).Title("Bán Hàng").ClientTemplate("<input class='IsSelected' #= ApplyToSales ? checked='checked':'' #  type='checkbox' />").HtmlAttributes(new { @class = "grid-column-center", @readonly = "readonly" }).HeaderHtmlAttributes(new { @style = "text-align: center" }).Width(7);

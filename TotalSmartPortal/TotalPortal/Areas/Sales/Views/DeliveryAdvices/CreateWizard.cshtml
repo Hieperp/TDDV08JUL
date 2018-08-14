@@ -138,7 +138,7 @@
                 $("#Customer_Code").val(selectedDataItem === undefined || selectedDataItem.CustomerCode === undefined ? null : selectedDataItem.CustomerCode);
                 $("#Customer_Name").val(selectedDataItem === undefined || selectedDataItem.CustomerName === undefined ? null : selectedDataItem.CustomerName);
                 $("#Customer_OfficialName").val(selectedDataItem === undefined || selectedDataItem.CustomerOfficialName === undefined ? null : selectedDataItem.CustomerOfficialName);
-                $("#Customer_Birthday").val(selectedDataItem === undefined || selectedDataItem.CustomerBirthday === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, SettingsManager.DateFormat));
+                $("#Customer_Birthday").val(selectedDataItem === undefined || selectedDataItem.CustomerBirthday === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, Settings.DateFormat));
                 $("#Customer_VATCode").val(selectedDataItem === undefined || selectedDataItem.CustomerVATCode === undefined ? null : selectedDataItem.CustomerVATCode);
                 $("#Customer_Telephone").val(selectedDataItem === undefined || selectedDataItem.CustomerTelephone === undefined ? null : selectedDataItem.CustomerTelephone);
                 $("#Customer_BillingAddress").val(selectedDataItem === undefined || selectedDataItem.CustomerBillingAddress === undefined ? null : selectedDataItem.CustomerBillingAddress);
@@ -155,7 +155,7 @@
                 $("#Receiver_Code").val(selectedDataItem === undefined || selectedDataItem.ReceiverCode === undefined ? null : selectedDataItem.ReceiverCode);
                 $("#Receiver_Name").val(selectedDataItem === undefined || selectedDataItem.ReceiverName === undefined ? null : selectedDataItem.ReceiverName);
                 $("#Receiver_OfficialName").val(selectedDataItem === undefined || selectedDataItem.ReceiverOfficialName === undefined ? null : selectedDataItem.ReceiverOfficialName);
-                $("#Receiver_Birthday").val(selectedDataItem === undefined || selectedDataItem.ReceiverBirthday === undefined ? null : kendo.toString(selectedDataItem.ReceiverBirthday, SettingsManager.DateFormat));
+                $("#Receiver_Birthday").val(selectedDataItem === undefined || selectedDataItem.ReceiverBirthday === undefined ? null : kendo.toString(selectedDataItem.ReceiverBirthday, Settings.DateFormat));
                 $("#Receiver_VATCode").val(selectedDataItem === undefined || selectedDataItem.ReceiverVATCode === undefined ? null : selectedDataItem.ReceiverVATCode);
                 $("#Receiver_Telephone").val(selectedDataItem === undefined || selectedDataItem.ReceiverTelephone === undefined ? null : selectedDataItem.ReceiverTelephone);
                 $("#Receiver_BillingAddress").val(selectedDataItem === undefined || selectedDataItem.ReceiverBillingAddress === undefined ? null : selectedDataItem.ReceiverBillingAddress);
@@ -171,7 +171,7 @@
                 $("#SalesOrderID").val(selectedDataItem === undefined || selectedDataItem.SalesOrderID === undefined ? null : selectedDataItem.SalesOrderID);
                 $("#SalesOrderCode").val(selectedDataItem === undefined || selectedDataItem.SalesOrderCode === undefined ? null : selectedDataItem.SalesOrderCode);
                 $("#SalesOrderReference").val(selectedDataItem === undefined || selectedDataItem.SalesOrderReference === undefined ? null : selectedDataItem.SalesOrderReference);
-                $("#SalesOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.SalesOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.SalesOrderEntryDate, SettingsManager.DateTimeFormat));
+                $("#SalesOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.SalesOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.SalesOrderEntryDate, Settings.DateTimeFormat));
 
                 $("#PriceCategoryID").val(selectedDataItem === undefined || selectedDataItem.PriceCategoryID === undefined ? null : selectedDataItem.PriceCategoryID);
                 $("#PriceCategoryCode").val(selectedDataItem === undefined || selectedDataItem.PriceCategoryCode === undefined ? null : selectedDataItem.PriceCategoryCode);
@@ -198,8 +198,8 @@
 
             $("#Promotion_PromotionID").val(selectedPromotionItem === undefined || selectedPromotionItem.PromotionID === undefined ? null : selectedPromotionItem.PromotionID);
             $("#Promotion_Name").val(selectedPromotionItem === undefined || selectedPromotionItem.Name === undefined ? null : selectedPromotionItem.Name);
-            $("#Promotion_StartDate").val(selectedPromotionItem === undefined || selectedPromotionItem.StartDate === undefined ? null : kendo.toString(selectedPromotionItem.StartDate, SettingsManager.DateTimeFormat));
-            $("#Promotion_EndDate").val(selectedPromotionItem === undefined || selectedPromotionItem.EndDate === undefined ? null : kendo.toString(selectedPromotionItem.EndDate, SettingsManager.DateTimeFormat));
+            $("#Promotion_StartDate").val(selectedPromotionItem === undefined || selectedPromotionItem.StartDate === undefined ? null : kendo.toString(selectedPromotionItem.StartDate, Settings.DateTimeFormat));
+            $("#Promotion_EndDate").val(selectedPromotionItem === undefined || selectedPromotionItem.EndDate === undefined ? null : kendo.toString(selectedPromotionItem.EndDate, Settings.DateTimeFormat));
             $("#Promotion_DiscountPercent").val(selectedPromotionItem === undefined || selectedPromotionItem.DiscountPercent === undefined ? null : selectedPromotionItem.DiscountPercent);
             $("#Promotion_ControlFreeQuantity").val(selectedPromotionItem === undefined || selectedPromotionItem.ControlFreeQuantity === undefined ? null : selectedPromotionItem.ControlFreeQuantity);
 

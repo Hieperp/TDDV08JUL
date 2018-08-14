@@ -4,7 +4,7 @@ using TotalBase.Enums;
 
 namespace TotalPortal.Configuration
 {
-    public static class SettingsManager
+    public static class Settings
     {
         public static string BaseServiceUrl
         {
@@ -17,9 +17,20 @@ namespace TotalPortal.Configuration
         public static string DateFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
         public static string TimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern;
         public static string DateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + " " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern;
-
-        public static string NumberFormat = "{0:n0}";
         public static string YearMonthPattern = CultureInfo.CurrentCulture.DateTimeFormat.YearMonthPattern;
+
+
+        public static string NumberFormat = "{0:n0}"; //MUST FIND AND REPLACE BY CORRECT FORMAT FOR QUANTITY/ AMOUNT/ WEIGHT/ ... ==> MUST HAVE DEIFFENT TEMPLATE FOR QUANTITY/ AMOUNT/ WEIGHT/ .... INSTEAD OF ONLY ONE SIGLE DECIMAL TEMPLATE FOR ALL QUANTITY/ AMOUNT/ WEIGHT/
+
+
+        public static string kfmQuantity { get { return "{0:n" + GlobalEnums.rndQuantity.ToString("N0") + "}"; } }
+        public static string kfmAmount { get { return "{0:n" + GlobalEnums.rndAmount.ToString("N0") + "}"; } }
+        public static string kfmDiscountPercent { get { return "{0:n" + GlobalEnums.rndDiscountPercent.ToString("N0") + "}"; } }
+
+        public static string kfmWeight { get { return "{0:n" + GlobalEnums.rndWeight.ToString("N0") + "}"; } }
+
+
+
         public static int GridPopupHeight = 263;
         public static int GridPopupNoTabHeight = 330;
 
@@ -62,19 +73,25 @@ namespace TotalPortal.Configuration
     
     }
 
-    public class MySettingsManager
+    public class MySettings
     {
-        public string BaseServiceUrl { get { return SettingsManager.BaseServiceUrl; } }
+        public string BaseServiceUrl { get { return Settings.BaseServiceUrl; } }
 
-        public int AutoCompleteMinLenght { get { return SettingsManager.AutoCompleteMinLenght; } }
-        public string DateFormat { get { return SettingsManager.DateFormat; } }
-        public string TimeFormat { get { return SettingsManager.TimeFormat; } }
-        public string DateTimeFormat { get { return SettingsManager.DateTimeFormat; } }
-        public string NumberFormat { get { return SettingsManager.NumberFormat; } }
-        public string YearMonthPattern { get { return SettingsManager.YearMonthPattern; } }
-        public string MonthDayPattern { get { return SettingsManager.MonthDayPattern; } }
-        public int GridPopupHeight { get { return SettingsManager.GridPopupHeight; } }
-        public int GridPopupNoTabHeight { get { return SettingsManager.GridPopupNoTabHeight; } }
+        public int AutoCompleteMinLenght { get { return Settings.AutoCompleteMinLenght; } }
+        public string DateFormat { get { return Settings.DateFormat; } }
+        public string TimeFormat { get { return Settings.TimeFormat; } }
+        public string DateTimeFormat { get { return Settings.DateTimeFormat; } }
+        public string NumberFormat { get { return Settings.NumberFormat; } }
+
+        public string kfmQuantity { get { return Settings.kfmQuantity; } }
+        public string kfmAmount { get { return Settings.kfmAmount; } }
+        public string kfmDiscountPercent { get { return Settings.kfmDiscountPercent; } }
+        public string kfmWeight { get { return Settings.kfmWeight; } }
+
+        public string YearMonthPattern { get { return Settings.YearMonthPattern; } }
+        public string MonthDayPattern { get { return Settings.MonthDayPattern; } }
+        public int GridPopupHeight { get { return Settings.GridPopupHeight; } }
+        public int GridPopupNoTabHeight { get { return Settings.GridPopupNoTabHeight; } }
     }
 
 }

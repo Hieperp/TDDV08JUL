@@ -235,7 +235,7 @@
     function callVoidDetail(plannedOrderDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "PlannedOrders")" + "/" + $("#PlannedOrderID").val() + "/" + plannedOrderDetailID, "Hủy/ phục hồi một phần đơn hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "PlannedOrders")" + "/" + $("#PlannedOrderID").val() + "/" + plannedOrderDetailID, "Hủy/ phục hồi một phần đơn hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
 </script>

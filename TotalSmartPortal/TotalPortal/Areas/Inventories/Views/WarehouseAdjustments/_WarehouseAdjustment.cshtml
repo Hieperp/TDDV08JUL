@@ -76,26 +76,26 @@
                     columns.Bound(p => p.GoodsReceiptReference).DisplayNameTitle().Filterable(false).Width(60)
                         .ClientTemplate("#= (GoodsReceiptReference == null)? '' : GoodsReceiptReference #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptReference' value='#= (GoodsReceiptReference == null) ? '' : GoodsReceiptReference #' />");
                     columns.Bound(p => p.GoodsReceiptEntryDate).DisplayNameTitle().Filterable(false).Width(80)
-                        .Format("{0:" + @SettingsManager.DateFormat + "}")
-                        .ClientTemplate("#= (GoodsReceiptEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptEntryDate' value='#= (GoodsReceiptEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #' />");
+                        .Format("{0:" + @Settings.DateFormat + "}")
+                        .ClientTemplate("#= (GoodsReceiptEntryDate == null)? '' : kendo.format('{0:" + @Settings.DateFormat + "}', GoodsReceiptEntryDate) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].GoodsReceiptEntryDate' value='#= (GoodsReceiptEntryDate == null) ? '' : kendo.format('{0:" + @Settings.DateFormat + "}', GoodsReceiptEntryDate) #' />");
 
 
                     columns.Bound(p => p.BatchID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= BatchID #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].BatchID' value='#= BatchID #' />");
                     columns.Bound(p => p.BatchEntryDate).DisplayNameTitle().Filterable(false).Width(80)
-                        .Format("{0:" + @SettingsManager.DateFormat + "}")
-                        .ClientTemplate("#= (BatchEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', BatchEntryDate) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].BatchEntryDate' value='#= (BatchEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', BatchEntryDate) #' />");
+                        .Format("{0:" + @Settings.DateFormat + "}")
+                        .ClientTemplate("#= (BatchEntryDate == null)? '' : kendo.format('{0:" + @Settings.DateFormat + "}', BatchEntryDate) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].BatchEntryDate' value='#= (BatchEntryDate == null) ? '' : kendo.format('{0:" + @Settings.DateFormat + "}', BatchEntryDate) #' />");
 
                     
                     columns.Bound(p => p.QuantityAvailables).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
-                     .Format("{0:n0}")
-                     .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                     .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailables) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityAvailables' value='#= QuantityAvailables #' />");
+                     .Format(Settings.kfmQuantity)
+                     .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                     .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityAvailables) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityAvailables' value='#= QuantityAvailables #' />");
 
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
-                        .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                        .Format(Settings.kfmQuantity)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', Quantity) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
 
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false)
@@ -243,14 +243,14 @@
     function GetGoodsReceiptDetailAvailables() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetGoodsReceiptDetailAvailables", "WarehouseAdjustments", new { area = "Inventories" })", "Xuất kho", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetGoodsReceiptDetailAvailables", "WarehouseAdjustments", new { area = "Inventories" })", "Xuất kho", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 
     function callVoidDetail(warehouseAdjustmentDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "WarehouseAdjustments")" + "/" + $("#WarehouseAdjustmentID").val() + "/" + warehouseAdjustmentDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "WarehouseAdjustments")" + "/" + $("#WarehouseAdjustmentID").val() + "/" + warehouseAdjustmentDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
 

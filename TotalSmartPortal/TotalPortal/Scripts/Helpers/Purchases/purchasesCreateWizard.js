@@ -22,7 +22,7 @@ function handleOKEvent(tabIndex) {
     function _setParentInput(selectedDataItem) {
         window.parent.$("#PurchaseOrderID").val(selectedDataItem === undefined || selectedDataItem.PurchaseOrderID === undefined ? null : selectedDataItem.PurchaseOrderID);
         window.parent.$("#PurchaseOrderReference").val(selectedDataItem === undefined || selectedDataItem.PurchaseOrderReference === undefined ? null : selectedDataItem.PurchaseOrderReference);
-        window.parent.$("#PurchaseOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.PurchaseOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.PurchaseOrderEntryDate, window.parent.SettingsManager.DateFormat));
+        window.parent.$("#PurchaseOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.PurchaseOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.PurchaseOrderEntryDate, window.parent.Settings.DateFormat));
         window.parent.$("#PurchaseOrderAttentionName").val(selectedDataItem === undefined || selectedDataItem.AttentionName === undefined ? null : selectedDataItem.AttentionName);
         window.parent.$("#PurchaseOrderDescription").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
         window.parent.$("#PurchaseOrderRemarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);

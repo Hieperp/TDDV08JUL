@@ -122,7 +122,7 @@
                     columns.Bound(p => p.GoodsIssueCode).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (GoodsIssueCode == null)? '' : GoodsIssueCode #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].GoodsIssueCode' value='#= (GoodsIssueCode == null) ? '' : GoodsIssueCode #' />");                                        
                     columns.Bound(p => p.GoodsIssueEntryDate).DisplayNameTitle().Filterable(false).Width(90).Hidden(@Model.GoodsIssue != null && @Model.GoodsIssue.GoodsIssueID != null ? true : false)
-                        .ClientTemplate("#= GoodsIssueEntryDate ? kendo.toString(kendo.parseDate(GoodsIssueEntryDate), '" + SettingsManager.DateFormat + "') : '' #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= kendo.toString(GoodsIssueEntryDate, '" + SettingsManager.DateFormat + "') #' />");
+                        .ClientTemplate("#= GoodsIssueEntryDate ? kendo.toString(kendo.parseDate(GoodsIssueEntryDate), '" + Settings.DateFormat + "') : '' #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= kendo.toString(GoodsIssueEntryDate, '" + Settings.DateFormat + "') #' />");
 
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
@@ -371,7 +371,7 @@
     function GetPendingGoodsIssueDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "AccountInvoices", new { area = "Accounts" })", "Chọn mặt hàng xuất hóa đơn", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "AccountInvoices", new { area = "Accounts" })", "Chọn mặt hàng xuất hóa đơn", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 

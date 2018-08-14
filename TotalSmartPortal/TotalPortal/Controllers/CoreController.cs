@@ -12,7 +12,7 @@ namespace TotalPortal.Controllers
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("var SubmitTypeOption = " + typeof(GlobalEnums.SubmitTypeOption).EnumToJson() + "; ");
-            stringBuilder.Append("var SettingsManager = " + System.Web.Helpers.Json.Encode(new MySettingsManager()) + "; ");
+            stringBuilder.Append("var Settings = " + System.Web.Helpers.Json.Encode(new MySettings()) + "; ");
 
             return JavaScript(stringBuilder.ToString());
         }

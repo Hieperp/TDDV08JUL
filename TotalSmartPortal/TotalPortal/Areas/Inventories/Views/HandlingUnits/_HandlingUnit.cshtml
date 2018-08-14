@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LotNo)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.LotNo).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => model.LotNo).Format(@Settings.NumberFormat).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => model.LotNo, "", new { @class = "text-danger" })
@@ -119,7 +119,7 @@
                         .ClientTemplate("#= (GoodsIssueCode == null)? '' : GoodsIssueCode #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueCode' value='#= (GoodsIssueCode == null) ? '' : GoodsIssueCode #' />");
                                         
                     columns.Bound(p => p.GoodsIssueEntryDate).DisplayNameTitle().Filterable(false).Width(150)
-                        .ClientTemplate("#= GoodsIssueEntryDate ? kendo.toString(kendo.parseDate(GoodsIssueEntryDate), '" + SettingsManager.DateTimeFormat + "') : '' #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= kendo.toString(GoodsIssueEntryDate, '" + SettingsManager.DateTimeFormat + "') #' />");
+                        .ClientTemplate("#= GoodsIssueEntryDate ? kendo.toString(kendo.parseDate(GoodsIssueEntryDate), '" + Settings.DateTimeFormat + "') : '' #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= kendo.toString(GoodsIssueEntryDate, '" + Settings.DateTimeFormat + "') #' />");
                     
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
@@ -285,7 +285,7 @@
     function GetPendingGoodsIssueDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "HandlingUnits", new { area = "Inventories" })", "Chọn phiếu xuất kho", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "HandlingUnits", new { area = "Inventories" })", "Chọn phiếu xuất kho", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 

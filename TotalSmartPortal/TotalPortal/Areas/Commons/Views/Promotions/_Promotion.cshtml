@@ -218,7 +218,7 @@
     function GetCommodityCodeParts() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetCommodityCodeParts", "Promotions", new { area = "Commons" })", "Chọn mặt hàng được chiết khấu", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightSmall);
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetCommodityCodeParts", "Promotions", new { area = "Commons" })", "Chọn mặt hàng được chiết khấu", @Settings.PopupWidthVoid,  @Settings.PopupHeightSmall);
         });
     }
 </script>
@@ -228,7 +228,7 @@
     function ShowPromotionCustomerCategories() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("PromotionCustomerCategories", "Promotions", new { area = "Commons", id = @Model.PromotionID })", "Cài đặt kênh khách hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("PromotionCustomerCategories", "Promotions", new { area = "Commons", id = @Model.PromotionID })", "Cài đặt kênh khách hàng", "@Settings.PopupWidth", "@Settings.PopupHeightWithTab");
         });
     }
 </script>

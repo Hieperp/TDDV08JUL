@@ -12,7 +12,7 @@
         columns.Bound(c => c.ShippingAddress).Title("Giao hàng").Width(120);
 
         columns.Bound(c => c.GoodsIssueReferences).Title("PXK").Width(80);
-        columns.Bound(c => c.EntryDate).Title("Ngày, giờ đóng gói").Width(75).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+        columns.Bound(c => c.EntryDate).Title("Ngày, giờ đóng gói").Width(75).Format("{0:" + Settings.DateTimeFormat + "}");
 
         columns.Bound(c => c.PrintedLabel).Title("Loại").Width(35);
         columns.Bound(c => c.HandlingUnitIdentification).Title("STT").Width(20);
@@ -32,7 +32,7 @@
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeightLarge))
+    .Scrollable(s => s.Height(Settings.PopupContentHeightLarge))
     .DataSource(ds => ds.Ajax()
             .Read(read => read.Action("GetPendingHandlingUnits", "GoodsDeliveryAPIs", new { area = "Inventories" }).Data(@<text>
             function(e) {
@@ -87,7 +87,7 @@
     function filterText_KeyUp() {
         var filterText = $("#filterText").val(), gridDetails = $("#gridPendingHandlingUnits").data("kendoGrid");
 
-        if (filterText && filterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (filterText && filterText.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

@@ -22,7 +22,7 @@
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .Scrollable(s => s.Height(Settings.PopupContentHeight))
     .DataSource(ds => ds.Ajax()
         .Read(read => read.Action("GetCustomerReceivables", "ReceiptAPIs", new { area = "Accounts" }).Data("onGetCustomerReceivables"))
         .ServerOperation(false)
@@ -43,7 +43,7 @@
     function customerReceivableFilter_KeyUp() {
         var customerReceivableFilter = $("#customerReceivableFilter").val(), gridDetails = $("#customerReceivableGrid").data("kendoGrid");
 
-        if (customerReceivableFilter && customerReceivableFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (customerReceivableFilter && customerReceivableFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

@@ -224,7 +224,7 @@
     function GetPendingHandlingUnits() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingHandlingUnits", "GoodsDeliveries", new { area = "Inventories" })", "Chọn thùng/ bao để giao hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingHandlingUnits", "GoodsDeliveries", new { area = "Inventories" })", "Chọn thùng/ bao để giao hàng", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 

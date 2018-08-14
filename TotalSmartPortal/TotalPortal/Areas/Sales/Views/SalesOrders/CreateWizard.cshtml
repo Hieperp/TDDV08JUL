@@ -108,8 +108,8 @@
 
             $("#Promotion_PromotionID").val(selectedDataItem === undefined || selectedDataItem.PromotionID === undefined ? null : selectedDataItem.PromotionID);
             $("#Promotion_Name").val(selectedDataItem === undefined || selectedDataItem.Name === undefined ? null : selectedDataItem.Name);
-            $("#Promotion_StartDate").val(selectedDataItem === undefined || selectedDataItem.StartDate === undefined ? null : kendo.toString(selectedDataItem.StartDate, SettingsManager.DateTimeFormat));
-            $("#Promotion_EndDate").val(selectedDataItem === undefined || selectedDataItem.EndDate === undefined ? null : kendo.toString(selectedDataItem.EndDate, SettingsManager.DateTimeFormat));
+            $("#Promotion_StartDate").val(selectedDataItem === undefined || selectedDataItem.StartDate === undefined ? null : kendo.toString(selectedDataItem.StartDate, Settings.DateTimeFormat));
+            $("#Promotion_EndDate").val(selectedDataItem === undefined || selectedDataItem.EndDate === undefined ? null : kendo.toString(selectedDataItem.EndDate, Settings.DateTimeFormat));
             $("#Promotion_DiscountPercent").val(selectedDataItem === undefined || selectedDataItem.DiscountPercent === undefined ? null : selectedDataItem.DiscountPercent);
             $("#Promotion_ControlFreeQuantity").val(selectedDataItem === undefined || selectedDataItem.ControlFreeQuantity === undefined ? null : selectedDataItem.ControlFreeQuantity);
 

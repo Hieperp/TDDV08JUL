@@ -65,7 +65,7 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.Reference).Title("Phiếu XK").Width(50);
-            columns.Bound(c => c.EntryDate).Title("Ngày").Width(90).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+            columns.Bound(c => c.EntryDate).Title("Ngày").Width(90).Format("{0:" + Settings.DateTimeFormat + "}");
             columns.Bound(c => c.CreditTypeName).Title("TT/ TH/ CK").Width(80);
             columns.Bound(c => c.Description).Title("Diễn giải").Width(200);
             columns.Bound(c => c.TotalCreditAmount).Title("Số tiền TT/ TH/ CK").Format("{0:n0}").Width(70).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"});
@@ -80,7 +80,7 @@
                 </div>
             </text>);
         })
-                .Scrollable(s => s.Height(SettingsManager.PopupContentHeightLarge))
+                .Scrollable(s => s.Height(Settings.PopupContentHeightLarge))
                 .DataSource(ds => ds.Ajax()
                     .Read(read => read.Action("GetPendingCustomerCredits", "ReceiptAPIs", new { area = "Accounts" }).Data("onGetPendingCustomerCredits"))
                     .ServerOperation(false)
@@ -129,7 +129,7 @@
 
             if (selectedDataItem != undefined && selectedDataItem.CreditTypeID == "@GlobalCreditTypeID.AdvanceReceipt") {
                 $("#AdvanceReceipt_ReceiptID").val(selectedDataItem.ReceiptCreditID);
-                $("#AdvanceReceipt_EntryDate").val(kendo.toString(selectedDataItem.EntryDate, SettingsManager.DateFormat));
+                $("#AdvanceReceipt_EntryDate").val(kendo.toString(selectedDataItem.EntryDate, Settings.DateFormat));
                 $("#AdvanceReceipt_Reference").val(selectedDataItem.Reference);
 
                 $("#AdvanceReceipt_TotalDepositAmount").val(selectedDataItem.TotalCreditAmount);
@@ -138,7 +138,7 @@
             }
             if (selectedDataItem != undefined && selectedDataItem.CreditTypeID == "@GlobalCreditTypeID.SalesReturn") {
                 $("#SalesReturn_SalesReturnID").val(selectedDataItem.ReceiptCreditID);
-                $("#SalesReturn_EntryDate").val(kendo.toString(selectedDataItem.EntryDate, SettingsManager.DateFormat));
+                $("#SalesReturn_EntryDate").val(kendo.toString(selectedDataItem.EntryDate, Settings.DateFormat));
                 $("#SalesReturn_Reference").val(selectedDataItem.Reference);
 
                 $("#SalesReturn_TotalGrossAmount").val(selectedDataItem.TotalCreditAmount);
@@ -147,7 +147,7 @@
             }
             if (selectedDataItem != undefined && selectedDataItem.CreditTypeID == "@GlobalCreditTypeID.CreditNote") {
                 $("#CreditNote_CreditNoteID").val(selectedDataItem.ReceiptCreditID);
-                $("#CreditNote_EntryDate").val(kendo.toString(selectedDataItem.EntryDate, SettingsManager.DateFormat));
+                $("#CreditNote_EntryDate").val(kendo.toString(selectedDataItem.EntryDate, Settings.DateFormat));
                 $("#CreditNote_Reference").val(selectedDataItem.Reference);
 
                 $("#CreditNote_TotalCreditAmount").val(selectedDataItem.TotalCreditAmount);
@@ -166,7 +166,7 @@
     function pendingCustomerCreditFilter_KeyUp() {
         var pendingCustomerCreditFilter = $("#pendingCustomerCreditFilter").val(), gridDetails = $("#pendingCustomerCreditGrid").data("kendoGrid");
 
-        if (pendingCustomerCreditFilter && pendingCustomerCreditFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (pendingCustomerCreditFilter && pendingCustomerCreditFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

@@ -16,6 +16,8 @@ namespace TotalDTO.Inventories
         public int GoodsReceiptDetailID { get; set; }
         public int GoodsReceiptID { get; set; }
 
+        public Nullable<int> GoodsReceiptTypeID { get; set; }
+
         public Nullable<int> PurchaseRequisitionID { get; set; }
         public Nullable<int> PurchaseRequisitionDetailID { get; set; }
 
@@ -29,17 +31,35 @@ namespace TotalDTO.Inventories
         [UIHint("DateTimeReadonly")]
         public Nullable<System.DateTime> PurchaseRequisitionEntryDate { get; set; }
 
+
+        public Nullable<int> WarehouseAdjustmentID { get; set; }
+        public Nullable<int> WarehouseAdjustmentDetailID { get; set; }
+
+        [Display(Name = "Phiếu ĐH")]
+        [UIHint("StringReadonly")]
+        public string WarehouseAdjustmentReference { get; set; }
+        [Display(Name = "Số ĐH")]
+        [UIHint("StringReadonly")]
+        public string WarehouseAdjustmentCode { get; set; }
+        [Display(Name = "Ngày ĐH")]
+        [UIHint("DateTimeReadonly")]
+        public Nullable<System.DateTime> WarehouseAdjustmentEntryDate { get; set; }
+        public Nullable<int> WarehouseAdjustmentTypeID { get; set; }
+
+
+        public int BatchID { get; set; }
+        public System.DateTime BatchEntryDate { get; set; }
+
+
         public string Code { get; set; }
 
-        public int CustomerID { get; set; }
+        public Nullable<int> CustomerID { get; set; }
         public Nullable<int> WarehouseID { get; set; }
 
         [Display(Name = "Kho")]
         [UIHint("StringReadonly")]
         public string WarehouseCode { get; set; }
 
-        public int BatchID {get {return 1;}} //{ get; set; }
-        public System.DateTime BatchEntryDate {get {return DateTime.Now;}} //{ get; set; }
 
         [UIHint("AutoCompletes/CommodityAvailable")]
         public override string CommodityCode { get; set; }

@@ -6,7 +6,7 @@
     .Columns(columns =>
     {
         columns.Bound(c => c.PurchaseRequisitionCode).Title("Số ĐH").Width(50);
-        columns.Bound(c => c.PurchaseRequisitionEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.PurchaseRequisitionEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + Settings.DateFormat + "}");
         columns.Bound(c => c.CustomerName).Title("khách hàng").Width(140);
         columns.Bound(c => c.Description).Title("Diễn giải").Width(80);
     })
@@ -19,7 +19,7 @@
             </div>
         </text>);
     })
-        .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+        .Scrollable(s => s.Height(Settings.PopupContentHeight))
         .DataSource(ds => ds.Ajax()
             .Read(read => read.Action("GetPurchaseRequisitions", "GoodsReceiptAPIs", new { area = "Inventories" }).Data("onAdditionalGetPurchaseRequisitions"))
             .ServerOperation(false)
@@ -37,7 +37,7 @@
     function goodsReceiptPendingPurchaseRequisitionFilter_KeyUp() {
         var goodsReceiptPendingPurchaseRequisitionFilter = $("#goodsReceiptPendingPurchaseRequisitionFilter").val(), gridDetails = $("#goodsReceiptPendingPurchaseRequisitionGrid").data("kendoGrid");
 
-        if (goodsReceiptPendingPurchaseRequisitionFilter && goodsReceiptPendingPurchaseRequisitionFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (goodsReceiptPendingPurchaseRequisitionFilter && goodsReceiptPendingPurchaseRequisitionFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

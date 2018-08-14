@@ -6,7 +6,7 @@
     .Columns(columns =>
     {
         columns.Bound(c => c.GoodsIssueReference).Title("PXK").Width(45);
-        columns.Bound(c => c.GoodsIssueEntryDate).Title("Ngày XK").Width(60).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.GoodsIssueEntryDate).Title("Ngày XK").Width(60).Format("{0:" + Settings.DateFormat + "}");
         columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(110);
         columns.Bound(c => c.ReceiverName).Title("Tên đơn vị nhận").Width(130);
         columns.Bound(c => c.TotalGrossAmount).Title("Tiền hàng").Width(60).Format("{0:n0}").HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" });
@@ -22,7 +22,7 @@
             </div>
         </text>);
     })
-        .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+        .Scrollable(s => s.Height(Settings.PopupContentHeight))
         .DataSource(ds => ds.Ajax()
             .Read(read => read.Action("GetGoodsIssueReceivables", "ReceiptAPIs", new { area = "Accounts" }).Data("onGetGoodsIssueReceivables"))
             .ServerOperation(true)
@@ -43,7 +43,7 @@
     function goodsIssueReceivableFilter_KeyUp() {
         var goodsIssueReceivableFilter = $("#goodsIssueReceivableFilter").val(), gridDetails = $("#goodsIssueReceivableGrid").data("kendoGrid");
 
-        if (goodsIssueReceivableFilter && goodsIssueReceivableFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (goodsIssueReceivableFilter && goodsIssueReceivableFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

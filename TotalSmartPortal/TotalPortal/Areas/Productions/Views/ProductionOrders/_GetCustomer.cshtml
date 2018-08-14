@@ -18,7 +18,7 @@
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .Scrollable(s => s.Height(Settings.PopupContentHeight))
     .DataSource(ds => ds.Ajax()
         .Read(read => read.Action("GetCustomers", "ProductionOrderAPIs", new { area = "Productions" }).Data("onAdditionalGetCustomers"))
         .ServerOperation(false)
@@ -36,7 +36,7 @@
     function productionOrderPendingCustomerFilter_KeyUp() {
         var productionOrderPendingCustomerFilter = $("#productionOrderPendingCustomerFilter").val(), gridDetails = $("#productionOrderPendingCustomerGrid").data("kendoGrid");
 
-        if (productionOrderPendingCustomerFilter && productionOrderPendingCustomerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (productionOrderPendingCustomerFilter && productionOrderPendingCustomerFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

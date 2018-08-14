@@ -45,6 +45,8 @@ namespace TotalModel.Models
         public System.DateTime BatchEntryDate { get; set; }
         public Nullable<int> WarehouseIssueID { get; set; }
         public string Code { get; set; }
+        public int GoodsReceiptTypeID { get; set; }
+        public Nullable<int> WarehouseAdjustmentTypeID { get; set; }
     
         public virtual GoodsReceipt GoodsReceipt { get; set; }
         public virtual PurchaseRequisitionDetail PurchaseRequisitionDetail { get; set; }

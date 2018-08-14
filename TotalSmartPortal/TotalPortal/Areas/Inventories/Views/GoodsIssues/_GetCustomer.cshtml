@@ -23,7 +23,7 @@
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .Scrollable(s => s.Height(Settings.PopupContentHeight))
     .DataSource(ds => ds.Ajax()
         .Read(read => read.Action("GetCustomers", "GoodsIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetCustomers"))
         .ServerOperation(false)//If this is TRUE: Apply filter to datasource will call Ajax to get new datasource result. If this is FALSE: filter will run on client
@@ -43,7 +43,7 @@
     function pendingDeliveryAdviceCustomerFilter_KeyUp() {
         var pendingDeliveryAdviceCustomerFilter = $("#pendingDeliveryAdviceCustomerFilter").val(), gridDetails = $("#pendingDeliveryAdviceCustomerGrid").data("kendoGrid");
 
-        if (pendingDeliveryAdviceCustomerFilter && pendingDeliveryAdviceCustomerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (pendingDeliveryAdviceCustomerFilter && pendingDeliveryAdviceCustomerFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

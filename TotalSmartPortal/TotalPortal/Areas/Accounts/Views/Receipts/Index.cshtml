@@ -87,7 +87,7 @@
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "Receipts")", "Chọn phiếu xuất kho, hoặc khách hàng, sau đó chọn phiếu cấn trừ công nợ (nếu có)", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "Receipts")", "Chọn phiếu xuất kho, hoặc khách hàng, sau đó chọn phiếu cấn trừ công nợ (nếu có)", "@Settings.PopupWidth", "@Settings.PopupHeightWithTab");
         });
     }
 
@@ -109,7 +109,7 @@
     function indexFilterText_KeyUp() {
         var indexFilterText = $("#indexFilterText").val(), gridDetails = $("#kendoGridIndex").data("kendoGrid");
 
-        if (indexFilterText && indexFilterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (indexFilterText && indexFilterText.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

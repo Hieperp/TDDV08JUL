@@ -20,8 +20,8 @@ function handleOKEvent(selectedGrid) {
     function _setParentInput(selectedDataItem) {
         window.parent.$("#TransferOrderID").val(selectedDataItem === undefined ? null : selectedDataItem.TransferOrderID);
         window.parent.$("#TransferOrderReference").val(selectedDataItem === undefined ? null : selectedDataItem.TransferOrderReference);
-        window.parent.$("#TransferOrderEntryDate").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.TransferOrderEntryDate, window.parent.SettingsManager.DateTimeFormat));
-        window.parent.$("#TransferOrderRequestedDate").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.TransferOrderRequestedDate, window.parent.SettingsManager.DateTimeFormat));
+        window.parent.$("#TransferOrderEntryDate").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.TransferOrderEntryDate, window.parent.Settings.DateTimeFormat));
+        window.parent.$("#TransferOrderRequestedDate").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.TransferOrderRequestedDate, window.parent.Settings.DateTimeFormat));
 
         window.parent.$("#WarehouseID").val(selectedDataItem === undefined ? null : selectedDataItem.WarehouseID);
         window.parent.$("#WarehouseName").val(selectedDataItem === undefined ? null : selectedDataItem.WarehouseName);

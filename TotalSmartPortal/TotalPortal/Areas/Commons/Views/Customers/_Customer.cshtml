@@ -198,7 +198,7 @@
     function ShowPromotions() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("Promotion", "Customers", new { area = "Commons", id = @Model.CustomerID })", "Quản lý chiết khấu, khuyến mãi", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("Promotion", "Customers", new { area = "Commons", id = @Model.CustomerID })", "Quản lý chiết khấu, khuyến mãi", "@Settings.PopupWidth", "@Settings.PopupHeightWithTab");
         });
     }
 </script>

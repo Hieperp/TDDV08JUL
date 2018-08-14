@@ -20,17 +20,17 @@ function handleOKEvent(selectedGrid) {
     function _setParentInput(selectedDataItem) {
         if (window.parent.$("#ServiceInvoiceID") != undefined) window.parent.$("#ServiceInvoiceID").val(selectedDataItem === undefined || selectedDataItem.SalesInvoiceID === undefined ? null : selectedDataItem.SalesInvoiceID);
         if (window.parent.$("#ServiceInvoiceReference") != undefined) window.parent.$("#ServiceInvoiceReference").val(selectedDataItem === undefined || selectedDataItem.Reference === undefined ? null : selectedDataItem.Reference);
-        if (window.parent.$("#ServiceInvoiceEntryDate") != undefined) window.parent.$("#ServiceInvoiceEntryDate").val(selectedDataItem === undefined || selectedDataItem.EntryDate === undefined ? null : kendo.toString(selectedDataItem.EntryDate, window.parent.SettingsManager.DateTimeFormat));
+        if (window.parent.$("#ServiceInvoiceEntryDate") != undefined) window.parent.$("#ServiceInvoiceEntryDate").val(selectedDataItem === undefined || selectedDataItem.EntryDate === undefined ? null : kendo.toString(selectedDataItem.EntryDate, window.parent.Settings.DateTimeFormat));
 
         //CHECK if (window.parent.$("#QuotationEntryDate") != undefined): TO EX-CLUSIVE Quotation.CreateWizard.cshtml (BECAUSE IN Quotation.CreateWizard.cshtml: THERE IS NO FIELD NAME: QuotationEntryDate
         if (window.parent.$("#QuotationEntryDate") != undefined) window.parent.$("#QuotationID").val(selectedDataItem === undefined || selectedDataItem.QuotationID === undefined ? null : selectedDataItem.QuotationID);
         if (window.parent.$("#QuotationEntryDate") != undefined) window.parent.$("#QuotationReference").val(selectedDataItem === undefined || selectedDataItem.QuotationReference === undefined ? null : selectedDataItem.QuotationReference);
-        if (window.parent.$("#QuotationEntryDate") != undefined) window.parent.$("#QuotationEntryDate").val(selectedDataItem === undefined || selectedDataItem.QuotationEntryDate === undefined ? null : kendo.toString(selectedDataItem.QuotationEntryDate, window.parent.SettingsManager.DateTimeFormat));
+        if (window.parent.$("#QuotationEntryDate") != undefined) window.parent.$("#QuotationEntryDate").val(selectedDataItem === undefined || selectedDataItem.QuotationEntryDate === undefined ? null : kendo.toString(selectedDataItem.QuotationEntryDate, window.parent.Settings.DateTimeFormat));
 
 
         window.parent.$("#CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerID);
         window.parent.$("#CustomerName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
-        window.parent.$("#CustomerBirthday").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, window.parent.SettingsManager.DateTimeFormat));
+        window.parent.$("#CustomerBirthday").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, window.parent.Settings.DateTimeFormat));
         window.parent.$("#CustomerTelephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
         window.parent.$("#CustomerBillingAddress").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerBillingAddress);
         window.parent.$("#CustomerEntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
@@ -44,7 +44,7 @@ function handleOKEvent(selectedGrid) {
         window.parent.$("#ServiceContractColorCode").val(selectedDataItem === undefined ? null : selectedDataItem.ServiceContractColorCode);
         window.parent.$("#ServiceContractChassisCode").val(selectedDataItem === undefined ? null : selectedDataItem.ServiceContractChassisCode);
         window.parent.$("#ServiceContractEngineCode").val(selectedDataItem === undefined ? null : selectedDataItem.ServiceContractEngineCode);
-        window.parent.$("#ServiceContractPurchaseDate").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.ServiceContractPurchaseDate, window.parent.SettingsManager.DateTimeFormat));
+        window.parent.$("#ServiceContractPurchaseDate").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.ServiceContractPurchaseDate, window.parent.Settings.DateTimeFormat));
         window.parent.$("#ServiceContractAgentName").val(selectedDataItem === undefined ? null : selectedDataItem.ServiceContractAgentName);
     }
 }

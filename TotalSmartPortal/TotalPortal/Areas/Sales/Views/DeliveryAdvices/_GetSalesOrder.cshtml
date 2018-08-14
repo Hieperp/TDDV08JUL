@@ -7,7 +7,7 @@
     {
         columns.Bound(c => c.WarehouseCode).Title("Kho").Width(35);
         columns.Bound(c => c.SalesOrderCode).Title("Số ĐH").Width(50);
-        columns.Bound(c => c.SalesOrderEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.SalesOrderEntryDate).Title("Ngày ĐH").Width(55).Format("{0:" + Settings.DateFormat + "}");
         columns.Bound(c => c.CustomerName).Title("khách hàng").Width(140);
         columns.Bound(c => c.ReceiverDescription).Title("Giao hàng").Width(150);
         columns.Bound(c => c.Addressee).Title("Người nhận").Width(80);
@@ -22,7 +22,7 @@
             </div>
         </text>);
     })
-        .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+        .Scrollable(s => s.Height(Settings.PopupContentHeight))
         .DataSource(ds => ds.Ajax()
             .Read(read => read.Action("GetSalesOrders", "DeliveryAdviceAPIs", new { area = "Sales" }).Data("onAdditionalGetSalesOrders"))
             .ServerOperation(false)
@@ -40,7 +40,7 @@
     function deliveryAdvicePendingSalesOrderFilter_KeyUp() {
         var deliveryAdvicePendingSalesOrderFilter = $("#deliveryAdvicePendingSalesOrderFilter").val(), gridDetails = $("#deliveryAdvicePendingSalesOrderGrid").data("kendoGrid");
 
-        if (deliveryAdvicePendingSalesOrderFilter && deliveryAdvicePendingSalesOrderFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (deliveryAdvicePendingSalesOrderFilter && deliveryAdvicePendingSalesOrderFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

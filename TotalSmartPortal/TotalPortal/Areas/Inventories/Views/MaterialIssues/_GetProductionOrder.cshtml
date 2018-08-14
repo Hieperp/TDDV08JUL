@@ -24,7 +24,7 @@
             </div>
         </text>);
     })
-        .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+        .Scrollable(s => s.Height(Settings.PopupContentHeight))
         .DataSource(ds => ds.Ajax()
             .Read(read => read.Action("GetPlannedOrders", "MaterialIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetPlannedOrders"))
             .ServerOperation(false)
@@ -42,7 +42,7 @@
     function materialIssuePendingPlannedOrderFilter_KeyUp() {
         var materialIssuePendingPlannedOrderFilter = $("#materialIssuePendingPlannedOrderFilter").val(), gridDetails = $("#materialIssuePendingPlannedOrderGrid").data("kendoGrid");
 
-        if (materialIssuePendingPlannedOrderFilter && materialIssuePendingPlannedOrderFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (materialIssuePendingPlannedOrderFilter && materialIssuePendingPlannedOrderFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

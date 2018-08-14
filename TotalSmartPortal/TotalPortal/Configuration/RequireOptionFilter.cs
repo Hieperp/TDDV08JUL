@@ -16,7 +16,7 @@ namespace TotalPortal.Configuration
 
             RequireJsOptions.Add("rndWeight", GlobalEnums.rndWeight, RequireJsOptionsScope.Global);
 
-            RequireJsOptions.Add("settingsManager.dateFormat", SettingsManager.DateFormat, RequireJsOptionsScope.Global);
+            RequireJsOptions.Add("settingsManager.dateFormat", Settings.DateFormat, RequireJsOptionsScope.Global);
         }
     }
 }

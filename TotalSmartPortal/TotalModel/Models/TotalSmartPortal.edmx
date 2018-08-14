@@ -649,12 +649,14 @@
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationID" Type="int" Nullable="false" />
           <Property Name="LocationIssueID" Type="int" />
+          <Property Name="GoodsReceiptTypeID" Type="int" Nullable="false" />
           <Property Name="PurchaseRequisitionID" Type="int" />
           <Property Name="PurchaseRequisitionDetailID" Type="int" />
           <Property Name="GoodsIssueID" Type="int" />
           <Property Name="GoodsIssueTransferDetailID" Type="int" />
           <Property Name="WarehouseAdjustmentID" Type="int" />
           <Property Name="WarehouseAdjustmentDetailID" Type="int" />
+          <Property Name="WarehouseAdjustmentTypeID" Type="int" />
           <Property Name="CustomerID" Type="int" />
           <Property Name="BatchID" Type="int" Nullable="false" />
           <Property Name="BatchEntryDate" Type="datetime" Nullable="false" />
@@ -681,6 +683,7 @@
           <Property Name="PrimaryReferences" Type="nvarchar" MaxLength="200" />
           <Property Name="CustomerID" Type="int" />
           <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="StorekeeperID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="PreparedPersonID" Type="int" Nullable="false" />
           <Property Name="OrganizationalUnitID" Type="int" Nullable="false" />
@@ -11308,6 +11311,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="WarehouseAdjustmentDetails" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustmentDetails_GoodsReceiptDetails" FromRole="GoodsReceiptDetail" ToRole="WarehouseAdjustmentDetail" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Commodity" Relationship="TotalSmartPortalModel.FK_GoodsReceiptDetails_Commodities" FromRole="GoodsReceiptDetail" ToRole="Commodity" />
+          <Property Name="GoodsReceiptTypeID" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseAdjustmentTypeID" Type="Int32" />
           </EntityType>
         <EntityType Name="GoodsReceipt">
           <Key>
@@ -11342,6 +11347,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="WarehouseAdjustmentID" Type="Int32" />
           <NavigationProperty Name="Warehouse" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_Warehouses" FromRole="GoodsReceipt" ToRole="Warehouse" />
           <NavigationProperty Name="WarehouseAdjustment" Relationship="TotalSmartPortalModel.FK_GoodsReceipts_WarehouseAdjustments" FromRole="GoodsReceipt" ToRole="WarehouseAdjustment" />
+          <Property Name="StorekeeperID" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_GoodsReceipts_Customers">
           <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="0..1" />
@@ -15940,6 +15946,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="GoodsReceiptDetails">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.GoodsReceiptDetail">
               <MappingFragment StoreEntitySet="GoodsReceiptDetails">
+                <ScalarProperty Name="WarehouseAdjustmentTypeID" ColumnName="WarehouseAdjustmentTypeID" />
+                <ScalarProperty Name="GoodsReceiptTypeID" ColumnName="GoodsReceiptTypeID" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="WarehouseIssueID" ColumnName="WarehouseIssueID" />
                 <ScalarProperty Name="BatchEntryDate" ColumnName="BatchEntryDate" />
@@ -15970,6 +15978,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="GoodsReceipts">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.GoodsReceipt">
               <MappingFragment StoreEntitySet="GoodsReceipts">
+                <ScalarProperty Name="StorekeeperID" ColumnName="StorekeeperID" />
                 <ScalarProperty Name="WarehouseAdjustmentID" ColumnName="WarehouseAdjustmentID" />
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="Approved" ColumnName="Approved" />

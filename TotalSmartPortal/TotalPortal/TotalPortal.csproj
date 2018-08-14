@@ -281,6 +281,7 @@
     <Compile Include="Areas\Inventories\Controllers\GoodsReceiptsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\HandlingUnitsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\MaterialIssuesController.cs" />
+    <Compile Include="Areas\Inventories\Controllers\NegativeAdjustmentsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsDeliverySession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsIssueSession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\HandlingUnitSession.cs" />
@@ -1190,6 +1191,7 @@
     <Content Include="Areas\Commons\Views\Commodities\Edit.cshtml" />
     <Content Include="Areas\Commons\Views\Commodities\Index.cshtml" />
     <Content Include="Areas\Commons\Views\Commodities\_Commodity.cshtml" />
+    <Content Include="Areas\Inventories\Views\NegativeAdjustments\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1275,6 +1277,13 @@
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Open.js" />
     <Content Include="Scripts\Controllers\Inventories\MaterialIssues\Print.js" />
+    <Content Include="Scripts\Controllers\Inventories\NegativeAdjustments\Approve.js" />
+    <Content Include="Scripts\Controllers\Inventories\NegativeAdjustments\CreateWizard.js" />
+    <Content Include="Scripts\Controllers\Inventories\NegativeAdjustments\Delete.js" />
+    <Content Include="Scripts\Controllers\Inventories\NegativeAdjustments\Edit.js" />
+    <Content Include="Scripts\Controllers\Inventories\NegativeAdjustments\Index.js" />
+    <Content Include="Scripts\Controllers\Inventories\NegativeAdjustments\Open.js" />
+    <Content Include="Scripts\Controllers\Inventories\NegativeAdjustments\Print.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\AddWarehouseAdjustmentDetail.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Approve.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\CreateWizard.js" />

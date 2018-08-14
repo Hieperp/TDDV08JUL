@@ -11,7 +11,7 @@
                 .Name("CustomerName")
                 .DataTextField("Name")
                 .Filter("contains")
-                .MinLength(SettingsManager.AutoCompleteMinLenght * 2)
+                .MinLength(Settings.AutoCompleteMinLenght * 2)
                 .Placeholder("Chọn khách hàng, hoặc shift+ để thêm mới...")
                 .HeaderTemplate("<div class=\"dropdown-header custom-header\">" +
                         "<span class=\"k-widget k-header\">Tên</span>" +
@@ -21,7 +21,7 @@
                         "</div>")
                 .Template("<div class=\"dropdown-body\">" +
                         "<span class=\"k-state-default\"><p>#: data.Name #</p></span>" +
-                        "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
+                        "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + Settings.DateFormat + "') #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.BillingAddress + data.EntireTerritoryEntireName #</p></span>" +
                         "</div>")
@@ -87,7 +87,7 @@
         var dataItem = e.sender.dataItem(e.item.index());
 
         $("#CustomerID").val(dataItem.CustomerID);
-        $("#CustomerBirthday").val(kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@SettingsManager.DateFormat"));
+        $("#CustomerBirthday").val(kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@Settings.DateFormat"));
         $("#CustomerVATCode").val(dataItem.VATCode);
         $("#CustomerTelephone").val(dataItem.Telephone);
         $("#CustomerBillingAddress").val(dataItem.BillingAddress);

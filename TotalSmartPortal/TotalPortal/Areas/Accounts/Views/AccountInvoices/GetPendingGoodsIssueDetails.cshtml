@@ -9,7 +9,7 @@
     .Columns(columns =>
     {
         columns.Bound(c => c.GoodsIssueReference).Title("PXK").Width(30);
-        columns.Bound(c => c.GoodsIssueEntryDate).Title("Ngày, giờ xuất kho").Width(50).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+        columns.Bound(c => c.GoodsIssueEntryDate).Title("Ngày, giờ xuất kho").Width(50).Format("{0:" + Settings.DateTimeFormat + "}");
         columns.Bound(c => c.CustomerName).Title("Tên khách hàng").Width(90);
         columns.Bound(c => c.ReceiverName).Title("Tên đơn vị nhận").Width(90);
         columns.Bound(c => c.CommodityCode).Title("Mã hàng").Width(80);
@@ -46,7 +46,7 @@
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeightLarge))
+    .Scrollable(s => s.Height(Settings.PopupContentHeightLarge))
     .DataSource(ds => ds.Ajax()
             .Read(read => read.Action("GetPendingGoodsIssueDetails", "AccountInvoiceAPIs", new { area = "Accounts" }).Data(@<text>
                 function(e) {
@@ -110,7 +110,7 @@
     function filterText_KeyUp() {
         var filterText = $("#filterText").val(), gridDetails = $("#gridPendingGoodsIssueDetails").data("kendoGrid");
 
-        if (filterText && filterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (filterText && filterText.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

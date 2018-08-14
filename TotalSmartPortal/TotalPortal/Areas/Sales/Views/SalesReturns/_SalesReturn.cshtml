@@ -81,8 +81,8 @@
                     columns.Bound(p => p.GoodsIssueReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(@Model.HasGoodsIssue && @Model.GoodsIssueID == null ? false : true)
                         .ClientTemplate("#= (GoodsIssueReference == null)? '' : GoodsIssueReference #" + "<input type='hidden' name='SalesReturnViewDetails[#= index(data) #].GoodsIssueReference' value='#= (GoodsIssueReference == null) ? '' : GoodsIssueReference #' />");
                     columns.Bound(p => p.GoodsIssueEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(@Model.HasGoodsIssue && @Model.GoodsIssueID == null ? false : true)
-                        .Format("{0:" + @SettingsManager.DateFormat + "}")
-                        .ClientTemplate("#= (GoodsIssueEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsIssueEntryDate) #" + "<input type='hidden' name='SalesReturnViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= (GoodsIssueEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsIssueEntryDate) #' />");
+                        .Format("{0:" + @Settings.DateFormat + "}")
+                        .ClientTemplate("#= (GoodsIssueEntryDate == null)? '' : kendo.format('{0:" + @Settings.DateFormat + "}', GoodsIssueEntryDate) #" + "<input type='hidden' name='SalesReturnViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= (GoodsIssueEntryDate == null) ? '' : kendo.format('{0:" + @Settings.DateFormat + "}', GoodsIssueEntryDate) #' />");
 
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
@@ -360,14 +360,14 @@
     function GetPendingGoodsIssueDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "SalesReturns", new { area = "Sales" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "SalesReturns", new { area = "Sales" })", "Chọn mặt hàng từ đơn đặt hàng", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 
     function callVoidDetail(salesReturnDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "SalesReturns")" + "/" + $("#SalesReturnID").val() + "/" + salesReturnDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "SalesReturns")" + "/" + $("#SalesReturnID").val() + "/" + salesReturnDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
 

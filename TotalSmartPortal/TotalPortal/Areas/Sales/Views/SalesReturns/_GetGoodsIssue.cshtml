@@ -6,7 +6,7 @@
     .Columns(columns =>
     {
         columns.Bound(c => c.GoodsIssueReference).Title("PXK").Width(25);
-        columns.Bound(c => c.GoodsIssueEntryDate).Title("Ngày XK").Width(35).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.GoodsIssueEntryDate).Title("Ngày XK").Width(35).Format("{0:" + Settings.DateFormat + "}");
         columns.Bound(c => c.DeliveryAdviceReferences).Title("ĐNGH").Width(45);
         columns.Bound(c => c.TradePromotionSpecs).Title("CK tổng").Width(55);
         columns.Bound(c => c.ShippingAddress).Title("Đ/c giao hàng").Width(95);
@@ -52,7 +52,7 @@
     function salesReturnPendingGoodsIssueFilter_KeyUp() {
         var salesReturnPendingGoodsIssueFilter = $("#salesReturnPendingGoodsIssueFilter").val(), gridDetails = $("#salesReturnPendingGoodsIssueGrid").data("kendoGrid");
 
-        if (salesReturnPendingGoodsIssueFilter && salesReturnPendingGoodsIssueFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (salesReturnPendingGoodsIssueFilter && salesReturnPendingGoodsIssueFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

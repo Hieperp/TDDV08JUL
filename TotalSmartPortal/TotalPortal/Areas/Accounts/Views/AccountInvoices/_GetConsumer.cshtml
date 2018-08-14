@@ -21,7 +21,7 @@
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .Scrollable(s => s.Height(Settings.PopupContentHeight))
     .DataSource(ds => ds.Ajax()
         .Read(read => read.Action("GetConsumers", "AccountInvoiceAPIs", new { area = "Accounts" }).Data("onAdditionalGetConsumers"))
         .ServerOperation(false)
@@ -39,7 +39,7 @@
     function pendingGoodsIssueConsumerFilter_KeyUp() {
         var pendingGoodsIssueConsumerFilter = $("#pendingGoodsIssueConsumerFilter").val(), gridDetails = $("#pendingGoodsIssueConsumerGrid").data("kendoGrid");
 
-        if (pendingGoodsIssueConsumerFilter && pendingGoodsIssueConsumerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (pendingGoodsIssueConsumerFilter && pendingGoodsIssueConsumerFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

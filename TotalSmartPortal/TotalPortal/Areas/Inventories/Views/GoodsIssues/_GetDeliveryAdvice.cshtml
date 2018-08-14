@@ -7,7 +7,7 @@
     {
         columns.Bound(c => c.WarehouseCode).Title("Kho").Width(35);
         columns.Bound(c => c.DeliveryAdviceReference).Title("Số phiếu").Width(40);
-        columns.Bound(c => c.DeliveryAdviceEntryDate).Title("Ngày").Width(80).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+        columns.Bound(c => c.DeliveryAdviceEntryDate).Title("Ngày").Width(80).Format("{0:" + Settings.DateTimeFormat + "}");
         columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(120);
         columns.Bound(c => c.Addressee).Title("Người nhận").Width(80);
         columns.Bound(c => c.ReceiverDescription).Title("Giao hàng").Width(150);
@@ -22,7 +22,7 @@
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .Scrollable(s => s.Height(Settings.PopupContentHeight))
     .DataSource(ds => ds.Ajax()
         .Read(read => read.Action("GetDeliveryAdvices", "GoodsIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetDeliveryAdvices"))
         .ServerOperation(false)//If this is TRUE: Apply filter to datasource will call Ajax to get new datasource result. If this is FALSE: filter will run on client
@@ -42,7 +42,7 @@
     function pendingDeliveryAdviceFilter_KeyUp() {
         var pendingDeliveryAdviceFilter = $("#pendingDeliveryAdviceFilter").val(), gridDetails = $("#pendingDeliveryAdviceGrid").data("kendoGrid");
 
-        if (pendingDeliveryAdviceFilter && pendingDeliveryAdviceFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (pendingDeliveryAdviceFilter && pendingDeliveryAdviceFilter.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

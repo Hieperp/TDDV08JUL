@@ -183,8 +183,8 @@
                     columns.Bound(p => p.GoodsReceiptReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
                         .ClientTemplate("#= (GoodsReceiptReference == null)? '' : GoodsReceiptReference #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptReference' value='#= (GoodsReceiptReference == null) ? '' : GoodsReceiptReference #' />");
                     columns.Bound(p => p.GoodsReceiptEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder && @Model.PlannedOrderID == null ? false : true)
-                        .Format("{0:" + @SettingsManager.DateFormat + "}")
-                        .ClientTemplate("#= (GoodsReceiptEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptEntryDate' value='#= (GoodsReceiptEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', GoodsReceiptEntryDate) #' />");
+                        .Format("{0:" + @Settings.DateFormat + "}")
+                        .ClientTemplate("#= (GoodsReceiptEntryDate == null)? '' : kendo.format('{0:" + @Settings.DateFormat + "}', GoodsReceiptEntryDate) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].GoodsReceiptEntryDate' value='#= (GoodsReceiptEntryDate == null) ? '' : kendo.format('{0:" + @Settings.DateFormat + "}', GoodsReceiptEntryDate) #' />");
 
 
                     columns.Bound(p => p.WorkshiftPlannedOrderRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
@@ -360,14 +360,14 @@
     function GetPendingPlannedOrderDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPlannedOrderDetails", "MaterialIssues", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPlannedOrderDetails", "MaterialIssues", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 
     function callVoidDetail(materialIssueDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "MaterialIssues")" + "/" + $("#MaterialIssueID").val() + "/" + materialIssueDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "MaterialIssues")" + "/" + $("#MaterialIssueID").val() + "/" + materialIssueDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
 </script>

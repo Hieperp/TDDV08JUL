@@ -277,7 +277,7 @@
     function callVoidDetail(creditNoteDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "CreditNotes")" + "/" + $("#CreditNoteID").val() + "/" + creditNoteDetailID, "Hủy/ phục hồi một phần đơn hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "CreditNotes")" + "/" + $("#CreditNoteID").val() + "/" + creditNoteDetailID, "Hủy/ phục hồi một phần đơn hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
 

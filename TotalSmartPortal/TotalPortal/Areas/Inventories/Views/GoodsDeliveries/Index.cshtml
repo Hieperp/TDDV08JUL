@@ -69,7 +69,7 @@
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "GoodsDeliveries")", "Chọn đơn vị, người nhận hàng hoặc giao hàng tổng hợp", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "GoodsDeliveries")", "Chọn đơn vị, người nhận hàng hoặc giao hàng tổng hợp", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 </script>

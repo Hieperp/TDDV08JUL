@@ -11,8 +11,8 @@
 
             columns.Bound(p => p.Code).Title("Mã KM").Width(150).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/Promotions", action = "Edit" }) + "/#= PromotionID #'>#=Code#</a>");
 
-            columns.Bound(p => p.StartDate).Title("Ngày bắt đầu").Width(12).Format("{0:" + SettingsManager.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
-            columns.Bound(p => p.EndDate).Title("Ngày kết thúc").Width(12).Format("{0:" + SettingsManager.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
+            columns.Bound(p => p.StartDate).Title("Ngày bắt đầu").Width(12).Format("{0:" + Settings.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
+            columns.Bound(p => p.EndDate).Title("Ngày kết thúc").Width(12).Format("{0:" + Settings.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
 
             columns.Bound(p => p.DiscountPercent).Title("% CK").Width(5).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Format("{0:n1}");
             columns.Bound(p => p.ControlFreeQuantity).Title("SL/ 1 quà tặng").Width(5).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Format("{0:n0}");
@@ -79,7 +79,7 @@
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "Promotions")", "Nhập nhãn hàng, mã và tên chương trình mới", @SettingsManager.PopupWidthVoid,  329);
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "Promotions")", "Nhập nhãn hàng, mã và tên chương trình mới", @Settings.PopupWidthVoid,  329);
         });
     }
 
@@ -103,7 +103,7 @@
     function indexFilterText_KeyUp() {
         var indexFilterText = $("#indexFilterText").val(), gridDetails = $("#kendoGridIndex").data("kendoGrid");
 
-        if (indexFilterText && indexFilterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (indexFilterText && indexFilterText.length >= "@Settings.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [

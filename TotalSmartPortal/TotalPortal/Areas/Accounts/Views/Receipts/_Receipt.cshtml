@@ -29,7 +29,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.TotalDepositAmount)
                 <div class="div-input">
-                    @Html.Kendo().NumericTextBoxFor(model => model.TotalDepositAmount).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input" }).Events(e => e.Change("Bxx").Spin("Bxx"))
+                    @Html.Kendo().NumericTextBoxFor(model => model.TotalDepositAmount).Format(@Settings.NumberFormat).HtmlAttributes(new { @class = "left-panel-input" }).Events(e => e.Change("Bxx").Spin("Bxx"))
                 </div>
                 <div class="div-validation-message">
                     @Html.ValidationMessageFor(model => model.TotalDepositAmount, "", new { @class = "text-danger" })
@@ -43,7 +43,7 @@
             <div class="form-group">
                 @Html.Label(@Model.CreditAmountLabel)
                 <div class="div-input">
-                    @Html.Kendo().NumericTextBoxFor(model => model.CreditAmount).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                    @Html.Kendo().NumericTextBoxFor(model => model.CreditAmount).Format(@Settings.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
                 </div>
                 <div class="div-validation-message">
                     @Html.ValidationMessageFor(model => model.CreditAmount, "", new { @class = "text-danger" })
@@ -53,7 +53,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CreditAmountApplied)
                 <div class="div-input">
-                    @Html.Kendo().NumericTextBoxFor(model => model.CreditAmountApplied).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                    @Html.Kendo().NumericTextBoxFor(model => model.CreditAmountApplied).Format(@Settings.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
                 </div>
                 <div class="div-validation-message">
                     @Html.ValidationMessageFor(model => model.CreditAmountApplied, "", new { @class = "text-danger" })
@@ -63,7 +63,7 @@
             <div class="form-group">
                 @Html.Label(@Model.CreditAmountPendingLabel)
                 <div class="div-input">
-                    @Html.Kendo().NumericTextBoxFor(model => model.CreditAmountPending).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                    @Html.Kendo().NumericTextBoxFor(model => model.CreditAmountPending).Format(@Settings.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
                 </div>
                 <div class="div-validation-message">
                     @Html.ValidationMessageFor(model => model.CreditAmountPending, "", new { @class = "text-danger" })
@@ -74,7 +74,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TotalAmountDifference)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.TotalAmountDifference).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                @Html.Kendo().NumericTextBoxFor(model => model.TotalAmountDifference).Format(@Settings.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
             </div>
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => model.TotalAmountDifference, "", new { @class = "text-danger" })
@@ -105,7 +105,7 @@
                     <div class="form-group">
                         <div class="right-panel-label"> <img src="~/Content/Images/Mains/Size24/money-bag-icon-16.png" /> Cấn trừ @Html.Label(@Model.CreditTypeName) </div>
                         <div class="div-input">
-                            @Html.Kendo().MaskedTextBox().Name("PromotionA.Name").Value("Số phiếu " + @Model.CreditTypeName + ": " + @Model.CreditTypeReference + ", ngày: " + @Model.CreditTypeDate.ToString(SettingsManager.DateFormat)).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
+                            @Html.Kendo().MaskedTextBox().Name("PromotionA.Name").Value("Số phiếu " + @Model.CreditTypeName + ": " + @Model.CreditTypeReference + ", ngày: " + @Model.CreditTypeDate.ToString(Settings.DateFormat)).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
                         </div>
                     </div>
                 }
@@ -132,7 +132,7 @@
                     columns.Bound(p => p.GoodsIssueReference).DisplayNameTitle().Filterable(false).Width(60)
                         .ClientTemplate("#= GoodsIssueReference #" + "<input type='hidden' name='ReceiptViewDetails[#= index(data) #].GoodsIssueReference' value='#= GoodsIssueReference #' />");
                     columns.Bound(p => p.GoodsIssueEntryDate).DisplayNameTitle().Filterable(false).Width(60)                        
-                        .ClientTemplate("#= GoodsIssueEntryDate ? kendo.toString(kendo.parseDate(GoodsIssueEntryDate), '" + SettingsManager.DateFormat + "') : '' #" + "<input type='hidden' name='ReceiptViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= kendo.toString(GoodsIssueEntryDate, '" + SettingsManager.DateTimeFormat + "') #' />");
+                        .ClientTemplate("#= GoodsIssueEntryDate ? kendo.toString(kendo.parseDate(GoodsIssueEntryDate), '" + Settings.DateFormat + "') : '' #" + "<input type='hidden' name='ReceiptViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= kendo.toString(GoodsIssueEntryDate, '" + Settings.DateTimeFormat + "') #' />");
 
                     columns.Bound(p => p.ReceiverDescription).DisplayNameTitle().Filterable(false)
                         .ClientFooterTemplate("TC (#= kendo.format('{0:n0}', count) # dòng)")

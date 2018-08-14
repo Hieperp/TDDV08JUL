@@ -115,7 +115,7 @@
 
             $("#DeliveryAdvice_DeliveryAdviceID").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceID === undefined ? null : selectedDataItem.DeliveryAdviceID);
             $("#DeliveryAdvice_Reference").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceReference === undefined ? null : selectedDataItem.DeliveryAdviceReference);
-            $("#DeliveryAdvice_EntryDate").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceEntryDate === undefined ? null : kendo.toString(selectedDataItem.DeliveryAdviceEntryDate, SettingsManager.DateFormat));
+            $("#DeliveryAdvice_EntryDate").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceEntryDate === undefined ? null : kendo.toString(selectedDataItem.DeliveryAdviceEntryDate, Settings.DateFormat));
 
             $("#Warehouse_WarehouseID").val(selectedDataItem === undefined || selectedDataItem.WarehouseID === undefined ? null : selectedDataItem.WarehouseID);
             $("#Warehouse_Code").val(selectedDataItem === undefined || selectedDataItem.WarehouseCode === undefined ? null : selectedDataItem.WarehouseCode);

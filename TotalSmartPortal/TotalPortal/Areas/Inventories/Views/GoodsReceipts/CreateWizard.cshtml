@@ -115,7 +115,7 @@
                 $("#Customer_Code").val(selectedDataItem === undefined || selectedDataItem.CustomerCode === undefined ? null : selectedDataItem.CustomerCode);
                 $("#Customer_Name").val(selectedDataItem === undefined || selectedDataItem.CustomerName === undefined ? null : selectedDataItem.CustomerName);
                 $("#Customer_OfficialName").val(selectedDataItem === undefined || selectedDataItem.CustomerOfficialName === undefined ? null : selectedDataItem.CustomerOfficialName);
-                $("#Customer_Birthday").val(selectedDataItem === undefined || selectedDataItem.CustomerBirthday === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, SettingsManager.DateFormat));
+                $("#Customer_Birthday").val(selectedDataItem === undefined || selectedDataItem.CustomerBirthday === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, Settings.DateFormat));
                 $("#Customer_VATCode").val(selectedDataItem === undefined || selectedDataItem.CustomerVATCode === undefined ? null : selectedDataItem.CustomerVATCode);
                 $("#Customer_Telephone").val(selectedDataItem === undefined || selectedDataItem.CustomerTelephone === undefined ? null : selectedDataItem.CustomerTelephone);
                 $("#Customer_BillingAddress").val(selectedDataItem === undefined || selectedDataItem.CustomerBillingAddress === undefined ? null : selectedDataItem.CustomerBillingAddress);
@@ -131,7 +131,7 @@
                 $("#PurchaseRequisitionID").val(selectedDataItem === undefined || selectedDataItem.PurchaseRequisitionID === undefined ? null : selectedDataItem.PurchaseRequisitionID);
                 $("#PurchaseRequisitionCode").val(selectedDataItem === undefined || selectedDataItem.PurchaseRequisitionCode === undefined ? null : selectedDataItem.PurchaseRequisitionCode);
                 $("#PurchaseRequisitionReference").val(selectedDataItem === undefined || selectedDataItem.PurchaseRequisitionReference === undefined ? null : selectedDataItem.PurchaseRequisitionReference);
-                $("#PurchaseRequisitionEntryDate").val(selectedDataItem === undefined || selectedDataItem.PurchaseRequisitionEntryDate === undefined ? null : kendo.toString(selectedDataItem.PurchaseRequisitionEntryDate, SettingsManager.DateTimeFormat));
+                $("#PurchaseRequisitionEntryDate").val(selectedDataItem === undefined || selectedDataItem.PurchaseRequisitionEntryDate === undefined ? null : kendo.toString(selectedDataItem.PurchaseRequisitionEntryDate, Settings.DateTimeFormat));
 
 
                 //$("#Warehouse_WarehouseID").val(selectedDataItem === undefined || selectedDataItem.WarehouseID === undefined ? null : selectedDataItem.WarehouseID);

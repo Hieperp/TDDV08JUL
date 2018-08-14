@@ -96,8 +96,8 @@
                     columns.Bound(p => p.PlannedOrderReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(@Model.PlannedOrderID == null ? false : true)
                         .ClientTemplate("#= (PlannedOrderReference == null)? '' : PlannedOrderReference #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderReference' value='#= (PlannedOrderReference == null) ? '' : PlannedOrderReference #' />");
                     columns.Bound(p => p.PlannedOrderEntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(@Model.PlannedOrderID == null ? false : true)
-                        .Format("{0:" + @SettingsManager.DateFormat + "}")
-                        .ClientTemplate("#= (PlannedOrderEntryDate == null)? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PlannedOrderEntryDate) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderEntryDate' value='#= (PlannedOrderEntryDate == null) ? '' : kendo.format('{0:" + @SettingsManager.DateFormat + "}', PlannedOrderEntryDate) #' />");
+                        .Format("{0:" + @Settings.DateFormat + "}")
+                        .ClientTemplate("#= (PlannedOrderEntryDate == null)? '' : kendo.format('{0:" + @Settings.DateFormat + "}', PlannedOrderEntryDate) #" + "<input type='hidden' name='ProductionOrderViewDetails[#= index(data) #].PlannedOrderEntryDate' value='#= (PlannedOrderEntryDate == null) ? '' : kendo.format('{0:" + @Settings.DateFormat + "}', PlannedOrderEntryDate) #' />");
 
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
@@ -298,14 +298,14 @@
     function GetPendingPlannedOrderDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPlannedOrderDetails", "ProductionOrders", new { area = "Productions" })", "Chọn mặt hàng từ đơn đặt hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPlannedOrderDetails", "ProductionOrders", new { area = "Productions" })", "Chọn mặt hàng từ đơn đặt hàng", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 
     function callVoidDetail(productionOrderDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "ProductionOrders")" + "/" + $("#ProductionOrderID").val() + "/" + productionOrderDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "ProductionOrders")" + "/" + $("#ProductionOrderID").val() + "/" + productionOrderDetailID, "Hủy/ phục hồi một phần đề nghị giao hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
 

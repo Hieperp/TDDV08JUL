@@ -125,7 +125,7 @@
             $("#PlannedOrderID").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderID === undefined ? null : selectedDataItem.PlannedOrderID);
             $("#PlannedOrderCode").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderCode === undefined ? null : selectedDataItem.PlannedOrderCode);
             $("#PlannedOrderReference").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderReference === undefined ? null : selectedDataItem.PlannedOrderReference);
-            $("#PlannedOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.PlannedOrderEntryDate, SettingsManager.DateTimeFormat));
+            $("#PlannedOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.PlannedOrderEntryDate, Settings.DateTimeFormat));
 
             $("#PlannedOrderDetailID").val(selectedDataItem === undefined || selectedDataItem.PlannedOrderDetailID === undefined ? null : selectedDataItem.PlannedOrderDetailID);
 
@@ -162,7 +162,7 @@
                 //$("#Workshift_Code").val(selectedDataItem === undefined || selectedDataItem.WorkshiftCode === undefined ? null : selectedDataItem.WorkshiftCode);
                 //$("#Workshift_Name").val(selectedDataItem === undefined || selectedDataItem.WorkshiftCode === undefined ? null : selectedDataItem.WorkshiftCode);
                 //$("#Workshift_OfficialName").val(selectedDataItem === undefined || selectedDataItem.WorkshiftOfficialName === undefined ? null : selectedDataItem.WorkshiftOfficialName);
-                //$("#Workshift_Birthday").val(selectedDataItem === undefined || selectedDataItem.WorkshiftBirthday === undefined ? null : kendo.toString(selectedDataItem.WorkshiftBirthday, SettingsManager.DateFormat));
+                //$("#Workshift_Birthday").val(selectedDataItem === undefined || selectedDataItem.WorkshiftBirthday === undefined ? null : kendo.toString(selectedDataItem.WorkshiftBirthday, Settings.DateFormat));
                 //$("#Workshift_VATCode").val(selectedDataItem === undefined || selectedDataItem.WorkshiftVATCode === undefined ? null : selectedDataItem.WorkshiftVATCode);
                 //$("#Workshift_Telephone").val(selectedDataItem === undefined || selectedDataItem.WorkshiftTelephone === undefined ? null : selectedDataItem.WorkshiftTelephone);
                 //$("#Workshift_BillingAddress").val(selectedDataItem === undefined || selectedDataItem.WorkshiftBillingAddress === undefined ? null : selectedDataItem.WorkshiftBillingAddress);
@@ -178,7 +178,7 @@
                 //$("#ProductionOrderID").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderID === undefined ? null : selectedDataItem.ProductionOrderID);
                 //$("#ProductionOrderCode").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderCode === undefined ? null : selectedDataItem.ProductionOrderCode);
                 //$("#ProductionOrderReference").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderReference === undefined ? null : selectedDataItem.ProductionOrderReference);
-                //$("#ProductionOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.ProductionOrderEntryDate, SettingsManager.DateTimeFormat));
+                //$("#ProductionOrderEntryDate").val(selectedDataItem === undefined || selectedDataItem.ProductionOrderEntryDate === undefined ? null : kendo.toString(selectedDataItem.ProductionOrderEntryDate, Settings.DateTimeFormat));
 
 
                 ////$("#Warehouse_WarehouseID").val(selectedDataItem === undefined || selectedDataItem.WarehouseID === undefined ? null : selectedDataItem.WarehouseID);

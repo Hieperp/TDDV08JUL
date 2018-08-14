@@ -14,7 +14,7 @@
             @(Html.Kendo().AutoCompleteFor(model => model.CodeAndName)
                 .DataTextField("CodeAndName")
                 .Filter("contains")
-                .MinLength(SettingsManager.AutoCompleteMinLenght)
+                .MinLength(Settings.AutoCompleteMinLenght)
                 .Placeholder("Vui lòng chọn " + (ViewData["CustomerDisplayName"] != null ? (ViewData["CustomerDisplayName"]).ToString().ToLower() : "khách hàng"))
                 .HeaderTemplate("<div class=\"dropdown-header general-custom-header customer-custom-header\">" +
                         "<span class=\"k-widget k-header\">Tên</span>" +
@@ -74,7 +74,7 @@
         $("#" + modelID + "Code").val(dataItem.Code);
         $("#" + modelID + "Name").val(dataItem.Name);
         $("#" + modelID + "OfficialName").val(dataItem.OfficialName);
-        $("#" + modelID + "Birthday").val(dataItem.Birthday == null ? null : kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@SettingsManager.DateFormat"));
+        $("#" + modelID + "Birthday").val(dataItem.Birthday == null ? null : kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@Settings.DateFormat"));
         $("#" + modelID + "VATCode").val(dataItem.VATCode);
         $("#" + modelID + "Telephone").val(dataItem.Telephone);
         $("#" + modelID + "BillingAddress").val(dataItem.BillingAddress);
