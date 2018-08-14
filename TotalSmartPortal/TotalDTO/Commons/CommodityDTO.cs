@@ -44,10 +44,10 @@ namespace TotalDTO.Commons
 
         [Display(Name = "Nhà cung cấp")]
         //[Required(ErrorMessage = "Vui lòng nhập nhà cung cấp")]
-        public Nullable<int> SupplierID { get { return 1; } }
+        public int SupplierID { get { return 1; } }
 
-        public Nullable<int> PiecePerPack { get; set; }
-        public Nullable<int> QuantityAlert { get; set; }
+        public int PiecePerPack { get; set; }
+        public int QuantityAlert { get; set; }
         public decimal ListedPrice { get; set; }
         public decimal GrossPrice { get; set; }
         public string PurchaseUnit { get; set; }
@@ -59,7 +59,7 @@ namespace TotalDTO.Commons
         public double LeadTime { get; set; }
 
         public bool IsRegularCheckUps { get; set; }
-        public Nullable<bool> Discontinue { get; set; }
+        public bool Discontinue { get; set; }
 
         public string HSCode { get; set; }
 
