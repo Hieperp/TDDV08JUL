@@ -15,7 +15,7 @@
             columns.Bound(p => p.EndDate).Title("Ngày kết thúc").Width(12).Format("{0:" + Settings.DateTimeFormat + "}").HtmlAttributes(new { @class = "grid-column-center" }).HeaderHtmlAttributes(new { @style = "text-align: center" });
 
             columns.Bound(p => p.DiscountPercent).Title("% CK").Width(5).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Format("{0:n1}");
-            columns.Bound(p => p.ControlFreeQuantity).Title("SL/ 1 quà tặng").Width(5).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Format("{0:n0}");
+            columns.Bound(p => p.ControlFreeQuantity).Title("SL/ 1 quà tặng").Width(5).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Format(Settings.kfmQuantity);
 
             columns.Template(t => { }).Title("Tất cả KH").ClientTemplate("<input class='IsSelected' #= ApplyToAllCustomers ? checked='checked':'' #  type='checkbox' />").HtmlAttributes(new { @class = "grid-column-center", @readonly = "readonly" }).HeaderHtmlAttributes(new { @style = "text-align: center" }).Width(5);
             columns.Template(t => { }).Title("Tất cả SP").ClientTemplate("<input class='IsSelected' #= ApplyToAllCommodities ? checked='checked':'' #  type='checkbox' />").HtmlAttributes(new { @class = "grid-column-center", @readonly = "readonly" }).HeaderHtmlAttributes(new { @style = "text-align: center" }).Width(5);
