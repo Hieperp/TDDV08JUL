@@ -135,23 +135,23 @@
 
 
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"})
-                        .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                        .Format(Settings.kfmQuantity)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityRemains) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"}).Width(50)
-                        .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                        .Format(Settings.kfmQuantity)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', Quantity) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
 
                     columns.Bound(p => p.UnitWeight).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"}).Width(90)
-                        .Format("{0:n2}")
-                        .ClientTemplate("#= kendo.format('{0:n2}', UnitWeight) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].UnitWeight' value='#= UnitWeight #' />");
+                        .Format(Settings.kfmWeight)
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmWeight + "', UnitWeight) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].UnitWeight' value='#= UnitWeight #' />");
 
                     columns.Bound(p => p.Weight).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"}).Width(90)
-                        .Format("{0:n2}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n2}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n2}', Weight) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].Weight' value='#= Weight #' />");
+                        .Format(Settings.kfmWeight)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmWeight + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmWeight + "', Weight) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].Weight' value='#= Weight #' />");
 
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
