@@ -117,29 +117,29 @@
 
                     columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"}).Width(50)
                         .Format("{0:n0}")
-                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailable) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityAvailable) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
 
                     columns.Bound(p => p.ControlFreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"}).Hidden()
                         .Format("{0:n0}")
-                        .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', ControlFreeQuantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
 
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"})
                         .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityRemains) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"}).Width(50)
                         .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', Quantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
                     columns.Bound(p => p.FreeQuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"})
                         .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantityRemains) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantityRemains' value='#= FreeQuantityRemains #' />");
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', FreeQuantityRemains) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantityRemains' value='#= FreeQuantityRemains #' />");
                     columns.Bound(p => p.FreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"}).Width(50)
                         .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', FreeQuantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
 
 
                     columns.Bound(p => p.VoidTypeID).DisplayNameTitle().Filterable(false).Hidden()
