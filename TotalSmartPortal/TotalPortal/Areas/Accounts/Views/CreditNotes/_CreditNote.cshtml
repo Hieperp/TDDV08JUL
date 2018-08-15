@@ -114,7 +114,7 @@
                         .ClientTemplate("#= kendo.format('" + Settings.kfmAmount + "', UnitPrice) #" + "<input type='hidden' name='CreditNoteDetails[#= index(data) #].UnitPrice' value='#= UnitPrice #' />");
 
                     columns.Bound(p => p.TradeDiscountRate).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50).Hidden()
-                        .Format("{0:n0}")
+                        .Format(Settings.kfmDiscountPercent)
                         .ClientTemplate("#= kendo.format('" + Settings.kfmDiscountPercent + "', TradeDiscountRate) #" + "<input type='hidden' name='CreditNoteDetails[#= index(data) #].TradeDiscountRate' value='#= TradeDiscountRate #' />");
 
                     columns.Bound(p => p.Amount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(60).Hidden(@Model.ShowDiscount ? false : true)
