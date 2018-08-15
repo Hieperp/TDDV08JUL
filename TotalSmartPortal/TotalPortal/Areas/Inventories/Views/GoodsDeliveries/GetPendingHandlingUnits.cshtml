@@ -17,7 +17,7 @@
         columns.Bound(c => c.PrintedLabel).Title("Loại").Width(35);
         columns.Bound(c => c.HandlingUnitIdentification).Title("STT").Width(20);
         
-        columns.Bound(c => c.Quantity).Title("SL").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"});
+        columns.Bound(c => c.Quantity).Title("SL").Format(Settings.kfmQuantity).Width(25).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"});
         columns.Bound(c => c.Weight).Title("TL").Format("{0:n2}").Width(30).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"});
         columns.Bound(c => c.RealWeight).Title("TLTT").Format("{0:n2}").Width(30).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right"});
         

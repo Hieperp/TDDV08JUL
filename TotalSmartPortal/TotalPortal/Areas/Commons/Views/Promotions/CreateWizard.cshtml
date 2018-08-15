@@ -45,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ControlFreeQuantity)@Html.ValidationMessageFor(model => model.ControlFreeQuantity, "", new { @class = "text-danger" })
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.ControlFreeQuantity).Format("{0:n0}").Decimals(0).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => model.ControlFreeQuantity).Format(Settings.kfmQuantity).Decimals(0).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
         </div>
         
