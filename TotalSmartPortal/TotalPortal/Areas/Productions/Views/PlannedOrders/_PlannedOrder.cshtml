@@ -85,9 +85,9 @@
                     
                     
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
-                        .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                        .Format(Settings.kfmQuantity)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', Quantity) #" + "<input type='hidden' name='PlannedOrderViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
 
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
