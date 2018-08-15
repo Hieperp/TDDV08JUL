@@ -37,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DiscountPercent)@Html.ValidationMessageFor(model => model.DiscountPercent, "", new { @class = "text-danger" })
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.DiscountPercent).Format("{0:n1}").Decimals(1).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => model.DiscountPercent).Format(Settings.kfmDiscountPercent).Decimals(1).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
         </div>
 
