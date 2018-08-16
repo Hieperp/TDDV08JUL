@@ -23,6 +23,7 @@ namespace TotalDTO.Helpers
         public bool VATbyRow { get; set; }
 
         [Display(Name = "CK")]
+        [UIHint("DiscountPercentReadonly")]
         public virtual decimal TradeDiscountRate { get; set; }
 
         [Display(Name = "VAT")]

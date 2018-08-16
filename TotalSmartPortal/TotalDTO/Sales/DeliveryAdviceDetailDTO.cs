@@ -60,7 +60,7 @@ namespace TotalDTO.Sales
 
     public class SaleDetailVaDTO : SaleDetailDTO
     {
-        [UIHint("Decimal")]
+        [UIHint("Quantity")]
         public override decimal Quantity { get; set; }
 
         [UIHint("AmountReadonly")]
