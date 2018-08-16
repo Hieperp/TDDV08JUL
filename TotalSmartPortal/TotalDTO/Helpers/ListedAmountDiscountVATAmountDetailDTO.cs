@@ -18,19 +18,19 @@ namespace TotalDTO.Helpers
     public abstract class ListedAmountDiscountVATAmountDetailDTO : DiscountVATAmountDetailDTO, IListedAmountDiscountVATAmountDetailDTO
     {
         [Display(Name = "Giá gốc sau thuế")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public virtual decimal ListedGrossPrice { get; set; }
 
         [Display(Name = "Thành tiền")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public decimal ListedAmount { get; set; }
 
         [Display(Name = "Thuế VAT")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public decimal ListedVATAmount { get; set; }
 
         [Display(Name = "Tổng cộng")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public decimal ListedGrossAmount { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

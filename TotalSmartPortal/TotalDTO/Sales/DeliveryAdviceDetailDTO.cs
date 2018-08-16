@@ -63,7 +63,7 @@ namespace TotalDTO.Sales
         [UIHint("Decimal")]
         public override decimal Quantity { get; set; }
 
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public override decimal UnitPrice { get; set; }
     }
 
@@ -71,9 +71,9 @@ namespace TotalDTO.Sales
     {
         [UIHint("QuantityReadonly")]
         public override decimal FreeQuantity { get; set; }
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public override decimal ListedPrice { get; set; }
-        [UIHint("DecimalReadonly")]
+        [UIHint("DiscountPercentReadonly")]
         public override decimal DiscountPercent { get; set; }
     }
 

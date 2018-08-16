@@ -22,7 +22,7 @@ namespace TotalDTO.Helpers
         public virtual decimal UnitPrice { get; set; }
 
         [Display(Name = "Thành tiền")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public decimal Amount { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

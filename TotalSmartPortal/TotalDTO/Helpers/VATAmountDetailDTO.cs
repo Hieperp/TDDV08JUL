@@ -30,15 +30,15 @@ namespace TotalDTO.Helpers
         public decimal VATPercent { get; set; }
 
         [Display(Name = "Giá sau thuế")]
-        [UIHint("DecimalReadonly")] //[UIHint("Decimal")]
+        [UIHint("AmountReadonly")]
         public virtual decimal GrossPrice { get; set; }
 
         [Display(Name = "Thuế VAT")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public decimal VATAmount { get; set; }
 
         [Display(Name = "Tổng cộng")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public decimal GrossAmount { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

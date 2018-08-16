@@ -39,11 +39,11 @@ namespace TotalDTO.Accounts
         public string ReceiverDescription { get; set; }
 
         [Display(Name = "Bán hàng")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public decimal TotalGrossAmount { get; set; }
 
         [Display(Name = "Phải thu")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("AmountReadonly")]
         public Nullable<decimal> AmountDue { get; set; }
 
         [Display(Name = "CKTT")]
@@ -69,7 +69,7 @@ namespace TotalDTO.Accounts
         public decimal ApplyAmount { get { return (this.ReceiptAmount + this.CashDiscount + this.OtherDiscount); } }
 
         [Display(Name = "Còn lại")]
-        [UIHint("DecimalReadonly")] //REMAINS Invoice Value (AmountDue) AFTER APPLY ReceiptAmount + CashDiscount + OtherDiscount
+        [UIHint("AmountReadonly")] //REMAINS Invoice Value (AmountDue) AFTER APPLY ReceiptAmount + CashDiscount + OtherDiscount
         public decimal AmountRemains { get; set; } //AmountRemains = this.AmountDue - this.ApplyAmount. AT INITIALIZE, THIS VALUE WILL BE GET FROM GetReceiptViewDetail(), THEN LATER: THIS VALUE WILL BE CALCULATED BY JS: definedExemplar.prototype._updateRowAmountRemains
     }
 }
