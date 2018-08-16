@@ -65,10 +65,10 @@ namespace TotalDTO.Inventories
         public override string CommodityCode { get; set; }
 
         [Display(Name = "Tồn đơn")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
 
-        [UIHint("Decimal")]
+        [UIHint("Quantity")]
         public override decimal Quantity { get; set; }
 
 

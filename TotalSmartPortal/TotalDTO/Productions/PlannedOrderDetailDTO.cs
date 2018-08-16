@@ -37,7 +37,7 @@ namespace TotalDTO.Productions
         public string VoidTypeName { get; set; }
         public Nullable<int> VoidClassID { get; set; }
 
-        [UIHint("Decimal")]
+        [UIHint("Quantity")]
         public override decimal Quantity { get; set; }
     }
 }

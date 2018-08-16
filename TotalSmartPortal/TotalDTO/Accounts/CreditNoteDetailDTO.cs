@@ -28,7 +28,7 @@ namespace TotalDTO.Accounts
         [Display(Name = "Tên chiết khấu")]
         public override string CommodityName { get; set; }
 
-        [UIHint("Decimal")]
+        [UIHint("Quantity")]
         public override decimal Quantity { get; set; }
         [UIHint("Decimal")]
         [Display(Name = "Đơn giá ck")]

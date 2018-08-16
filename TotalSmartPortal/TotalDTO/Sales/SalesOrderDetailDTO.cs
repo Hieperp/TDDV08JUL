@@ -21,7 +21,7 @@ namespace TotalDTO.Sales
         public override string CommodityCode { get; set; }
 
 
-        [UIHint("Decimal")]
+        [UIHint("Quantity")]
         public override decimal FreeQuantity { get; set; }
         [UIHint("Decimal")]
         public override decimal ListedPrice { get; set; }
