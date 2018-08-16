@@ -23,9 +23,9 @@ namespace TotalDTO.Sales
 
         [UIHint("Quantity")]
         public override decimal FreeQuantity { get; set; }
-        [UIHint("Decimal")]
+        [UIHint("Amount")]
         public override decimal ListedPrice { get; set; }
-        [UIHint("Decimal")]
+        [UIHint("DiscountPercent")]
         public override decimal DiscountPercent { get; set; }
 
 

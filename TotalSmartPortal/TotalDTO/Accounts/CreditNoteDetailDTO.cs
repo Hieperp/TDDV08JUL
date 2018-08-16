@@ -30,7 +30,7 @@ namespace TotalDTO.Accounts
 
         [UIHint("Quantity")]
         public override decimal Quantity { get; set; }
-        [UIHint("Decimal")]
+        [UIHint("Amount")]
         [Display(Name = "Đơn giá ck")]
         public override decimal UnitPrice { get; set; }
 
