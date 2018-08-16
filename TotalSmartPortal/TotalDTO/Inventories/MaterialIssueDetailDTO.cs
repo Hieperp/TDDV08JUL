@@ -59,7 +59,7 @@ namespace TotalDTO.Inventories
         [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
 
-        [UIHint("Decimal")]
+        [UIHint("Quantity")]
         public override decimal Quantity { get; set; }
 
 

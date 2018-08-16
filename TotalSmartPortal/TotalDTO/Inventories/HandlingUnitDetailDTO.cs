@@ -37,15 +37,15 @@ namespace TotalDTO.Inventories
         [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
 
-        [UIHint("Decimal")]
+        [UIHint("Quantity")]
         public override decimal Quantity { get; set; }
 
         [Display(Name = "TL chuẩn (g)")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("WeightReadonly")]
         public virtual decimal UnitWeight { get; set; }
 
         [Display(Name = "Trọng lượng")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("WeightReadonly")]
         public decimal Weight { get; set; }
 
 

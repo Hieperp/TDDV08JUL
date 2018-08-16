@@ -62,10 +62,10 @@ namespace TotalDTO.Inventories
         public override decimal Quantity { get; set; }
 
         [Display(Name = "TL")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("WeightReadonly")]
         public decimal Weight { get; set; }
         [Display(Name = "TLTT")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("WeightReadonly")]
         public decimal RealWeight { get; set; }
     }
 }
