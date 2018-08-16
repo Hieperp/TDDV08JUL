@@ -54,7 +54,7 @@ namespace TotalDTO.Accounts
 
         [Display(Name = "Thu khác")]
         public decimal FluctuationAmount { get; set; }
-        //[UIHint("DecimalWithMinus")], [Display(Name = "Thu (+) hoặc CK khác (-)")]
+        //[UIHint("AmountWithMinus")], [Display(Name = "Thu (+) hoặc CK khác (-)")]
         //HERE: WE MAY ALLOW FluctuationAmount TO ACCEPT: + OR - VALUE FOR FluctuationAmount. WITH THE CURRENT PROGRAMMING HERE, THE FluctuationAmount VALUE WILL BE CALCULATED AND UPDATED CORRECTLY. 
         //BUT: WHEN FluctuationAmount < 0: IT MEANS 'Chiết khấu khác' => THE VALUE MUST BE MINUS TO A PENDING INVOICE VALUE (BECAUSE IT MEANS 'Chiết khấu khác').
         //THE ORIGINAL OF FluctuationAmount IS 'Chênh lệch tỷ giá' => IT MAY BE A + OR - VALUE. WHEN IT < 0 => IT NEVER MINUS TO ANY PENDING INVOICE VALUE (BECAUSE IT MEANS 'Chênh lệch tỷ giá', IT MAY BE + OR -).
