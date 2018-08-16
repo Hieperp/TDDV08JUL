@@ -188,9 +188,9 @@
 
 
                     columns.Bound(p => p.WorkshiftPlannedOrderRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
-                        .Format("{0:n0}")
-                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', WorkshiftPlannedOrderRemains) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].WorkshiftPlannedOrderRemains' value='#= WorkshiftPlannedOrderRemains #' />");
+                        .Format(Settings.kfmQuantity)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', WorkshiftPlannedOrderRemains) #" + "<input type='hidden' name='MaterialIssueViewDetails[#= index(data) #].WorkshiftPlannedOrderRemains' value='#= WorkshiftPlannedOrderRemains #' />");
 
                     columns.Bound(p => p.QuantityAvailables).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(Model.MaterialIssueTypeID == (int)GlobalEnums.MaterialIssueTypeID.PlannedOrder ? false : true)
                         .Format(Settings.kfmQuantity)
