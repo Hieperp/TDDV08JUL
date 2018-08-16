@@ -13,6 +13,8 @@
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTopB.cshtml")
 
     @Html.HiddenFor(model => model.WarehouseAdjustmentID)
+    @Html.HiddenFor(model => model.TotalQuantityPositive)
+    @Html.HiddenFor(model => model.TotalQuantityNegative)
 
     <div class="left-panel">
 
@@ -97,7 +99,16 @@
                         .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
                         .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', Quantity) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
+                    columns.Bound(p => p.QuantityPositive).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
+                        .Format(Settings.kfmQuantity)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityPositive) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityPositive' value='#= QuantityPositive #' />");
 
+                    columns.Bound(p => p.QuantityNegative).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
+                        .Format(Settings.kfmQuantity)
+                        .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
+                        .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityNegative) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityNegative' value='#= QuantityNegative #' />");
+                    
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false)
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
 
@@ -174,6 +185,8 @@
                         .Aggregates(a => a.Add(x => x.CommodityCode).Count())
                         .Aggregates(a => a.Add(x => x.QuantityAvailables).Sum())
                         .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                        .Aggregates(a => a.Add(x => x.QuantityPositive).Sum())
+                        .Aggregates(a => a.Add(x => x.QuantityNegative).Sum())
                     )
             )
         </div>

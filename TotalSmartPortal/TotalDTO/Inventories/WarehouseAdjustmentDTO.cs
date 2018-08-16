@@ -40,6 +40,25 @@ namespace TotalDTO.Inventories
         public bool HasPositiveLine { get { return this.DtoDetails().Where(w => w.Quantity > 0).Count() > 0; } }
 
 
+        [Display(Name = "Tổng SL")]
+        [Required(ErrorMessage = "Vui lòng nhập chi tiết phiếu")]
+        public virtual decimal TotalQuantityPositive { get; set; }
+        [Display(Name = "Tổng SL")]
+        [Required(ErrorMessage = "Vui lòng nhập chi tiết phiếu")]
+        public virtual decimal TotalQuantityNegative { get; set; }
+
+        protected virtual decimal GetTotalQuantityPositive() { return this.DtoDetails().Select(o => o.QuantityPositive).Sum(); }
+        protected virtual decimal GetTotalQuantityNegative() { return this.DtoDetails().Select(o => o.QuantityNegative).Sum(); }
+
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            foreach (var result in base.Validate(validationContext)) { yield return result; }
+
+            if (this.TotalQuantityPositive != this.GetTotalQuantityPositive()) yield return new ValidationResult("Lỗi tổng số lượng", new[] { "TotalQuantityPositive" });
+            if (this.TotalQuantityNegative != this.GetTotalQuantityNegative()) yield return new ValidationResult("Lỗi tổng số lượng", new[] { "TotalQuantityNegative" });
+        }
+
+
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();

@@ -22,7 +22,7 @@ namespace TotalDTO.Inventories
 
         public int GoodsReceiptID { get; set; }
 
-        public virtual int CustomerID { get; set; }
+        public virtual Nullable<int> CustomerID { get; set; }
 
         public virtual Nullable<int> WarehouseID { get; set; }
 
@@ -50,8 +50,6 @@ namespace TotalDTO.Inventories
 
         public override void PerformPresaveRule()
         {
-            this.Approved = true; this.ApprovedDate = this.EntryDate; //At GoodsReceipt, Approve right after save. Surely, It can be UnApprove later for editing
-
             base.PerformPresaveRule();
 
             string purchaseRequisitionReferences = ""; string purchaseRequisitionCodes = "";
@@ -61,14 +59,14 @@ namespace TotalDTO.Inventories
     }
 
 
-    public class GoodsReceiptDTO : GoodsReceiptPrimitiveDTO, IBaseDetailEntity<GoodsReceiptDetailDTO>, IPriceCategory, ISearchCustomer
+    public class GoodsReceiptDTO : GoodsReceiptPrimitiveDTO, IBaseDetailEntity<GoodsReceiptDetailDTO>, IPriceCategory
     {
         public GoodsReceiptDTO()
         {
             this.GoodsReceiptViewDetails = new List<GoodsReceiptDetailDTO>();
         }
 
-        public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
+        public override Nullable<int> CustomerID { get { int? customerID = null; if (this.Customer != null) customerID = this.Customer.CustomerID; return customerID; } }
         [Display(Name = "Khách hàng")]
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }

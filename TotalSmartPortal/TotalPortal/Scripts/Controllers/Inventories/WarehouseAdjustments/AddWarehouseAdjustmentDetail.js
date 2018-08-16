@@ -65,6 +65,8 @@ function handleOKEvent(warehouseAdjustmentGridDataSource, goodsReceiptDetailAvai
 
         dataRow.QuantityAvailables = productionOrderGridDataItem.QuantityAvailables;
         dataRow.Quantity = 0;
+        dataRow.QuantityPositive = 0;
+        dataRow.QuantityNegative = 0;
 
         dataRow.Remarks = null;
 

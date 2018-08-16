@@ -10,6 +10,7 @@ namespace TotalPortal.Areas.Inventories.Controllers
         public NegativeAdjustmentsController(IWarehouseAdjustmentService warehouseAdjustmentService, IWarehouseAdjustmentViewModelSelectListBuilder warehouseAdjustmentViewModelSelectListBuilder)
             : base(warehouseAdjustmentService, warehouseAdjustmentViewModelSelectListBuilder)
         {
+            ViewBag.NegativeOnly = true;
         }
 
     }

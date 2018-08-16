@@ -13,14 +13,27 @@
 
     @Html.HiddenFor(model => model.GoodsReceiptTypeID)
 
+    @Html.HiddenFor(model => model.Code);
+    
     @Html.HiddenFor(model => model.PurchaseRequisitionID)
     @Html.HiddenFor(model => model.PurchaseRequisitionCode)
     @Html.HiddenFor(model => model.PurchaseRequisitionReference)
     @Html.HiddenFor(model => model.PurchaseRequisitionEntryDate)
 
-    @Html.HiddenFor(model => model.CustomerID)
+    @Html.HiddenFor(model => model.WarehouseAdjustmentID)
+    
+    @Html.HiddenFor(model => model.Customer.CustomerID);
+    @Html.HiddenFor(model => model.Customer.Code);
+    @Html.HiddenFor(model => model.Customer.Name);
+    @Html.HiddenFor(model => model.Customer.VATCode);
+    @Html.HiddenFor(model => model.Customer.Telephone);
+    @Html.HiddenFor(model => model.Customer.BillingAddress);
+    @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
+    @Html.HiddenFor(model => model.Customer.SalespersonID)
+    @Html.HiddenFor(model => model.Customer.SalespersonName)
 
     @Html.HiddenFor(model => model.Description);
+    @Html.HiddenFor(model => model.Remarks);
 
     @(Html.Kendo().TabStrip()
         .HtmlAttributes(new { @style = "height: 468px; margin-left: 0px; margin-right: 0px;" })
@@ -30,7 +43,7 @@
             tabStrip.Add().Text("Khách hàng không có đơn hàng")
                 .Selected(true)
                 .Content(@<text>
-                    @Html.Partial("~/Views/Helpers/Commons/_SearchCustomer.cshtml")
+                    @*@Html.Partial("~/Views/Helpers/Commons/_SearchCustomer.cshtml")*@
                 </text>);
 
             tabStrip.Add().Text("Giao hàng theo đơn đặt hàng")
@@ -114,19 +127,12 @@
                 $("#Customer_CustomerID").val(selectedDataItem === undefined || selectedDataItem.CustomerID === undefined ? null : selectedDataItem.CustomerID);
                 $("#Customer_Code").val(selectedDataItem === undefined || selectedDataItem.CustomerCode === undefined ? null : selectedDataItem.CustomerCode);
                 $("#Customer_Name").val(selectedDataItem === undefined || selectedDataItem.CustomerName === undefined ? null : selectedDataItem.CustomerName);
-                $("#Customer_OfficialName").val(selectedDataItem === undefined || selectedDataItem.CustomerOfficialName === undefined ? null : selectedDataItem.CustomerOfficialName);
-                $("#Customer_Birthday").val(selectedDataItem === undefined || selectedDataItem.CustomerBirthday === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, Settings.DateFormat));
                 $("#Customer_VATCode").val(selectedDataItem === undefined || selectedDataItem.CustomerVATCode === undefined ? null : selectedDataItem.CustomerVATCode);
                 $("#Customer_Telephone").val(selectedDataItem === undefined || selectedDataItem.CustomerTelephone === undefined ? null : selectedDataItem.CustomerTelephone);
                 $("#Customer_BillingAddress").val(selectedDataItem === undefined || selectedDataItem.CustomerBillingAddress === undefined ? null : selectedDataItem.CustomerBillingAddress);
-                $("#Customer_ShippingAddress").val(selectedDataItem === undefined || selectedDataItem.CustomerShippingAddress === undefined ? null : selectedDataItem.CustomerShippingAddress);
-                $("#Customer_TerritoryID").val(selectedDataItem === undefined || selectedDataItem.CustomerTerritoryID === undefined ? null : selectedDataItem.CustomerTerritoryID);
                 $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined || selectedDataItem.CustomerEntireTerritoryEntireName === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
                 $("#Customer_SalespersonID").val(selectedDataItem === undefined || selectedDataItem.CustomerSalespersonID === undefined ? null : selectedDataItem.CustomerSalespersonID);
                 $("#Customer_SalespersonName").val(selectedDataItem === undefined || selectedDataItem.CustomerSalespersonName === undefined ? null : selectedDataItem.CustomerSalespersonName);
-                $("#Customer_PaymentTermID").val(selectedDataItem === undefined || selectedDataItem.PaymentTermID === undefined ? null : selectedDataItem.PaymentTermID);
-                $("#Customer_PriceCategoryID").val(selectedDataItem === undefined || selectedDataItem.CustomerPriceCategoryID === undefined ? null : selectedDataItem.CustomerPriceCategoryID);
-                $("#Customer_PriceCategoryCode").val(selectedDataItem === undefined || selectedDataItem.CustomerPriceCategoryCode === undefined ? null : selectedDataItem.CustomerPriceCategoryCode);
 
                 $("#PurchaseRequisitionID").val(selectedDataItem === undefined || selectedDataItem.PurchaseRequisitionID === undefined ? null : selectedDataItem.PurchaseRequisitionID);
                 $("#PurchaseRequisitionCode").val(selectedDataItem === undefined || selectedDataItem.PurchaseRequisitionCode === undefined ? null : selectedDataItem.PurchaseRequisitionCode);

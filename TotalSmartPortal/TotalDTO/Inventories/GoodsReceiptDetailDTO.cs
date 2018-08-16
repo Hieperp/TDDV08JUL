@@ -48,7 +48,7 @@ namespace TotalDTO.Inventories
 
 
         public int BatchID { get; set; }
-        public System.DateTime BatchEntryDate { get; set; }
+        public System.DateTime BatchEntryDate { get { return DateTime.Now; } set { } }
 
 
         public string Code { get; set; }

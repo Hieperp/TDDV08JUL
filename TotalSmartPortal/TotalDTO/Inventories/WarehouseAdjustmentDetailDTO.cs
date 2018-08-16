@@ -45,8 +45,13 @@ namespace TotalDTO.Inventories
         [Display(Name = "Tồn kho")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityAvailables { get; set; }
+
         [UIHint("DecimalWithMinus")]
         public override decimal Quantity { get; set; }
+        [UIHint("Decimal")]
+        public decimal QuantityPositive { get { return this.Quantity; } set { this.Quantity = value; } }
+        [UIHint("Decimal")]
+        public decimal QuantityNegative { get { return -this.Quantity; } set { this.Quantity = -value; } }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
