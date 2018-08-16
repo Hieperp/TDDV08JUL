@@ -13,7 +13,7 @@ namespace TotalDTO.Helpers
     public abstract class FreeQuantityDiscountVATAmountDetailDTO : ListedAmountDiscountVATAmountDetailDTO, IFreeQuantityDiscountVATAmountDetailDTO
     {
         [Display(Name = "SL yêu cầu để được hưởng Quà tặng")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal ControlFreeQuantity { get; set; }
 
         [Display(Name = "QT")]        

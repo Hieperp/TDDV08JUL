@@ -33,10 +33,10 @@ namespace TotalDTO.Accounts
         public override string CommodityCode { get; set; }
 
         [Display(Name = "SLXK")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
         [Display(Name = "XKQT")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal FreeQuantityRemains { get; set; }
 
         [UIHint("Decimal")]

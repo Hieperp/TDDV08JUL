@@ -2196,6 +2196,20 @@
     <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityBrand.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityCategory.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityType.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Quantity.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\QuantityReadonly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\QuantityWithMinus.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Amount.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AmountReadonly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AmountWithMinus.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DiscountPercent.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DiscountPercentReadonly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DiscountPercentWithMinus.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Weight.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\WeightReadonly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\WeightWithMinus.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

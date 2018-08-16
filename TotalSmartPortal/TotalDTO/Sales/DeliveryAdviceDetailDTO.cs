@@ -19,7 +19,7 @@ namespace TotalDTO.Sales
         public string WarehouseCode { get; set; }
 
         [Display(Name = "Tồn kho")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityAvailable { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -41,11 +41,11 @@ namespace TotalDTO.Sales
 
 
         [Display(Name = "Tồn đơn")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
 
         [Display(Name = "Tồn QT")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal FreeQuantityRemains { get; set; }
 
 
@@ -69,7 +69,7 @@ namespace TotalDTO.Sales
 
     public class SaleDetailVa1DTO : SaleDetailVaDTO
     {
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public override decimal FreeQuantity { get; set; }
         [UIHint("DecimalReadonly")]
         public override decimal ListedPrice { get; set; }
