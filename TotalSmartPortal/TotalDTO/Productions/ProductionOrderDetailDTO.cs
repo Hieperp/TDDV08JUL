@@ -65,7 +65,7 @@ namespace TotalDTO.Productions
         public Nullable<int> VoidClassID { get; set; }
 
         [Display(Name = "Tồn đơn")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
 
         public virtual int WorkshiftID { get; set; }

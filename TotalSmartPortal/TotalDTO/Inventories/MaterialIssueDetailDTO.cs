@@ -48,15 +48,15 @@ namespace TotalDTO.Inventories
 
 
         [Display(Name = "Tồn đơn")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal WorkshiftPlannedOrderRemains { get; set; }
 
         [Display(Name = "Tồn kho")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityAvailables { get; set; }
 
         [Display(Name = "[MIN QuantityAvailables vs WorkshiftPlannedOrderRemains]Remains")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
 
         [UIHint("Decimal")]

@@ -34,7 +34,7 @@ namespace TotalDTO.Inventories
         public override string CommodityCode { get; set; }
 
         [Display(Name = "SL XK")]
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public decimal QuantityRemains { get; set; }
 
         [UIHint("Decimal")]

@@ -58,7 +58,7 @@ namespace TotalDTO.Inventories
         [UIHint("StringReadonly")]
         public string PrintedLabel { get; set; }
 
-        [UIHint("DecimalReadonly")]
+        [UIHint("QuantityReadonly")]
         public override decimal Quantity { get; set; }
 
         [Display(Name = "TL")]
