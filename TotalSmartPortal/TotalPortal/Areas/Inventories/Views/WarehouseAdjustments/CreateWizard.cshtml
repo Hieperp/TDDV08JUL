@@ -11,6 +11,7 @@
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml") 
     
     @Html.HiddenFor(m => m.NegativeOnly)
+    @Html.HiddenFor(m => m.PositiveOnly)
     @Html.HiddenFor(m => m.SpecialNMVNTaskID)
 
     <div style="margin-top: 39px; margin-right: 18px;">
@@ -77,7 +78,7 @@
 
 
         function _setModelInput(selectedDataItem) {            
-            $("#NegativeOnly").val(true);
+            
         }
     }
 
@@ -86,7 +87,7 @@
             var warehouseData = $('#Warehouse_Name').data('kendoAutoComplete');
             var dataSelect = warehouseData.dataItems().filter(f => f.Name == warehouseData.value());
 
-            if(dataSelect != undefined || dataSelect.lenght > 0){
+            if(dataSelect != undefined && dataSelect.lenght > 0){
                 $("#WarehouseReceipt_WarehouseID").val(dataSelect[0].WarehouseID);
                 $("#WarehouseReceipt_Code").val(dataSelect[0].Code);
                 $('#WarehouseReceipt_Name').val(dataSelect[0].Name);                         
@@ -99,7 +100,7 @@
             var warehouseReceiptData = $('#WarehouseReceipt_Name').data('kendoAutoComplete');
             var dataSelect = warehouseReceiptData.dataItems().filter(f => f.Name == warehouseReceiptData.value());
 
-            if(dataSelect != undefined || dataSelect.lenght > 0){
+            if(dataSelect != undefined && dataSelect.lenght > 0){
                 $("#Warehouse_WarehouseID").val(dataSelect[0].WarehouseID);
                 $("#Warehouse_Code").val(dataSelect[0].Code);
                 $('#Warehouse_Name').val(dataSelect[0].Name);                         
