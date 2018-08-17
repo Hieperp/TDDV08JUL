@@ -1191,7 +1191,6 @@
     <Content Include="Areas\Commons\Views\Commodities\Edit.cshtml" />
     <Content Include="Areas\Commons\Views\Commodities\Index.cshtml" />
     <Content Include="Areas\Commons\Views\Commodities\_Commodity.cshtml" />
-    <Content Include="Areas\Inventories\Views\NegativeAdjustments\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
