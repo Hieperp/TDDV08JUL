@@ -281,6 +281,7 @@
     <Compile Include="Areas\Inventories\Controllers\GoodsReceiptsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\HandlingUnitsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\MaterialIssuesController.cs" />
+    <Compile Include="Areas\Inventories\Controllers\OtherMaterialIssuesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsDeliverySession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsIssueSession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\HandlingUnitSession.cs" />
@@ -1190,6 +1191,7 @@
     <Content Include="Areas\Commons\Views\Commodities\Edit.cshtml" />
     <Content Include="Areas\Commons\Views\Commodities\Index.cshtml" />
     <Content Include="Areas\Commons\Views\Commodities\_Commodity.cshtml" />
+    <Content Include="Areas\Inventories\Views\OtherMaterialIssues\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
