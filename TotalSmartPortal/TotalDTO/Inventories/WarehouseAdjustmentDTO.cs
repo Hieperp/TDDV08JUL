@@ -105,7 +105,7 @@ namespace TotalDTO.Inventories
 
         public bool NegativeOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductIssue; } }
         public bool PositiveOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductReceipt; } }
-        public bool WarehouseAdjustment { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.MaterialAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ProductAdjustment; } }
+        public bool BothAdjustment { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.MaterialAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ProductAdjustment; } }
     }
 
 }

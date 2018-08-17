@@ -3,6 +3,7 @@
 @{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
 
 @model TotalPortal.Areas.Inventories.ViewModels.WarehouseAdjustmentViewModel
+@Html.HiddenFor(m => m.PositiveOnly);
 
 @using (Html.BeginForm())
 {
@@ -16,7 +17,7 @@
     </div>
     <div class="background-bar" style="height: 45px;">
         <div class="popup-button-bar">
-            <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "WarehouseAdjustments")" formtarget="_top" style="display:none" />
+            <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", Model.ControllerName)" formtarget="_top" style="display:none" />
 
             @*<button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Áp dụng CTKM đang chọn </button>   //At VCP DON'T ALLOW SELECT BY SINGLE PROMOTION *@
             <button type="button" class="k-button" onclick="okWOSelectButton_Click()"> <img src="~/Content/Images/Mains/Size24/Accept-Total.png" /> Next </button>
@@ -58,6 +59,21 @@
             //$("#ShippingAddress").val($("#Project_ProjectAddress").val());
         }
     }
+
+
+
+
+    //$("#Warehouse_WarehouseID").change(function (e) {
+
+    //    $("#WarehouseReceipt_WarehouseID").val($("#22"));
+    //    $("#WarehouseReceipt_Code").val(dataItem.Code);
+    //})
+
+    //$("#WarehouseReceipt_WarehouseID").change(function (e) {
+
+    //    $("#Warehouse_WarehouseID").val(dataItem.WarehouseID);
+    //    $("#Warehouse_Code").val(dataItem.Code);
+    //})
 
 </script>
 

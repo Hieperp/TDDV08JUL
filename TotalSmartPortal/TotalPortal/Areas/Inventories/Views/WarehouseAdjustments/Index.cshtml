@@ -81,7 +81,7 @@
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "WarehouseAdjustments")", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@Settings.PopupWidth", "@Settings.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", Model.ControllerName)", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@Settings.PopupWidth", "@Settings.PopupHeightWithTab");
         });
     }
 
