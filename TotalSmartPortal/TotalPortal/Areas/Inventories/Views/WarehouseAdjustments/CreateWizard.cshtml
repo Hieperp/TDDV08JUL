@@ -15,22 +15,17 @@
     @Html.HiddenFor(m => m.SpecialNMVNTaskID)
 
     <div style="margin-top: 39px; margin-right: 18px;">
-        @if (!Model.PositiveOnly)
-        {
+
+        <div style="@(Model.NegativeOnly) display:none;;}">
             @Html.EditorFor(d => d.Warehouse)
-        }
+        </div>
 
-        @if (!Model.NegativeOnly)
-        {
+        <div style="@(Model.PositiveOnly) display:none;}">
             @Html.EditorFor(d => d.WarehouseReceipt)
-        }
+        </div>
+    
+        </div> <div class="background-bar" style="height: 45px;"> <div class="popup-button-bar"> <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", Model.ControllerName)" formtarget="_top" style="display:none" />  @*<button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Áp dụng CTKM đang chọn </button>   //At VCP DON'T ALLOW SELECT BY SINGLE PROMOTION *@
 
-    </div>
-    <div class="background-bar" style="height: 45px;">
-        <div class="popup-button-bar">
-            <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", Model.ControllerName)" formtarget="_top" style="display:none" />
-
-            @*<button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Áp dụng CTKM đang chọn </button>   //At VCP DON'T ALLOW SELECT BY SINGLE PROMOTION *@
             <button type="button" class="k-button" onclick="okWOSelectButton_Click()"> <img src="~/Content/Images/Mains/Size24/Accept-Total.png" /> Next </button>
             <button type="button" class="k-button" onclick="window.parent.$('#myWindow').data('kendoWindow').close()"> <img src="~/Content/Images/Mains/Size24/Users-Exit-icon-24.png" /> Exit </button>
         </div>
