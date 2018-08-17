@@ -15,7 +15,8 @@ namespace TotalDTO.Inventories
 {
     public class WarehouseAdjustmentPrimitiveDTO : QuantityDTO<WarehouseAdjustmentDetailDTO>, IPrimitiveEntity, IPrimitiveDTO
     {
-        public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.WarehouseAdjustment; } }
+        public GlobalEnums.NmvnTaskID SpecialNMVNTaskID;
+        public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return this.SpecialNMVNTaskID == GlobalEnums.NmvnTaskID.UnKnown ? GlobalEnums.NmvnTaskID.WarehouseAdjustment : this.SpecialNMVNTaskID; } }
 
         public int GetID() { return this.WarehouseAdjustmentID; }
         public void SetID(int id) { this.WarehouseAdjustmentID = id; }
@@ -97,6 +98,14 @@ namespace TotalDTO.Inventories
         public ICollection<WarehouseAdjustmentDetailDTO> GetDetails() { return this.WarehouseAdjustmentViewDetails; }
 
         protected override IEnumerable<WarehouseAdjustmentDetailDTO> DtoDetails() { return this.WarehouseAdjustmentViewDetails; }
+
+
+
+        public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }
+
+        public bool NegativeOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductIssue; } }
+        public bool PositiveOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductReceipt; } }
+        public bool WarehouseAdjustment { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.MaterialAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ProductAdjustment; } }
     }
 
 }

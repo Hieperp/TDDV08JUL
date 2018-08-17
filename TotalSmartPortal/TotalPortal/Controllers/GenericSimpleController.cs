@@ -16,7 +16,6 @@ using TotalCore.Services;
 using TotalPortal.Builders;
 using TotalPortal.ViewModels.Helpers;
 using TotalDTO.Commons;
-using TotalPortal.ViewModels.Home;
 using TotalPortal.APIs.Sessions;
 
 
@@ -68,9 +67,9 @@ namespace TotalPortal.Controllers
             ViewBag.SelectedEntityID = id == null ? -1 : (int)id;
             ViewBag.ShowDiscount = this.GenericService.GetShowDiscount();
 
-            OptionViewModel optionViewModel = new OptionViewModel { GlobalFromDate = HomeSession.GetGlobalFromDate(this.HttpContext), GlobalToDate = HomeSession.GetGlobalToDate(this.HttpContext) };
+            TSimpleViewModel simpleViewModel = new TSimpleViewModel() { GlobalFromDate = HomeSession.GetGlobalFromDate(this.HttpContext), GlobalToDate = HomeSession.GetGlobalToDate(this.HttpContext) };
 
-            return View(optionViewModel);
+            return View(this.InitViewModel(simpleViewModel));
         }
 
 
@@ -527,6 +526,11 @@ namespace TotalPortal.Controllers
         }
 
 
+        protected virtual TSimpleViewModel InitViewModel(TSimpleViewModel simpleViewModel)
+        {
+            return simpleViewModel;
+        }
+
         /// <summary>
         /// Init new viewmodel by set default value. Default, this procedure does nothing and just return the passing parameter simpleViewModel.
         /// Each module should override this InitViewModelByDefault to init its's viewmodel accordingly, if needed
@@ -535,7 +539,7 @@ namespace TotalPortal.Controllers
         /// <returns></returns>
         protected virtual TSimpleViewModel InitViewModelByDefault(TSimpleViewModel simpleViewModel)
         {
-            return simpleViewModel;
+            return this.InitViewModel(simpleViewModel);
         }
 
 
@@ -638,17 +642,17 @@ namespace TotalPortal.Controllers
         /// <returns></returns>
         protected TSimpleViewModel GetViewModel(int? id, GlobalEnums.AccessLevel accessLevel)
         {
-            return this.GetViewModel(id, accessLevel,  false);
+            return this.GetViewModel(id, accessLevel, false);
         }
 
         protected TSimpleViewModel GetViewModel(int? id, GlobalEnums.AccessLevel accessLevel, bool forDelete)
         {
-            return this.GetViewModel(id, accessLevel,  forDelete, false);
+            return this.GetViewModel(id, accessLevel, forDelete, false);
         }
 
         protected TSimpleViewModel GetViewModel(int? id, GlobalEnums.AccessLevel accessLevel, bool forDelete, bool forAlter)
         {
-            return this.GetViewModel(id, accessLevel,  forDelete, forAlter, false);
+            return this.GetViewModel(id, accessLevel, forDelete, forAlter, false);
         }
 
         protected TSimpleViewModel GetViewModel(int? id, GlobalEnums.AccessLevel accessLevel, bool forDelete, bool forAlter, bool forOpen)
@@ -660,7 +664,7 @@ namespace TotalPortal.Controllers
         }
         #endregion GetViewModel
 
-        
+
 
 
         [OnResultExecutingFilterAttribute]
@@ -673,7 +677,7 @@ namespace TotalPortal.Controllers
         {
             PrintViewModel printViewModel = new PrintViewModel() { Id = id != null ? (int)id : 0 };
             if (this.TempData["PrintOptionID"] != null)
-                printViewModel.PrintOptionID = (int) this.TempData["PrintOptionID"];
+                printViewModel.PrintOptionID = (int)this.TempData["PrintOptionID"];
             return printViewModel;
         }
 

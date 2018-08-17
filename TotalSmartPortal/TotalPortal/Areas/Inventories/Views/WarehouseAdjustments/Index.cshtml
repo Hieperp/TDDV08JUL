@@ -1,6 +1,9 @@
 ﻿@using TotalBase.Enums
 @using TotalPortal.Configuration
 
+@model TotalPortal.Areas.Inventories.ViewModels.WarehouseAdjustmentViewModel
+@Html.HiddenFor(model => model.NMVNTaskID)
+
 <div id="popupWindow"></div>
 
 <div>
@@ -42,7 +45,7 @@
                         })
                         .DataSource(dataSource => dataSource
                             .Ajax()
-                            .Read(read => read.Action("GetWarehouseAdjustmentIndexes", "WarehouseAdjustmentAPIs", new { area = "Inventories" }))
+                            .Read(read => read.Action("GetWarehouseAdjustmentIndexes", "WarehouseAdjustmentAPIs", new { area = "Inventories" }).Data("onWarehouseAdjustmentIndexes"))
                             .Sort(sort =>
                                 {
                                     sort.Add(p => p.EntryDate).Descending();
@@ -62,6 +65,12 @@
 
 
 <script type="text/javascript">
+    function onWarehouseAdjustmentIndexes(e) {
+        return {
+            nmvnTaskID: $("#NMVNTaskID").val()
+        };
+    }
+
     function hightLightSelectedRow(e) {
         require(["kindexGrid"], function (kindexGrid) {
             var kindexGridInstance = new kindexGrid("kendoGridIndex");

@@ -18,7 +18,6 @@ using TotalBase.Enums;
 using TotalModel.Models;
 using TotalCore.Repositories.Generals;
 using TotalPortal.Models;
-using TotalPortal.ViewModels.Home;
 using TotalPortal.APIs.Sessions;
 
 

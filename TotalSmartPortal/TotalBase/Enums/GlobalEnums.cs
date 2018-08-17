@@ -54,6 +54,15 @@ namespace TotalBase.Enums
             MaterialIssue = 8039,
             WarehouseAdjustment = 8036,
 
+            MaterialAdjustment = 8036006,
+            OtherMaterialReceipt = 80360061,
+            OtherMaterialIssue = 80360062,
+
+            ProductAdjustment = 8036008,
+            OtherProductReceipt = 80360081,
+            OtherProductIssue = 80360082,
+
+
             SalesInvoice = 8051,
 
             VehiclesInvoice = 8052,

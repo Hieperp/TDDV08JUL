@@ -64,13 +64,33 @@ namespace TotalDTO
         public virtual bool PrintAfterClosedSubmit { get; set; }
         public GlobalEnums.SubmitTypeOption SubmitTypeOption { get; set; }
 
-        public virtual int PrintOptionID { get; set; }
 
 
         
         public virtual void PerformPresaveRule() { }
 
         public virtual void PrepareVoidDetail(int? detailID) { }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        [Display(Name = "Lọc dữ liệu từ ngày")]
+        public DateTime GlobalFromDate { get; set; }
+        [Display(Name = "Lọc dữ liệu đến ngày")]
+        public DateTime GlobalToDate { get; set; }
+
+        public virtual int PrintOptionID { get; set; }
     }
 }
 
