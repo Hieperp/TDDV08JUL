@@ -1192,6 +1192,12 @@
     <Content Include="Areas\Commons\Views\Commodities\Index.cshtml" />
     <Content Include="Areas\Commons\Views\Commodities\_Commodity.cshtml" />
     <Content Include="Areas\Inventories\Views\OtherMaterialIssues\Index.cshtml" />
+    <Content Include="Areas\Inventories\Views\OtherMaterialIssues\Approve.cshtml" />
+    <Content Include="Areas\Inventories\Views\OtherMaterialIssues\CreateWizard.cshtml" />
+    <Content Include="Areas\Inventories\Views\OtherMaterialIssues\Delete.cshtml" />
+    <Content Include="Areas\Inventories\Views\OtherMaterialIssues\Edit.cshtml" />
+    <Content Include="Areas\Inventories\Views\OtherMaterialIssues\GetGoodsReceiptDetailAvailables.cshtml" />
+    <Content Include="Areas\Inventories\Views\OtherMaterialIssues\Print.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
