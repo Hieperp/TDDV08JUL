@@ -25,8 +25,9 @@ namespace TotalPortal.Areas.Inventories.APIs
         }
 
 
-        public JsonResult GetWarehouseAdjustmentIndexes([DataSourceRequest] DataSourceRequest request)
+        public JsonResult GetWarehouseAdjustmentIndexes([DataSourceRequest] DataSourceRequest request, string nmvnTaskID)
         {
+            this.warehouseAdjustmentAPIRepository.RepositoryBag["NMVNTaskID"] = nmvnTaskID;
             ICollection<WarehouseAdjustmentIndex> warehouseAdjustmentIndexes = this.warehouseAdjustmentAPIRepository.GetEntityIndexes<WarehouseAdjustmentIndex>(User.Identity.GetUserId(), HomeSession.GetGlobalFromDate(this.HttpContext), HomeSession.GetGlobalToDate(this.HttpContext));
 
             DataSourceResult response = warehouseAdjustmentIndexes.ToDataSourceResult(request);

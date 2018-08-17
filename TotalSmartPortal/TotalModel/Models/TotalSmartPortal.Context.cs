@@ -2767,8 +2767,12 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductionOrderPendingPlannedOrder>("GetProductionOrderPendingPlannedOrders", locationIDParameter);
         }
     
-        public virtual ObjectResult<WarehouseAdjustmentIndex> GetWarehouseAdjustmentIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        public virtual ObjectResult<WarehouseAdjustmentIndex> GetWarehouseAdjustmentIndexes(Nullable<int> nMVNTaskID, string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
         {
+            var nMVNTaskIDParameter = nMVNTaskID.HasValue ?
+                new ObjectParameter("NMVNTaskID", nMVNTaskID) :
+                new ObjectParameter("NMVNTaskID", typeof(int));
+    
             var aspUserIDParameter = aspUserID != null ?
                 new ObjectParameter("AspUserID", aspUserID) :
                 new ObjectParameter("AspUserID", typeof(string));
@@ -2781,7 +2785,7 @@ namespace TotalModel.Models
                 new ObjectParameter("ToDate", toDate) :
                 new ObjectParameter("ToDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WarehouseAdjustmentIndex>("GetWarehouseAdjustmentIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WarehouseAdjustmentIndex>("GetWarehouseAdjustmentIndexes", nMVNTaskIDParameter, aspUserIDParameter, fromDateParameter, toDateParameter);
         }
     
         public virtual ObjectResult<WarehouseAdjustmentViewDetail> GetWarehouseAdjustmentViewDetails(Nullable<int> warehouseAdjustmentID)

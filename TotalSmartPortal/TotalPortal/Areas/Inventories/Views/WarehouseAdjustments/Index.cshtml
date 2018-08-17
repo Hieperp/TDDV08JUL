@@ -2,7 +2,7 @@
 @using TotalPortal.Configuration
 
 @model TotalPortal.Areas.Inventories.ViewModels.WarehouseAdjustmentViewModel
-@Html.HiddenFor(model => model.NMVNTaskID)
+@Html.Hidden("NMVNTaskID", (int)Model.NMVNTaskID)
 
 <div id="popupWindow"></div>
 
