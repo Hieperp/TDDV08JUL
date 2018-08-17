@@ -16,6 +16,10 @@
     @Html.HiddenFor(model => model.WarehouseAdjustmentID)
     @Html.HiddenFor(model => model.TotalQuantityPositive)
     @Html.HiddenFor(model => model.TotalQuantityNegative)
+    
+    @Html.HiddenFor(m => m.NegativeOnly)
+    @Html.HiddenFor(m => m.PositiveOnly)
+    @Html.HiddenFor(m => m.BothAdjustment)
 
     <div class="left-panel">
 
@@ -41,7 +45,7 @@
             @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
             @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt) })
 
-            @Html.Kendo().NumericTextBoxFor(p => p.WarehouseAdjustmentTypeID);
+            @Html.Kendo().NumericTextBoxFor(p => p.WarehouseAdjustmentTypeID)
         </div>
 
         <div class="div-k-grid-detail">
@@ -95,17 +99,17 @@
                      .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
                      .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityAvailables) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityAvailables' value='#= QuantityAvailables #' />");
 
-                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(!Model.BothAdjustment)
+                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(!@Model.BothAdjustment)
                         .Format(Settings.kfmQuantity)
                         .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
                         .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', Quantity) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
-                    columns.Bound(p => p.QuantityPositive).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(!Model.PositiveOnly)
+                    columns.Bound(p => p.QuantityPositive).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(!@Model.PositiveOnly)
                         .Format(Settings.kfmQuantity)
                         .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
                         .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityPositive) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityPositive' value='#= QuantityPositive #' />");
 
-                    columns.Bound(p => p.QuantityNegative).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(!Model.NegativeOnly)
+                    columns.Bound(p => p.QuantityNegative).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Hidden(!@Model.NegativeOnly)
                         .Format(Settings.kfmQuantity)
                         .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
                         .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityNegative) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityNegative' value='#= QuantityNegative #' />");

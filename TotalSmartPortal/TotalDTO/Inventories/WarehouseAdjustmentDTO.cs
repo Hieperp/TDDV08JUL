@@ -15,7 +15,7 @@ namespace TotalDTO.Inventories
 {
     public class WarehouseAdjustmentPrimitiveDTO : QuantityDTO<WarehouseAdjustmentDetailDTO>, IPrimitiveEntity, IPrimitiveDTO
     {
-        public GlobalEnums.NmvnTaskID SpecialNMVNTaskID;
+        public GlobalEnums.NmvnTaskID SpecialNMVNTaskID { get; set; }
         public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return this.SpecialNMVNTaskID == GlobalEnums.NmvnTaskID.UnKnown ? GlobalEnums.NmvnTaskID.WarehouseAdjustment : this.SpecialNMVNTaskID; } }
 
         public int GetID() { return this.WarehouseAdjustmentID; }
@@ -23,7 +23,7 @@ namespace TotalDTO.Inventories
 
         public int WarehouseAdjustmentID { get; set; }
 
-        public int WarehouseAdjustmentTypeID { get { return (int)GlobalEnums.WarehouseAdjustmentTypeID.OtherIssues; } }
+        public int WarehouseAdjustmentTypeID { get; set; }
         //public int MaterialIssueTypeID { get; set; }
 
 
