@@ -8,7 +8,7 @@
 @Html.Hidden("TempName", (@Model != null ? @Model.Name : ""))
 
 <div class="form-group">
-    <div class="right-panel-label right-panel-label-whole-width">
+    <div @{if (ViewData["LeftPanelInput"] == null) { <text> class="right-panel-label right-panel-label-whole-width" </text>} }>
         @Html.Label((ViewData["WarehouseDisplayName"] != null ? (ViewData["WarehouseDisplayName"]).ToString() : "Kho hàng"))
     </div>
     <div class="div-input">
@@ -30,7 +30,7 @@
         {
             e.Select("warehouse_Select");
         })
-        .HtmlAttributes(new { @class = "right-panel-input right-panel-input-whole-width warehouseBase_AutoComplete" })
+        .HtmlAttributes(new { @class = (ViewData["LeftPanelInput"] != null ? ViewData["LeftPanelInput"] : "right-panel-input right-panel-input-whole-width") + " warehouseBase_AutoComplete" })
         )
 
     </div>

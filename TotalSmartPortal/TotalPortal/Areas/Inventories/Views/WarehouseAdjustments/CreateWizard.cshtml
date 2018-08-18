@@ -17,11 +17,11 @@
     <div style="margin-top: 39px; margin-right: 18px;">
 
         <div style="@(Model.NegativeOnly) display:none;">
-            @Html.EditorFor(d => d.Warehouse)
+            @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse)})
         </div>
 
         <div style="@(Model.PositiveOnly) display:none;">
-            @Html.EditorFor(d => d.WarehouseReceipt)
+            @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
         </div>
 
     </div> <div class="background-bar" style="height: 45px;">

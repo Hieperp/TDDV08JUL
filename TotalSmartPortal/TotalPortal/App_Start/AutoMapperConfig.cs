@@ -28,7 +28,7 @@ namespace TotalPortal.App_Start
     {
         public static void SetupMappings()
         {
-        ////////https://github.com/AutoMapper/AutoMapper/wiki/Static-and-Instance-API
+            ////////https://github.com/AutoMapper/AutoMapper/wiki/Static-and-Instance-API
 
             Mapper.Initialize(cfg =>
             {
@@ -52,7 +52,7 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<MaterialIssueDetailDTO, MaterialIssueDetail>();
 
                 cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentViewModel>();
-                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO>();                    
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO>();
                 cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustment>();
                 cfg.CreateMap<WarehouseAdjustmentViewDetail, WarehouseAdjustmentDetailDTO>();
                 cfg.CreateMap<WarehouseAdjustmentDetailDTO, WarehouseAdjustmentDetail>();
@@ -98,7 +98,7 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<SalesReturnViewDetail, SalesReturnDetailDTO>();
                 cfg.CreateMap<SalesReturnDetailDTO, SalesReturnDetail>();
 
-                cfg.CreateMap<SalesReturn, SalesReturnBoxDTO>();                
+                cfg.CreateMap<SalesReturn, SalesReturnBoxDTO>();
 
                 cfg.CreateMap<GoodsIssue, GoodsIssueViewModel>();
                 cfg.CreateMap<GoodsIssue, GoodsIssueDTO>();
@@ -132,8 +132,8 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<ReceiptViewDetail, ReceiptDetailDTO>();
                 cfg.CreateMap<ReceiptDetailDTO, ReceiptDetail>();
 
-                cfg.CreateMap<Receipt, ReceiptBoxDTO>();                
-                
+                cfg.CreateMap<Receipt, ReceiptBoxDTO>();
+
                 cfg.CreateMap<CreditNote, CreditNoteViewModel>();
                 cfg.CreateMap<CreditNote, CreditNoteDTO>();
                 cfg.CreateMap<CreditNotePrimitiveDTO, CreditNote>();

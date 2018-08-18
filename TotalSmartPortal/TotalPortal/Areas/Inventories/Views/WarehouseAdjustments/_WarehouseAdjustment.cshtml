@@ -35,19 +35,17 @@
             </div>
         </div>
 
+        @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse), LeftPanelInput = "left-panel-input" })
+        @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt), LeftPanelInput = "left-panel-input" })
+
+        @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/WarehouseAdjustmentType.cshtml")
+
+
+
 
     </div>
 
     <div class="right-panel">
-
-        <div class="right-top-panel right-top-panel-H1">
-
-            @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
-            @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt) })
-
-            @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/WarehouseAdjustmentType.cshtml")
-
-        </div>
 
         <div class="div-k-grid-detail">
             @(Html.Kendo().Grid(Model.WarehouseAdjustmentViewDetails)
