@@ -55,8 +55,8 @@ namespace TotalDTO.Inventories
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            if (this.TotalQuantityPositive != this.GetTotalQuantityPositive()) yield return new ValidationResult("Lỗi tổng số lượng", new[] { "TotalQuantityPositive" });
-            if (this.TotalQuantityNegative != this.GetTotalQuantityNegative()) yield return new ValidationResult("Lỗi tổng số lượng", new[] { "TotalQuantityNegative" });
+            if (this.TotalQuantityPositive != this.GetTotalQuantityPositive()) yield return new ValidationResult("Lỗi tổng số lượng [TotalQuantityPositive]", new[] { "TotalQuantityPositive" });
+            if (this.TotalQuantityNegative != this.GetTotalQuantityNegative()) yield return new ValidationResult("Lỗi tổng số lượng [TotalQuantityNegative]", new[] { "TotalQuantityNegative" });
         }
 
 
@@ -77,12 +77,12 @@ namespace TotalDTO.Inventories
         }
 
         public override Nullable<int> WarehouseID { get { return (this.Warehouse != null ? this.Warehouse.WarehouseID : null); } }
-        [Display(Name = "Kho hàng")]
+        [Display(Name = "Kho xuất")]
         [UIHint("AutoCompletes/WarehouseBase")]
         public WarehouseBaseDTO Warehouse { get; set; }
 
         public override Nullable<int> WarehouseReceiptID { get { return (this.WarehouseReceipt != null ? this.WarehouseReceipt.WarehouseID : null); } }
-        [Display(Name = "Kho hàng")]
+        [Display(Name = "Kho nhập")]
         [UIHint("AutoCompletes/WarehouseBase")]
         public WarehouseBaseDTO WarehouseReceipt { get; set; }
 

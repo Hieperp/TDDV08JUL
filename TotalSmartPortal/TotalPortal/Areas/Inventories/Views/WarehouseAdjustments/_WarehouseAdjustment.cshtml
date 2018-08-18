@@ -16,7 +16,7 @@
     @Html.HiddenFor(model => model.WarehouseAdjustmentID)
     @Html.HiddenFor(model => model.TotalQuantityPositive)
     @Html.HiddenFor(model => model.TotalQuantityNegative)
-    
+
     @Html.HiddenFor(m => m.NegativeOnly)
     @Html.HiddenFor(m => m.PositiveOnly)
     @Html.HiddenFor(m => m.BothAdjustment)
@@ -46,7 +46,7 @@
             @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt) })
 
             @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/WarehouseAdjustmentType.cshtml")
-            
+
         </div>
 
         <div class="div-k-grid-detail">
@@ -67,7 +67,7 @@
                     columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
                         .ClientTemplate("<div> #= CommodityCode #</div>" +
-                                
+
                                 "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
 
                     columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
@@ -94,7 +94,7 @@
                         .Format("{0:" + @Settings.DateFormat + "}")
                         .ClientTemplate("#= (BatchEntryDate == null)? '' : kendo.format('{0:" + @Settings.DateFormat + "}', BatchEntryDate) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].BatchEntryDate' value='#= (BatchEntryDate == null) ? '' : kendo.format('{0:" + @Settings.DateFormat + "}', BatchEntryDate) #' />");
 
-                    
+
                     columns.Bound(p => p.QuantityAvailables).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" })
                      .Format(Settings.kfmQuantity)
                      .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
@@ -114,7 +114,7 @@
                         .Format(Settings.kfmQuantity)
                         .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
                         .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', QuantityNegative) #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].QuantityNegative' value='#= QuantityNegative #' />");
-                    
+
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false)
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
 
@@ -133,9 +133,11 @@
                         {
                             //toolbar.Create().HtmlAttributes(new { @class = "fa fa-map-marker" }).Text("Add new aa le ea1");
                             toolbar.Template(@<text>
-                                <button type="button" class="k-button" onclick="$('#kendoGridDetails').data('kendoGrid').addRow()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Thêm mặt hàng </button>
+                                @if (!Model.NegativeOnly)
+                                {
+                                    <button type="button" class="k-button" onclick="$('#kendoGridDetails').data('kendoGrid').addRow()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Thêm mặt hàng </button>
+                                }
                                 <button type="button" class="k-button" onclick="GetGoodsReceiptDetailAvailables()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
-                                <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Giao hàng toàn bộ đơn hàng </button>
                             </text>);
                         }
                         else
@@ -174,6 +176,7 @@
                             });
                             }
                         </text>);
+                                        
                     }).DataSource(dataSource => dataSource
                         .Ajax()
                         .Batch(true)
