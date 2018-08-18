@@ -52,8 +52,7 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<MaterialIssueDetailDTO, MaterialIssueDetail>();
 
                 cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentViewModel>();
-                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO>()
-                    .ForMember(dto => dto.SpecialNMVNTaskID, warehouse => warehouse.MapFrom(src => src.NMVNTaskID));
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO>();                    
                 cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustment>();
                 cfg.CreateMap<WarehouseAdjustmentViewDetail, WarehouseAdjustmentDetailDTO>();
                 cfg.CreateMap<WarehouseAdjustmentDetailDTO, WarehouseAdjustmentDetail>();
