@@ -245,6 +245,7 @@
     <Compile Include="Areas\Commons\Builders\IPromotionViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ITerritorySelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\IVehicleSelectListBuilder.cs" />
+    <Compile Include="Areas\Commons\Builders\IWarehouseAdjustmentTypeSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\CommonsAreaRegistration.cs" />
     <Compile Include="Areas\Commons\Controllers\CommoditiesController.cs" />
     <Compile Include="Areas\Commons\Controllers\CommodityPricesController.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPriceCategoryDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\ITerritoryDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IVehicleDropDownViewModel.cs" />
+    <Compile Include="Areas\Commons\ViewModels\Helpers\IWarehouseAdjustmentTypeDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\PromotionViewModel.cs" />
     <Compile Include="Areas\Generals\APIs\UserAPIsController.cs" />
     <Compile Include="Areas\Generals\GeneralsAreaRegistration.cs" />
@@ -2216,6 +2218,7 @@
     </Content>
     <Content Include="Views\Shared\EditorTemplates\WeightReadonly.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WeightWithMinus.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\WarehouseAdjustmentType.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

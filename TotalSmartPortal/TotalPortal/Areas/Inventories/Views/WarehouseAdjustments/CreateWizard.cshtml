@@ -11,7 +11,7 @@
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
 
     @Html.HiddenFor(m => m.NegativeOnly)
-    @Html.HiddenFor(m => m.PositiveOnly)    
+    @Html.HiddenFor(m => m.PositiveOnly)
     @Html.HiddenFor(m => m.SpecialNMVNTaskID)
 
     <div style="margin-top: 39px; margin-right: 18px;">
@@ -23,8 +23,10 @@
         <div style="@(Model.PositiveOnly) display:none;}">
             @Html.EditorFor(d => d.WarehouseReceipt)
         </div>
-    
-        </div> <div class="background-bar" style="height: 45px;"> <div class="popup-button-bar"> <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", Model.ControllerName)" formtarget="_top" style="display:none" />  @*<button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Áp dụng CTKM đang chọn </button>   //At VCP DON'T ALLOW SELECT BY SINGLE PROMOTION *@
+
+    </div> <div class="background-bar" style="height: 45px;">
+        <div class="popup-button-bar">
+            <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", Model.ControllerName)" formtarget="_top" style="display:none" />  @*<button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Áp dụng CTKM đang chọn </button>   //At VCP DON'T ALLOW SELECT BY SINGLE PROMOTION *@
 
             <button type="button" class="k-button" onclick="okWOSelectButton_Click()"> <img src="~/Content/Images/Mains/Size24/Accept-Total.png" /> Next </button>
             <button type="button" class="k-button" onclick="window.parent.$('#myWindow').data('kendoWindow').close()"> <img src="~/Content/Images/Mains/Size24/Users-Exit-icon-24.png" /> Exit </button>
@@ -35,7 +37,7 @@
 
 <link href="@Url.Content("~/Content/CustomCss/GeneralPopup.css")" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript">   
+<script type="text/javascript">
 
     function okButton_Click() {
         handleOKEvent($($("#tabStrip").data("kendoTabStrip").select().index() === 0 ? "#gridPromotion" : "#gridXXXX_ReserveForLater").data("kendoGrid"));
@@ -66,31 +68,21 @@
         }
     }
 
-    $("#Warehouse_Name").change(function (e) {
-        if ($("#NegativeOnly").val() == "True"){
-            var warehouseData = $('#Warehouse_Name').data('kendoAutoComplete');
-            var dataSelect = warehouseData.dataItems().filter(f => f.Name == warehouseData.value());
-
-            if(dataSelect != undefined && dataSelect.lenght > 0){
-                $("#WarehouseReceipt_WarehouseID").val(dataSelect[0].WarehouseID);
-                $("#WarehouseReceipt_Code").val(dataSelect[0].Code);
-                $('#WarehouseReceipt_Name').val(dataSelect[0].Name);
-            }
+    $("#Warehouse_WarehouseID").change(function (e) {
+        if ($("#NegativeOnly").val() == "True") {
+            $("#WarehouseReceipt_WarehouseID").val($("#Warehouse_WarehouseID").val());
+            $("#WarehouseReceipt_Code").val($("#Warehouse_Code").val());
+            $('#WarehouseReceipt_Name').val($("#Warehouse_TempName").val());
         }
     })
 
-    $("#WarehouseReceipt_Name").change(function (e) {
-        if ($("#PositiveOnly").val() == "True"){
-            var warehouseReceiptData = $('#WarehouseReceipt_Name').data('kendoAutoComplete');
-            var dataSelect = warehouseReceiptData.dataItems().filter(f => f.Name == warehouseReceiptData.value());
-
-            if(dataSelect != undefined && dataSelect.lenght > 0){
-                $("#Warehouse_WarehouseID").val(dataSelect[0].WarehouseID);
-                $("#Warehouse_Code").val(dataSelect[0].Code);
-                $('#Warehouse_Name').val(dataSelect[0].Name);
-            }
+    $("#WarehouseReceipt_WarehouseID").change(function (e) {
+        if ($("#PositiveOnly").val() == "True") {
+            $("#Warehouse_WarehouseID").val($("#WarehouseReceipt_WarehouseID").val());
+            $("#Warehouse_Code").val($("#WarehouseReceipt_Code").val());
+            $('#Warehouse_Name').val($("#WarehouseReceipt_TempName").val());
         }
-    })
+    }) 
 
 </script>
 

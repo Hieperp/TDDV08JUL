@@ -241,6 +241,7 @@ namespace TotalPortal.App_Start
                 kernel.Bind<ICommodityBrandSelectListBuilder>().To<CommodityBrandSelectListBuilder>();
                 kernel.Bind<ICommodityCategorySelectListBuilder>().To<CommodityCategorySelectListBuilder>();
                 kernel.Bind<ICommodityTypeSelectListBuilder>().To<CommodityTypeSelectListBuilder>();
+                kernel.Bind<IWarehouseAdjustmentTypeSelectListBuilder>().To<WarehouseAdjustmentTypeSelectListBuilder>();
 
                 kernel.Bind<IAspNetUserRepository>().To<AspNetUserRepository>();
                 kernel.Bind<IUserRepository>().To<UserRepository>();
@@ -266,6 +267,7 @@ namespace TotalPortal.App_Start
                 kernel.Bind<ICommodityBrandRepository>().To<CommodityBrandRepository>();
                 kernel.Bind<ICommodityCategoryRepository>().To<CommodityCategoryRepository>();
                 kernel.Bind<ICommodityTypeRepository>().To<CommodityTypeRepository>();
+                kernel.Bind<IWarehouseAdjustmentTypeRepository>().To<WarehouseAdjustmentTypeRepository>();
 
 
                 //kernel.Bind<IMoldService>().To<MoldService>();

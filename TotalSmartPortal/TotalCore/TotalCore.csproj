@@ -69,6 +69,7 @@
     <Compile Include="Repositories\Commons\ITerritoryRepository.cs" />
     <Compile Include="Repositories\Commons\IVehicleRepository.cs" />
     <Compile Include="Repositories\Commons\IVoidTypeRepository.cs" />
+    <Compile Include="Repositories\Commons\IWarehouseAdjustmentTypeRepository.cs" />
     <Compile Include="Repositories\Commons\IWarehouseRepository.cs" />
     <Compile Include="Repositories\Generals\IUserRepository.cs" />
     <Compile Include="Repositories\Inventories\IGoodsDeliveryRepository.cs" />

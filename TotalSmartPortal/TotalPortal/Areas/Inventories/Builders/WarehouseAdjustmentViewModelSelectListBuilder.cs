@@ -12,9 +12,20 @@ namespace TotalPortal.Areas.Inventories.Builders
 
     public class WarehouseAdjustmentViewModelSelectListBuilder : A01ViewModelSelectListBuilder<WarehouseAdjustmentViewModel>, IWarehouseAdjustmentViewModelSelectListBuilder
     {
-        public WarehouseAdjustmentViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository)
+        private readonly IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder;
+        private readonly IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository;
+
+        public WarehouseAdjustmentViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
             : base(aspNetUserSelectListBuilder, aspNetUserRepository)
         {
+            this.warehouseAdjustmentTypeSelectListBuilder = warehouseAdjustmentTypeSelectListBuilder;
+            this.warehouseAdjustmentTypeRepository = warehouseAdjustmentTypeRepository;
+        }
+
+        public virtual void BuildSelectLists(WarehouseAdjustmentViewModel warehouseAdjustmentViewModel)
+        {
+            base.BuildSelectLists(warehouseAdjustmentViewModel);
+            warehouseAdjustmentViewModel.WarehouseAdjustmentTypeSelectList = this.warehouseAdjustmentTypeSelectListBuilder.BuildSelectListItemsForWarehouseAdjustmentTypes(this.warehouseAdjustmentTypeRepository.GetAllWarehouseAdjustmentTypes());
         }
     }
 

@@ -45,7 +45,8 @@
             @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
             @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt) })
 
-            @Html.Kendo().NumericTextBoxFor(p => p.WarehouseAdjustmentTypeID)
+            @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/WarehouseAdjustmentType.cshtml")
+            
         </div>
 
         <div class="div-k-grid-detail">
