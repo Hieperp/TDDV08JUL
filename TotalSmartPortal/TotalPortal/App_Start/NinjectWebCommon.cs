@@ -129,10 +129,12 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IMaterialIssueViewModelSelectListBuilder>().To<MaterialIssueViewModelSelectListBuilder>();
 
 
-                kernel.Bind<IWarehouseAdjustmentService>().To<WarehouseAdjustmentService>();
+                
                 kernel.Bind<IWarehouseAdjustmentRepository>().To<WarehouseAdjustmentRepository>();
                 kernel.Bind<IWarehouseAdjustmentAPIRepository>().To<WarehouseAdjustmentAPIRepository>();
-                kernel.Bind<IWarehouseAdjustmentViewModelSelectListBuilder>().To<WarehouseAdjustmentViewModelSelectListBuilder>();
+
+                kernel.Bind<IOtherMaterialIssueService>().To<OtherMaterialIssueService>();
+                kernel.Bind<IOtherMaterialIssueViewModelSelectListBuilder>().To<OtherMaterialIssueViewModelSelectListBuilder>();
 
 
 

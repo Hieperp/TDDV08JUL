@@ -10,10 +10,17 @@ using TotalPortal.Areas.Commons.ViewModels.Helpers;
 
 namespace TotalPortal.Areas.Inventories.ViewModels
 {
-    public class WarehouseAdjustmentViewModel : WarehouseAdjustmentDTO, IViewDetailViewModel<WarehouseAdjustmentDetailDTO>, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel
+    public interface IWarehouseAdjustmentViewModel : IA01SimpleViewModel
     {
-        public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }
-        public IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }        
+        IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }
     }
 
+    public class WarehouseAdjustmentViewModel : WarehouseAdjustmentDTO, IViewDetailViewModel<WarehouseAdjustmentDetailDTO>, IWarehouseAdjustmentViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel
+    {
+        public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }
+        public IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }
+    }
+
+    public class OtherMaterialIssueViewModel : WarehouseAdjustmentViewModel
+    { }
 }

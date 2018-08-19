@@ -1,25 +1,16 @@
 ﻿using System.Web.Mvc;
-
 using TotalCore.Services.Inventories;
+using TotalDTO.Inventories;
 using TotalPortal.Areas.Inventories.Builders;
 using TotalPortal.Areas.Inventories.ViewModels;
 
 namespace TotalPortal.Areas.Inventories.Controllers
 {
-    public class OtherMaterialIssuesController : WarehouseAdjustmentsController
+    public class OtherMaterialIssuesController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO, OtherMaterialIssueViewModel>
     {
-        public OtherMaterialIssuesController(IWarehouseAdjustmentService warehouseAdjustmentService, IWarehouseAdjustmentViewModelSelectListBuilder warehouseAdjustmentViewModelSelectListBuilder)
-            : base(warehouseAdjustmentService, warehouseAdjustmentViewModelSelectListBuilder)
+        public OtherMaterialIssuesController(IOtherMaterialIssueService otherMaterialIssueService, IOtherMaterialIssueViewModelSelectListBuilder otherMaterialIssueViewModelSelectListBuilder)
+            : base(otherMaterialIssueService, otherMaterialIssueViewModelSelectListBuilder)
         {
         }
-
-        protected override WarehouseAdjustmentViewModel InitViewModel(WarehouseAdjustmentViewModel simpleViewModel)
-        {
-            WarehouseAdjustmentViewModel warehouseAdjustmentViewModel = base.InitViewModel(simpleViewModel);
-            warehouseAdjustmentViewModel.SpecialNMVNTaskID = TotalBase.Enums.GlobalEnums.NmvnTaskID.OtherMaterialIssue;
-
-            return warehouseAdjustmentViewModel;
-        }
-
     }
 }

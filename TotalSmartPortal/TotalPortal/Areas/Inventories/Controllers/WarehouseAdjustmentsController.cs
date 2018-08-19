@@ -5,8 +5,11 @@ using System.Text;
 using RequireJsNet;
 
 using TotalBase.Enums;
+using TotalModel;
+using TotalDTO;
 using TotalDTO.Inventories;
 using TotalModel.Models;
+using TotalPortal.ViewModels.Helpers;
 
 using TotalCore.Services.Inventories;
 
@@ -14,11 +17,16 @@ using TotalPortal.Controllers;
 using TotalPortal.Areas.Inventories.ViewModels;
 using TotalPortal.Areas.Inventories.Builders;
 
+
 namespace TotalPortal.Areas.Inventories.Controllers
 {
-    public class WarehouseAdjustmentsController : GenericViewDetailController<WarehouseAdjustment, WarehouseAdjustmentDetail, WarehouseAdjustmentViewDetail, WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO, WarehouseAdjustmentViewModel>
+    public class WarehouseAdjustmentsController<TDto, TPrimitiveDto, TDtoDetail, TViewDetailViewModel> : GenericViewDetailController<WarehouseAdjustment, WarehouseAdjustmentDetail, WarehouseAdjustmentViewDetail, TDto, TPrimitiveDto, TDtoDetail, TViewDetailViewModel>
+        where TDto : TPrimitiveDto, IBaseDetailEntity<TDtoDetail>
+        where TPrimitiveDto : BaseDTO, IPrimitiveEntity, IPrimitiveDTO, new()
+        where TDtoDetail : class, IPrimitiveEntity
+        where TViewDetailViewModel : TDto, IViewDetailViewModel<TDtoDetail>, IWarehouseAdjustmentViewModel, new()
     {
-        public WarehouseAdjustmentsController(IWarehouseAdjustmentService warehouseAdjustmentService, IWarehouseAdjustmentViewModelSelectListBuilder warehouseAdjustmentViewModelSelectListBuilder)
+        public WarehouseAdjustmentsController(IWarehouseAdjustmentService<TDto, TPrimitiveDto, TDtoDetail> warehouseAdjustmentService, IWarehouseAdjustmentViewModelSelectListBuilder<TViewDetailViewModel> warehouseAdjustmentViewModelSelectListBuilder)
             : base(warehouseAdjustmentService, warehouseAdjustmentViewModelSelectListBuilder, true)
         {
         }

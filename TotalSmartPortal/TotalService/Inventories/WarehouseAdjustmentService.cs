@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 
+using TotalModel;
+using TotalDTO;
 using TotalModel.Models;
 using TotalDTO.Inventories;
 using TotalCore.Repositories.Inventories;
@@ -9,9 +11,13 @@ using TotalCore.Services.Inventories;
 using TotalDAL.Repositories.Inventories;
 using TotalBase.Enums;
 
+
 namespace TotalService.Inventories
 {
-    public class WarehouseAdjustmentService : GenericWithViewDetailService<WarehouseAdjustment, WarehouseAdjustmentDetail, WarehouseAdjustmentViewDetail, WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IWarehouseAdjustmentService
+    public class WarehouseAdjustmentService<TDto, TPrimitiveDto, TDtoDetail> : GenericWithViewDetailService<WarehouseAdjustment, WarehouseAdjustmentDetail, WarehouseAdjustmentViewDetail, TDto, TPrimitiveDto, TDtoDetail>, IWarehouseAdjustmentService<TDto, TPrimitiveDto, TDtoDetail>
+        where TDto : TPrimitiveDto, IBaseDetailEntity<TDtoDetail>
+        where TPrimitiveDto : BaseDTO, IPrimitiveEntity, IPrimitiveDTO, new()
+        where TDtoDetail : class, IPrimitiveEntity
     {
         public WarehouseAdjustmentService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository, "WarehouseAdjustmentPostSaveValidate", "WarehouseAdjustmentSaveRelative", "WarehouseAdjustmentToggleApproved", null, null, "GetWarehouseAdjustmentViewDetails")
@@ -24,10 +30,10 @@ namespace TotalService.Inventories
             return this.GetViewDetails(parameters);
         }
 
-        public override bool Save(WarehouseAdjustmentDTO warehouseAdjustmentDTO)
+        public override bool Save(TDto dto)
         {
-            warehouseAdjustmentDTO.WarehouseAdjustmentViewDetails.RemoveAll(x => x.Quantity == 0);
-            return base.Save(warehouseAdjustmentDTO);
+            //dto.DtoDetails.RemoveAll(x => x.Quantity == 0);
+            return base.Save(dto);
         }
 
         protected override void SaveRelative(WarehouseAdjustment warehouseAdjustment, SaveRelativeOption saveRelativeOption)
@@ -71,7 +77,7 @@ namespace TotalService.Inventories
                             WarehouseAdjustmentDetailID = pendingWarehouseAdjustmentDetail.WarehouseAdjustmentDetailID,
                             WarehouseAdjustmentReference = pendingWarehouseAdjustmentDetail.PrimaryReference,
                             WarehouseAdjustmentEntryDate = pendingWarehouseAdjustmentDetail.PrimaryEntryDate,
-                                    
+
                             WarehouseAdjustmentTypeID = pendingWarehouseAdjustmentDetail.WarehouseAdjustmentTypeID,
 
                             BatchID = pendingWarehouseAdjustmentDetail.BatchID,
@@ -100,5 +106,12 @@ namespace TotalService.Inventories
             }
         }
 
+    }
+
+
+    public class OtherMaterialIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IOtherMaterialIssueService
+    {
+        public OtherMaterialIssueService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
+            : base(warehouseAdjustmentRepository) { }
     }
 }
