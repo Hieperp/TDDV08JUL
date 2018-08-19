@@ -1,4 +1,7 @@
-﻿using TotalCore.Repositories.Commons;
+﻿using System.Web.Mvc;
+using System.Collections.Generic;
+
+using TotalCore.Repositories.Commons;
 
 using TotalPortal.Builders;
 using TotalPortal.Areas.Commons.Builders;
@@ -6,13 +9,18 @@ using TotalPortal.Areas.Inventories.ViewModels;
 
 namespace TotalPortal.Areas.Inventories.Builders
 {
+    public interface IA03SimpleViewModel : IA01SimpleViewModel
+    {
+        IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }
+    }
+
     public interface IWarehouseAdjustmentViewModelSelectListBuilder<TWarehouseAdjustmentViewModel> : IViewModelSelectListBuilder<TWarehouseAdjustmentViewModel>
-        where TWarehouseAdjustmentViewModel : IWarehouseAdjustmentViewModel
+        where TWarehouseAdjustmentViewModel : IA03SimpleViewModel
     {
     }
 
     public class WarehouseAdjustmentViewModelSelectListBuilder<TWarehouseAdjustmentViewModel> : A01ViewModelSelectListBuilder<TWarehouseAdjustmentViewModel>, IWarehouseAdjustmentViewModelSelectListBuilder<TWarehouseAdjustmentViewModel>
-        where TWarehouseAdjustmentViewModel : IWarehouseAdjustmentViewModel
+        where TWarehouseAdjustmentViewModel : IA03SimpleViewModel
     {
         private readonly IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder;
         private readonly IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository;
@@ -31,6 +39,24 @@ namespace TotalPortal.Areas.Inventories.Builders
         }
     }
 
+
+
+
+
+
+
+
+    public interface IOtherMaterialReceiptViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<OtherMaterialReceiptViewModel>
+    {
+    }
+    public class OtherMaterialReceiptViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<OtherMaterialReceiptViewModel>, IOtherMaterialReceiptViewModelSelectListBuilder
+    {
+        public OtherMaterialReceiptViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
+
     public interface IOtherMaterialIssueViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<OtherMaterialIssueViewModel>
     {
     }
@@ -40,4 +66,53 @@ namespace TotalPortal.Areas.Inventories.Builders
             : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
         {}
     }
+
+
+    public interface IMaterialAdjustmentViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<MaterialAdjustmentViewModel>
+    {
+    }
+    public class MaterialAdjustmentViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<MaterialAdjustmentViewModel>, IMaterialAdjustmentViewModelSelectListBuilder
+    {
+        public MaterialAdjustmentViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
+
+
+
+
+
+    public interface IOtherProductReceiptViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<OtherProductReceiptViewModel>
+    {
+    }
+    public class OtherProductReceiptViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<OtherProductReceiptViewModel>, IOtherProductReceiptViewModelSelectListBuilder
+    {
+        public OtherProductReceiptViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
+
+    public interface IOtherProductIssueViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<OtherProductIssueViewModel>
+    {
+    }
+    public class OtherProductIssueViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<OtherProductIssueViewModel>, IOtherProductIssueViewModelSelectListBuilder
+    {
+        public OtherProductIssueViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
+
+    public interface IProductAdjustmentViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<ProductAdjustmentViewModel>
+    {
+    }
+    public class ProductAdjustmentViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<ProductAdjustmentViewModel>, IProductAdjustmentViewModelSelectListBuilder
+    {
+        public ProductAdjustmentViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
 }

@@ -24,7 +24,7 @@ namespace TotalPortal.Areas.Inventories.Controllers
         where TDto : TPrimitiveDto, IBaseDetailEntity<TDtoDetail>
         where TPrimitiveDto : BaseDTO, IPrimitiveEntity, IPrimitiveDTO, new()
         where TDtoDetail : class, IPrimitiveEntity
-        where TViewDetailViewModel : TDto, IViewDetailViewModel<TDtoDetail>, IWarehouseAdjustmentViewModel, new()
+        where TViewDetailViewModel : TDto, IViewDetailViewModel<TDtoDetail>, IA03SimpleViewModel, new()
     {
         public WarehouseAdjustmentsController(IWarehouseAdjustmentService<TDto, TPrimitiveDto, TDtoDetail> warehouseAdjustmentService, IWarehouseAdjustmentViewModelSelectListBuilder<TViewDetailViewModel> warehouseAdjustmentViewModelSelectListBuilder)
             : base(warehouseAdjustmentService, warehouseAdjustmentViewModelSelectListBuilder, true)

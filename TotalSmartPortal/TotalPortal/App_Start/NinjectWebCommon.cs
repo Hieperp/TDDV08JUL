@@ -133,8 +133,20 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IWarehouseAdjustmentRepository>().To<WarehouseAdjustmentRepository>();
                 kernel.Bind<IWarehouseAdjustmentAPIRepository>().To<WarehouseAdjustmentAPIRepository>();
 
+
+                kernel.Bind<IOtherMaterialReceiptService>().To<OtherMaterialReceiptService>();
+                kernel.Bind<IOtherMaterialReceiptViewModelSelectListBuilder>().To<OtherMaterialReceiptViewModelSelectListBuilder>();
                 kernel.Bind<IOtherMaterialIssueService>().To<OtherMaterialIssueService>();
                 kernel.Bind<IOtherMaterialIssueViewModelSelectListBuilder>().To<OtherMaterialIssueViewModelSelectListBuilder>();
+                kernel.Bind<IMaterialAdjustmentService>().To<MaterialAdjustmentService>();
+                kernel.Bind<IMaterialAdjustmentViewModelSelectListBuilder>().To<MaterialAdjustmentViewModelSelectListBuilder>();
+
+                kernel.Bind<IOtherProductReceiptService>().To<OtherProductReceiptService>();
+                kernel.Bind<IOtherProductReceiptViewModelSelectListBuilder>().To<OtherProductReceiptViewModelSelectListBuilder>();
+                kernel.Bind<IOtherProductIssueService>().To<OtherProductIssueService>();
+                kernel.Bind<IOtherProductIssueViewModelSelectListBuilder>().To<OtherProductIssueViewModelSelectListBuilder>();
+                kernel.Bind<IProductAdjustmentService>().To<ProductAdjustmentService>();
+                kernel.Bind<IProductAdjustmentViewModelSelectListBuilder>().To<ProductAdjustmentViewModelSelectListBuilder>();
 
 
 
