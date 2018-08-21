@@ -12,18 +12,18 @@ namespace TotalCore.Services.Inventories
     {
     }
 
-    public interface IOtherMaterialReceiptService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>
+    public interface IOtherMaterialReceiptService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLRCT>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLRCT>, WarehouseAdjustmentDetailDTO>
     { }
-    public interface IOtherMaterialIssueService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>
+    public interface IOtherMaterialIssueService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>
     { }
-    public interface IMaterialAdjustmentService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>
+    public interface IMaterialAdjustmentService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>
     { }
 
-    public interface IOtherProductReceiptService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>
+    public interface IOtherProductReceiptService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>
     { }
-    public interface IOtherProductIssueService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>
+    public interface IOtherProductIssueService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>
     { }
-    public interface IProductAdjustmentService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>
+    public interface IProductAdjustmentService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>
     { }
 }
 

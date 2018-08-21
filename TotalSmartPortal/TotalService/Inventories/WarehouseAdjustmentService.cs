@@ -111,33 +111,33 @@ namespace TotalService.Inventories
 
 
 
-    public class OtherMaterialReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IOtherMaterialReceiptService
+    public class OtherMaterialReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLRCT>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLRCT>, WarehouseAdjustmentDetailDTO>, IOtherMaterialReceiptService
     {
         public OtherMaterialReceiptService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class OtherMaterialIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IOtherMaterialIssueService
+    public class OtherMaterialIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IOtherMaterialIssueService
     {
         public OtherMaterialIssueService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class MaterialAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IMaterialAdjustmentService
+    public class MaterialAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IMaterialAdjustmentService
     {
         public MaterialAdjustmentService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
 
-    public class OtherProductReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IOtherProductReceiptService
+    public class OtherProductReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IOtherProductReceiptService
     {
         public OtherProductReceiptService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class OtherProductIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IOtherProductIssueService
+    public class OtherProductIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IOtherProductIssueService
     {
         public OtherProductIssueService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class ProductAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO>, IProductAdjustmentService
+    public class ProductAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IProductAdjustmentService
     {
         public ProductAdjustmentService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }

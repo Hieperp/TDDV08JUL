@@ -1,7 +1,11 @@
 ﻿@using TotalBase.Enums;
 @using TotalPortal.Configuration
 
-@model TotalPortal.Areas.Inventories.ViewModels.WarehouseAdjustmentViewModel
+@using TotalDTO;
+@using TotalDTO.Inventories
+@using TotalPortal.Areas.Inventories.ViewModels
+
+@model IWarehouseAdjustmentViewModel
 
 <div id="popupWindow"></div>
 
@@ -12,30 +16,30 @@
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTopB.cshtml")
 
-    @Html.HiddenFor(model => model.WarehouseAdjustmentID)
-    @Html.HiddenFor(model => model.TotalQuantityPositive)
-    @Html.HiddenFor(model => model.TotalQuantityNegative)
+    @Html.HiddenFor(model => (model as IWarehouseAdjustmentPrimitiveDTO).WarehouseAdjustmentID)
+    @Html.HiddenFor(model => (model as IWarehouseAdjustmentPrimitiveDTO).TotalQuantityPositive)
+    @Html.HiddenFor(model => (model as IWarehouseAdjustmentPrimitiveDTO).TotalQuantityNegative)
 
-    @Html.HiddenFor(m => m.NegativeOnly)
-    @Html.HiddenFor(m => m.PositiveOnly)
-    @Html.HiddenFor(m => m.BothAdjustment)
+    @Html.HiddenFor(model => (model as IWarehouseAdjustmentDTO).NegativeOnly)
+    @Html.HiddenFor(model => (model as IWarehouseAdjustmentDTO).PositiveOnly)
+    @Html.HiddenFor(model => (model as IWarehouseAdjustmentDTO).BothAdjustment)
 
     <div class="left-panel">
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSectionLeftA.cshtml")
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AdjustmentJobs)
+            @Html.LabelFor(model => (model as IWarehouseAdjustmentPrimitiveDTO).AdjustmentJobs)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.AdjustmentJobs).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as IWarehouseAdjustmentPrimitiveDTO).AdjustmentJobs).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.AdjustmentJobs, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as IWarehouseAdjustmentPrimitiveDTO).AdjustmentJobs, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse), LeftPanelInput = "left-panel-input" })
-        @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt), LeftPanelInput = "left-panel-input" })
+        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Warehouse, new { WarehouseDisplayName = "@Model.GetDisplayName(m => m.Warehouse)", LeftPanelInput = "left-panel-input" })
+        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).WarehouseReceipt, new { WarehouseDisplayName = "@Model.GetDisplayName(m => m.WarehouseReceipt)", LeftPanelInput = "left-panel-input" })
 
         @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/WarehouseAdjustmentType.cshtml")
 
@@ -209,12 +213,12 @@
                         .Content(@<text>
                             <div class="right-first-panel">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Description, new { @class = "right-panel-label" })
+                                    @Html.LabelFor(model => (model as IBaseDTO).Description, new { @class = "right-panel-label" })
                                     <div class="div-input">
-                                        @Html.Kendo().MaskedTextBoxFor(model => model.Description).HtmlAttributes(new { @class = "right-panel-input" })
+                                        @Html.Kendo().MaskedTextBoxFor(model => (model as IBaseDTO).Description).HtmlAttributes(new { @class = "right-panel-input" })
                                     </div>
                                     <div class="div-validation-message">
-                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(model => (model as IBaseDTO).Description, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>

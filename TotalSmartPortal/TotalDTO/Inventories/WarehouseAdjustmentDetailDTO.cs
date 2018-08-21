@@ -62,9 +62,4 @@ namespace TotalDTO.Inventories
             if (!(this.Quantity > 0 || -this.Quantity <= this.QuantityAvailables)) yield return new ValidationResult("Số lượng xuất không được lớn hơn số lượng còn lại [" + this.CommodityName + "]", new[] { "Quantity" });
         }
     }
-
-
-
-
-
 }

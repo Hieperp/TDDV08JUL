@@ -51,9 +51,12 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<MaterialIssueViewDetail, MaterialIssueDetailDTO>();
                 cfg.CreateMap<MaterialIssueDetailDTO, MaterialIssueDetail>();
 
-                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentViewModel>();
-                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO>();
-                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMTLRCT>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMTLISS>>();
+
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMTLRCT>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustment>();
+
                 cfg.CreateMap<WarehouseAdjustmentViewDetail, WarehouseAdjustmentDetailDTO>();
                 cfg.CreateMap<WarehouseAdjustmentDetailDTO, WarehouseAdjustmentDetail>();
 

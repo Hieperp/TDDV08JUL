@@ -8,6 +8,45 @@ using TotalBase.Enums;
 
 namespace TotalDTO
 {
+    public interface IBaseDTO : IBaseModel, IAccessControlAttribute
+    {
+        string Reference { get; set; }
+
+        int UserID { get; set; }
+        int PreparedPersonID { get; set; }
+        int OrganizationalUnitID { get; set; }
+
+        int ApproverID { get; set; }
+        string Description { get; set; }
+
+        bool GlobalLocked { get; set; }
+        bool Editable { get; set; }
+        bool Approvable { get; set; }
+        bool UnApprovable { get; set; }
+        bool Deletable { get; set; }
+        bool Voidable { get; set; }
+        bool UnVoidable { get; set; }
+
+        bool ShowDiscount { get; set; }
+
+        bool ShowListedPrice { get; set; }
+        bool ShowListedGrossPrice { get; set; }
+
+
+        bool PrintAfterClosedSubmit { get; set; }
+        GlobalEnums.SubmitTypeOption SubmitTypeOption { get; set; }
+
+
+        void PerformPresaveRule();
+
+        void PrepareVoidDetail(int? detailID);
+
+        DateTime GlobalFromDate { get; set; }
+        DateTime GlobalToDate { get; set; }
+
+        int PrintOptionID { get; set; }
+    }
+
     public abstract class BaseDTO : BaseModel, IAccessControlAttribute 
     {
         protected BaseDTO()

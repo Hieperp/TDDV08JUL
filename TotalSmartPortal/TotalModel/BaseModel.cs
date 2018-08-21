@@ -21,6 +21,8 @@ namespace TotalModel
 
         Nullable<int> VoidTypeID { get; set; }
 
+        [Display(Name = "Ghi chú")]
+        string Remarks { get; set; }
     }
 
     public abstract class BaseModel : IBaseModel

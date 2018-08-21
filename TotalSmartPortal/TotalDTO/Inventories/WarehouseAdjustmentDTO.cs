@@ -13,9 +13,33 @@ using TotalDTO.Helpers.Interfaces;
 
 namespace TotalDTO.Inventories
 {
-    public class WarehouseAdjustmentPrimitiveDTO : QuantityDTO<WarehouseAdjustmentDetailDTO>, IPrimitiveEntity, IPrimitiveDTO
+    public interface IWAOption { GlobalEnums.NmvnTaskID NMVNTaskID { get; } }
+    public class WAOptionMTLRCT : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialReceipt; } } }
+    public class WAOptionMTLISS : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialIssue; } } }
+
+    public interface IWarehouseAdjustmentPrimitiveDTO : IQuantityDTO, IPrimitiveEntity, IPrimitiveDTO, IBaseDTO
     {
-        public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialIssue; } }
+        int WarehouseAdjustmentID { get; set; }
+        int WarehouseAdjustmentTypeID { get; set; }
+        Nullable<int> WarehouseID { get; set; }
+        Nullable<int> WarehouseReceiptID { get; set; }
+
+        string AdjustmentJobs { get; set; }
+        int StorekeeperID { get; set; }
+
+
+        bool WarehouseReceiptEnabled { get; }
+        bool HasPositiveLine { get; }
+
+
+        decimal TotalQuantityPositive { get; set; }
+        decimal TotalQuantityNegative { get; set; }
+    }
+
+    public class WarehouseAdjustmentPrimitiveDTO<TWAOption> : QuantityDTO<WarehouseAdjustmentDetailDTO>, IPrimitiveEntity, IPrimitiveDTO
+        where TWAOption : IWAOption, new()
+    {
+        public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return new TWAOption().NMVNTaskID; } }
 
         public int GetID() { return this.WarehouseAdjustmentID; }
         public void SetID(int id) { this.WarehouseAdjustmentID = id; }
@@ -23,8 +47,6 @@ namespace TotalDTO.Inventories
         public int WarehouseAdjustmentID { get; set; }
 
         public int WarehouseAdjustmentTypeID { get; set; }
-        //public int MaterialIssueTypeID { get; set; }
-
 
         public virtual Nullable<int> WarehouseID { get; set; }
         public virtual Nullable<int> WarehouseReceiptID { get; set; }
@@ -68,7 +90,30 @@ namespace TotalDTO.Inventories
 
     }
 
-    public class WarehouseAdjustmentDTO : WarehouseAdjustmentPrimitiveDTO, IBaseDetailEntity<WarehouseAdjustmentDetailDTO>
+    public interface IWarehouseAdjustmentDTO : IWarehouseAdjustmentPrimitiveDTO
+    {
+        [Display(Name = "Kho xuất")]
+        [UIHint("AutoCompletes/WarehouseBase")]
+        WarehouseBaseDTO Warehouse { get; set; }
+        [Display(Name = "Kho nhập")]
+        [UIHint("AutoCompletes/WarehouseBase")]
+        WarehouseBaseDTO WarehouseReceipt { get; set; }
+        [Display(Name = "Nhân viên kho")]
+        [UIHint("AutoCompletes/EmployeeBase")]
+        EmployeeBaseDTO Storekeeper { get; set; }
+
+
+        List<WarehouseAdjustmentDetailDTO> WarehouseAdjustmentViewDetails { get; set; }
+
+        string ControllerName { get; }
+
+        bool NegativeOnly { get; }
+        bool PositiveOnly { get; }
+        bool BothAdjustment { get; }
+    }
+
+    public class WarehouseAdjustmentDTO<TWAOption> : WarehouseAdjustmentPrimitiveDTO<TWAOption>, IBaseDetailEntity<WarehouseAdjustmentDetailDTO>
+        where TWAOption : IWAOption, new()
     {
         public WarehouseAdjustmentDTO()
         {

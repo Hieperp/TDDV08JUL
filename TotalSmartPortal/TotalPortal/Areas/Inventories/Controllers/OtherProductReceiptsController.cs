@@ -6,7 +6,7 @@ using TotalPortal.Areas.Inventories.ViewModels;
 
 namespace TotalPortal.Areas.Inventories.Controllers
 {
-    public class OtherProductReceiptsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO, OtherProductReceiptViewModel>
+    public class OtherProductReceiptsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO, OtherProductReceiptViewModel>
     {
         public OtherProductReceiptsController(IOtherProductReceiptService otherProductReceiptService, IOtherProductReceiptViewModelSelectListBuilder otherProductReceiptViewModelSelectListBuilder)
             : base(otherProductReceiptService, otherProductReceiptViewModelSelectListBuilder)

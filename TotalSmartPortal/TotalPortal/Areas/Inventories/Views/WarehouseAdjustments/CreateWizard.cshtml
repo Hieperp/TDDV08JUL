@@ -1,8 +1,11 @@
 ﻿@using TotalPortal.Configuration;
 
+@using TotalDTO.Inventories
+@using TotalPortal.Areas.Inventories.ViewModels
+
 @{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
 
-@model TotalPortal.Areas.Inventories.ViewModels.WarehouseAdjustmentViewModel
+@model IWarehouseAdjustmentViewModel
 
 @using (Html.BeginForm())
 {
@@ -10,19 +13,19 @@
 
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
 
-    @Html.HiddenFor(m => m.NegativeOnly)
-    @Html.HiddenFor(m => m.PositiveOnly)
+    @Html.HiddenFor(m => (m as IWarehouseAdjustmentDTO).NegativeOnly)
+    @Html.HiddenFor(m => (m as IWarehouseAdjustmentDTO).PositiveOnly)
 
     <div style="margin-top: 39px; margin-right: 18px;">
 
         <div @{if (Model.PositiveOnly)
         { <text> style="display:none;" </text>   } }>
-        @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
+        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Warehouse, new { WarehouseDisplayName = "@Model.GetDisplayName(m => m.Warehouse)" })
         </div>
 
         <div @{if (Model.NegativeOnly)
         { <text> style="display:none;" </text>    } }>
-        @Html.EditorFor(d => d.WarehouseReceipt, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.WarehouseReceipt) })
+        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).WarehouseReceipt, new { WarehouseDisplayName = "@Model.GetDisplayName(m => m.WarehouseReceipt)" })
         </div>
 
     </div> <div class="background-bar" style="height: 45px;">

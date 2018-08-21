@@ -6,7 +6,7 @@ using TotalPortal.Areas.Inventories.ViewModels;
 
 namespace TotalPortal.Areas.Inventories.Controllers
 {
-    public class MaterialAdjustmentsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO, WarehouseAdjustmentPrimitiveDTO, WarehouseAdjustmentDetailDTO, MaterialAdjustmentViewModel>
+    public class MaterialAdjustmentsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO, MaterialAdjustmentViewModel>
     {
         public MaterialAdjustmentsController(IMaterialAdjustmentService materialAdjustmentService, IMaterialAdjustmentViewModelSelectListBuilder materialAdjustmentViewModelSelectListBuilder)
             : base(materialAdjustmentService, materialAdjustmentViewModelSelectListBuilder)
