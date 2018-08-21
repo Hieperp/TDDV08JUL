@@ -45,21 +45,35 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<GoodsReceiptDetailDTO, GoodsReceiptDetail>();
 
 
+
+
+
+
+
                 cfg.CreateMap<MaterialIssue, MaterialIssueViewModel>();
                 cfg.CreateMap<MaterialIssue, MaterialIssueDTO>();
                 cfg.CreateMap<MaterialIssuePrimitiveDTO, MaterialIssue>();
                 cfg.CreateMap<MaterialIssueViewDetail, MaterialIssueDetailDTO>();
                 cfg.CreateMap<MaterialIssueDetailDTO, MaterialIssueDetail>();
 
-                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMTLRCT>>();
-                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMTLISS>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMtlRct>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMtlIss>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMtlAdj>>();
 
-                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMTLRCT>, WarehouseAdjustment>();
-                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionPrdRct>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionPrdIss>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionPrdAdj>>();
+
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMtlRct>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMtlIss>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMtlAdj>, WarehouseAdjustment>();
+
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionPrdRct>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionPrdIss>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionPrdAdj>, WarehouseAdjustment>();
 
                 cfg.CreateMap<WarehouseAdjustmentViewDetail, WarehouseAdjustmentDetailDTO>();
                 cfg.CreateMap<WarehouseAdjustmentDetailDTO, WarehouseAdjustmentDetail>();
-
 
                 cfg.CreateMap<WarehouseAdjustment, OtherMaterialReceiptViewModel>();
                 cfg.CreateMap<WarehouseAdjustment, OtherMaterialIssueViewModel>();
@@ -68,6 +82,13 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<WarehouseAdjustment, OtherProductReceiptViewModel>();
                 cfg.CreateMap<WarehouseAdjustment, OtherProductIssueViewModel>();
                 cfg.CreateMap<WarehouseAdjustment, ProductAdjustmentViewModel>();
+
+
+
+
+
+
+
 
 
                 cfg.CreateMap<PlannedOrder, PlannedOrderViewModel>();

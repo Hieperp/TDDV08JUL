@@ -14,8 +14,14 @@ using TotalDTO.Helpers.Interfaces;
 namespace TotalDTO.Inventories
 {
     public interface IWAOption { GlobalEnums.NmvnTaskID NMVNTaskID { get; } }
-    public class WAOptionMTLRCT : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialReceipt; } } }
-    public class WAOptionMTLISS : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialIssue; } } }
+    
+    public class WAOptionMtlRct : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialReceipt; } } }
+    public class WAOptionMtlIss : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialIssue; } } }
+    public class WAOptionMtlAdj : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.MaterialAdjustment; } } }
+
+    public class WAOptionPrdRct : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherProductReceipt; } } }
+    public class WAOptionPrdIss : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherProductIssue; } } }
+    public class WAOptionPrdAdj : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.ProductAdjustment; } } }
 
     public interface IWarehouseAdjustmentPrimitiveDTO : IQuantityDTO, IPrimitiveEntity, IPrimitiveDTO, IBaseDTO
     {
@@ -112,7 +118,7 @@ namespace TotalDTO.Inventories
         bool BothAdjustment { get; }
     }
 
-    public class WarehouseAdjustmentDTO<TWAOption> : WarehouseAdjustmentPrimitiveDTO<TWAOption>, IBaseDetailEntity<WarehouseAdjustmentDetailDTO>
+    public class WarehouseAdjustmentDTO<TWAOption> : WarehouseAdjustmentPrimitiveDTO<TWAOption>, IBaseDetailEntity<WarehouseAdjustmentDetailDTO>, IWarehouseAdjustmentDTO
         where TWAOption : IWAOption, new()
     {
         public WarehouseAdjustmentDTO()

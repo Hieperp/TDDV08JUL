@@ -15,7 +15,7 @@ using TotalBase.Enums;
 namespace TotalService.Inventories
 {
     public class WarehouseAdjustmentService<TDto, TPrimitiveDto, TDtoDetail> : GenericWithViewDetailService<WarehouseAdjustment, WarehouseAdjustmentDetail, WarehouseAdjustmentViewDetail, TDto, TPrimitiveDto, TDtoDetail>, IWarehouseAdjustmentService<TDto, TPrimitiveDto, TDtoDetail>
-        where TDto : TPrimitiveDto, IBaseDetailEntity<TDtoDetail>
+        where TDto : TPrimitiveDto, IBaseDetailEntity<TDtoDetail>, IWarehouseAdjustmentDTO
         where TPrimitiveDto : BaseDTO, IPrimitiveEntity, IPrimitiveDTO, new()
         where TDtoDetail : class, IPrimitiveEntity
     {
@@ -32,7 +32,7 @@ namespace TotalService.Inventories
 
         public override bool Save(TDto dto)
         {
-            //dto.DtoDetails.RemoveAll(x => x.Quantity == 0);
+            dto.WarehouseAdjustmentViewDetails.RemoveAll(x => x.Quantity == 0);
             return base.Save(dto);
         }
 
@@ -111,33 +111,33 @@ namespace TotalService.Inventories
 
 
 
-    public class OtherMaterialReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLRCT>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLRCT>, WarehouseAdjustmentDetailDTO>, IOtherMaterialReceiptService
+    public class OtherMaterialReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMtlRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionMtlRct>, WarehouseAdjustmentDetailDTO>, IOtherMaterialReceiptService
     {
         public OtherMaterialReceiptService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class OtherMaterialIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IOtherMaterialIssueService
+    public class OtherMaterialIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMtlIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionMtlIss>, WarehouseAdjustmentDetailDTO>, IOtherMaterialIssueService
     {
         public OtherMaterialIssueService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class MaterialAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IMaterialAdjustmentService
+    public class MaterialAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMtlAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionMtlAdj>, WarehouseAdjustmentDetailDTO>, IMaterialAdjustmentService
     {
         public MaterialAdjustmentService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
 
-    public class OtherProductReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IOtherProductReceiptService
+    public class OtherProductReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionPrdRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdRct>, WarehouseAdjustmentDetailDTO>, IOtherProductReceiptService
     {
         public OtherProductReceiptService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class OtherProductIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IOtherProductIssueService
+    public class OtherProductIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionPrdIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdIss>, WarehouseAdjustmentDetailDTO>, IOtherProductIssueService
     {
         public OtherProductIssueService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
     }
-    public class ProductAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMTLISS>, WarehouseAdjustmentPrimitiveDTO<WAOptionMTLISS>, WarehouseAdjustmentDetailDTO>, IProductAdjustmentService
+    public class ProductAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionPrdAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdAdj>, WarehouseAdjustmentDetailDTO>, IProductAdjustmentService
     {
         public ProductAdjustmentService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
             : base(warehouseAdjustmentRepository) { }
