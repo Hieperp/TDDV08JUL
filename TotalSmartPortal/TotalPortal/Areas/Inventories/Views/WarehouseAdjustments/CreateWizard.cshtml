@@ -20,12 +20,12 @@
 
         <div @{if (Model.PositiveOnly)
         { <text> style="display:none;" </text>   } }>
-        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Warehouse, new { WarehouseDisplayName = "@Model.GetDisplayName(m => m.Warehouse)" })
+        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Warehouse, new { WarehouseDisplayName = @Model.Warehouse.GetDisplayName(m => m.WarehouseID) })
         </div>
 
         <div @{if (Model.NegativeOnly)
         { <text> style="display:none;" </text>    } }>
-        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).WarehouseReceipt, new { WarehouseDisplayName = "@Model.GetDisplayName(m => m.WarehouseReceipt)" })
+        @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).WarehouseReceipt, new { WarehouseDisplayName = @Model.WarehouseReceipt.GetDisplayName(m => m.WarehouseID) })
         </div>
 
     </div> <div class="background-bar" style="height: 45px;">

@@ -17,6 +17,7 @@ namespace TotalDTO
         int OrganizationalUnitID { get; set; }
 
         int ApproverID { get; set; }
+        [Display(Name = "Diễn giải")]
         string Description { get; set; }
 
         bool GlobalLocked { get; set; }

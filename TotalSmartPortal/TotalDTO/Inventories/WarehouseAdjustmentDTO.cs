@@ -14,7 +14,7 @@ using TotalDTO.Helpers.Interfaces;
 namespace TotalDTO.Inventories
 {
     public interface IWAOption { GlobalEnums.NmvnTaskID NMVNTaskID { get; } }
-    
+
     public class WAOptionMtlRct : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialReceipt; } } }
     public class WAOptionMtlIss : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialIssue; } } }
     public class WAOptionMtlAdj : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.MaterialAdjustment; } } }
@@ -30,6 +30,7 @@ namespace TotalDTO.Inventories
         Nullable<int> WarehouseID { get; set; }
         Nullable<int> WarehouseReceiptID { get; set; }
 
+        [Display(Name = "Mục đích")]
         string AdjustmentJobs { get; set; }
         int StorekeeperID { get; set; }
 
@@ -58,7 +59,6 @@ namespace TotalDTO.Inventories
         public virtual Nullable<int> WarehouseReceiptID { get; set; }
 
 
-        [Display(Name = "Số đơn hàng")]
         public string AdjustmentJobs { get; set; }
 
         public virtual int StorekeeperID { get; set; }
@@ -106,12 +106,11 @@ namespace TotalDTO.Inventories
         WarehouseBaseDTO WarehouseReceipt { get; set; }
         [Display(Name = "Nhân viên kho")]
         [UIHint("AutoCompletes/EmployeeBase")]
-        EmployeeBaseDTO Storekeeper { get; set; }
-
+        EmployeeBaseDTO Storekeeper { get; set; }        
 
         List<WarehouseAdjustmentDetailDTO> WarehouseAdjustmentViewDetails { get; set; }
 
-        string ControllerName { get; }
+        string ControllerName { get; }        
 
         bool NegativeOnly { get; }
         bool PositiveOnly { get; }
@@ -127,18 +126,12 @@ namespace TotalDTO.Inventories
         }
 
         public override Nullable<int> WarehouseID { get { return (this.Warehouse != null ? this.Warehouse.WarehouseID : null); } }
-        [Display(Name = "Kho xuất")]
-        [UIHint("AutoCompletes/WarehouseBase")]
         public WarehouseBaseDTO Warehouse { get; set; }
 
         public override Nullable<int> WarehouseReceiptID { get { return (this.WarehouseReceipt != null ? this.WarehouseReceipt.WarehouseID : null); } }
-        [Display(Name = "Kho nhập")]
-        [UIHint("AutoCompletes/WarehouseBase")]
         public WarehouseBaseDTO WarehouseReceipt { get; set; }
 
         public override int StorekeeperID { get { return (this.Storekeeper != null ? this.Storekeeper.EmployeeID : 0); } }
-        [Display(Name = "Nhân viên kho")]
-        [UIHint("AutoCompletes/EmployeeBase")]
         public EmployeeBaseDTO Storekeeper { get; set; }
 
 
@@ -152,6 +145,7 @@ namespace TotalDTO.Inventories
 
 
         public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }
+
 
         public bool NegativeOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductIssue; } }
         public bool PositiveOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductReceipt; } }

@@ -21,18 +21,18 @@ namespace TotalDTO.Inventories
         public Nullable<int> GoodsReceiptID { get; set; }
         public Nullable<int> GoodsReceiptDetailID { get; set; }
 
-        [Display(Name = "Kế Hoạch")]
+        [Display(Name = "Lô SX")]
         [UIHint("StringReadonly")]
         public string GoodsReceiptReference { get; set; }
-        [Display(Name = "Mã KH")]
+        [Display(Name = "Mã NK")]
         [UIHint("StringReadonly")]
         public string GoodsReceiptCode { get; set; }
-        [Display(Name = "Ngày KH")]
+        [Display(Name = "Ngày NK")]
         [UIHint("DateTimeReadonly")]
         public Nullable<System.DateTime> GoodsReceiptEntryDate { get; set; }
 
         public int BatchID { get; set; }
-        [Display(Name = "Lô hàng")]
+        [Display(Name = "Ngày lô hàng gốc")]
         [UIHint("DateTimeReadonly")]
         public System.DateTime BatchEntryDate { get; set; }
 
@@ -48,10 +48,15 @@ namespace TotalDTO.Inventories
         [UIHint("QuantityReadonly")]
         public decimal QuantityAvailables { get; set; }
 
+        [Display(Name = "SL")]
         [UIHint("QuantityWithMinus")]
         public override decimal Quantity { get; set; }
+
+        [Display(Name = "SL")]
         [UIHint("Quantity")]
         public decimal QuantityPositive { get { return this.Quantity; } set { this.Quantity = value; } }
+
+        [Display(Name = "SL")]
         [UIHint("Quantity")]
         public decimal QuantityNegative { get { return -this.Quantity; } set { this.Quantity = -value; } }
 
