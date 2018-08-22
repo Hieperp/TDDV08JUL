@@ -32,7 +32,7 @@ namespace TotalDTO.Inventories
         public Nullable<System.DateTime> GoodsReceiptEntryDate { get; set; }
 
         public int BatchID { get; set; }
-        [Display(Name = "Ngày lô hàng gốc")]
+        [Display(Name = "Ngày lô hàng")]
         [UIHint("DateTimeReadonly")]
         public System.DateTime BatchEntryDate { get; set; }
 
