@@ -566,6 +566,7 @@
     <Content Include="Content\Images\New\downarrow1xx.png" />
     <Content Include="Content\Images\New\downarrow1xxx.png" />
     <Content Include="Content\Images\New\EditService.png" />
+    <Content Include="Content\Images\New\excel-icon.png" />
     <Content Include="Content\Images\New\Expand Arrow-50.png" />
     <Content Include="Content\Images\New\Fixxing48.png" />
     <Content Include="Content\Images\New\Fixxing68.png" />
@@ -649,6 +650,7 @@
     <Content Include="Content\Images\New\taxi.png" />
     <Content Include="Content\Images\New\taxi_bg.png" />
     <Content Include="Content\Images\New\Telephone.png" />
+    <Content Include="Content\Images\New\text-icon.png" />
     <Content Include="Content\Images\New\towels-icon.png" />
     <Content Include="Content\Images\New\Truck-32.png" />
     <Content Include="Content\Images\New\Truck-icon.png" />
@@ -2294,6 +2296,7 @@
     <Content Include="Views\Shared\EditorTemplates\WeightReadonly.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WeightWithMinus.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDowns\WarehouseAdjustmentType.cshtml" />
+    <Content Include="Views\Helpers\Commons\_Warehouse.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

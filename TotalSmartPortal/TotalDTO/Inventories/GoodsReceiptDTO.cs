@@ -59,7 +59,7 @@ namespace TotalDTO.Inventories
     }
 
 
-    public class GoodsReceiptDTO : GoodsReceiptPrimitiveDTO, IBaseDetailEntity<GoodsReceiptDetailDTO>, IPriceCategory
+    public class GoodsReceiptDTO : GoodsReceiptPrimitiveDTO, IBaseDetailEntity<GoodsReceiptDetailDTO>, IPriceCategory, IWarehouse
     {
         public GoodsReceiptDTO()
         {

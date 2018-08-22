@@ -24,7 +24,7 @@ namespace TotalDTO.Purchases
         //public virtual Nullable<int> CustomerID { get; set; }
         public virtual Nullable<int> CustomerID { get { return 1; } }
 
-        [Display(Name = "Chứng")]
+        [Display(Name = "Số chứng từ")]
         public string Code { get; set; }
     }
 

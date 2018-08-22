@@ -74,7 +74,7 @@
             </div>
         }
 
-        @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })
+        @*@Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse), LeftPanelInput = "left-panel-input" })*@
 
     </div>
 
@@ -82,9 +82,11 @@
 
         <div class="right-top-panel right-top-panel-H1">
 
-            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
 
             @*@Html.DisplayFor(d => d.Warehouse, "Commons/WarehouseBase")*@
+
+            @Html.Partial("~/Views/Helpers/Commons/_Warehouse.cshtml")
 
         </div>
 

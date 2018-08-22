@@ -1267,3 +1267,19 @@ a:active {
     color: blue;
 }
 /*#endregion */
+
+/* css for input control */
+
+.custom-button-import-excel{
+    background-image: url('Images/New/excel-icon.png');
+    background-size: 32px;
+    width: 32px;
+    height: 32px;     
+}
+
+.custom-button-import-txt{
+    background-image: url('Images/New/text-icon.png');
+    background-size: 32px;
+    width: 32px;
+    height: 32px;   
+}

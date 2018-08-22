@@ -14,14 +14,14 @@
     @Html.HiddenFor(model => model.GoodsReceiptTypeID)
 
     @Html.HiddenFor(model => model.Code);
-    
+
     @Html.HiddenFor(model => model.PurchaseRequisitionID)
     @Html.HiddenFor(model => model.PurchaseRequisitionCode)
     @Html.HiddenFor(model => model.PurchaseRequisitionReference)
     @Html.HiddenFor(model => model.PurchaseRequisitionEntryDate)
 
     @Html.HiddenFor(model => model.WarehouseAdjustmentID)
-    
+
     @Html.HiddenFor(model => model.Customer.CustomerID);
     @Html.HiddenFor(model => model.Customer.Code);
     @Html.HiddenFor(model => model.Customer.Name);
@@ -59,7 +59,9 @@
 
 
     <div class="background-bar" style="height: 45px;">
-        <div class="popup-button-bar">
+        <div style="width:40%;height:10px;float: left; margin-top:-3px"> @Html.EditorFor(d => d.Warehouse, new { WarehouseDisplayName = @Model.GetDisplayName(m => m.Warehouse) })           </div>
+        <div class="popup-button-bar" style="clear:none">
+
             <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "GoodsReceipts")" formtarget="_top" style="display:none" />
 
             @*<button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Áp dụng CTKM đang chọn </button>   //At VCP DON'T ALLOW SELECT BY SINGLE PROMOTION *@
@@ -148,6 +150,7 @@
 
             }
         }
+     
     }
 
 </script>
