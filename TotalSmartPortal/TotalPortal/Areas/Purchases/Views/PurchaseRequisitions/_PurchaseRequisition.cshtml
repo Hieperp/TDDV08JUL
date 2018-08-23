@@ -143,22 +143,22 @@
                             }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                        .Ajax()
-                        .Batch(true)
-                        .ServerOperation(false)
-                        .Model(model =>
-                        {
-                            model.Id(x => x.PurchaseRequisitionDetailID);
-                            model.Field(m => m.PurchaseRequisitionDetailID).DefaultValue(0);
-                            model.Field(m => m.PurchaseRequisitionID).DefaultValue(@Model.PurchaseRequisitionID);
-                        })
-                        .Events(events =>
-                        {
-                            events.Error("kendGrid_ErrorHandler");
-                        })
-                        .Aggregates(a => a.Add(x => x.CommodityCode).Count())
-                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                    )
+                                                            .Ajax()
+                                                            .Batch(true)
+                                                            .ServerOperation(false)
+                                                            .Model(model =>
+                                                            {
+                                                                model.Id(x => x.PurchaseRequisitionDetailID);
+                                                                model.Field(m => m.PurchaseRequisitionDetailID).DefaultValue(0);
+                                                                model.Field(m => m.PurchaseRequisitionID).DefaultValue(@Model.PurchaseRequisitionID);
+                                                            })
+                                                            .Events(events =>
+                                                            {
+                                                                events.Error("kendGrid_ErrorHandler");
+                                                            })
+                                                            .Aggregates(a => a.Add(x => x.CommodityCode).Count())
+                                                            .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                                        )
             )
         </div>
 
@@ -208,28 +208,46 @@
             }
 
             @*@if (Model.Editable)
-            {
-                <label type="button" class="k-button custom-button"><img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></label>
-                <label class="k-button custom-button">
-                    <img class="custom-button-import-excel" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" />
-                </label>
-            }*@
+                {
+                    <label type="button" class="k-button custom-button"><img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></label>
+                    <label class="k-button custom-button">
+                        <img class="custom-button-import-excel" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" />
+                    </label>
+                }*@
         </div>
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
         @if (Model.Editable)
         {
-            <input style="font-size: 11px;" type="file" name="xlfile" id="xlf" />
+            @*<label type="button" class="k-button custom-button"><img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" /><input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></label>
+                <input style="font-size: 11px;" type="file" name="xlfile" id="xlf" />*@
+            
+            <div class="fileUpload k-button">
+                @*<img class="custom-button-import-excel" />*@
+                <img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" />
+                <span>Upload</span>
+                <input id="uploadBtn" type="file" class="upload" />                
+            </div>
+
+            <input class="k-textbox" id="uploadFile" placeholder="Choose File" disabled="disabled" />
+
         }
-        
+
 
     </div>
 }
 
+
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
 
 <script type="text/javascript">
+    document.getElementById("uploadBtn").onchange = function () {
+        if(this.files.length > 0){
+            document.getElementById("uploadFile").value = this.files[0].name;
+        }
+    };
+
     function callVoidDetail(purchaseRequisitionDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
