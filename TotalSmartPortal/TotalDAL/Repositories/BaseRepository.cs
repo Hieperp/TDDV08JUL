@@ -270,7 +270,8 @@ namespace TotalDAL.Repositories
         {
 
             this.totalSmartPortalEntities.ColumnAdd("Repacks", "SerialID", "int", "0", true);
-
+            this.totalSmartPortalEntities.ColumnAdd("WarehouseAdjustments", "CustomerID", "int", "1", true);
+            this.totalSmartPortalEntities.ColumnAdd("WarehouseAdjustmentDetails", "CustomerID", "int", "1", true);
 
             this.InitReports();
 
