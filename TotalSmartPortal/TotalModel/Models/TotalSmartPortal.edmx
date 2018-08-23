@@ -3909,6 +3909,18 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WarehouseAdjustments_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="WarehouseAdjustments" Type="Self.WarehouseAdjustments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="WarehouseAdjustments">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WarehouseAdjustments_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
           <End Role="WarehouseAdjustments" Type="Self.WarehouseAdjustments" Multiplicity="*" />
@@ -5627,6 +5639,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="WarehouseAdjustmentDetails" EntitySet="WarehouseAdjustmentDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_WarehouseAdjustments_Customers" Association="Self.FK_WarehouseAdjustments_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="WarehouseAdjustments" EntitySet="WarehouseAdjustments" />
+          </AssociationSet>
           <AssociationSet Name="FK_WarehouseAdjustments_Locations" Association="Self.FK_WarehouseAdjustments_Locations">
             <End Role="Locations" EntitySet="Locations" />
             <End Role="WarehouseAdjustments" EntitySet="WarehouseAdjustments" />
@@ -6001,6 +6017,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="ProductionOrders" Relationship="TotalSmartPortalModel.FK_ProductionOrders_Customers" FromRole="Customer" ToRole="ProductionOrder" />
           <NavigationProperty Name="MaterialIssueDetails" Relationship="TotalSmartPortalModel.FK_MaterialIssueDetails_Customers" FromRole="Customer" ToRole="MaterialIssueDetail" />
           <NavigationProperty Name="MaterialIssues" Relationship="TotalSmartPortalModel.FK_MaterialIssues_Customers" FromRole="Customer" ToRole="MaterialIssue" />
+          <NavigationProperty Name="WarehouseAdjustments" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Customers" FromRole="Customer" ToRole="WarehouseAdjustment" />
         </EntityType>
         <EntityType Name="CustomerType">
           <Key>
@@ -9827,6 +9844,10 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="Commodity" EntitySet="Commodities" />
             <End Role="WarehouseAdjustmentDetail" EntitySet="WarehouseAdjustmentDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_WarehouseAdjustments_Customers" Association="TotalSmartPortalModel.FK_WarehouseAdjustments_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="WarehouseAdjustment" EntitySet="WarehouseAdjustments" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -12633,6 +12654,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Warehouse1" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Warehouses1" FromRole="WarehouseAdjustment" ToRole="Warehouse" />
           <Property Name="NMVNTaskID" Type="Int32" Nullable="false" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="TotalSmartPortalModel.FK_WarehouseAdjustments_Customers" FromRole="WarehouseAdjustment" ToRole="Customer" />
         </EntityType>
         <Association Name="FK_GoodsReceiptDetails_WarehouseAdjustmentDetails">
           <End Type="TotalSmartPortalModel.WarehouseAdjustmentDetail" Role="WarehouseAdjustmentDetail" Multiplicity="0..1" />
@@ -13044,6 +13066,18 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Principal>
             <Dependent Role="WarehouseAdjustmentDetail">
               <PropertyRef Name="CommodityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarehouseAdjustments_Customers">
+          <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="TotalSmartPortalModel.WarehouseAdjustment" Role="WarehouseAdjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="WarehouseAdjustment">
+              <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

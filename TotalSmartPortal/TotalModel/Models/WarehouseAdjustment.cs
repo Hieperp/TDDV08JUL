@@ -52,5 +52,6 @@ namespace TotalModel.Models
         public virtual WarehouseAdjustmentType WarehouseAdjustmentType { get; set; }
         public virtual Warehouse Warehouse { get; set; }
         public virtual Warehouse Warehouse1 { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }
