@@ -37,12 +37,14 @@ namespace TotalDTO.Inventories
         public System.DateTime BatchEntryDate { get; set; }
 
         public int WarehouseID { get; set; }
-        public string WarehouseCode { get; set; }
+        public string WarehouseCode { get; set; }        
 
         public Nullable<int> WarehouseReceiptID { get; set; }
 
         [UIHint("AutoCompletes/CommodityBase")]
         public override string CommodityCode { get; set; }
+
+        public Nullable<int> CustomerID { get; set; }
 
         [Display(Name = "Tồn kho")]
         [UIHint("QuantityReadonly")]

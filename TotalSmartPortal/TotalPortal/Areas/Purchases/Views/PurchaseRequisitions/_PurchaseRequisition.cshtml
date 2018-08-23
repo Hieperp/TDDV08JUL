@@ -206,28 +206,17 @@
             {
                 <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Approve", "PurchaseRequisitions", new {id = @Model.PurchaseRequisitionID })'"> <img src="~/Content/Images/Mains/@(!@Model.Approved ? "Actions-ok-icon32.png" : "Cross-icon-cancel32.png")" /> @(!Model.Approved ? "Duyệt đơn hàng" : "Hủy duyệt đơn hàng này") </button>
             }
-
-            @*@if (Model.Editable)
-                {
-                    <label type="button" class="k-button custom-button"><img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></label>
-                    <label class="k-button custom-button">
-                        <img class="custom-button-import-excel" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" />
-                    </label>
-                }*@
+ 
         </div>
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
         @if (Model.Editable)
-        {
-            @*<label type="button" class="k-button custom-button"><img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" /><input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></label>
-                <input style="font-size: 11px;" type="file" name="xlfile" id="xlf" />*@
-            
-            <div class="fileUpload k-button">
-                @*<img class="custom-button-import-excel" />*@
+        {                        
+            <div class="fileUpload k-button" style="margin-right: 0px;">                
                 <img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" />
                 <span>Upload</span>
-                <input id="uploadBtn" type="file" class="upload" />                
+                <input type="file" name="xlfile" id="xlf" class="upload" />                             
             </div>
 
             <input class="k-textbox" id="uploadFile" placeholder="Choose File" disabled="disabled" />
