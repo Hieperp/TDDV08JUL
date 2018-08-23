@@ -43,8 +43,8 @@
 
         @*<div class="right-top-panel right-top-panel-H1">
 
-            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
-        </div>*@
+                @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+            </div>*@
 
         <div class="div-k-grid-detail">
             @(Html.Kendo().Grid(Model.PurchaseRequisitionViewDetails)
@@ -73,7 +73,7 @@
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='PurchaseRequisitionViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
 
 
-            
+
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Width(50)
                         .Format(Settings.kfmQuantity)
                         .ClientFooterTemplate("#= kendo.format('" + Settings.kfmQuantity + "', sum) #")
@@ -101,10 +101,10 @@
                     {
                         if (Model.Editable)
                         {
-                                toolbar.Template(@<text>
-                                    <button type="button" class="k-button" onclick="$('#kendoGridDetails').data('kendoGrid').addRow()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Thêm mặt hàng </button>
+                            toolbar.Template(@<text>
+                                <button type="button" class="k-button" onclick="$('#kendoGridDetails').data('kendoGrid').addRow()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Thêm mặt hàng </button>
 
-                                </text>);
+                            </text>);
                         }
                         else
                         {//Add a functionless button for display purpose only
@@ -143,22 +143,22 @@
                             }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                                                                .Ajax()
-                                                                .Batch(true)
-                                                                .ServerOperation(false)
-                                                                .Model(model =>
-                                                                {
-                                                                    model.Id(x => x.PurchaseRequisitionDetailID);
-                                                                    model.Field(m => m.PurchaseRequisitionDetailID).DefaultValue(0);
-                                                                    model.Field(m => m.PurchaseRequisitionID).DefaultValue(@Model.PurchaseRequisitionID);
-                                                                })
-                                                                .Events(events =>
-                                                                {
-                                                                    events.Error("kendGrid_ErrorHandler");
-                                                                })
-                                                                .Aggregates(a => a.Add(x => x.CommodityCode).Count())
-                                                                .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                                                            )
+                        .Ajax()
+                        .Batch(true)
+                        .ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(x => x.PurchaseRequisitionDetailID);
+                            model.Field(m => m.PurchaseRequisitionDetailID).DefaultValue(0);
+                            model.Field(m => m.PurchaseRequisitionID).DefaultValue(@Model.PurchaseRequisitionID);
+                        })
+                        .Events(events =>
+                        {
+                            events.Error("kendGrid_ErrorHandler");
+                        })
+                        .Aggregates(a => a.Add(x => x.CommodityCode).Count())
+                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                    )
             )
         </div>
 
@@ -196,6 +196,7 @@
 
 
         <div class="right-botton-panel">
+
             @if (Model.Editable)
             {
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "PurchaseRequisitions")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
@@ -206,18 +207,25 @@
                 <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Approve", "PurchaseRequisitions", new {id = @Model.PurchaseRequisitionID })'"> <img src="~/Content/Images/Mains/@(!@Model.Approved ? "Actions-ok-icon32.png" : "Cross-icon-cancel32.png")" /> @(!Model.Approved ? "Duyệt đơn hàng" : "Hủy duyệt đơn hàng này") </button>
             }
 
+            @*@if (Model.Editable)
+            {
+                <label type="button" class="k-button custom-button"><img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></label>
+                <label class="k-button custom-button">
+                    <img class="custom-button-import-excel" /> Enter your file <input class="inputfile" style="font-size: 11px;" type="file" name="xlfile" id="xlf" />
+                </label>
+            }*@
         </div>
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
         @if (Model.Editable)
         {
-            <div><input style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></div>
+            <input style="font-size: 11px;" type="file" name="xlfile" id="xlf" />
         }
+        
 
     </div>
 }
-
 
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
 
