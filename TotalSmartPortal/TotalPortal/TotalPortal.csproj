@@ -1374,6 +1374,7 @@
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Delete.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Edit.js" />
+    <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Import.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Open.js" />
     <Content Include="Scripts\Controllers\Inventories\WarehouseAdjustments\Print.js" />

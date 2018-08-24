@@ -112,6 +112,33 @@ namespace TotalPortal.Areas.Commons.APIs
             }
         }
 
+
+        /// <summary>
+        /// This function is designed to use by import function only
+        /// Never to use by orther area
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetCommodityBasesImport(string commodityTypeIDList, string searchText, bool? isOnlyAlphaNumericString)
+        {
+            try
+            {
+                var commodityResult = new { CommodityID = 0, CommodityCode = "", CommodityName = "", CommodityTypeID = 0 };
+
+                var result = commodityRepository.GetCommodityBases(commodityTypeIDList, searchText, isOnlyAlphaNumericString).Select(s => new { s.CommodityID, s.CommodityCode, s.CommodityName, s.CommodityTypeID });
+                if (result.Count() > 0)
+                    commodityResult = new { CommodityID = result.First().CommodityID, CommodityCode = result.First().CommodityCode, CommodityName = result.First().CommodityName, CommodityTypeID = result.First().CommodityTypeID };
+
+                return Json(commodityResult, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { CommodityID = 0, CommodityCode = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult GetCommodityAvailables(int? locationID, int? customerID, int? warehouseID, int? priceCategoryID, int? applyToSalesVersusReturns, int? promotionID, DateTime? entryDate, string searchText)
         {

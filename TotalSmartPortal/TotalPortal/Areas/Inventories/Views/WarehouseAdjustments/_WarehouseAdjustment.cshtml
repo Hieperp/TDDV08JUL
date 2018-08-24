@@ -284,11 +284,17 @@
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
+        @if (Model.Editable)
+        {
+            <div><input style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></div>
+        }
+        
     </div>
 }
 
 
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
+<script src="@Url.Content("~/Scripts/Controllers/Inventories/WarehouseAdjustments/Import.js")"></script>
 
 <script type="text/javascript">
     function GetGoodsReceiptDetailAvailables() {
@@ -305,4 +311,5 @@
         });
     }
 
+    window.urlCommoditiesApi = '@Url.Action("GetCommodityBasesImport", "CommodityAPIs", new { area = "Commons" })';
 </script>
