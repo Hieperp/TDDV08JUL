@@ -120,6 +120,10 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.WarehouseAdjustmentID; }
 
+        public virtual decimal TotalQuantityPositive { get { return this.TotalQuantity; } }
+
+        public virtual decimal TotalQuantityNegative { get { return - this.TotalQuantity; } }
+
         public virtual Warehouse WarehouseReceipt { get { return this.Warehouse1; } }
 
         public ICollection<WarehouseAdjustmentDetail> GetDetails() { return this.WarehouseAdjustmentDetails; }
