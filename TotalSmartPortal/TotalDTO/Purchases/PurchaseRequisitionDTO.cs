@@ -20,12 +20,18 @@ namespace TotalDTO.Purchases
         public void SetID(int id) { this.PurchaseRequisitionID = id; }
 
         public int PurchaseRequisitionID { get; set; }
-
-        //public virtual Nullable<int> CustomerID { get; set; }
-        public virtual Nullable<int> CustomerID { get { return 1; } }
+        
+        public virtual Nullable<int> CustomerID { get; set; }        
 
         [Display(Name = "Số chứng từ")]
         public string Code { get; set; }
+
+        public override void PerformPresaveRule()
+        {
+            base.PerformPresaveRule();
+
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = (int)this.CustomerID; });
+        }
     }
 
     public class PurchaseRequisitionDTO : PurchaseRequisitionPrimitiveDTO, IBaseDetailEntity<PurchaseRequisitionDetailDTO>
@@ -35,9 +41,9 @@ namespace TotalDTO.Purchases
             this.PurchaseRequisitionViewDetails = new List<PurchaseRequisitionDetailDTO>();
         }
 
-        //public override Nullable<int> CustomerID { get { return (this.Customer != null ? (this.Customer.CustomerID > 0 ? (Nullable<int>)this.Customer.CustomerID : null) : null); } }
-        //[UIHint("Commons/CustomerBase")]
-        //public CustomerBaseDTO Customer { get; set; }
+        public override Nullable<int> CustomerID { get { return (this.Customer != null ? (this.Customer.CustomerID > 0 ? (Nullable<int>)this.Customer.CustomerID : null) : null); } }
+        [UIHint("AutoCompletes/CustomerBase")]
+        public CustomerBaseDTO Customer { get; set; }
 
         public override Nullable<int> VoidTypeID { get { return (this.VoidType != null ? this.VoidType.VoidTypeID : null); } }
         [UIHint("AutoCompletes/VoidType")]

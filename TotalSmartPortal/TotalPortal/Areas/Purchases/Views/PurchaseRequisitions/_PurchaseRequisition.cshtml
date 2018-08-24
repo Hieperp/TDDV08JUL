@@ -41,10 +41,9 @@
 
     <div class="right-panel">
 
-        @*<div class="right-top-panel right-top-panel-H1">
-
-                @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
-            </div>*@
+        <div class="right-top-panel right-top-panel-H3">
+            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+        </div>
 
         <div class="div-k-grid-detail">
             @(Html.Kendo().Grid(Model.PurchaseRequisitionViewDetails)
@@ -219,7 +218,7 @@
                 <input type="file" name="xlfile" id="xlf" class="upload" />
             </div>
 
-            <input class="k-textbox" id="uploadFile" placeholder="Choose File" disabled="disabled" />
+            <input class="k-textbox" id="uploadFile" placeholder="Click Upload" disabled="disabled" />
 
         }
 
