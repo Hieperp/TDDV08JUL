@@ -12,10 +12,6 @@ namespace TotalDTO
     {
         string Reference { get; set; }
 
-        int UserID { get; set; }
-        int PreparedPersonID { get; set; }
-        int OrganizationalUnitID { get; set; }
-
         int ApproverID { get; set; }
         [Display(Name = "Diễn giải")]
         string Description { get; set; }
