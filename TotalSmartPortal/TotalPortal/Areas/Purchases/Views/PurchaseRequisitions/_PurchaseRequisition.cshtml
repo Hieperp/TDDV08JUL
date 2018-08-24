@@ -221,16 +221,7 @@
 
         @if (Model.Editable)
         {
-            <div class="fileUpload k-button" style="margin-right: 0px;">
-                <img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" />
-                <span>Upload</span>
-                <input type="file" name="xlfile" id="xlf" class="upload" />
-            </div>
-
-            <input class="k-textbox" id="uploadFile" placeholder="Click Upload" disabled="disabled" />
-
-            @*<div><input style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></div>*@            
-
+            @Html.Partial("~/Views/Helpers/Commons/_Import.cshtml")             
         }
 
 
@@ -239,13 +230,10 @@
 
 
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
+<script src="@Url.Content("~/Scripts/Controllers/Purchases/PurchaseRequisitions/Import.js")"></script>
 
 <script type="text/javascript">
-    document.getElementById("xlf").onchange = function () {
-        if(this.files.length > 0){        
-            document.getElementById("uploadFile").value = this.files[0].name;
-        }
-    };
+  
 
     function callVoidDetail(purchaseRequisitionDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
@@ -253,5 +241,7 @@
             voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "PurchaseRequisitions")" + "/" + $("#PurchaseRequisitionID").val() + "/" + purchaseRequisitionDetailID, "Hủy/ phục hồi một phần đơn hàng", @Settings.PopupWidthVoid,  @Settings.PopupHeightVoid);
         });
     }
+
+    window.urlCommoditiesApi = '@Url.Action("GetCommodityBasesImport", "CommodityAPIs", new { area = "Commons" })';
 </script>
 

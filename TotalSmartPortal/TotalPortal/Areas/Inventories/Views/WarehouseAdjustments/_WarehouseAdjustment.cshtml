@@ -284,9 +284,9 @@
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
-        @if (Model.Editable)
+        @if (Model.Editable && Model.PositiveOnly)
         {
-            <div><input style="font-size: 11px;" type="file" name="xlfile" id="xlf" /></div>
+            @Html.Partial("~/Views/Helpers/Commons/_Import.cshtml")
         }
         
     </div>

@@ -1,0 +1,20 @@
+﻿@model TotalDTO.BaseDTO
+
+<div class="single-full-panel">
+    <div class="fileUpload k-button" style="margin-right: 0px;">
+        <img style="width:32px; height:32px" src="~/Content/Images/New/excel-icon.png" />
+        <span>Upload</span>
+        <input type="file" name="xlfile" id="xlf" class="upload" />
+    </div>
+
+    <input class="k-textbox" id="uploadFile" placeholder="Click Upload" disabled="disabled" />
+</div>
+
+
+<script type="text/javascript">
+    document.getElementById("xlf").onchange = function () {
+        if (this.files.length > 0) {
+            document.getElementById("uploadFile").value = this.files[0].name;
+        }
+    };
+</script>

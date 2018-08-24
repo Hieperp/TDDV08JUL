@@ -1399,6 +1399,7 @@
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Create.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Delete.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Edit.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Import.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Index.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Open.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Print.js" />
@@ -2298,6 +2299,7 @@
     <Content Include="Views\Shared\EditorTemplates\WeightWithMinus.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDowns\WarehouseAdjustmentType.cshtml" />
     <Content Include="Views\Helpers\Commons\_Warehouse.cshtml" />
+    <Content Include="Views\Helpers\Commons\_Import.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
