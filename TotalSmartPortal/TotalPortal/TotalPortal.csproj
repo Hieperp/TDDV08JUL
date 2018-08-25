@@ -1236,6 +1236,15 @@
     <Content Include="Areas\Inventories\Views\ProductAdjustments\GetGoodsReceiptDetailAvailables.cshtml" />
     <Content Include="Areas\Inventories\Views\ProductAdjustments\Index.cshtml" />
     <Content Include="Areas\Inventories\Views\ProductAdjustments\Print.cshtml" />
+    <Content Include="Areas\Commons\Views\Materials\Create.cshtml" />
+    <Content Include="Areas\Commons\Views\Materials\Edit.cshtml" />
+    <Content Include="Areas\Commons\Views\Materials\Index.cshtml" />
+    <Content Include="Areas\Commons\Views\Items\Create.cshtml" />
+    <Content Include="Areas\Commons\Views\Items\Edit.cshtml" />
+    <Content Include="Areas\Commons\Views\Items\Index.cshtml" />
+    <Content Include="Areas\Commons\Views\Products\Create.cshtml" />
+    <Content Include="Areas\Commons\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\Commons\Views\Products\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
@@ -1281,6 +1290,18 @@
     <Content Include="Scripts\Controllers\Commons\Employees\Delete.js" />
     <Content Include="Scripts\Controllers\Commons\Employees\Edit.js" />
     <Content Include="Scripts\Controllers\Commons\Employees\Index.js" />
+    <Content Include="Scripts\Controllers\Commons\Items\Create.js" />
+    <Content Include="Scripts\Controllers\Commons\Items\Delete.js" />
+    <Content Include="Scripts\Controllers\Commons\Items\Edit.js" />
+    <Content Include="Scripts\Controllers\Commons\Items\Index.js" />
+    <Content Include="Scripts\Controllers\Commons\Materials\Create.js" />
+    <Content Include="Scripts\Controllers\Commons\Materials\Delete.js" />
+    <Content Include="Scripts\Controllers\Commons\Materials\Edit.js" />
+    <Content Include="Scripts\Controllers\Commons\Materials\Index.js" />
+    <Content Include="Scripts\Controllers\Commons\Products\Create.js" />
+    <Content Include="Scripts\Controllers\Commons\Products\Delete.js" />
+    <Content Include="Scripts\Controllers\Commons\Products\Edit.js" />
+    <Content Include="Scripts\Controllers\Commons\Products\Index.js" />
     <Content Include="Scripts\Controllers\Commons\Promotions\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Commons\Promotions\Delete.js" />
     <Content Include="Scripts\Controllers\Commons\Promotions\Edit.js" />

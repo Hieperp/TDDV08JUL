@@ -16,7 +16,7 @@ namespace TotalDTO.Commons
     public class CMDProduct : ICMDOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.Product; } } }
 
 
-    public interface ICommodityPrimitiveDTO : IPrimitiveEntity, IPrimitiveDTO
+    public interface ICommodityPrimitiveDTO : IPrimitiveEntity, IPrimitiveDTO, IBaseDTO
     {
         int CommodityID { get; set; }
         string Code { get; }

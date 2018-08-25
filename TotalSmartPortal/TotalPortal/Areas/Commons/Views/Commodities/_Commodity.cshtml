@@ -1,7 +1,12 @@
 ﻿@using TotalBase.Enums;
 @using TotalPortal.Configuration
 
-@model TotalPortal.Areas.Commons.ViewModels.CommodityViewModel
+@using TotalDTO;
+@using TotalModel
+@using TotalDTO.Commons
+@using TotalPortal.Areas.Commons.ViewModels
+
+@model ICommodityViewModel
 
 <div id="popupWindow"></div>
 
@@ -11,80 +16,80 @@
 
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
 
-    @Html.HiddenFor(model => model.CommodityID)
+    @Html.HiddenFor(model => (model as ICommodityPrimitiveDTO).CommodityID)
 
     <div class="left-panel" style="height:30px;"></div>
 
     <div class="right-first-panel">       
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CodePartA)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).CodePartA)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.CodePartA).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).CodePartA).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.CodePartA, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).CodePartA, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CodePartB)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).CodePartB)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.CodePartB).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).CodePartB).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.CodePartB, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).CodePartB, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CodePartC)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).CodePartC)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.CodePartC).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).CodePartC).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.CodePartC, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).CodePartC, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CodePartD)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).CodePartD)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.CodePartD).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).CodePartD).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.CodePartD, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).CodePartD, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).Name)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.Name).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).Name).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OfficialName)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).OfficialName)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.OfficialName).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).OfficialName).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.OfficialName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).OfficialName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OriginalName)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).OriginalName)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.OriginalName).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).OriginalName).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.OriginalName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).OriginalName, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -93,82 +98,82 @@
         @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/CommodityType.cshtml")
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PurchaseUnit)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).PurchaseUnit)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.PurchaseUnit).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).PurchaseUnit).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.PurchaseUnit, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).PurchaseUnit, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SalesUnit)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).SalesUnit)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.SalesUnit).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).SalesUnit).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.SalesUnit, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).SalesUnit, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Packing)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).Packing)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.Packing).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).Packing).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.Packing, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).Packing, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Origin)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).Origin)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.Origin).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).Origin).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.Origin, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).Origin, "", new { @class = "text-danger" })
             </div>
         </div>
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.Weight)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).Weight)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.Weight).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => (model as ICommodityPrimitiveDTO).Weight).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).Weight, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LeadTime)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).LeadTime)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.LeadTime).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => (model as ICommodityPrimitiveDTO).LeadTime).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.LeadTime, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).LeadTime, "", new { @class = "text-danger" })
             </div>
         </div>*@    
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Remarks)
+            @Html.LabelFor(model => (model as IBaseModel).Remarks)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.Remarks).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as IBaseModel).Remarks).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as IBaseModel).Remarks, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HSCode)
+            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).HSCode)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.HSCode).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).HSCode).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.HSCode, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).HSCode, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -178,7 +183,7 @@
         <div class="left-panel-input">
             @if (Model.Editable)
             {
-                <button type="submit" class="@(Model.CommodityID > 0 ? "k-button custom-button SubmitTypeOption-Closed" : "k-button custom-button SubmitTypeOption-Save")" formaction="@Url.Action("Edit", "Commodities")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu dữ liệu hàng hóa </button>
+                <button type="submit" class="@(Model.CommodityID > 0 ? "k-button custom-button SubmitTypeOption-Closed" : "k-button custom-button SubmitTypeOption-Save")" formaction="@Url.Action("Edit", Model.ControllerName)"> <img src="~/Content/Images/New/save-icon.png" /> Lưu dữ liệu hàng hóa </button>
             }          
         </div>
 
