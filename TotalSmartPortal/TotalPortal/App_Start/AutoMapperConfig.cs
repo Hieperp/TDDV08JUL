@@ -193,6 +193,8 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<CommodityPricePrimitiveDTO, CommodityPrice>();
 
                 cfg.CreateMap<Commodity, MaterialViewModel>();
+                cfg.CreateMap<Commodity, ItemViewModel>();
+                cfg.CreateMap<Commodity, ProductViewModel>();
                 cfg.CreateMap<Commodity, CommodityDTO<CMDMaterial>>();
                 cfg.CreateMap<Commodity, CommodityDTO<CMDItem>>();
                 cfg.CreateMap<Commodity, CommodityDTO<CMDProduct>>();
