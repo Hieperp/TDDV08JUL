@@ -12751,11 +12751,21 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
         </ComplexType>
         <ComplexType Name="CommodityIndex">
-          <Property Type="Int32" Name="CommodityID" Nullable="false" />
           <Property Type="String" Name="Code" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="OfficialName" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CodePartA" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CodePartB" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CodePartC" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CodePartD" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CodePartE" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CodePartF" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="SalesUnit" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="Discontinue" Nullable="false" />
+          <Property Type="Boolean" Name="InActive" Nullable="false" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCategoryName1" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CommodityCategoryName2" Nullable="false" MaxLength="100" />
         </ComplexType>
         <Association Name="FK_WarehouseAdjustments_Customers">
           <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
@@ -16685,11 +16695,21 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <FunctionImportMapping FunctionImportName="GetCommodityIndexes" FunctionName="TotalSmartPortalModel.Store.GetCommodityIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSmartPortalModel.CommodityIndex">
-                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="OfficialName" ColumnName="OfficialName" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CodePartA" ColumnName="CodePartA" />
+                <ScalarProperty Name="CodePartB" ColumnName="CodePartB" />
+                <ScalarProperty Name="CodePartC" ColumnName="CodePartC" />
+                <ScalarProperty Name="CodePartD" ColumnName="CodePartD" />
+                <ScalarProperty Name="CodePartE" ColumnName="CodePartE" />
+                <ScalarProperty Name="CodePartF" ColumnName="CodePartF" />
+                <ScalarProperty Name="SalesUnit" ColumnName="SalesUnit" />
+                <ScalarProperty Name="Discontinue" ColumnName="Discontinue" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCategoryName1" ColumnName="CommodityCategoryName1" />
+                <ScalarProperty Name="CommodityCategoryName2" ColumnName="CommodityCategoryName2" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

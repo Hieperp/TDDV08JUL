@@ -36,9 +36,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      CommodityID, Code, Name, OfficialName, Remarks " + "\r\n";
+            queryString = queryString + "       SELECT      Commodities.CommodityID, EntireCommodityCategories.Name1 AS CommodityCategoryName1, EntireCommodityCategories.Name2 AS CommodityCategoryName2, Commodities.Code, Commodities.CodePartA, Commodities.CodePartB, Commodities.CodePartC, Commodities.CodePartD, Commodities.CodePartE, Commodities.CodePartF, Commodities.Name, Commodities.SalesUnit, Commodities.Remarks, Commodities.Discontinue, Commodities.InActive " + "\r\n";
             queryString = queryString + "       FROM        Commodities " + "\r\n";
-            queryString = queryString + "       WHERE       NMVNTaskID = @NMVNTaskID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN EntireCommodityCategories ON Commodities.NMVNTaskID = @NMVNTaskID AND Commodities.CommodityCategoryID = EntireCommodityCategories.CommodityCategoryID " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
 

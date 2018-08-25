@@ -13,10 +13,20 @@ namespace TotalModel.Models
     
     public partial class CommodityIndex
     {
-        public int CommodityID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public string OfficialName { get; set; }
         public string Remarks { get; set; }
+        public string CodePartA { get; set; }
+        public string CodePartB { get; set; }
+        public string CodePartC { get; set; }
+        public string CodePartD { get; set; }
+        public string CodePartE { get; set; }
+        public string CodePartF { get; set; }
+        public string SalesUnit { get; set; }
+        public bool Discontinue { get; set; }
+        public bool InActive { get; set; }
+        public int CommodityID { get; set; }
+        public string CommodityCategoryName1 { get; set; }
+        public string CommodityCategoryName2 { get; set; }
     }
 }
