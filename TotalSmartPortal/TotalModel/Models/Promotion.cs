@@ -55,7 +55,6 @@ namespace TotalModel.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }
-        public virtual CommodityBrand CommodityBrand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryAdvice> DeliveryAdvices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -72,5 +71,6 @@ namespace TotalModel.Models
         public virtual ICollection<SalesReturn> SalesReturns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalesReturn> SalesReturns1 { get; set; }
+        public virtual CommodityBrand CommodityBrand { get; set; }
     }
 }

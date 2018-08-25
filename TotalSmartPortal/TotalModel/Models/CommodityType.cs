@@ -17,19 +17,14 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CommodityType()
         {
-            this.CommodityTypes1 = new HashSet<CommodityType>();
             this.Commodities = new HashSet<Commodity>();
         }
     
         public int CommodityTypeID { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> AncestorID { get; set; }
         public string Remarks { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CommodityType> CommodityTypes1 { get; set; }
-        public virtual CommodityType CommodityType1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commodity> Commodities { get; set; }
     }

@@ -31,10 +31,7 @@ namespace TotalModel.Models
         public virtual DbSet<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
         public virtual DbSet<AccountInvoice> AccountInvoices { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<CommodityBrand> CommodityBrands { get; set; }
-        public virtual DbSet<CommodityCategory> CommodityCategories { get; set; }
         public virtual DbSet<CommodityPrice> CommodityPrices { get; set; }
-        public virtual DbSet<CommodityType> CommodityTypes { get; set; }
         public virtual DbSet<CreditNoteDetail> CreditNoteDetails { get; set; }
         public virtual DbSet<CreditNote> CreditNotes { get; set; }
         public virtual DbSet<CustomerCategory> CustomerCategories { get; set; }
@@ -91,6 +88,11 @@ namespace TotalModel.Models
         public virtual DbSet<WarehouseAdjustmentDetail> WarehouseAdjustmentDetails { get; set; }
         public virtual DbSet<WarehouseAdjustment> WarehouseAdjustments { get; set; }
         public virtual DbSet<Commodity> Commodities { get; set; }
+        public virtual DbSet<CommodityBrand> CommodityBrands { get; set; }
+        public virtual DbSet<CommodityCategory> CommodityCategories { get; set; }
+        public virtual DbSet<CommodityClass> CommodityClasses { get; set; }
+        public virtual DbSet<CommodityLine> CommodityLines { get; set; }
+        public virtual DbSet<CommodityType> CommodityTypes { get; set; }
     
         public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
         {

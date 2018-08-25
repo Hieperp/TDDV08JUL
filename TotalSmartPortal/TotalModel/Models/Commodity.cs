@@ -35,12 +35,15 @@ namespace TotalModel.Models
         }
     
         public int CommodityID { get; set; }
+        public int NMVNTaskID { get; set; }
         public string Code { get; set; }
         public string OfficialCode { get; set; }
         public string CodePartA { get; set; }
         public string CodePartB { get; set; }
         public string CodePartC { get; set; }
         public string CodePartD { get; set; }
+        public string CodePartE { get; set; }
+        public string CodePartF { get; set; }
         public string Name { get; set; }
         public string OfficialName { get; set; }
         public string OriginalName { get; set; }
@@ -48,6 +51,8 @@ namespace TotalModel.Models
         public int CommodityBrandID { get; set; }
         public int CommodityCategoryID { get; set; }
         public int CommodityTypeID { get; set; }
+        public int CommodityClassID { get; set; }
+        public int CommodityLineID { get; set; }
         public int SupplierID { get; set; }
         public int PiecePerPack { get; set; }
         public decimal QuantityAlert { get; set; }
@@ -63,12 +68,13 @@ namespace TotalModel.Models
         public bool Discontinue { get; set; }
         public string Remarks { get; set; }
         public bool InActive { get; set; }
-        public int NMVNTaskID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
         public virtual CommodityBrand CommodityBrand { get; set; }
         public virtual CommodityCategory CommodityCategory { get; set; }
+        public virtual CommodityClass CommodityClass { get; set; }
+        public virtual CommodityLine CommodityLine { get; set; }
         public virtual CommodityType CommodityType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommodityMaterial> CommodityMaterials { get; set; }
