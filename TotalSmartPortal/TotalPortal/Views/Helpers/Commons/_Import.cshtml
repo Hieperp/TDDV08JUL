@@ -6,13 +6,13 @@
     <input type="file" name="xlfile" id="xlf" class="upload" />
 </div>
 
-<input style="padding-left:0; width:250px;" class="k-textbox" id="uploadFile" placeholder="Click Upload" disabled="disabled" />
+<label style="max-width:300px;" id="uploadFile" disabled="disabled" ></label>
 
 
 <script type="text/javascript">
     document.getElementById("xlf").onchange = function () {
-        if (this.files.length > 0) {
-            document.getElementById("uploadFile").value = this.files[0].name;
+        if (this.files.length > 0) {            
+            $("#uploadFile").text(this.files[0].name);
         }
     };
 </script>
