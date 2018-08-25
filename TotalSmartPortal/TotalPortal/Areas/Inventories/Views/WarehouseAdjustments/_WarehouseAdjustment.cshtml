@@ -157,6 +157,12 @@
                                 {
                                     <button type="button" class="k-button" onclick="GetGoodsReceiptDetailAvailables()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ tồn kho </button>
                                 }
+                                @if (Model.Editable && Model.PositiveOnly)
+                                {
+                                    <span style="float:right">
+                                        @Html.Partial("~/Views/Helpers/Commons/_Import.cshtml")
+                                    </span>
+                                }
                             </text>);
                         }
                         else
@@ -197,25 +203,25 @@
                         </text>);
 
                     }).DataSource(dataSource => dataSource
-                                                                                                                                                                        .Ajax()
-                                                                                                                                                                        .Batch(true)
-                                                                                                                                                                        .ServerOperation(false)
-                                                                                                                                                                        .Model(model =>
-                                                                                                                                                                        {
-                                                                                                                                                                            model.Id(x => x.WarehouseAdjustmentDetailID);
-                                                                                                                                                                            model.Field(m => m.WarehouseAdjustmentDetailID).DefaultValue(0);
-                                                                                                                                                                            model.Field(m => m.WarehouseAdjustmentID).DefaultValue(@Model.WarehouseAdjustmentID);
-                                                                                                                                                                        })
-                                                                                                                                                                        .Events(events =>
-                                                                                                                                                                        {
-                                                                                                                                                                            events.Error("kendGrid_ErrorHandler");
-                                                                                                                                                                        })
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.CommodityCode).Count())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.QuantityAvailables).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.QuantityPositive).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.QuantityNegative).Sum())
-                                                                                                                                                                    )
+                                    .Ajax()
+                                    .Batch(true)
+                                    .ServerOperation(false)
+                                    .Model(model =>
+                                    {
+                                        model.Id(x => x.WarehouseAdjustmentDetailID);
+                                        model.Field(m => m.WarehouseAdjustmentDetailID).DefaultValue(0);
+                                        model.Field(m => m.WarehouseAdjustmentID).DefaultValue(@Model.WarehouseAdjustmentID);
+                                    })
+                                    .Events(events =>
+                                    {
+                                        events.Error("kendGrid_ErrorHandler");
+                                    })
+                                    .Aggregates(a => a.Add(x => x.CommodityCode).Count())
+                                    .Aggregates(a => a.Add(x => x.QuantityAvailables).Sum())
+                                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                    .Aggregates(a => a.Add(x => x.QuantityPositive).Sum())
+                                    .Aggregates(a => a.Add(x => x.QuantityNegative).Sum())
+                                )
             )
         </div>
 
@@ -282,12 +288,7 @@
         </div>
 
 
-        @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
-
-        @if (Model.Editable && Model.PositiveOnly)
-        {
-            @Html.Partial("~/Views/Helpers/Commons/_Import.cshtml")
-        }
+        @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")   
         
     </div>
 }
