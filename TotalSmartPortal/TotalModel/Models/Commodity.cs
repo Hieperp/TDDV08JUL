@@ -63,6 +63,7 @@ namespace TotalModel.Models
         public bool Discontinue { get; set; }
         public string Remarks { get; set; }
         public bool InActive { get; set; }
+        public int NMVNTaskID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }

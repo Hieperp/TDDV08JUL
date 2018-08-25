@@ -1,5 +1,8 @@
 ﻿@using TotalPortal.Configuration
 
+@model TotalPortal.Areas.Commons.ViewModels.ICommodityViewModel
+@Html.Hidden("NMVNTaskID", (int)Model.NMVNTaskID)
+
 <div>
     @(Html.Kendo().Grid<TotalModel.Models.CommodityIndex>()
         .Name("kendoGridIndex")
@@ -33,8 +36,8 @@
             e.DataBound("hightLightSelectedRow");
         })
         .DataSource(dataSource => dataSource
-            .Ajax()            
-            .Read(read => read.Action("GetCommodityIndexes", "CommodityAPIs", new { area = "Commons" }))       
+            .Ajax()
+                                .Read(read => read.Action("GetCommodityIndexes", "CommodityAPIs", new { area = "Commons" }).Data("onCommodityIndexes"))       
             .PageSize(20)
             .Model(model =>
             {
@@ -49,6 +52,12 @@
 
 
 <script type="text/javascript">
+    function onCommodityIndexes(e) {
+        return {
+            nmvnTaskID: $("#NMVNTaskID").val()
+        };
+    }
+
     function hightLightSelectedRow(e) {
         require(["kindexGrid"], function (kindexGrid) {
             var kindexGridInstance = new kindexGrid("kendoGridIndex");

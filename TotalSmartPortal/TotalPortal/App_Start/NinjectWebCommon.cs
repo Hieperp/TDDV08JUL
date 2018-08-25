@@ -260,11 +260,15 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IAspNetUserRepository>().To<AspNetUserRepository>();
                 kernel.Bind<IUserRepository>().To<UserRepository>();
                 kernel.Bind<IUserAPIRepository>().To<UserAPIRepository>();
-                
-                kernel.Bind<ICommodityService>().To<CommodityService>();
+
+                kernel.Bind<IMaterialService>().To<MaterialService>();
+                kernel.Bind<IItemService>().To<ItemService>();
+                kernel.Bind<IProductService>().To<ProductService>();
                 kernel.Bind<ICommodityRepository>().To<CommodityRepository>();
                 kernel.Bind<ICommodityAPIRepository>().To<CommodityAPIRepository>();
-                kernel.Bind<ICommoditySelectListBuilder>().To<CommoditySelectListBuilder>();
+                kernel.Bind<IMaterialSelectListBuilder>().To<MaterialSelectListBuilder>();
+                kernel.Bind<IItemSelectListBuilder>().To<ItemSelectListBuilder>();
+                kernel.Bind<IProductSelectListBuilder>().To<ProductSelectListBuilder>();
 
                 kernel.Bind<IWarehouseRepository>().To<WarehouseRepository>();                
                 kernel.Bind<IVoidTypeRepository>().To<VoidTypeRepository>();

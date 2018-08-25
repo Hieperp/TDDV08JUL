@@ -31,14 +31,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
         {
             string queryString;
 
-            queryString = " @AspUserID nvarchar(128), @FromDate DateTime, @ToDate DateTime " + "\r\n";
+            queryString = " @NMVNTaskID int, @AspUserID nvarchar(128), @FromDate DateTime, @ToDate DateTime " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
             queryString = queryString + "       SELECT      CommodityID, Code, Name, OfficialName, Remarks " + "\r\n";
             queryString = queryString + "       FROM        Commodities " + "\r\n";
-            queryString = queryString + "       " + "\r\n";
+            queryString = queryString + "       WHERE       NMVNTaskID = @NMVNTaskID " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
 

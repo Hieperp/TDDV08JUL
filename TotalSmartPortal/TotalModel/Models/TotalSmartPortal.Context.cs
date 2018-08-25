@@ -2925,8 +2925,12 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingWarehouseAdjustmentDetail>("GetPendingWarehouseAdjustmentDetails", locationIDParameter, goodsReceiptIDParameter, warehouseAdjustmentIDParameter, warehouseIDParameter, warehouseAdjustmentDetailIDsParameter, isReadonlyParameter);
         }
     
-        public virtual ObjectResult<CommodityIndex> GetCommodityIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        public virtual ObjectResult<CommodityIndex> GetCommodityIndexes(Nullable<int> nMVNTaskID, string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
         {
+            var nMVNTaskIDParameter = nMVNTaskID.HasValue ?
+                new ObjectParameter("NMVNTaskID", nMVNTaskID) :
+                new ObjectParameter("NMVNTaskID", typeof(int));
+    
             var aspUserIDParameter = aspUserID != null ?
                 new ObjectParameter("AspUserID", aspUserID) :
                 new ObjectParameter("AspUserID", typeof(string));
@@ -2939,7 +2943,7 @@ namespace TotalModel.Models
                 new ObjectParameter("ToDate", toDate) :
                 new ObjectParameter("ToDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CommodityIndex>("GetCommodityIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CommodityIndex>("GetCommodityIndexes", nMVNTaskIDParameter, aspUserIDParameter, fromDateParameter, toDateParameter);
         }
     
         public virtual ObjectResult<string> CommodityEditable(Nullable<int> entityID)

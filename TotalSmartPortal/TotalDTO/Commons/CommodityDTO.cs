@@ -9,17 +9,66 @@ using TotalBase.Enums;
 
 namespace TotalDTO.Commons
 {
-    public class CommodityPrimitiveDTO : BaseDTO, IPrimitiveEntity, IPrimitiveDTO
+    public interface ICMDOption { GlobalEnums.NmvnTaskID NMVNTaskID { get; } }
+
+    public class CMDMaterial : ICMDOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.Material; } } }
+    public class CMDItem : ICMDOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.Item; } } }
+    public class CMDProduct : ICMDOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.Product; } } }
+
+
+    public interface ICommodityPrimitiveDTO : IPrimitiveEntity, IPrimitiveDTO
     {
-        public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.Commodity; } }
+        int CommodityID { get; set; }
+        string Code { get; }
+        string OfficialCode { get; }
+        string CodePartA { get; set; }
+        string CodePartB { get; set; }
+        string CodePartC { get; set; }
+        string CodePartD { get; set; }
 
+        string Name { get; set; }
+        string OfficialName { get; set; }
+        string OriginalName { get; set; }
 
+        int CommodityBrandID { get; set; }
+        string CommodityBrandName { get; set; }
 
+        int CommodityCategoryID { get; set; }
+        string CommodityCategoryName { get; set; }
+
+        int CommodityTypeID { get; set; }
+        string CommodityTypeName { get; set; }
+
+        [Display(Name = "Nhà cung cấp")]
+        int SupplierID { get; }
+
+        int PiecePerPack { get; set; }
+        int QuantityAlert { get; set; }
+        decimal ListedPrice { get; set; }
+        decimal GrossPrice { get; set; }
+        string PurchaseUnit { get; set; }
+        string SalesUnit { get; set; }
+        string Packing { get; set; }
+        string Origin { get; set; }
+
+        double Weight { get; set; }
+        double LeadTime { get; set; }
+
+        bool IsRegularCheckUps { get; set; }
+        bool Discontinue { get; set; }
+
+        string HSCode { get; set; }
+    }
+
+    public class CommodityPrimitiveDTO<TCommodityOption> : BaseDTO, IPrimitiveEntity, IPrimitiveDTO
+        where TCommodityOption : ICMDOption, new()
+    {
+        public GlobalEnums.NmvnTaskID NMVNTaskID { get { return new TCommodityOption().NMVNTaskID; } }
 
         public int GetID() { return this.CommodityID; }
         public void SetID(int id) { this.CommodityID = id; }
 
-        public int CommodityID { get; set; }        
+        public int CommodityID { get; set; }
         public string Code { get { return this.CodePartA + " " + this.CodePartB + " " + this.CodePartC + " " + this.CodePartD; } }
         public string OfficialCode { get { return TotalBase.CommonExpressions.AlphaNumericString(this.Code); } }
         public string CodePartA { get; set; }
@@ -31,19 +80,15 @@ namespace TotalDTO.Commons
         public string OfficialName { get; set; }
         public string OriginalName { get; set; }
 
-        public Nullable<int> PreviousCommodityID { get; set; }
-
         public int CommodityBrandID { get; set; }
         public string CommodityBrandName { get; set; }
 
         public int CommodityCategoryID { get; set; }
         public string CommodityCategoryName { get; set; }
 
-        public  int CommodityTypeID { get; set; }
+        public int CommodityTypeID { get; set; }
         public string CommodityTypeName { get; set; }
 
-        [Display(Name = "Nhà cung cấp")]
-        //[Required(ErrorMessage = "Vui lòng nhập nhà cung cấp")]
         public int SupplierID { get { return 1; } }
 
         public int PiecePerPack { get; set; }
@@ -54,7 +99,7 @@ namespace TotalDTO.Commons
         public string SalesUnit { get; set; }
         public string Packing { get; set; }
         public string Origin { get; set; }
-        
+
         public double Weight { get; set; }
         public double LeadTime { get; set; }
 
@@ -66,7 +111,14 @@ namespace TotalDTO.Commons
         public override int PreparedPersonID { get { return 1; } }
     }
 
-    public class CommodityDTO : CommodityPrimitiveDTO
-    {     
+    public interface ICommodityDTO : ICommodityPrimitiveDTO
+    {
+        string ControllerName { get; }
+    }
+
+    public class CommodityDTO<TCommodityOption> : CommodityPrimitiveDTO<TCommodityOption>, ICommodityDTO
+        where TCommodityOption : ICMDOption, new()
+    {
+        public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }
     }
 }

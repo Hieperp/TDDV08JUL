@@ -11,7 +11,7 @@ using TotalPortal.Areas.Inventories.Builders;
 
 namespace TotalPortal.Areas.Inventories.ViewModels
 {
-    public interface IWarehouseAdjustmentViewModel : IWarehouseAdjustmentDTO, IA03SimpleViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel
+    public interface IWarehouseAdjustmentViewModel : IWarehouseAdjustmentDTO, IA03SimpleViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IWarehouseAdjustmentTypeDropDownViewModel
     { }
 
     public class OtherMaterialReceiptViewModel : WarehouseAdjustmentDTO<WAOptionMtlRct>, IViewDetailViewModel<WarehouseAdjustmentDetailDTO>, IA03SimpleViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel, IWarehouseAdjustmentViewModel

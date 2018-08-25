@@ -2,9 +2,12 @@
 using System.Linq;
 using System.Web.Mvc;
 
-using TotalBase.Enums;
+using TotalModel;
 using TotalModel.Models;
 
+using TotalBase.Enums;
+
+using TotalDTO;
 using TotalDTO.Commons;
 
 using TotalCore.Repositories.Commons;
@@ -13,20 +16,42 @@ using TotalCore.Services.Commons;
 using TotalPortal.Controllers;
 using TotalPortal.Areas.Commons.ViewModels;
 using TotalPortal.Areas.Commons.Builders;
+using TotalPortal.ViewModels.Helpers;
 
 
 namespace TotalPortal.Areas.Commons.Controllers
 {
-
-    public class CommoditiesController : GenericSimpleController<Commodity, CommodityDTO, CommodityPrimitiveDTO, CommodityViewModel>
+    public class CommoditiesController<TDto, TPrimitiveDto, TSimpleViewModel> : GenericSimpleController<Commodity, TDto, TPrimitiveDto, TSimpleViewModel>
+        where TDto : class, TPrimitiveDto
+        where TPrimitiveDto : BaseDTO, IPrimitiveEntity, IPrimitiveDTO, new()
+        where TSimpleViewModel : TDto, ISimpleViewModel, IA0XSimpleViewModel, new()
     {
-        private ICommodityService commodityService;        
-
-        public CommoditiesController(ICommodityService commodityService, ICommoditySelectListBuilder commodityViewModelSelectListBuilder)
+        public CommoditiesController(ICommodityService<TDto, TPrimitiveDto> commodityService, ICommoditySelectListBuilder<TSimpleViewModel> commodityViewModelSelectListBuilder)
             : base(commodityService, commodityViewModelSelectListBuilder)
         {
-            this.commodityService = commodityService;            
         }
-                  
+    }
+
+    public class MaterialsController : CommoditiesController<CommodityDTO<CMDMaterial>, CommodityPrimitiveDTO<CMDMaterial>, MaterialViewModel>
+    {
+        public MaterialsController(IMaterialService materialService, IMaterialSelectListBuilder materialSelectListBuilder)
+            : base(materialService, materialSelectListBuilder)
+        {
+        }
+    }
+
+    public class ItemsController : CommoditiesController<CommodityDTO<CMDItem>, CommodityPrimitiveDTO<CMDItem>, ItemViewModel>
+    {
+        public ItemsController(IItemService itemService, IItemSelectListBuilder itemSelectListBuilder)
+            : base(itemService, itemSelectListBuilder)
+        {
+        }
+    }
+    public class ProductsController : CommoditiesController<CommodityDTO<CMDProduct>, CommodityPrimitiveDTO<CMDProduct>, ProductViewModel>
+    {
+        public ProductsController(IProductService productService, IProductSelectListBuilder productSelectListBuilder)
+            : base(productService, productSelectListBuilder)
+        {
+        }
     }
 }

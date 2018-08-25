@@ -34,7 +34,11 @@ namespace TotalBase.Enums
 
 
             Customer = 8001,
-            Commodity = 8002,
+
+            Material = 8002,
+            Item = 8002006,
+            Product = 8002008,
+
             Promotion = 8003,
             Employee = 8005,
             CommodityPrice = 8006,

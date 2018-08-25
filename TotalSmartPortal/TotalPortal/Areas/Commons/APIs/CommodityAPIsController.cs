@@ -35,8 +35,9 @@ namespace TotalPortal.Areas.Commons.APIs
         }
 
 
-        public JsonResult GetCommodityIndexes([DataSourceRequest] DataSourceRequest request)
+        public JsonResult GetCommodityIndexes([DataSourceRequest] DataSourceRequest request, string nmvnTaskID)
         {
+            this.commodityAPIRepository.RepositoryBag["NMVNTaskID"] = nmvnTaskID;
             ICollection<CommodityIndex> CommodityIndexes = this.commodityAPIRepository.GetEntityIndexes<CommodityIndex>(User.Identity.GetUserId(), HomeSession.GetGlobalFromDate(this.HttpContext), HomeSession.GetGlobalToDate(this.HttpContext));
 
             DataSourceResult response = CommodityIndexes.ToDataSourceResult(request);
@@ -156,24 +157,23 @@ namespace TotalPortal.Areas.Commons.APIs
         }
 
 
-        public JsonResult GetCommodities([DataSourceRequest] DataSourceRequest request, int commodityCategoryID, int commodityTypeID)
-        {
-            var commodities = this.commodityRepository.SearchCommoditiesByIndex(commodityCategoryID, commodityTypeID);
-
-            DataSourceResult response = commodities.ToDataSourceResult(request, o => new CommodityPrimitiveDTO
-            {
-                CommodityID = o.CommodityID,
-                //Code = o.Code,
-                Name = o.Name,
-                OfficialName = o.OfficialName,
-                OriginalName = o.OriginalName,
-                //CommodityTypeName = o.CommodityType.Name,
-                //CommodityCategoryName = o.CommodityCategory.Name,
-                GrossPrice = o.GrossPrice,
-                Remarks = o.Remarks
-            });
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult GetCommodities([DataSourceRequest] DataSourceRequest request, int commodityCategoryID, int commodityTypeID)
+        //{
+        //    var commodities = this.commodityRepository.SearchCommoditiesByIndex(commodityCategoryID, commodityTypeID);
+        //    DataSourceResult response = commodities.ToDataSourceResult(request, o => new CommodityPrimitiveDTO
+        //    {
+        //        CommodityID = o.CommodityID,
+        //        //Code = o.Code,
+        //        Name = o.Name,
+        //        OfficialName = o.OfficialName,
+        //        OriginalName = o.OriginalName,
+        //        //CommodityTypeName = o.CommodityType.Name,
+        //        //CommodityCategoryName = o.CommodityCategory.Name,
+        //        GrossPrice = o.GrossPrice,
+        //        Remarks = o.Remarks
+        //    });
+        //    return Json(response, JsonRequestBehavior.AllowGet);
+        //}
 
 
 

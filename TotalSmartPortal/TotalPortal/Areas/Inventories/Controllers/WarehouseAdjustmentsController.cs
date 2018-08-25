@@ -50,4 +50,57 @@ namespace TotalPortal.Areas.Inventories.Controllers
 
     }
 
+
+
+
+
+    public class OtherMaterialReceiptsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionMtlRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionMtlRct>, WarehouseAdjustmentDetailDTO, OtherMaterialReceiptViewModel>
+    {
+        public OtherMaterialReceiptsController(IOtherMaterialReceiptService otherMaterialReceiptService, IOtherMaterialReceiptViewModelSelectListBuilder otherMaterialReceiptViewModelSelectListBuilder)
+            : base(otherMaterialReceiptService, otherMaterialReceiptViewModelSelectListBuilder)
+        {
+        }
+    }
+
+    public class OtherMaterialIssuesController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionMtlIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionMtlIss>, WarehouseAdjustmentDetailDTO, OtherMaterialIssueViewModel>
+    {
+        public OtherMaterialIssuesController(IOtherMaterialIssueService otherMaterialIssueService, IOtherMaterialIssueViewModelSelectListBuilder otherMaterialIssueViewModelSelectListBuilder)
+            : base(otherMaterialIssueService, otherMaterialIssueViewModelSelectListBuilder)
+        {
+        }
+    }
+
+    public class MaterialAdjustmentsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionMtlAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionMtlAdj>, WarehouseAdjustmentDetailDTO, MaterialAdjustmentViewModel>
+    {
+        public MaterialAdjustmentsController(IMaterialAdjustmentService materialAdjustmentService, IMaterialAdjustmentViewModelSelectListBuilder materialAdjustmentViewModelSelectListBuilder)
+            : base(materialAdjustmentService, materialAdjustmentViewModelSelectListBuilder)
+        {
+        }
+    }
+
+
+
+    public class OtherProductReceiptsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionPrdRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdRct>, WarehouseAdjustmentDetailDTO, OtherProductReceiptViewModel>
+    {
+        public OtherProductReceiptsController(IOtherProductReceiptService otherProductReceiptService, IOtherProductReceiptViewModelSelectListBuilder otherProductReceiptViewModelSelectListBuilder)
+            : base(otherProductReceiptService, otherProductReceiptViewModelSelectListBuilder)
+        {
+        }
+    }
+
+    public class OtherProductIssuesController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionPrdIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdIss>, WarehouseAdjustmentDetailDTO, OtherProductIssueViewModel>
+    {
+        public OtherProductIssuesController(IOtherProductIssueService otherProductIssueService, IOtherProductIssueViewModelSelectListBuilder otherProductIssueViewModelSelectListBuilder)
+            : base(otherProductIssueService, otherProductIssueViewModelSelectListBuilder)
+        {
+        }
+    }
+
+    public class ProductAdjustmentsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionPrdAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdAdj>, WarehouseAdjustmentDetailDTO, ProductAdjustmentViewModel>
+    {
+        public ProductAdjustmentsController(IProductAdjustmentService productAdjustmentService, IProductAdjustmentViewModelSelectListBuilder productAdjustmentViewModelSelectListBuilder)
+            : base(productAdjustmentService, productAdjustmentViewModelSelectListBuilder)
+        {
+        }
+    }
 }

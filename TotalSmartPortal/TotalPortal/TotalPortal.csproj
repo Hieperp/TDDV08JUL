@@ -282,13 +282,7 @@
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsReceiptsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\HandlingUnitsController.cs" />
-    <Compile Include="Areas\Inventories\Controllers\MaterialAdjustmentsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\MaterialIssuesController.cs" />
-    <Compile Include="Areas\Inventories\Controllers\OtherMaterialIssuesController.cs" />
-    <Compile Include="Areas\Inventories\Controllers\OtherMaterialReceiptsController.cs" />
-    <Compile Include="Areas\Inventories\Controllers\OtherProductIssuesController.cs" />
-    <Compile Include="Areas\Inventories\Controllers\OtherProductReceiptsController.cs" />
-    <Compile Include="Areas\Inventories\Controllers\ProductAdjustmentsController.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsDeliverySession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsIssueSession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\HandlingUnitSession.cs" />
