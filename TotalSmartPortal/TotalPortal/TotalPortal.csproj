@@ -232,6 +232,8 @@
     <Compile Include="Areas\Commons\APIs\WarehouseAPIsController.cs" />
     <Compile Include="Areas\Commons\Builders\ICommodityBrandSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICommodityCategorySelectListBuilder.cs" />
+    <Compile Include="Areas\Commons\Builders\ICommodityClassSelectListBuilder.cs" />
+    <Compile Include="Areas\Commons\Builders\ICommodityLineSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICommodityPriceSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICommoditySelectListBuilder.cs" />
     <Compile Include="Areas\Commons\Builders\ICommodityTypeSelectListBuilder.cs" />
@@ -257,6 +259,8 @@
     <Compile Include="Areas\Commons\ViewModels\CustomerViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\EmployeeViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\ICommodityBrandDropDownViewModel.cs" />
+    <Compile Include="Areas\Commons\ViewModels\Helpers\ICommodityClassDropDownViewModel.cs" />
+    <Compile Include="Areas\Commons\ViewModels\Helpers\ICommodityLineDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IMonetaryAccountDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPackingMaterialDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPriceCategoryDropDownViewModel.cs" />
@@ -2315,6 +2319,8 @@
     <Content Include="Views\Shared\EditorTemplates\DropDowns\WarehouseAdjustmentType.cshtml" />
     <Content Include="Views\Helpers\Commons\_Warehouse.cshtml" />
     <Content Include="Views\Helpers\Commons\_Import.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityClass.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\CommodityLine.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

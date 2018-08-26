@@ -59,6 +59,8 @@
     <Compile Include="Repositories\Commons\ICommodityPriceRepository.cs" />
     <Compile Include="Repositories\Commons\ICommodityTypeRepository.cs" />
     <Compile Include="Repositories\Commons\ICustomerCategoryRepository.cs" />
+    <Compile Include="Repositories\Commons\ICommodityClassRepository.cs" />
+    <Compile Include="Repositories\Commons\ICommodityLineRepository.cs" />
     <Compile Include="Repositories\Commons\ICustomerTypeRepository.cs" />
     <Compile Include="Repositories\Commons\IMoldRepository.cs" />
     <Compile Include="Repositories\Commons\IMonetaryAccountRepository.cs" />

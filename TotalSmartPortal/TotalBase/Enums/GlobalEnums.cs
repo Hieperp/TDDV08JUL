@@ -13,7 +13,7 @@ namespace TotalBase.Enums
         public static bool VATbyRow = false;
         public static decimal VATPercent = 10;
 
-        public static int rndQuantity = 0;
+        public static int rndQuantity = 2;
         public static int rndAmount = 0;
         public static int rndDiscountPercent = 1;
 

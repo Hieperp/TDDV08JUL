@@ -9,30 +9,33 @@ using TotalPortal.Areas.Commons.ViewModels.Helpers;
 
 namespace TotalPortal.Areas.Commons.ViewModels
 {
-    public interface ICommodityViewModel : ICommodityDTO, ISimpleViewModel, IA0XSimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityTypeDropDownViewModel
+    public interface ICommodityViewModel : ICommodityDTO, ISimpleViewModel, IA0XSimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityClassDropDownViewModel, ICommodityLineDropDownViewModel
     {
         
     }
 
-    public class MaterialViewModel : CommodityDTO<CMDMaterial>, ISimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityTypeDropDownViewModel, ICommodityViewModel
+    public class MaterialViewModel : CommodityDTO<CMDMaterial>, ISimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityViewModel, ICommodityClassDropDownViewModel, ICommodityLineDropDownViewModel
     {
         public IEnumerable<SelectListItem> CommodityBrandSelectList { get; set; }
-        public IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }
-        public IEnumerable<SelectListItem> CommodityTypeSelectList { get; set; }
+        public IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }                
+        public IEnumerable<SelectListItem> CommodityClassSelectList { get; set; }
+        public IEnumerable<SelectListItem> CommodityLineSelectList { get; set; }
     }
 
-    public class ItemViewModel : CommodityDTO<CMDItem>, ISimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityTypeDropDownViewModel, ICommodityViewModel
+    public class ItemViewModel : CommodityDTO<CMDItem>, ISimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityViewModel, ICommodityClassDropDownViewModel, ICommodityLineDropDownViewModel
     {
         public IEnumerable<SelectListItem> CommodityBrandSelectList { get; set; }
-        public IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }
-        public IEnumerable<SelectListItem> CommodityTypeSelectList { get; set; }
+        public IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }                
+        public IEnumerable<SelectListItem> CommodityClassSelectList { get; set; }
+        public IEnumerable<SelectListItem> CommodityLineSelectList { get; set; }
     }
 
-    public class ProductViewModel : CommodityDTO<CMDProduct>, ISimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityTypeDropDownViewModel, ICommodityViewModel
+    public class ProductViewModel : CommodityDTO<CMDProduct>, ISimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityViewModel, ICommodityClassDropDownViewModel, ICommodityLineDropDownViewModel
     {
         public IEnumerable<SelectListItem> CommodityBrandSelectList { get; set; }
-        public IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }
-        public IEnumerable<SelectListItem> CommodityTypeSelectList { get; set; }
+        public IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }                
+        public IEnumerable<SelectListItem> CommodityClassSelectList { get; set; }
+        public IEnumerable<SelectListItem> CommodityLineSelectList { get; set; }
     }
 
 }

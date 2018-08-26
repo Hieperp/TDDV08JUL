@@ -21,10 +21,13 @@ namespace TotalDTO.Commons
         int CommodityID { get; set; }
         string Code { get; }
         string OfficialCode { get; }
-        string CodePartA { get; set; }
-        string CodePartB { get; set; }
-        string CodePartC { get; set; }
-        string CodePartD { get; set; }
+        
+        string CodePartA { get; set; }        
+        string CodePartB { get; }        
+        string CodePartC { get; }        
+        string CodePartD { get; }
+        string CodePartE { get; set; }
+        string CodePartF { get; set; }
 
         string Name { get; set; }
         string OfficialName { get; set; }
@@ -36,7 +39,13 @@ namespace TotalDTO.Commons
         int CommodityCategoryID { get; set; }
         string CommodityCategoryName { get; set; }
 
-        int CommodityTypeID { get; set; }
+        int CommodityClassID { get; set; }
+        string CommodityClassName { get; set; }
+
+        int CommodityLineID { get; set; }
+        string CommodityLineName { get; set; }
+
+        int CommodityTypeID { get; }
         string CommodityTypeName { get; set; }
 
         [Display(Name = "Nhà cung cấp")]
@@ -58,6 +67,10 @@ namespace TotalDTO.Commons
         bool Discontinue { get; set; }
 
         string HSCode { get; set; }
+
+        bool IsMaterial { get; }
+        bool IsItem { get; }
+        bool IsProduct { get; }
     }
 
     public class CommodityPrimitiveDTO<TCommodityOption> : BaseDTO, IPrimitiveEntity, IPrimitiveDTO
@@ -69,12 +82,14 @@ namespace TotalDTO.Commons
         public void SetID(int id) { this.CommodityID = id; }
 
         public int CommodityID { get; set; }
-        public string Code { get { return this.CodePartA + " " + this.CodePartB + " " + this.CodePartC + " " + this.CodePartD; } }
+        public string Code { get { return !String.IsNullOrWhiteSpace(this.CodePartA) ?  this.CodePartA + " " : !String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : !String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : !String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : !String.IsNullOrWhiteSpace(this.CodePartE) ? this.CodePartE + " " : !String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF : ""; } }
         public string OfficialCode { get { return TotalBase.CommonExpressions.AlphaNumericString(this.Code); } }
         public string CodePartA { get; set; }
-        public string CodePartB { get; set; }
-        public string CodePartC { get; set; }
-        public string CodePartD { get; set; }
+        public string CodePartB { get { return this.CommodityCategoryName; } }
+        public string CodePartC { get { return  this.CommodityLineName; } }
+        public string CodePartD { get { return this.CommodityClassName; } }
+        public string CodePartE { get; set; }
+        public string CodePartF { get; set; }
 
         public string Name { get; set; }
         public string OfficialName { get; set; }
@@ -86,7 +101,13 @@ namespace TotalDTO.Commons
         public int CommodityCategoryID { get; set; }
         public string CommodityCategoryName { get; set; }
 
-        public int CommodityTypeID { get; set; }
+        public int CommodityClassID { get; set; }
+        public string CommodityClassName { get; set; }
+
+        public int CommodityLineID { get; set; }
+        public string CommodityLineName { get; set; }
+
+        public int CommodityTypeID { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Material ? 3 : this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item ? 2 : this.NMVNTaskID == GlobalEnums.NmvnTaskID.Product ? 1 : 0; } }
         public string CommodityTypeName { get; set; }
 
         public int SupplierID { get { return 1; } }
@@ -109,6 +130,19 @@ namespace TotalDTO.Commons
         public string HSCode { get; set; }
 
         public override int PreparedPersonID { get { return 1; } }
+
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            foreach (var result in base.Validate(validationContext)) { yield return result; }
+
+            DecimalRequired checkDeciamal = new DecimalRequired();
+            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !checkDeciamal.IsValid(this.CodePartE) && !checkDeciamal.IsValid(CodePartF)) yield return new ValidationResult("Lỗi tổng số lượng [TotalQuantityPositive]", new[] { "TotalQuantityPositive" });            
+        }
+
+        public override void PerformPresaveRule()
+        {
+            base.PerformPresaveRule(); 
+        }
     }
 
     public interface ICommodityDTO : ICommodityPrimitiveDTO
@@ -120,5 +154,9 @@ namespace TotalDTO.Commons
         where TCommodityOption : ICMDOption, new()
     {
         public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }
+
+        public bool IsMaterial { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Material; } }
+        public bool IsItem { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item; } }
+        public bool IsProduct { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Product; } }
     }
 }

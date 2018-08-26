@@ -6,18 +6,19 @@ using TotalCore.Repositories.Commons;
 
 namespace TotalDAL.Repositories.Commons
 {
-    public class CommodityCategoryRepository : ICommodityCategoryRepository
+
+    public class CommodityClassRepository : ICommodityClassRepository
     {
         private readonly TotalSmartPortalEntities totalSmartPortalEntities;
 
-        public CommodityCategoryRepository(TotalSmartPortalEntities totalSmartPortalEntities)
+        public CommodityClassRepository(TotalSmartPortalEntities totalSmartPortalEntities)
         {
             this.totalSmartPortalEntities = totalSmartPortalEntities;
         }
 
-        public IList<CommodityCategory> GetAllCommodityCategories()
+        public IList<CommodityClass> GetAllCommodityClasses()
         {
-            return this.totalSmartPortalEntities.CommodityCategories.ToList();
+            return this.totalSmartPortalEntities.CommodityClasses.ToList();
         }
 
     }
