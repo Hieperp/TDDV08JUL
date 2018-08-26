@@ -20,11 +20,11 @@
         
         @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Customer, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.Customer.GetDisplayName(m => m.CustomerID) })
 
-        <div @{if (Model.PositiveOnly) { <text> style="display:none;" </text>    } }>
+        <div @{if (Model.PositiveOnly) { <text> class="SBT-Hidden" </text>     } }>
             @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Warehouse, new { WarehouseDisplayName = @Model.Warehouse.GetDisplayName(m => m.WarehouseID) })
         </div>
 
-        <div @{if (Model.NegativeOnly) { <text> style="display:none;" </text>     } }>
+        <div @{if (Model.NegativeOnly) { <text> class="SBT-Hidden" </text>      } }>
             @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).WarehouseReceipt, new { WarehouseDisplayName = @Model.WarehouseReceipt.GetDisplayName(m => m.WarehouseID) })
         </div>       
 

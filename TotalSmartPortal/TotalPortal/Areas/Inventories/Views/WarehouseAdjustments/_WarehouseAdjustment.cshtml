@@ -25,11 +25,11 @@
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSectionLeftA.cshtml")
 
-        <div style="display:none;">
+        <div class="SBT-Hidden">
             @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Warehouse, new { WarehouseDisplayName = @Model.Warehouse.GetDisplayName(m => m.WarehouseID), LeftPanelInput = "left-panel-input" })
         </div>
 
-        <div style="display:none;">
+        <div class="SBT-Hidden">
             @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).WarehouseReceipt, new { WarehouseDisplayName = @Model.WarehouseReceipt.GetDisplayName(m => m.WarehouseID), LeftPanelInput = "left-panel-input" })
         </div>
 
