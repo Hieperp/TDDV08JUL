@@ -28,7 +28,7 @@
                 var dataRow = gridDataSource.add({});
                 var excelRow = excelRowCollection.ImportSheet[i];
 
-                dataRow.set("Description", Math.round(excelRow["Quantity"], requireConfig.websiteOptions.rndQuantity));
+                dataRow.set("Description", DoRound(excelRow["Quantity"], requireConfig.websiteOptions.rndQuantity));
                 dataRow.set("Remarks", excelRow["CustomerName"]);
 
                 _getCommoditiesByCode(dataRow, excelRow);
@@ -56,7 +56,7 @@
                         dataRow.CommodityCode = result.CommodityCode;
                         dataRow.CommodityTypeID = result.CommodityTypeID;
 
-                        dataRow.set("Quantity", Math.round(dataRow.Description, requireConfig.websiteOptions.rndQuantity));
+                        dataRow.set("Quantity", DoRound(dataRow.Description, requireConfig.websiteOptions.rndQuantity));
                     }
                     else
                         dataRow.set("CommodityName", result.CommodityName);

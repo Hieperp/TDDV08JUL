@@ -28,7 +28,7 @@
                 var dataRow = gridDataSource.add({});
                 var excelRow = excelRowCollection.ImportSheet[i];
 
-                dataRow.set("Remarks", Math.round(excelRow["Quantity"], requireConfig.websiteOptions.rndQuantity));
+                dataRow.set("Remarks", DoRound(excelRow["Quantity"], requireConfig.websiteOptions.rndQuantity));
 
                 _getCommoditiesByCode(dataRow, excelRow);
             }
@@ -58,23 +58,23 @@
                         dataRow.set("WarehouseCode", result.WarehouseCode);
 
                         dataRow.set("TradeDiscountRate", $("#VATbyRow").val() == 'True' ? result.TradeDiscountRate : $("#TradeDiscountRate").val());
-                        dataRow.set("VATPercent", Math.round(result.VATPercent, 0));
+                        dataRow.set("VATPercent", DoRound(result.VATPercent, 0));
 
                         if (result.ListedPrice > 0) {
-                            dataRow.set("ListedPrice", Math.round(result.ListedPrice, requireConfig.websiteOptions.rndAmount));
+                            dataRow.set("ListedPrice", DoRound(result.ListedPrice, requireConfig.websiteOptions.rndAmount));
                         }
                         else {
 
-                            dataRow.set("GrossPrice", Math.round(result.GrossPrice, requireConfig.websiteOptions.rndAmount));
-                            dataRow.set("ListedPrice", Math.round(dataRow.UnitPrice, requireConfig.websiteOptions.rndAmount));
-                            dataRow.set("ListedGrossPrice", Math.round(dataRow.GrossPrice, requireConfig.websiteOptions.rndAmount));
+                            dataRow.set("GrossPrice", DoRound(result.GrossPrice, requireConfig.websiteOptions.rndAmount));
+                            dataRow.set("ListedPrice", DoRound(dataRow.UnitPrice, requireConfig.websiteOptions.rndAmount));
+                            dataRow.set("ListedGrossPrice", DoRound(dataRow.GrossPrice, requireConfig.websiteOptions.rndAmount));
                         }
 
-                        dataRow.set("DiscountPercent", Math.round(result.DiscountPercent, requireConfig.websiteOptions.rndDiscountPercent));
+                        dataRow.set("DiscountPercent", DoRound(result.DiscountPercent, requireConfig.websiteOptions.rndDiscountPercent));
 
-                        dataRow.set("QuantityAvailable", Math.round(result.QuantityAvailable, requireConfig.websiteOptions.rndQuantity));
-                        dataRow.set("ControlFreeQuantity", Math.round(result.ControlFreeQuantity, requireConfig.websiteOptions.rndQuantity));
-                        dataRow.set("Quantity", Math.round(dataRow.Remarks, requireConfig.websiteOptions.rndQuantity));
+                        dataRow.set("QuantityAvailable", DoRound(result.QuantityAvailable, requireConfig.websiteOptions.rndQuantity));
+                        dataRow.set("ControlFreeQuantity", DoRound(result.ControlFreeQuantity, requireConfig.websiteOptions.rndQuantity));
+                        dataRow.set("Quantity", DoRound(dataRow.Remarks, requireConfig.websiteOptions.rndQuantity));
 
                         dataRow.set("Remarks", "Imported");
                     }
