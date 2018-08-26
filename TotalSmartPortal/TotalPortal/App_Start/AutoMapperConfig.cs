@@ -60,6 +60,10 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMtlIss>>();
                 cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionMtlAdj>>();
 
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionItmRct>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionItmIss>>();
+                cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionItmAdj>>();
+
                 cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionPrdRct>>();
                 cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionPrdIss>>();
                 cfg.CreateMap<WarehouseAdjustment, WarehouseAdjustmentDTO<WAOptionPrdAdj>>();
@@ -67,6 +71,10 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMtlRct>, WarehouseAdjustment>();
                 cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMtlIss>, WarehouseAdjustment>();
                 cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionMtlAdj>, WarehouseAdjustment>();
+
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionItmRct>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionItmIss>, WarehouseAdjustment>();
+                cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionItmAdj>, WarehouseAdjustment>();
 
                 cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionPrdRct>, WarehouseAdjustment>();
                 cfg.CreateMap<WarehouseAdjustmentPrimitiveDTO<WAOptionPrdIss>, WarehouseAdjustment>();
@@ -78,6 +86,10 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<WarehouseAdjustment, OtherMaterialReceiptViewModel>();
                 cfg.CreateMap<WarehouseAdjustment, OtherMaterialIssueViewModel>();
                 cfg.CreateMap<WarehouseAdjustment, MaterialAdjustmentViewModel>();
+
+                cfg.CreateMap<WarehouseAdjustment, OtherItemReceiptViewModel>();
+                cfg.CreateMap<WarehouseAdjustment, OtherItemIssueViewModel>();
+                cfg.CreateMap<WarehouseAdjustment, ItemAdjustmentViewModel>();
 
                 cfg.CreateMap<WarehouseAdjustment, OtherProductReceiptViewModel>();
                 cfg.CreateMap<WarehouseAdjustment, OtherProductIssueViewModel>();

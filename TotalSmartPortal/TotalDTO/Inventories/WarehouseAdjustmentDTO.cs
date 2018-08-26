@@ -158,9 +158,9 @@ namespace TotalDTO.Inventories
         public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }
 
 
-        public bool NegativeOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductIssue; } }
-        public bool PositiveOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductReceipt; } }
-        public bool BothAdjustment { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.MaterialAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ProductAdjustment; } }
+        public bool NegativeOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherItemIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductIssue; } }
+        public bool PositiveOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherItemReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductReceipt; } }
+        public bool BothAdjustment { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.MaterialAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ItemAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ProductAdjustment; } }
     }
 
 }

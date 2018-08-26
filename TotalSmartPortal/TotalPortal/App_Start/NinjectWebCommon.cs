@@ -141,6 +141,13 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IMaterialAdjustmentService>().To<MaterialAdjustmentService>();
                 kernel.Bind<IMaterialAdjustmentViewModelSelectListBuilder>().To<MaterialAdjustmentViewModelSelectListBuilder>();
 
+                kernel.Bind<IOtherItemReceiptService>().To<OtherItemReceiptService>();
+                kernel.Bind<IOtherItemReceiptViewModelSelectListBuilder>().To<OtherItemReceiptViewModelSelectListBuilder>();
+                kernel.Bind<IOtherItemIssueService>().To<OtherItemIssueService>();
+                kernel.Bind<IOtherItemIssueViewModelSelectListBuilder>().To<OtherItemIssueViewModelSelectListBuilder>();
+                kernel.Bind<IItemAdjustmentService>().To<ItemAdjustmentService>();
+                kernel.Bind<IItemAdjustmentViewModelSelectListBuilder>().To<ItemAdjustmentViewModelSelectListBuilder>();
+
                 kernel.Bind<IOtherProductReceiptService>().To<OtherProductReceiptService>();
                 kernel.Bind<IOtherProductReceiptViewModelSelectListBuilder>().To<OtherProductReceiptViewModelSelectListBuilder>();
                 kernel.Bind<IOtherProductIssueService>().To<OtherProductIssueService>();

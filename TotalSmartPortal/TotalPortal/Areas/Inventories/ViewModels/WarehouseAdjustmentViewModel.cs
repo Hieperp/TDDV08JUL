@@ -34,6 +34,28 @@ namespace TotalPortal.Areas.Inventories.ViewModels
 
 
 
+
+    public class OtherItemReceiptViewModel : WarehouseAdjustmentDTO<WAOptionItmRct>, IViewDetailViewModel<WarehouseAdjustmentDetailDTO>, IA03SimpleViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel, IWarehouseAdjustmentViewModel
+    {
+        public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }
+        public IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }
+    }
+
+    public class OtherItemIssueViewModel : WarehouseAdjustmentDTO<WAOptionItmIss>, IViewDetailViewModel<WarehouseAdjustmentDetailDTO>, IA03SimpleViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel, IWarehouseAdjustmentViewModel
+    {
+        public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }
+        public IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }
+    }
+
+    public class ItemAdjustmentViewModel : WarehouseAdjustmentDTO<WAOptionItmAdj>, IViewDetailViewModel<WarehouseAdjustmentDetailDTO>, IA03SimpleViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel, IWarehouseAdjustmentViewModel
+    {
+        public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }
+        public IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }
+    }
+
+
+
+
     public class OtherProductReceiptViewModel : WarehouseAdjustmentDTO<WAOptionPrdRct>, IViewDetailViewModel<WarehouseAdjustmentDetailDTO>, IA03SimpleViewModel, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IA01SimpleViewModel, IWarehouseAdjustmentTypeDropDownViewModel, IWarehouseAdjustmentViewModel
     {
         public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }

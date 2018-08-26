@@ -82,6 +82,41 @@ namespace TotalPortal.Areas.Inventories.Builders
 
 
 
+    public interface IOtherItemReceiptViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<OtherItemReceiptViewModel>
+    {
+    }
+    public class OtherItemReceiptViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<OtherItemReceiptViewModel>, IOtherItemReceiptViewModelSelectListBuilder
+    {
+        public OtherItemReceiptViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
+
+    public interface IOtherItemIssueViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<OtherItemIssueViewModel>
+    {
+    }
+    public class OtherItemIssueViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<OtherItemIssueViewModel>, IOtherItemIssueViewModelSelectListBuilder
+    {
+        public OtherItemIssueViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
+
+    public interface IItemAdjustmentViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<ItemAdjustmentViewModel>
+    {
+    }
+    public class ItemAdjustmentViewModelSelectListBuilder : WarehouseAdjustmentViewModelSelectListBuilder<ItemAdjustmentViewModel>, IItemAdjustmentViewModelSelectListBuilder
+    {
+        public ItemAdjustmentViewModelSelectListBuilder(IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository, IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder, IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository)
+            : base(aspNetUserSelectListBuilder, aspNetUserRepository, warehouseAdjustmentTypeSelectListBuilder, warehouseAdjustmentTypeRepository)
+        { }
+    }
+
+
+
+
 
     public interface IOtherProductReceiptViewModelSelectListBuilder : IWarehouseAdjustmentViewModelSelectListBuilder<OtherProductReceiptViewModel>
     {

@@ -127,6 +127,22 @@ namespace TotalService.Inventories
             : base(warehouseAdjustmentRepository) { }
     }
 
+    public class OtherItemReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionItmRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmRct>, WarehouseAdjustmentDetailDTO>, IOtherItemReceiptService
+    {
+        public OtherItemReceiptService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
+            : base(warehouseAdjustmentRepository) { }
+    }
+    public class OtherItemIssueService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionItmIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmIss>, WarehouseAdjustmentDetailDTO>, IOtherItemIssueService
+    {
+        public OtherItemIssueService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
+            : base(warehouseAdjustmentRepository) { }
+    }
+    public class ItemAdjustmentService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionItmAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmAdj>, WarehouseAdjustmentDetailDTO>, IItemAdjustmentService
+    {
+        public ItemAdjustmentService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)
+            : base(warehouseAdjustmentRepository) { }
+    }
+
     public class OtherProductReceiptService : WarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionPrdRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdRct>, WarehouseAdjustmentDetailDTO>, IOtherProductReceiptService
     {
         public OtherProductReceiptService(IWarehouseAdjustmentRepository warehouseAdjustmentRepository)

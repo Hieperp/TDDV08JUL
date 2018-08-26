@@ -19,6 +19,13 @@ namespace TotalCore.Services.Inventories
     public interface IMaterialAdjustmentService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionMtlAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionMtlAdj>, WarehouseAdjustmentDetailDTO>
     { }
 
+    public interface IOtherItemReceiptService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionItmRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmRct>, WarehouseAdjustmentDetailDTO>
+    { }
+    public interface IOtherItemIssueService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionItmIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmIss>, WarehouseAdjustmentDetailDTO>
+    { }
+    public interface IItemAdjustmentService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionItmAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmAdj>, WarehouseAdjustmentDetailDTO>
+    { }
+
     public interface IOtherProductReceiptService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionPrdRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdRct>, WarehouseAdjustmentDetailDTO>
     { }
     public interface IOtherProductIssueService : IWarehouseAdjustmentService<WarehouseAdjustmentDTO<WAOptionPrdIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdIss>, WarehouseAdjustmentDetailDTO>

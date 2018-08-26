@@ -81,6 +81,32 @@ namespace TotalPortal.Areas.Inventories.Controllers
 
 
 
+    public class OtherItemReceiptsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionItmRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmRct>, WarehouseAdjustmentDetailDTO, OtherItemReceiptViewModel>
+    {
+        public OtherItemReceiptsController(IOtherItemReceiptService otherItemReceiptService, IOtherItemReceiptViewModelSelectListBuilder otherItemReceiptViewModelSelectListBuilder)
+            : base(otherItemReceiptService, otherItemReceiptViewModelSelectListBuilder)
+        {
+        }
+    }
+
+    public class OtherItemIssuesController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionItmIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmIss>, WarehouseAdjustmentDetailDTO, OtherItemIssueViewModel>
+    {
+        public OtherItemIssuesController(IOtherItemIssueService otherItemIssueService, IOtherItemIssueViewModelSelectListBuilder otherItemIssueViewModelSelectListBuilder)
+            : base(otherItemIssueService, otherItemIssueViewModelSelectListBuilder)
+        {
+        }
+    }
+
+    public class ItemAdjustmentsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionItmAdj>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmAdj>, WarehouseAdjustmentDetailDTO, ItemAdjustmentViewModel>
+    {
+        public ItemAdjustmentsController(IItemAdjustmentService itemAdjustmentService, IItemAdjustmentViewModelSelectListBuilder itemAdjustmentViewModelSelectListBuilder)
+            : base(itemAdjustmentService, itemAdjustmentViewModelSelectListBuilder)
+        {
+        }
+    }
+
+
+
     public class OtherProductReceiptsController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionPrdRct>, WarehouseAdjustmentPrimitiveDTO<WAOptionPrdRct>, WarehouseAdjustmentDetailDTO, OtherProductReceiptViewModel>
     {
         public OtherProductReceiptsController(IOtherProductReceiptService otherProductReceiptService, IOtherProductReceiptViewModelSelectListBuilder otherProductReceiptViewModelSelectListBuilder)
