@@ -7,7 +7,7 @@ namespace TotalCore.Repositories.Commons
 
     public interface ICommodityCategoryRepository 
     {
-        IList<CommodityCategory> GetAllCommodityCategories();
+        IList<CommodityCategory> GetAllCommodityCategories(string commodityTypeIDs);
     }
   
 }

@@ -9,7 +9,7 @@ using TotalPortal.Areas.Commons.ViewModels.Helpers;
 
 namespace TotalPortal.Areas.Commons.ViewModels
 {
-    public interface ICommodityViewModel : ICommodityDTO, ISimpleViewModel, IA0XSimpleViewModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityClassDropDownViewModel, ICommodityLineDropDownViewModel
+    public interface ICommodityViewModel : ICommodityDTO, ISimpleViewModel, ICommodityBuilderModel, ICommodityBrandDropDownViewModel, ICommodityCategoryDropDownViewModel, ICommodityClassDropDownViewModel, ICommodityLineDropDownViewModel
     {
         
     }

@@ -190,6 +190,7 @@
           <Property Name="CommodityCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CommodityTypeID" Type="int" Nullable="false" />
           <Property Name="LimitedMonthWarranty" Type="int" Nullable="false" />
           <Property Name="LimitedKilometreWarranty" Type="int" Nullable="false" />
           <Property Name="AncestorID" Type="int" />
@@ -12870,6 +12871,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Commodities" Relationship="TotalSmartPortalModel.FK_Commodities_CommodityCategories" FromRole="CommodityCategory" ToRole="Commodity" />
           <NavigationProperty Name="CommodityCategories1" Relationship="TotalSmartPortalModel.FK_CommodityCategories_CommodityCategories" FromRole="CommodityCategory" ToRole="CommodityCategory1" />
           <NavigationProperty Name="CommodityCategory1" Relationship="TotalSmartPortalModel.FK_CommodityCategories_CommodityCategories" FromRole="CommodityCategory1" ToRole="CommodityCategory" />
+          <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="CommodityClass">
           <Key>
@@ -16767,6 +16769,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySetMapping Name="CommodityCategories">
             <EntityTypeMapping TypeName="TotalSmartPortalModel.CommodityCategory">
               <MappingFragment StoreEntitySet="CommodityCategories">
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ClearancePercent" ColumnName="ClearancePercent" />
                 <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />

@@ -15,7 +15,7 @@ namespace TotalPortal.Areas.Commons.Builders
     {
         public IEnumerable<SelectListItem> BuildSelectListItemsForCommodityLines(IEnumerable<CommodityLine> CommodityLines)
         {
-            return CommodityLines.Select(pt => new SelectListItem { Text = pt.Name, Value = pt.CommodityLineID.ToString() }).ToList();
+            return CommodityLines.Select(pt => new SelectListItem { Text = pt.Code + " [" + pt.Name + "]", Value = pt.CommodityLineID.ToString() }).ToList();
         }
     }
 }

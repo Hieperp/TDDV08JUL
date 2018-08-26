@@ -24,7 +24,7 @@ namespace TotalPortal.Areas.Commons.Controllers
     public class CommoditiesController<TDto, TPrimitiveDto, TSimpleViewModel> : GenericSimpleController<Commodity, TDto, TPrimitiveDto, TSimpleViewModel>
         where TDto : class, TPrimitiveDto
         where TPrimitiveDto : BaseDTO, IPrimitiveEntity, IPrimitiveDTO, new()
-        where TSimpleViewModel : TDto, ISimpleViewModel, IA0XSimpleViewModel, new()
+        where TSimpleViewModel : TDto, ISimpleViewModel, ICommodityBuilderModel, new()
     {
         public CommoditiesController(ICommodityService<TDto, TPrimitiveDto> commodityService, ICommoditySelectListBuilder<TSimpleViewModel> commodityViewModelSelectListBuilder)
             : base(commodityService, commodityViewModelSelectListBuilder)

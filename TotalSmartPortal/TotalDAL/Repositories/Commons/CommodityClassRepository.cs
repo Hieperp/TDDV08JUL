@@ -18,7 +18,7 @@ namespace TotalDAL.Repositories.Commons
 
         public IList<CommodityClass> GetAllCommodityClasses()
         {
-            return this.totalSmartPortalEntities.CommodityClasses.ToList();
+            return this.totalSmartPortalEntities.CommodityClasses.OrderBy(o => o.Code).ToList();
         }
 
     }

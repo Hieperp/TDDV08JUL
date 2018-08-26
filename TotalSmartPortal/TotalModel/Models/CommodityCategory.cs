@@ -33,6 +33,7 @@ namespace TotalModel.Models
         public decimal VATPercent { get; set; }
         public decimal ClearancePercent { get; set; }
         public string Remarks { get; set; }
+        public int CommodityTypeID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commodity> Commodities { get; set; }

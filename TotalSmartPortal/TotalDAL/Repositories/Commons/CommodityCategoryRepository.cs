@@ -15,9 +15,10 @@ namespace TotalDAL.Repositories.Commons
             this.totalSmartPortalEntities = totalSmartPortalEntities;
         }
 
-        public IList<CommodityCategory> GetAllCommodityCategories()
+        public IList<CommodityCategory> GetAllCommodityCategories(string commodityTypeIDs)
         {
-            return this.totalSmartPortalEntities.CommodityCategories.ToList();
+            List<int> listCommodityTypeID = commodityTypeIDs.Split(',').Select(n => int.Parse(n)).ToList();
+            return this.totalSmartPortalEntities.CommodityCategories.Where(w => listCommodityTypeID.Contains(w.CommodityTypeID)).ToList();
         }
 
     }

@@ -21,10 +21,10 @@ namespace TotalDTO.Commons
         int CommodityID { get; set; }
         string Code { get; }
         string OfficialCode { get; }
-        
-        string CodePartA { get; set; }        
-        string CodePartB { get; }        
-        string CodePartC { get; }        
+
+        string CodePartA { get; set; }
+        string CodePartB { get; }
+        string CodePartC { get; }
         string CodePartD { get; }
         string CodePartE { get; set; }
         string CodePartF { get; set; }
@@ -82,11 +82,11 @@ namespace TotalDTO.Commons
         public void SetID(int id) { this.CommodityID = id; }
 
         public int CommodityID { get; set; }
-        public string Code { get { return (!String.IsNullOrWhiteSpace(this.CodePartA) ?  this.CodePartA + " " : "") +  (!String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartE) ? this.CodePartE + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF : ""); } }
+        public string Code { get { return (!String.IsNullOrWhiteSpace(this.CodePartA) ? this.CodePartA + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartE) ? this.CodePartE + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF : ""); } }
         public string OfficialCode { get { return TotalBase.CommonExpressions.AlphaNumericString(this.Code); } }
         public string CodePartA { get; set; }
         public string CodePartB { get { return this.CommodityCategoryName; } }
-        public string CodePartC { get { return  this.CommodityLineName; } }
+        public string CodePartC { get { return this.CommodityLineName; } }
         public string CodePartD { get { return this.CommodityClassName; } }
         public string CodePartE { get; set; }
         public string CodePartF { get; set; }
@@ -107,7 +107,7 @@ namespace TotalDTO.Commons
         public int CommodityLineID { get; set; }
         public string CommodityLineName { get; set; }
 
-        public int CommodityTypeID { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Material ? 3 : this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item ? 2 : this.NMVNTaskID == GlobalEnums.NmvnTaskID.Product ? 1 : 0; } }
+        public int CommodityTypeID { get { return (int)(this.NMVNTaskID == GlobalEnums.NmvnTaskID.Material ? GlobalEnums.CommodityTypeID.Materials : this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item ? GlobalEnums.CommodityTypeID.Items : this.NMVNTaskID == GlobalEnums.NmvnTaskID.Product ? GlobalEnums.CommodityTypeID.Products : GlobalEnums.CommodityTypeID.Unknown); } }
         public string CommodityTypeName { get; set; }
 
         public int SupplierID { get { return 1; } }
@@ -135,12 +135,10 @@ namespace TotalDTO.Commons
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            decimal decimalCodePartE = 0;
-            decimal decimalCodePartF = 0;            
-
-            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartE, out decimalCodePartE)) yield return new ValidationResult("Lỗi mã E phải là số [CodePartE]", new[] { "CodePartE" });
-            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartF, out decimalCodePartF)) yield return new ValidationResult("Lỗi mã F phải là số [CodePartF]", new[] { "CodePartF" });
-        }      
+            decimal decimalValidate;
+            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartE, out decimalValidate)) yield return new ValidationResult("Lỗi độ dày phải là số", new[] { "CodePartE" });
+            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartF, out decimalValidate)) yield return new ValidationResult("Lỗi chiều rộng phải là số", new[] { "CodePartF" });
+        }
     }
 
     public interface ICommodityDTO : ICommodityPrimitiveDTO

@@ -7,25 +7,30 @@ using TotalPortal.Builders;
 using TotalPortal.Areas.Commons.Builders;
 using TotalPortal.Areas.Commons.ViewModels;
 using TotalPortal.ViewModels.Helpers;
+using TotalBase.Enums;
 
 
 namespace TotalPortal.Areas.Commons.Builders
 {
-    public interface IA0XSimpleViewModel : ISimpleViewModel
+    public interface ICommodityBuilderModel : ISimpleViewModel
     {
+        bool IsMaterial { get; }
+        bool IsItem { get; }
+        bool IsProduct { get; }
+
         IEnumerable<SelectListItem> CommodityBrandSelectList { get; set; }
-        IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }        
+        IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }
         IEnumerable<SelectListItem> CommodityClassSelectList { get; set; }
         IEnumerable<SelectListItem> CommodityLineSelectList { get; set; }
     }
 
-    public interface ICommoditySelectListBuilder<TCommodityViewModel> : IViewModelSelectListBuilder<TCommodityViewModel>
-        where TCommodityViewModel : IA0XSimpleViewModel
+    public interface ICommoditySelectListBuilder<TCommodityBuilderModel> : IViewModelSelectListBuilder<TCommodityBuilderModel>
+        where TCommodityBuilderModel : ICommodityBuilderModel
     {
     }
 
-    public class CommoditySelectListBuilder<TCommodityViewModel> : ICommoditySelectListBuilder<TCommodityViewModel>
-        where TCommodityViewModel : IA0XSimpleViewModel
+    public class CommoditySelectListBuilder<TCommodityBuilderModel> : ICommoditySelectListBuilder<TCommodityBuilderModel>
+        where TCommodityBuilderModel : ICommodityBuilderModel
     {
         private readonly ICommodityBrandSelectListBuilder commodityBrandSelectListBuilder;
         private readonly ICommodityBrandRepository commodityBrandRepository;
@@ -61,10 +66,10 @@ namespace TotalPortal.Areas.Commons.Builders
             this.commodityLineRepository = commodityLineRepository;
         }
 
-        public virtual void BuildSelectLists(TCommodityViewModel commodityViewModel)
+        public virtual void BuildSelectLists(TCommodityBuilderModel commodityViewModel)
         {
             commodityViewModel.CommodityBrandSelectList = this.commodityBrandSelectListBuilder.BuildSelectListItemsForCommodityBrands(this.commodityBrandRepository.GetAllCommodityBrands());
-            commodityViewModel.CommodityCategorySelectList = this.commodityCategorySelectListBuilder.BuildSelectListItemsForCommodityCategorys(this.commodityCategoryRepository.GetAllCommodityCategories());            
+            commodityViewModel.CommodityCategorySelectList = this.commodityCategorySelectListBuilder.BuildSelectListItemsForCommodityCategorys(this.commodityCategoryRepository.GetAllCommodityCategories(commodityViewModel.IsItem || commodityViewModel.IsProduct ? ((int)GlobalEnums.CommodityTypeID.Products).ToString() : ((int)GlobalEnums.CommodityTypeID.Materials).ToString()));
             commodityViewModel.CommodityClassSelectList = this.commodityClassSelectListBuilder.BuildSelectListItemsForCommodityClasss(this.commodityClassRepository.GetAllCommodityClasses());
             commodityViewModel.CommodityLineSelectList = this.commodityLineSelectListBuilder.BuildSelectListItemsForCommodityLines(this.commodityLineRepository.GetAllCommodityLines());
         }
