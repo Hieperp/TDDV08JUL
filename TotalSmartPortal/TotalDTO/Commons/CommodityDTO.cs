@@ -33,10 +33,12 @@ namespace TotalDTO.Commons
         string CodePartF { get; set; }
 
         [Display(Name = "Tên thường gọi")]
+        [Required(ErrorMessage = "Vui lòng nhập tên thường gọi")]
         string Name { get; set; }
         [Display(Name = "Tên chính thức")]
+        [Required(ErrorMessage = "Vui lòng nhập tên chính thức")]
         string OfficialName { get; set; }
-        string OriginalName { get; set; }
+        string OriginalName { get; }
 
         int CommodityBrandID { get; set; }
         string CommodityBrandName { get; set; }
@@ -93,13 +95,13 @@ namespace TotalDTO.Commons
         public string CodePartA { get; set; }
         public string CodePartB { get { return this.CommodityCategoryName; } }
         public string CodePartC { get { return this.CommodityLineName; } }
-        public string CodePartD { get { return this.CommodityClassName; } }
+        public string CodePartD { get { return this.IsMaterial ? "" : this.CommodityClassName; } }
         public string CodePartE { get; set; }
         public string CodePartF { get; set; }
 
         public string Name { get; set; }
         public string OfficialName { get; set; }
-        public string OriginalName { get; set; }
+        public string OriginalName { get { return this.OfficialName; } }
 
         public int CommodityBrandID { get; set; }
         public string CommodityBrandName { get; set; }
@@ -137,6 +139,10 @@ namespace TotalDTO.Commons
 
         public override int PreparedPersonID { get { return 1; } }
 
+        public bool IsMaterial { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Material; } }
+        public bool IsItem { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item; } }
+        public bool IsProduct { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Product; } }
+
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
@@ -155,10 +161,6 @@ namespace TotalDTO.Commons
     public class CommodityDTO<TCommodityOption> : CommodityPrimitiveDTO<TCommodityOption>, ICommodityDTO
         where TCommodityOption : ICMDOption, new()
     {
-        public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }
-
-        public bool IsMaterial { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Material; } }
-        public bool IsItem { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item; } }
-        public bool IsProduct { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.Product; } }
+        public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }       
     }
 }

@@ -84,17 +84,7 @@
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).OfficialName, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group SBT-Hidden">
-            @Html.LabelFor(model => (model as ICommodityPrimitiveDTO).OriginalName)
-            <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => (model as ICommodityPrimitiveDTO).OriginalName).HtmlAttributes(new { @class = "left-panel-input" })
-            </div>
-            <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => (model as ICommodityPrimitiveDTO).OriginalName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        </div>       
 
         <div class="SBT-Hidden">
             @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/CommodityBrand.cshtml")
@@ -203,11 +193,8 @@
 
     $("#btnSave").click(function (e) {
         $("#CommodityCategoryName").val($("#CommodityCategoryID").data("kendoDropDownList").text());
-        $("#CommodityLineName").val($("#CommodityLineID").data("kendoDropDownList").text());
-        
-        if(@Model.IsMaterial == true){
-            $("#CommodityClassName").val($("#CommodityClassID").data("kendoDropDownList").text());    
-        }                
+        $("#CommodityLineName").val($("#CommodityLineID").data("kendoDropDownList").text());                
+        $("#CommodityClassName").val($("#CommodityClassID").data("kendoDropDownList").text());            
     });
 
 </script>
