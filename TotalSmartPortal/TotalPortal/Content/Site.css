@@ -1120,6 +1120,18 @@ ul.k-panelbar .k-link {
 
 
 
+
+.SBT-Hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+
 .div-k-panel {
     margin-top: 10px;
 }

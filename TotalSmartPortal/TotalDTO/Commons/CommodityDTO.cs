@@ -26,7 +26,9 @@ namespace TotalDTO.Commons
         string CodePartB { get; }
         string CodePartC { get; }
         string CodePartD { get; }
+        [Display(Name = "Độ dày")]
         string CodePartE { get; set; }
+        [Display(Name = "Chiều rộng")]
         string CodePartF { get; set; }
 
         string Name { get; set; }
