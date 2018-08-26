@@ -12,25 +12,13 @@ using TotalBase.Enums;
 
 namespace TotalPortal.Areas.Commons.Builders
 {
-    public interface ICommodityBuilderModel : ISimpleViewModel
-    {
-        bool IsMaterial { get; }
-        bool IsItem { get; }
-        bool IsProduct { get; }
-
-        IEnumerable<SelectListItem> CommodityBrandSelectList { get; set; }
-        IEnumerable<SelectListItem> CommodityCategorySelectList { get; set; }
-        IEnumerable<SelectListItem> CommodityClassSelectList { get; set; }
-        IEnumerable<SelectListItem> CommodityLineSelectList { get; set; }
-    }
-
     public interface ICommoditySelectListBuilder<TCommodityBuilderModel> : IViewModelSelectListBuilder<TCommodityBuilderModel>
-        where TCommodityBuilderModel : ICommodityBuilderModel
+        where TCommodityBuilderModel : ICommodityViewModel
     {
     }
 
     public class CommoditySelectListBuilder<TCommodityBuilderModel> : ICommoditySelectListBuilder<TCommodityBuilderModel>
-        where TCommodityBuilderModel : ICommodityBuilderModel
+        where TCommodityBuilderModel : ICommodityViewModel
     {
         private readonly ICommodityBrandSelectListBuilder commodityBrandSelectListBuilder;
         private readonly ICommodityBrandRepository commodityBrandRepository;

@@ -1,7 +1,5 @@
 ﻿@using TotalPortal.Configuration
 
-@using TotalDTO.Commons
-
 @model TotalPortal.Areas.Commons.ViewModels.ICommodityViewModel
 @Html.Hidden("NMVNTaskID", (int)Model.NMVNTaskID)
 
@@ -15,12 +13,12 @@
             columns.Bound(p => p.CommodityCategoryName1).Title("ROOT").Hidden();
             columns.Bound(p => p.CommodityCategoryName2).Title("CAT").Hidden();
             columns.Bound(p => p.Code).Title("Mã HH").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden();
-            columns.Bound(p => p.CodePartA).Title("Mã A").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden(((ICommodityPrimitiveDTO)@Model).IsItem);
+            columns.Bound(p => p.CodePartA).Title("Mã A").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden(@Model.IsItem);
             columns.Bound(p => p.CodePartB).Title("Mã B").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden();
             columns.Bound(p => p.CodePartC).Title("Mã C").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden();
             columns.Bound(p => p.CodePartD).Title("Mã D").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden();
-            columns.Bound(p => p.CodePartE).Title("Mã E").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden(!((ICommodityPrimitiveDTO)@Model).IsItem);
-            columns.Bound(p => p.CodePartF).Title("Mã F").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden(!((ICommodityPrimitiveDTO)@Model).IsItem);
+            columns.Bound(p => p.CodePartE).Title("Mã E").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden(!@Model.IsItem);
+            columns.Bound(p => p.CodePartF).Title("Mã F").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Commons/" + Model.ControllerName, action = "Edit" }) + "/#= CommodityID #'>#=Code#</a>").Hidden(!@Model.IsItem);
              
             columns.Bound(p => p.Name).Title("Tên hàng hóa").Width(300);
 
