@@ -19,6 +19,10 @@ namespace TotalDTO.Inventories
     public class WAOptionMtlIss : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherMaterialIssue; } } }
     public class WAOptionMtlAdj : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.MaterialAdjustment; } } }
 
+    public class WAOptionItmRct : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherItemReceipt; } } }
+    public class WAOptionItmIss : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherItemIssue; } } }
+    public class WAOptionItmAdj : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.ItemAdjustment; } } }
+
     public class WAOptionPrdRct : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherProductReceipt; } } }
     public class WAOptionPrdIss : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.OtherProductIssue; } } }
     public class WAOptionPrdAdj : IWAOption { public GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.ProductAdjustment; } } }

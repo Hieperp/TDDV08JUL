@@ -62,6 +62,10 @@ namespace TotalBase.Enums
             OtherMaterialReceipt = 80360061,
             OtherMaterialIssue = 80360062,
 
+            ItemAdjustment = 8036007,
+            OtherItemReceipt = 80360071,
+            OtherItemIssue = 80360072,
+
             ProductAdjustment = 8036008,
             OtherProductReceipt = 80360081,
             OtherProductIssue = 80360082,
