@@ -22,6 +22,7 @@ namespace TotalDTO.Commons
         string Code { get; }
         string OfficialCode { get; }
 
+        [Display(Name = "Mã")]
         string CodePartA { get; set; }
         string CodePartB { get; }
         string CodePartC { get; }
@@ -31,7 +32,9 @@ namespace TotalDTO.Commons
         [Display(Name = "Chiều rộng")]
         string CodePartF { get; set; }
 
+        [Display(Name = "Tên thường gọi")]
         string Name { get; set; }
+        [Display(Name = "Tên chính thức")]
         string OfficialName { get; set; }
         string OriginalName { get; set; }
 
@@ -58,6 +61,7 @@ namespace TotalDTO.Commons
         decimal ListedPrice { get; set; }
         decimal GrossPrice { get; set; }
         string PurchaseUnit { get; set; }
+        [Display(Name = "ĐVT")]
         string SalesUnit { get; set; }
         string Packing { get; set; }
         string Origin { get; set; }
