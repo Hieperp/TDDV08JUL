@@ -39,7 +39,7 @@ namespace TotalPortal.Areas.Sales.Controllers
             RequireJsOptions.Add("ApplyToSalesVersusReturns", (int)GlobalEnums.ApplyToSalesVersusReturns.ApplyToReturns, RequireJsOptionsScope.Page);
 
             StringBuilder commodityTypeIDList = new StringBuilder();
-            commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Parts);
+            commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Items);
             commodityTypeIDList.Append(","); commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Consumables);
 
             RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);

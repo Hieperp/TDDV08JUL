@@ -41,7 +41,7 @@ namespace TotalService.Helpers
                 if (checkedDate == null || checkedDate > dto.EntryDate) checkedDate = dto.EntryDate;
 
                 if (dto.GetDetails() != null && dto.GetDetails().Count > 0)
-                    dto.GetDetails().Where(w => (new int[] { (int)GlobalEnums.CommodityTypeID.Parts, (int)GlobalEnums.CommodityTypeID.Consumables }).Contains(w.CommodityTypeID)).Each(detailDTO =>
+                    dto.GetDetails().Where(w => (new int[] { (int)GlobalEnums.CommodityTypeID.Items, (int)GlobalEnums.CommodityTypeID.Consumables }).Contains(w.CommodityTypeID)).Each(detailDTO =>
                     {
                         this.addIdToStringList(ref warehouseIDListLocal, detailDTO.GetWarehouseID());
                         this.addIdToStringList(ref commodityIDListLocal, detailDTO.CommodityID);
@@ -54,7 +54,7 @@ namespace TotalService.Helpers
                 {
                     if (checkedDate == null || checkedDate > entity.GetDetails().First().EntryDate) checkedDate = entity.GetDetails().First().EntryDate;
 
-                    entity.GetDetails().Where(w => (new int[] { (int)GlobalEnums.CommodityTypeID.Parts, (int)GlobalEnums.CommodityTypeID.Consumables }).Contains(w.CommodityTypeID)).Each(entityDetail =>
+                    entity.GetDetails().Where(w => (new int[] { (int)GlobalEnums.CommodityTypeID.Items, (int)GlobalEnums.CommodityTypeID.Consumables }).Contains(w.CommodityTypeID)).Each(entityDetail =>
                     {
                         this.addIdToStringList(ref warehouseIDListLocal, (int)entityDetail.GetWarehouseID());
                         this.addIdToStringList(ref commodityIDListLocal, entityDetail.CommodityID);

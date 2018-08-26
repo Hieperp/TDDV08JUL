@@ -15,7 +15,7 @@ namespace TotalBase
         {
             code = TotalBase.CommonExpressions.AlphaNumericString(code);
 
-            if (commodityTypeID != (int)GlobalEnums.CommodityTypeID.Vehicles && code.Length >= 9)
+            if (commodityTypeID != (int)GlobalEnums.CommodityTypeID.Products && code.Length >= 9)
                 return code.Substring(0, 5) + "-" + code.Substring(5, 3) + "-" + code.Substring(8, code.Length - 8);
             else
                 return code;

@@ -18,7 +18,7 @@
         var jsonWorkBook = JSON.stringify(to_json(wb), 2, 2); //jsonWorkBook = to_formulae(wb); //jsonWorkBook = to_csv(wb);
         var excelRowCollection = JSON.parse(jsonWorkBook);
 
-        var xlsxWorkbookInstance = new xlsxWorkbook(["CommodityCode", "Quantity"]);
+        var xlsxWorkbookInstance = new xlsxWorkbook(["CommodityCode", "Quantity", "CustomerName"]);
         if (xlsxWorkbookInstance.checkValidColumn(excelRowCollection.ImportSheet)) {
 
             var gridDataSource = $("#kendoGridDetails").data("kendoGrid").dataSource;
@@ -28,7 +28,8 @@
                 var dataRow = gridDataSource.add({});
                 var excelRow = excelRowCollection.ImportSheet[i];
 
-                dataRow.set("Remarks", Math.round(excelRow["Quantity"], requireConfig.websiteOptions.rndQuantity));
+                dataRow.set("Description", Math.round(excelRow["Quantity"], requireConfig.websiteOptions.rndQuantity));
+                dataRow.set("Remarks", excelRow["CustomerName"]);
 
                 _getCommoditiesByCode(dataRow, excelRow);
             }
@@ -55,7 +56,7 @@
                         dataRow.CommodityCode = result.CommodityCode;
                         dataRow.CommodityTypeID = result.CommodityTypeID;
 
-                        dataRow.set("Quantity", Math.round(dataRow.Remarks, requireConfig.websiteOptions.rndQuantity));
+                        dataRow.set("Quantity", Math.round(dataRow.Description, requireConfig.websiteOptions.rndQuantity));
                     }
                     else
                         dataRow.set("CommodityName", result.CommodityName);

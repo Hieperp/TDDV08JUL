@@ -174,12 +174,16 @@ namespace TotalBase.Enums
         public enum CommodityTypeID
         {
             All = 999,
-            Vehicles = 1,
-            Parts = 2,
-            Consumables = 3,
+
+            Products = 1,
+            Items = 2,
+            Materials = 3,
+
+
+            Consumables = 3333,
             Services = 6,
             CreditNote = 8,
-            Material = 68,
+            
             Unknown = 99
         };
 
