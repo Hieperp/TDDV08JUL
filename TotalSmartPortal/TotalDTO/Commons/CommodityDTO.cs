@@ -82,7 +82,7 @@ namespace TotalDTO.Commons
         public void SetID(int id) { this.CommodityID = id; }
 
         public int CommodityID { get; set; }
-        public string Code { get { return !String.IsNullOrWhiteSpace(this.CodePartA) ?  this.CodePartA + " " : !String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : !String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : !String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : !String.IsNullOrWhiteSpace(this.CodePartE) ? this.CodePartE + " " : !String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF : ""; } }
+        public string Code { get { return (!String.IsNullOrWhiteSpace(this.CodePartA) ?  this.CodePartA + " " : "") +  (!String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartE) ? this.CodePartE + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF : ""); } }
         public string OfficialCode { get { return TotalBase.CommonExpressions.AlphaNumericString(this.Code); } }
         public string CodePartA { get; set; }
         public string CodePartB { get { return this.CommodityCategoryName; } }
@@ -135,14 +135,12 @@ namespace TotalDTO.Commons
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            DecimalRequired checkDeciamal = new DecimalRequired();
-            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !checkDeciamal.IsValid(this.CodePartE) && !checkDeciamal.IsValid(CodePartF)) yield return new ValidationResult("Lỗi tổng số lượng [TotalQuantityPositive]", new[] { "TotalQuantityPositive" });            
-        }
+            decimal decimalCodePartE = 0;
+            decimal decimalCodePartF = 0;            
 
-        public override void PerformPresaveRule()
-        {
-            base.PerformPresaveRule(); 
-        }
+            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartE, out decimalCodePartE)) yield return new ValidationResult("Lỗi mã E phải là số [CodePartE]", new[] { "CodePartE" });
+            if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartF, out decimalCodePartF)) yield return new ValidationResult("Lỗi mã F phải là số [CodePartF]", new[] { "CodePartF" });
+        }      
     }
 
     public interface ICommodityDTO : ICommodityPrimitiveDTO

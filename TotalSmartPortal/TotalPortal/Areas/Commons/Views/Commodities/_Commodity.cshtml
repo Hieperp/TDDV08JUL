@@ -207,8 +207,11 @@
 
     $("#btnSave").click(function (e) {
         $("#CommodityCategoryName").val($("#CommodityCategoryID").data("kendoDropDownList").text());
-        $("#CommodityClassName").val($("#CommodityClassID").data("kendoDropDownList").text());
         $("#CommodityLineName").val($("#CommodityLineID").data("kendoDropDownList").text());
+        
+        if(@Model.IsMaterial == true){
+            $("#CommodityClassName").val($("#CommodityClassID").data("kendoDropDownList").text());    
+        }                
     });
 
 </script>
