@@ -34,8 +34,7 @@
                 </text>);
             })
                     .Pageable()
-                    .Groupable(g => g.Messages(messages => messages.Empty("Phân nhóm dữ liệu: Kéo và thả tiêu đề một hoặc nhiều cột dữ liệu ngay bên dưới vào đây để phân nhóm hiển thị theo phân cấp của các cột dữ liệu")))
-                    .Filterable()
+                    .Groupable(g => g.Messages(messages => messages.Empty("Phân nhóm dữ liệu: Kéo và thả tiêu đề một hoặc nhiều cột dữ liệu ngay bên dưới vào đây để phân nhóm hiển thị theo phân cấp của các cột dữ liệu")))                    
                     .Selectable()
                     .Sortable()
                     .Events(e =>
