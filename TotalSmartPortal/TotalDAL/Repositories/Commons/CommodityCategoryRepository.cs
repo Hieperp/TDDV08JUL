@@ -18,7 +18,7 @@ namespace TotalDAL.Repositories.Commons
         public IList<CommodityCategory> GetAllCommodityCategories(string commodityTypeIDs)
         {
             List<int> listCommodityTypeID = commodityTypeIDs.Split(',').Select(n => int.Parse(n)).ToList();
-            return this.totalSmartPortalEntities.CommodityCategories.Where(w => listCommodityTypeID.Contains(w.CommodityTypeID)).ToList();
+            return this.totalSmartPortalEntities.CommodityCategories.Where(w => w.AncestorID != null && listCommodityTypeID.Contains(w.CommodityTypeID)).ToList();
         }
 
     }

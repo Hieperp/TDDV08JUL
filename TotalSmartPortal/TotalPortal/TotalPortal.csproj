@@ -403,7 +403,9 @@
     <Content Include="Content\Images\Mains\add-contact-darkblue.png" />
     <Content Include="Content\Images\Mains\add-contact-yellow.png" />
     <Content Include="Content\Images\Mains\add-contact.png" />
+    <Content Include="Content\Images\Mains\Addnewcommodities24.png" />
     <Content Include="Content\Images\Mains\Arrow-right.png" />
+    <Content Include="Content\Images\Mains\assembly-32.png" />
     <Content Include="Content\Images\Mains\Blowout-Sale-icon-48.png" />
     <Content Include="Content\Images\Mains\Blowout-Sale-icon.png" />
     <Content Include="Content\Images\Mains\blue-cross-icon32.png" />
