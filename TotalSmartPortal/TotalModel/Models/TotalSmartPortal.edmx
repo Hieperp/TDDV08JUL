@@ -143,12 +143,12 @@
           <Property Name="NMVNTaskID" Type="int" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OfficialCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CodePartA" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="CodePartB" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="CodePartC" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="CodePartD" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="CodePartE" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="CodePartF" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CodePartA" Type="nvarchar" MaxLength="20" />
+          <Property Name="CodePartB" Type="nvarchar" MaxLength="20" />
+          <Property Name="CodePartC" Type="nvarchar" MaxLength="20" />
+          <Property Name="CodePartD" Type="nvarchar" MaxLength="20" />
+          <Property Name="CodePartE" Type="nvarchar" MaxLength="20" />
+          <Property Name="CodePartF" Type="nvarchar" MaxLength="20" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="OfficialName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="OriginalName" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -12787,12 +12787,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Name="NMVNTaskID" Type="Int32" Nullable="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OfficialCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CodePartA" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CodePartB" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CodePartC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CodePartD" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CodePartE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CodePartF" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartB" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartF" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="OfficialName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="OriginalName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
