@@ -12545,6 +12545,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Decimal" Name="QuantityAvailables" Nullable="true" Precision="19" Scale="2" />
           <Property Type="String" Name="GoodsReceiptCode" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="String" Name="CodePartA" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartB" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartC" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartD" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartE" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartF" Nullable="true" MaxLength="20" />
         </ComplexType>
         <EntityType Name="WarehouseAdjustmentDetail">
           <Key>
@@ -16612,6 +16618,12 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="QuantityAvailables" ColumnName="QuantityAvailables" />
                 <ScalarProperty Name="GoodsReceiptCode" ColumnName="GoodsReceiptCode" />
                 <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="CodePartA" ColumnName="CodePartA" />
+                <ScalarProperty Name="CodePartB" ColumnName="CodePartB" />
+                <ScalarProperty Name="CodePartC" ColumnName="CodePartC" />
+                <ScalarProperty Name="CodePartD" ColumnName="CodePartD" />
+                <ScalarProperty Name="CodePartE" ColumnName="CodePartE" />
+                <ScalarProperty Name="CodePartF" ColumnName="CodePartF" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

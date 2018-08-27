@@ -63,6 +63,8 @@ namespace TotalService.Inventories
                     goodsReceiptDTO.PreparedPersonID = warehouseAdjustment.PreparedPersonID;
                     goodsReceiptDTO.ApproverID = warehouseAdjustment.PreparedPersonID;
 
+                    goodsReceiptDTO.Customer = new TotalDTO.Commons.CustomerBaseDTO() { CustomerID = warehouseAdjustment.CustomerID };
+
                     goodsReceiptDTO.Description = warehouseAdjustment.Description;
                     goodsReceiptDTO.Remarks = warehouseAdjustment.Remarks;
 

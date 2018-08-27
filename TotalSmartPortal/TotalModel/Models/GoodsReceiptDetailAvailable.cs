@@ -32,5 +32,11 @@ namespace TotalModel.Models
         public Nullable<decimal> QuantityAvailables { get; set; }
         public string GoodsReceiptCode { get; set; }
         public int CommodityTypeID { get; set; }
+        public string CodePartA { get; set; }
+        public string CodePartB { get; set; }
+        public string CodePartC { get; set; }
+        public string CodePartD { get; set; }
+        public string CodePartE { get; set; }
+        public string CodePartF { get; set; }
     }
 }
