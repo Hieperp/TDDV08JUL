@@ -12,7 +12,7 @@
 
     gridEditorCommodityDataBound = function (e) {
         $(".k-animation-container:has(#CommodityCode-list)").css("width", "382");
-        $("#CommodityCode-list").css("width", "382");        
+        $("#CommodityCode-list").css("width", "470");
         //$("#CommodityCode-list").css("height", $("#CommodityCode-list").height() + 1);
     }
 
