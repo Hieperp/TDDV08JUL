@@ -31,18 +31,6 @@ namespace TotalPortal.Areas.Inventories.Controllers
         {
         }
 
-        public override void AddRequireJsOptions()
-        {
-            base.AddRequireJsOptions();
-
-            StringBuilder commodityTypeIDList = new StringBuilder();
-            commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Products);
-            commodityTypeIDList.Append(","); commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Items);
-            commodityTypeIDList.Append(","); commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Materials);
-
-            RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
-        }
-
         public virtual ActionResult GetGoodsReceiptDetailAvailables()
         {
             this.AddRequireJsOptions();
@@ -61,6 +49,23 @@ namespace TotalPortal.Areas.Inventories.Controllers
         public OtherMaterialReceiptsController(IOtherMaterialReceiptService otherMaterialReceiptService, IOtherMaterialReceiptViewModelSelectListBuilder otherMaterialReceiptViewModelSelectListBuilder)
             : base(otherMaterialReceiptService, otherMaterialReceiptViewModelSelectListBuilder)
         {
+        }
+
+        public override void AddRequireJsOptions()
+        {
+            base.AddRequireJsOptions();
+
+            StringBuilder commodityTypeIDList = new StringBuilder();
+            commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Materials);
+
+            RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
+
+
+            StringBuilder warehouseTaskIDList = new StringBuilder();
+            warehouseTaskIDList.Append((int)GlobalEnums.WarehouseTaskID.MaterialAdjustment);
+
+            ViewBag.WarehouseTaskID = (int)GlobalEnums.WarehouseTaskID.MaterialAdjustment;
+            ViewBag.WarehouseTaskIDList = warehouseTaskIDList.ToString();
         }
     }
 
@@ -88,6 +93,24 @@ namespace TotalPortal.Areas.Inventories.Controllers
             : base(otherItemReceiptService, otherItemReceiptViewModelSelectListBuilder)
         {
         }
+
+        public override void AddRequireJsOptions()
+        {
+            base.AddRequireJsOptions();
+
+            StringBuilder commodityTypeIDList = new StringBuilder();
+            commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Items);
+
+            RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
+
+
+            StringBuilder warehouseTaskIDList = new StringBuilder();
+            warehouseTaskIDList.Append((int)GlobalEnums.WarehouseTaskID.ItemAdjustment);
+
+            ViewBag.WarehouseTaskID = (int)GlobalEnums.WarehouseTaskID.ItemAdjustment;
+            ViewBag.WarehouseTaskIDList = warehouseTaskIDList.ToString();
+        }
+
     }
 
     public class OtherItemIssuesController : WarehouseAdjustmentsController<WarehouseAdjustmentDTO<WAOptionItmIss>, WarehouseAdjustmentPrimitiveDTO<WAOptionItmIss>, WarehouseAdjustmentDetailDTO, OtherItemIssueViewModel>
@@ -113,6 +136,23 @@ namespace TotalPortal.Areas.Inventories.Controllers
         public OtherProductReceiptsController(IOtherProductReceiptService otherProductReceiptService, IOtherProductReceiptViewModelSelectListBuilder otherProductReceiptViewModelSelectListBuilder)
             : base(otherProductReceiptService, otherProductReceiptViewModelSelectListBuilder)
         {
+        }
+
+        public override void AddRequireJsOptions()
+        {
+            base.AddRequireJsOptions();
+
+            StringBuilder commodityTypeIDList = new StringBuilder();
+            commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Products);
+
+            RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
+
+
+            StringBuilder warehouseTaskIDList = new StringBuilder();
+            warehouseTaskIDList.Append((int)GlobalEnums.WarehouseTaskID.ProductAdjustment);
+
+            ViewBag.WarehouseTaskID = (int)GlobalEnums.WarehouseTaskID.ProductAdjustment;
+            ViewBag.WarehouseTaskIDList = warehouseTaskIDList.ToString();
         }
     }
 

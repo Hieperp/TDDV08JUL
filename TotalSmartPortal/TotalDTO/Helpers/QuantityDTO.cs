@@ -17,7 +17,7 @@ namespace TotalDTO.Helpers
         [Required(ErrorMessage = "Vui lòng nhập chi tiết phiếu")]
         public virtual decimal TotalQuantity { get; set; }
 
-        protected virtual decimal GetTotalQuantity() { return this.DtoDetails().Select(o => o.Quantity).Sum(); }
+        public virtual decimal GetTotalQuantity() { return this.DtoDetails().Select(o => o.Quantity).Sum(); }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

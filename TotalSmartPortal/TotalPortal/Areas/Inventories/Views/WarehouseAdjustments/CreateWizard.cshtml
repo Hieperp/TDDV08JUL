@@ -13,6 +13,9 @@
 
     @Html.Partial("~/Views/Helpers/Bases/_BaseSectionTop.cshtml")
 
+    @Html.Hidden("WarehouseTaskID", (int)@ViewBag.WarehouseTaskID);
+    @Html.Hidden("WarehouseTaskIDList", (string)@ViewBag.WarehouseTaskIDList);
+    
     @Html.HiddenFor(m => (m as IWarehouseAdjustmentDTO).NegativeOnly)
     @Html.HiddenFor(m => (m as IWarehouseAdjustmentDTO).PositiveOnly)
 
@@ -71,6 +74,23 @@
         function _setModelInput(selectedDataItem) {
         }
     }
+
+
+
+
+
+
+    $("#Customer_CustomerID").change(function (e) {
+        $("#Warehouse_WarehouseID").val($("#Customer_WarehouseID").val());
+        $("#Warehouse_Code").val($("#Customer_WarehouseCode").val());
+        $("#Warehouse_Name").val($("#Customer_WarehouseName").val());
+
+        $("#WarehouseReceipt_WarehouseID").val($("#Customer_WarehouseID").val());
+        $("#WarehouseReceipt_Code").val($("#Customer_WarehouseCode").val());
+        $("#WarehouseReceipt_Name").val($("#Customer_WarehouseName").val());
+    })
+
+
 
     $("#Warehouse_WarehouseID").change(function (e) {
         if ($("#NegativeOnly").val() == "True") {

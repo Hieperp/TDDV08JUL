@@ -195,7 +195,11 @@ namespace TotalBase.Enums
         {
             SalesOrder = 8032,
             DeliveryAdvice = 8035,
-            SalesReturn = 8038
+            SalesReturn = 8038,
+
+            MaterialAdjustment = 8036006,
+            ItemAdjustment = 8036007,
+            ProductAdjustment = 8036008
         };
 
         public enum WarehouseClassID

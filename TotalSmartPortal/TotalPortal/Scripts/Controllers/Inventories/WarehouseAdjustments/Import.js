@@ -18,7 +18,7 @@
         var jsonWorkBook = JSON.stringify(to_json(wb), 2, 2); //jsonWorkBook = to_formulae(wb); //jsonWorkBook = to_csv(wb);
         var excelRowCollection = JSON.parse(jsonWorkBook);
 
-        var xlsxWorkbookInstance = new xlsxWorkbook(["CommodityCode", "Quantity", "CustomerName"]);
+        var xlsxWorkbookInstance = new xlsxWorkbook(["Code", "Quantity", "Remarks"]);
         if (xlsxWorkbookInstance.checkValidColumn(excelRowCollection.ImportSheet)) {
 
             var gridDataSource = $("#kendoGridDetails").data("kendoGrid").dataSource;
@@ -29,7 +29,7 @@
                 var excelRow = excelRowCollection.ImportSheet[i];
 
                 dataRow.set("Description", DoRound(excelRow["Quantity"], requireConfig.websiteOptions.rndQuantity));
-                dataRow.set("Remarks", excelRow["CustomerName"]);
+                dataRow.set("Remarks", excelRow["Remarks"]);
 
                 _getCommoditiesByCode(dataRow, excelRow);
             }
@@ -43,7 +43,7 @@
         function _getCommoditiesByCode(dataRow, excelRow) {
             return $.ajax({
                 url: window.urlCommoditiesApi,
-                data: JSON.stringify({ "commodityTypeIDList": requireConfig.pageOptions.commodityTypeIDList, "searchText": excelRow["CommodityCode"], "isOnlyAlphaNumericString": false }),
+                data: JSON.stringify({ "commodityTypeIDList": requireConfig.pageOptions.commodityTypeIDList, "searchText": excelRow["Code"], "isOnlyAlphaNumericString": false }),
 
                 type: 'POST',
                 contentType: 'application/json;',

@@ -94,6 +94,8 @@ namespace TotalService.Inventories
                         goodsReceiptDTO.ViewDetails.Add(goodsReceiptDetailDTO);
                     }
 
+                    goodsReceiptDTO.TotalQuantity = goodsReceiptDTO.GetTotalQuantity();
+
                     goodsReceiptBaseService.Save(goodsReceiptDTO, true);
                 }
 
