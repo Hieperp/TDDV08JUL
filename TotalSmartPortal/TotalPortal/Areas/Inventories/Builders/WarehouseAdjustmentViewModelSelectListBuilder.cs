@@ -9,18 +9,13 @@ using TotalPortal.Areas.Inventories.ViewModels;
 
 namespace TotalPortal.Areas.Inventories.Builders
 {
-    public interface IA03SimpleViewModel : IA01SimpleViewModel
-    {
-        IEnumerable<SelectListItem> WarehouseAdjustmentTypeSelectList { get; set; }
-    }
-
     public interface IWarehouseAdjustmentViewModelSelectListBuilder<TWarehouseAdjustmentViewModel> : IViewModelSelectListBuilder<TWarehouseAdjustmentViewModel>
-        where TWarehouseAdjustmentViewModel : IA03SimpleViewModel
+        where TWarehouseAdjustmentViewModel : IWarehouseAdjustmentViewModel
     {
     }
 
     public class WarehouseAdjustmentViewModelSelectListBuilder<TWarehouseAdjustmentViewModel> : A01ViewModelSelectListBuilder<TWarehouseAdjustmentViewModel>, IWarehouseAdjustmentViewModelSelectListBuilder<TWarehouseAdjustmentViewModel>
-        where TWarehouseAdjustmentViewModel : IA03SimpleViewModel
+        where TWarehouseAdjustmentViewModel : IWarehouseAdjustmentViewModel
     {
         private readonly IWarehouseAdjustmentTypeSelectListBuilder warehouseAdjustmentTypeSelectListBuilder;
         private readonly IWarehouseAdjustmentTypeRepository warehouseAdjustmentTypeRepository;

@@ -193,6 +193,7 @@ namespace TotalBase.Enums
 
         public enum WarehouseTaskID
         {
+            Unknown = -1,
             SalesOrder = 8032,
             DeliveryAdvice = 8035,
             SalesReturn = 8038,
