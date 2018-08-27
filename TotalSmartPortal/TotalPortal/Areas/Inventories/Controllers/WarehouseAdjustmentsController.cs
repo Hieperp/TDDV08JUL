@@ -46,7 +46,8 @@ namespace TotalPortal.Areas.Inventories.Controllers
         public virtual ActionResult GetGoodsReceiptDetailAvailables()
         {
             this.AddRequireJsOptions();
-            return View();
+            TViewDetailViewModel viewDetailViewModel = new TViewDetailViewModel();
+            return View(this.InitViewModel(viewDetailViewModel));
         }
 
     }
