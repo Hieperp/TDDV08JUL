@@ -80,7 +80,7 @@
                         .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
                     columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
                         .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='WarehouseAdjustmentViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
-                    columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200)
+                    columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(@Model.NegativeOnly ? "StringReadonly" : "AutoCompletes/CommodityBase")
                         .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
                         .ClientTemplate("<div> #= CommodityCode #</div>" +
 
