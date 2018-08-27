@@ -123,6 +123,10 @@ namespace TotalDTO.Inventories
         bool NegativeOnly { get; }
         bool PositiveOnly { get; }
         bool BothAdjustment { get; }
+
+        bool IsMaterial { get; }
+        bool IsItem { get; }
+        bool IsProduct { get; }
     }
 
     public class WarehouseAdjustmentDTO<TWAOption> : WarehouseAdjustmentPrimitiveDTO<TWAOption>, IBaseDetailEntity<WarehouseAdjustmentDetailDTO>, IWarehouseAdjustmentDTO
@@ -161,6 +165,10 @@ namespace TotalDTO.Inventories
         public bool NegativeOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherItemIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductIssue; } }
         public bool PositiveOnly { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherItemReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductReceipt; } }
         public bool BothAdjustment { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.MaterialAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ItemAdjustment || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ProductAdjustment; } }
+
+        public bool IsMaterial { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherMaterialReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.MaterialAdjustment; } }
+        public bool IsItem { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherItemIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherItemReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ItemAdjustment; } }
+        public bool IsProduct { get { return this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductIssue || this.NMVNTaskID == GlobalEnums.NmvnTaskID.OtherProductReceipt || this.NMVNTaskID == GlobalEnums.NmvnTaskID.ProductAdjustment; } }
     }
 
 }
