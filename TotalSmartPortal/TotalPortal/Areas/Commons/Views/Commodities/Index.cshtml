@@ -83,6 +83,7 @@
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
+                    { field: "Code", operator: "contains", value: indexFilterText },
                     { field: "CodePartA", operator: "contains", value: indexFilterText },
                     { field: "CodePartB", operator: "contains", value: indexFilterText },
                     { field: "CodePartC", operator: "contains", value: indexFilterText },
