@@ -8850,7 +8850,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="GetReportIndexes" ReturnType="Collection(TotalSmartPortalModel.ReportIndex)">
+          <FunctionImport Name="GetReportIndexes" EntitySet="Reports" ReturnType="Collection(TotalSmartPortalModel.Report)">
             <Parameter Name="AspUserID" Mode="In" Type="String" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
@@ -15382,19 +15382,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetReportIndexes" FunctionName="TotalSmartPortalModel.Store.GetReportIndexes">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TotalSmartPortalModel.ReportIndex">
-                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
-                <ScalarProperty Name="ReportUniqueID" ColumnName="ReportUniqueID" />
-                <ScalarProperty Name="ReportGroupID" ColumnName="ReportGroupID" />
-                <ScalarProperty Name="ReportGroupName" ColumnName="ReportGroupName" />
-                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
-                <ScalarProperty Name="ReportURL" ColumnName="ReportURL" />
-                <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
-                <ScalarProperty Name="SerialID" ColumnName="SerialID" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetSalesOrderIndexes" FunctionName="TotalSmartPortalModel.Store.GetSalesOrderIndexes">
             <ResultMapping>

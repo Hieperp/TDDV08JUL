@@ -345,7 +345,7 @@ namespace TotalDAL.Repositories
             Helpers.SqlProgrammability.Reports.InventoryReports inventoryReports = new Helpers.SqlProgrammability.Reports.InventoryReports(totalSmartPortalEntities);
             inventoryReports.RestoreProcedure();
 
-            return;
+            //return;
 
             Helpers.SqlProgrammability.Analysis.Report report = new Helpers.SqlProgrammability.Analysis.Report(totalSmartPortalEntities);
             report.RestoreProcedure();
