@@ -1272,6 +1272,7 @@
     <Content Include="Areas\Inventories\Views\OtherItemReceipts\GetGoodsReceiptDetailAvailables.cshtml" />
     <Content Include="Areas\Inventories\Views\OtherItemReceipts\Index.cshtml" />
     <Content Include="Areas\Inventories\Views\OtherItemReceipts\Print.cshtml" />
+    <None Include="Properties\PublishProfiles\TDV.pubxml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
     </None>
