@@ -2,7 +2,7 @@
     window.parent.$("#myWindow").data("kendoWindow").close();
 }
 
-function handleOKEvent(warehouseAdjustmentGridDataSource, goodsReceiptDetailAvailableGridDataSource) {
+function handleOKEvent(warehouseAdjustmentGridDataSource, goodsReceiptDetailAvailableGridDataSource, closeWhenFinished) {
     if (warehouseAdjustmentGridDataSource != undefined && goodsReceiptDetailAvailableGridDataSource != undefined) {
         var goodsReceiptDetailAvailableGridDataItems = goodsReceiptDetailAvailableGridDataSource.view();
         var warehouseAdjustmentJSON = warehouseAdjustmentGridDataSource.data().toJSON();
@@ -16,9 +16,10 @@ function handleOKEvent(warehouseAdjustmentGridDataSource, goodsReceiptDetailAvai
         warehouseAdjustmentGridDataSource.data(warehouseAdjustmentJSON);
 
         var rawData = warehouseAdjustmentGridDataSource.data()
-        warehouseAdjustmentGridDataSource.remove(rawData[rawData.length - 1]); //Remove the last row: this is the temporary empty row
+        warehouseAdjustmentGridDataSource.remove(rawData[rawData.length - 1]); //Remove the last row: this is the temporary empty row        
 
-        cancelButton_Click();
+        if (closeWhenFinished)
+            cancelButton_Click();
     }
 
 
