@@ -26,6 +26,12 @@ namespace TotalDTO.Purchases
         [Display(Name = "Số chứng từ")]
         public string Code { get; set; }
 
+        [Display(Name = "Mục đích")]
+        public string Purposes { get; set; }
+
+        [Display(Name = "Ngày giao hàng")]
+        public Nullable<System.DateTime> DeliveryDate { get; set; }
+
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();

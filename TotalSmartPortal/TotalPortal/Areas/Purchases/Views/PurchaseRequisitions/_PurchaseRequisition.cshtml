@@ -29,6 +29,15 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeliveryDate)
+            <div class="div-input">
+                @Html.Kendo().DateTimePickerFor(model => model.DeliveryDate).HtmlAttributes(new { @class = "left-panel-input" })
+            </div>
+            <div class="div-validation-message">
+                @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         @if (@Model.Voidable || @Model.UnVoidable || @Model.VoidTypeID > 0)
         { //Don't render when in Edit Mode, so: do not add VoidType.VoidTypeID [Required] DataAnnotations to the view to submit to controller when edit
@@ -41,9 +50,22 @@
 
     <div class="right-panel">
 
-        <div class="right-top-panel right-top-panel-H3">
+        <div class="right-top-panel right-top-panel-H2">
             @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+
+            <div class="form-group">
+                <div class="right-panel-label right-panel-label-whole-width">
+                    @Html.LabelFor(model => model.Purposes)
+                </div>
+                <div class="div-input">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.Purposes).HtmlAttributes(new { @class = "right-panel-input" })
+                </div>
+                <div class="div-validation-message">
+                    @Html.ValidationMessageFor(model => model.Purposes, "", new { @class = "text-danger" })
+                </div>
+            </div>        
         </div>
+
 
         <div class="div-k-grid-detail">
             @(Html.Kendo().Grid(Model.PurchaseRequisitionViewDetails)
@@ -79,7 +101,7 @@
                         .ClientTemplate("#= kendo.format('" + Settings.kfmQuantity + "', Quantity) #" + "<input type='hidden' name='PurchaseRequisitionViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
 
-                    columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
+                    columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='PurchaseRequisitionViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
 
                     columns.Bound(p => p.InActivePartial).DisplayNameTitle().Filterable(false).Hidden()
