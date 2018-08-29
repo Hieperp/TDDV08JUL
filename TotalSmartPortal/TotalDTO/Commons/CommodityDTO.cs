@@ -64,6 +64,7 @@ namespace TotalDTO.Commons
         decimal GrossPrice { get; set; }
         string PurchaseUnit { get; set; }
         [Display(Name = "ĐVT")]
+        [Required(ErrorMessage = "Vui lòng nhập ĐVT")]
         string SalesUnit { get; set; }
         string Packing { get; set; }
         string Origin { get; set; }
@@ -90,12 +91,12 @@ namespace TotalDTO.Commons
         public void SetID(int id) { this.CommodityID = id; }
 
         public int CommodityID { get; set; }
-        public string Code { get { return (!String.IsNullOrWhiteSpace(this.CodePartA) ? this.CodePartA + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartE) ? this.CodePartE + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF : ""); } }
+        public string Code { get { return ((!String.IsNullOrWhiteSpace(this.CodePartA) ? this.CodePartA + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartE) ? "[" + this.CodePartE + " x " : "") + (!String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF + "]" : "")).Trim(); } }
         public string OfficialCode { get { return TotalBase.CommonExpressions.AlphaNumericString(this.Code); } }
         public string CodePartA { get; set; }
-        public string CodePartB { get { return this.CommodityCategoryName; } }
-        public string CodePartC { get { return this.CommodityLineName; } }
-        public string CodePartD { get { return this.IsMaterial ? "" : this.CommodityClassName; } }
+        public string CodePartB { get { return this.CommodityCategoryName.Remove(this.CommodityCategoryName.IndexOf("[")).Trim(); } }
+        public string CodePartC { get { return this.CommodityLineName.Remove(this.CommodityLineName.IndexOf("[")).Trim(); } }
+        public string CodePartD { get { return this.IsMaterial ? "" : this.CommodityClassName.Remove(this.CommodityClassName.IndexOf("[")).Trim(); } }
         public string CodePartE { get; set; }
         public string CodePartF { get; set; }
 
@@ -148,6 +149,7 @@ namespace TotalDTO.Commons
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
             decimal decimalValidate;
+            if (this.NMVNTaskID != GlobalEnums.NmvnTaskID.Item && String.IsNullOrWhiteSpace(this.CodePartA)) yield return new ValidationResult("Vui lòng nhập mã", new[] { "CodePartA" });
             if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartE, out decimalValidate)) yield return new ValidationResult("Lỗi độ dày phải là số", new[] { "CodePartE" });
             if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartF, out decimalValidate)) yield return new ValidationResult("Lỗi chiều rộng phải là số", new[] { "CodePartF" });
         }
@@ -161,6 +163,6 @@ namespace TotalDTO.Commons
     public class CommodityDTO<TCommodityOption> : CommodityPrimitiveDTO<TCommodityOption>, ICommodityDTO
         where TCommodityOption : ICMDOption, new()
     {
-        public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }       
+        public string ControllerName { get { return this.NMVNTaskID.ToString() + "s"; } }
     }
 }

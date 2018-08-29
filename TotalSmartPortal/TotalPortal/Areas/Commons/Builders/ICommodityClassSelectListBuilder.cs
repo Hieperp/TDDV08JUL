@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 
 using TotalModel.Models;
+using System;
 
 namespace TotalPortal.Areas.Commons.Builders
 {
@@ -15,7 +16,7 @@ namespace TotalPortal.Areas.Commons.Builders
     {
         public IEnumerable<SelectListItem> BuildSelectListItemsForCommodityClasss(IEnumerable<CommodityClass> CommodityClasss)
         {
-            return CommodityClasss.Select(pt => new SelectListItem { Text = pt.Code, Value = pt.CommodityClassID.ToString() }).ToList();
+            return CommodityClasss.Select(pt => new SelectListItem { Text = (!String.IsNullOrWhiteSpace(pt.Code) ? pt.Code + " [" + pt.Name + "]" : ""), Value = pt.CommodityClassID.ToString() }).ToList();
         }
     }
 }
