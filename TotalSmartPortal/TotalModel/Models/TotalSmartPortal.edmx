@@ -12551,6 +12551,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="CodePartD" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="CodePartE" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="CodePartF" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="OfficialCode" Nullable="false" MaxLength="50" />
         </ComplexType>
         <EntityType Name="WarehouseAdjustmentDetail">
           <Key>
@@ -12761,18 +12762,19 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="String" Name="Code" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="CodePartA" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="CodePartB" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="CodePartC" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="CodePartD" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="CodePartE" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="CodePartF" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CodePartA" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartB" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartC" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartD" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartE" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CodePartF" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="SalesUnit" Nullable="true" MaxLength="10" />
           <Property Type="Boolean" Name="Discontinue" Nullable="false" />
           <Property Type="Boolean" Name="InActive" Nullable="false" />
           <Property Type="Int32" Name="CommodityID" Nullable="false" />
           <Property Type="String" Name="CommodityCategoryName1" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="CommodityCategoryName2" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="OfficialCode" Nullable="false" MaxLength="50" />
         </ComplexType>
         <Association Name="FK_WarehouseAdjustments_Customers">
           <End Type="TotalSmartPortalModel.Customer" Role="Customer" Multiplicity="1" />
@@ -16611,6 +16613,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="CodePartD" ColumnName="CodePartD" />
                 <ScalarProperty Name="CodePartE" ColumnName="CodePartE" />
                 <ScalarProperty Name="CodePartF" ColumnName="CodePartF" />
+                <ScalarProperty Name="OfficialCode" ColumnName="OfficialCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -16711,6 +16714,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
                 <ScalarProperty Name="CommodityCategoryName1" ColumnName="CommodityCategoryName1" />
                 <ScalarProperty Name="CommodityCategoryName2" ColumnName="CommodityCategoryName2" />
+                <ScalarProperty Name="OfficialCode" ColumnName="OfficialCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

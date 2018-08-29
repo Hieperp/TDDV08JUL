@@ -269,6 +269,16 @@ namespace TotalDAL.Repositories
         private bool RestoreProcedures()
         {
 
+            var commodities = this.totalSmartPortalEntities.Commodities.ToList();
+            foreach (Commodity commodity in commodities)
+            {
+                if (commodity.CodePartB.IndexOf("[") > 0 || commodity.CodePartC.IndexOf("[") > 0 || commodity.CodePartD.IndexOf("[") > 0) throw new Exception("[9999999999999");
+                this.ExecuteStoreCommand("UPDATE Commodities SET OfficialCode = N'" + TotalBase.CommonExpressions.AlphaNumericString(commodity.Code) + "' WHERE CommodityID = " + commodity.CommodityID, new ObjectParameter[] { });
+            }
+
+
+
+
             this.totalSmartPortalEntities.ColumnAdd("Repacks", "SerialID", "int", "0", true);
             this.totalSmartPortalEntities.ColumnAdd("WarehouseAdjustments", "CustomerID", "int", "1", true);
             this.totalSmartPortalEntities.ColumnAdd("WarehouseAdjustmentDetails", "CustomerID", "int", "1", true);
@@ -286,7 +296,7 @@ namespace TotalDAL.Repositories
 
         public void CreateStoredProcedure()
         {
-            
+
             //return;
 
             Helpers.SqlProgrammability.Inventories.WarehouseAdjustment warehouseAdjustment = new Helpers.SqlProgrammability.Inventories.WarehouseAdjustment(totalSmartPortalEntities);
@@ -307,7 +317,7 @@ namespace TotalDAL.Repositories
             Helpers.SqlProgrammability.Productions.PlannedOrder plannedOrder = new Helpers.SqlProgrammability.Productions.PlannedOrder(totalSmartPortalEntities);
             plannedOrder.RestoreProcedure();
 
-            
+
 
             //return;
 

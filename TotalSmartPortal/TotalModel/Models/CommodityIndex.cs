@@ -28,5 +28,6 @@ namespace TotalModel.Models
         public int CommodityID { get; set; }
         public string CommodityCategoryName1 { get; set; }
         public string CommodityCategoryName2 { get; set; }
+        public string OfficialCode { get; set; }
     }
 }
