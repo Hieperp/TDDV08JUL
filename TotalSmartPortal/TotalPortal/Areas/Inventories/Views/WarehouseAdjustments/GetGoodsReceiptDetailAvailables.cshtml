@@ -69,6 +69,12 @@
 <script type="text/javascript">
     function okButton_Click(closeWhenFinished) {        
         handleOKEvent(window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource, $("#gridGoodsReceiptDetailAvailables").data("kendoGrid").dataSource, closeWhenFinished);
+
+        if (!closeWhenFinished) {
+            $("#gridGoodsReceiptDetailAvailables").data("kendoGrid").dataSource.read();
+            filterText_KeyUp();
+        }            
+
     }
 
     $('#gridGoodsReceiptDetailAvailables').on('click', '.IsSelected', function () {
