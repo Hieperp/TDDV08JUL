@@ -25,8 +25,8 @@
             })
             .ToolBar(toolbar =>
             {
-                toolbar.Template(@<text>
-                    <button type="button" class="k-button" onclick="location.href='@Url.Action("Create", "PurchaseRequisitions")'"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập phiếu đề nghị mua hàng </button>
+                toolbar.Template(@<text>                    
+                    <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" />  Lập phiếu đề nghị mua hàng </button>
                     <div class="toolbar" style="float: right;">
                         <label>Nhập số đơn hàng hoặc tên khách hàng để tìm</label>
                         <input id="indexFilterText" class="k-textbox" style="text-align: center; " onkeyup="indexFilterText_KeyUp()" />
@@ -75,7 +75,7 @@
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "PurchaseRequisitions")", "Chọn khách hàng, chương trình khuyến mãi áp dụng cho khách hàng", "@Settings.PopupWidth", "@Settings.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "PurchaseRequisitions")", "Chọn khách hàng", "@Settings.PopupWidth", "@Settings.PopupHeightSmall");
         });
     }
 

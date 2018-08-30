@@ -1137,7 +1137,6 @@
     <Content Include="Areas\Generals\Views\web.config" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Index.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\_PurchaseRequisition.cshtml" />
-    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Create.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Edit.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Delete.cshtml" />
     <Content Include="Areas\Purchases\Views\PurchaseRequisitions\Approve.cshtml" />
@@ -1272,6 +1271,7 @@
     <Content Include="Areas\Inventories\Views\OtherItemReceipts\GetGoodsReceiptDetailAvailables.cshtml" />
     <Content Include="Areas\Inventories\Views\OtherItemReceipts\Index.cshtml" />
     <Content Include="Areas\Inventories\Views\OtherItemReceipts\Print.cshtml" />
+    <Content Include="Areas\Purchases\Views\PurchaseRequisitions\CreateWizard.cshtml" />
     <None Include="Properties\PublishProfiles\TDV.pubxml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml">
       <SubType>Designer</SubType>
@@ -1460,7 +1460,7 @@
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Print.js" />
     <Content Include="Scripts\Controllers\Productions\ProductionOrders\Void.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Approve.js" />
-    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Create.js" />
+    <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Delete.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Edit.js" />
     <Content Include="Scripts\Controllers\Purchases\PurchaseRequisitions\Import.js" />

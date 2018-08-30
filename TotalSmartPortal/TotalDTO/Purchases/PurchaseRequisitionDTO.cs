@@ -48,7 +48,7 @@ namespace TotalDTO.Purchases
         }
 
         public override Nullable<int> CustomerID { get { return (this.Customer != null ? (this.Customer.CustomerID > 0 ? (Nullable<int>)this.Customer.CustomerID : null) : null); } }
-        [UIHint("AutoCompletes/CustomerBase")]
+        [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }
 
         public override Nullable<int> VoidTypeID { get { return (this.VoidType != null ? this.VoidType.VoidTypeID : null); } }
