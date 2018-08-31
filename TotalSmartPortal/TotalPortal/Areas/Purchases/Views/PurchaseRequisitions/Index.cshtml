@@ -12,7 +12,7 @@
                 columns.Bound(p => p.EntryDate).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(90).Filterable(false);
 
                 columns.Bound(p => p.Reference).Title("#").Width(10).Filterable(false).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Purchases/PurchaseRequisitions", action = "Edit" }) + "/#= PurchaseRequisitionID #'>#=Reference#</a>");
-                columns.Bound(p => p.Code).Title("Số CT").Width(10).Filterable(false);
+                columns.Bound(p => p.Code).Title("Số ĐH").Width(10).Filterable(false);
                 columns.Bound(p => p.CustomerName).Title("Nhà cung cấp").Width(180);
                 columns.Bound(p => p.DeliveryDate).Title("Ngày giao hàng").Format("{0:dd/MM/yyyy}").Width(90);
                 columns.Bound(p => p.Purposes).Title("Mục đích").Width(120);
@@ -30,7 +30,7 @@
                 toolbar.Template(@<text>                    
                     <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" />  Lập phiếu đề nghị mua hàng </button>
                     <div class="toolbar" style="float: right;">
-                        <label>Nhập số đơn hàng hoặc tên khách hàng để tìm</label>
+                        <label>Nhập số đơn hàng, tên khách hàng, mục đích hoặc diễn giải để tìm</label>
                         <input id="indexFilterText" class="k-textbox" style="text-align: center; " onkeyup="indexFilterText_KeyUp()" />
                     </div>
                 </text>);
@@ -114,7 +114,10 @@
                 filters: [
                     { field: "Code", operator: "contains", value: indexFilterText },
                     { field: "Reference", operator: "contains", value: indexFilterText },
-                    { field: "CustomerName", operator: "contains", value: indexFilterText }
+                    { field: "CustomerName", operator: "contains", value: indexFilterText },
+                    { field: "Purposes", operator: "contains", value: indexFilterText },
+                    { field: "Description", operator: "contains", value: indexFilterText },
+                    { field: "VoidTypeName", operator: "contains", value: indexFilterText }                    
                 ]
             });
 
