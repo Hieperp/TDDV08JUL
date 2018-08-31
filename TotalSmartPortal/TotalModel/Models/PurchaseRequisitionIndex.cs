@@ -26,5 +26,7 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public string Code { get; set; }
         public decimal TotalQuantityReceipted { get; set; }
+        public Nullable<System.DateTime> DeliveryDate { get; set; }
+        public string Purposes { get; set; }
     }
 }

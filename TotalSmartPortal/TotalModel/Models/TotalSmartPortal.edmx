@@ -10937,6 +10937,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
           <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="TotalQuantityReceipted" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Purposes" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="PurchaseRequisitionViewDetail">
           <Property Type="Int32" Name="PurchaseRequisitionDetailID" Nullable="false" />
@@ -15723,6 +15725,8 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="TotalQuantityReceipted" ColumnName="TotalQuantityReceipted" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="Purposes" ColumnName="Purposes" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
