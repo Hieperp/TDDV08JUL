@@ -38,7 +38,6 @@
         <EntityTypeShape EntityType="TotalSmartPortalModel.Promotion" Width="1.5" PointX="10.375" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.ReceiptDetail" Width="1.5" PointX="20.75" PointY="31.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.Receipt" Width="1.5" PointX="10.25" PointY="29.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TotalSmartPortalModel.Report" Width="1.5" PointX="41.5" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.SalesOrderDetail" Width="1.5" PointX="23.5" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.SalesOrder" Width="1.5" PointX="18.25" PointY="22" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.SalesReturnDetail" Width="1.5" PointX="32" PointY="24.75" IsExpanded="true" />
@@ -262,6 +261,7 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_CommodityBrands_CommodityBrands" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_Promotions_CommodityBrands" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_CommodityCategories_CommodityCategories" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.Report" Width="1.5" PointX="3.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

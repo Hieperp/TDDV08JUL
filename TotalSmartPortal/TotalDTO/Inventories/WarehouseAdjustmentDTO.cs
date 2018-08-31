@@ -96,7 +96,7 @@ namespace TotalDTO.Inventories
         {
             base.PerformPresaveRule();
 
-            this.DtoDetails().ToList().ForEach(e => { e.WarehouseAdjustmentTypeID = this.WarehouseAdjustmentTypeID; e.WarehouseID = (int)this.WarehouseID; e.WarehouseReceiptID = this.WarehouseReceiptID; e.CustomerID = this.CustomerID; });            
+            this.DtoDetails().ToList().ForEach(e => { e.WarehouseAdjustmentTypeID = this.WarehouseAdjustmentTypeID; e.NMVNTaskID = this.NMVNTaskID; e.WarehouseID = (int)this.WarehouseID; e.WarehouseReceiptID = this.WarehouseReceiptID; e.CustomerID = this.CustomerID; });
         }
 
     }
@@ -118,7 +118,7 @@ namespace TotalDTO.Inventories
 
         List<WarehouseAdjustmentDetailDTO> WarehouseAdjustmentViewDetails { get; set; }
 
-        string ControllerName { get; }        
+        string ControllerName { get; }
 
         bool NegativeOnly { get; }
         bool PositiveOnly { get; }

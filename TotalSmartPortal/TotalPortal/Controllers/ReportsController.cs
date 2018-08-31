@@ -44,7 +44,7 @@ namespace TotalPortal.Controllers
 
 
 
-        public ActionResult Open(int? id)
+        public ActionResult Open(int? id, int? detailID)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -66,7 +66,7 @@ namespace TotalPortal.Controllers
 
 
 
-            PrintViewModel printViewModel = new PrintViewModel() { Id = locationID, ReportPath = report.ReportURL };
+            PrintViewModel printViewModel = new PrintViewModel() { Id = id, DetailID = detailID, PrintOptionID = report.PrintOptionID, LocationID = locationID, ReportPath = report.ReportURL };
 
             return View(viewName: "Open", model: printViewModel);
         }

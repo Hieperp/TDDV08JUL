@@ -15,8 +15,8 @@ namespace TotalPortal
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}/{detailId}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, detailId = UrlParameter.Optional }
             );
 
             routes.MapRoute(

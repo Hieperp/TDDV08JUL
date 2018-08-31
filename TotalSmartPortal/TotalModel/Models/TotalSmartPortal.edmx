@@ -1263,6 +1263,7 @@
           <Property Name="ReportName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ReportURL" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="ReportTypeID" Type="int" Nullable="false" />
+          <Property Name="PrintOptionID" Type="int" Nullable="false" />
           <Property Name="SerialID" Type="int" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
         </EntityType>
@@ -6695,20 +6696,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <NavigationProperty Name="Receipt1" Relationship="Self.FK_Receipts_Receipts" FromRole="Receipts1" ToRole="Receipts" />
           <NavigationProperty Name="SalesReturn" Relationship="Self.FK_Receipts_SalesReturns" FromRole="Receipts" ToRole="SalesReturns" />
         </EntityType>
-        <EntityType Name="Report">
-          <Key>
-            <PropertyRef Name="ReportID" />
-          </Key>
-          <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReportUniqueID" Type="Int32" Nullable="false" />
-          <Property Name="ReportGroupID" Type="Int32" Nullable="false" />
-          <Property Name="ReportGroupName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ReportName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ReportURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ReportTypeID" Type="Int32" Nullable="false" />
-          <Property Name="SerialID" Type="Int32" Nullable="false" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="SalesOrderDetail">
           <Key>
             <PropertyRef Name="SalesOrderDetailID" />
@@ -8156,7 +8143,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
           <EntitySet Name="Promotions" EntityType="Self.Promotion" />
           <EntitySet Name="ReceiptDetails" EntityType="Self.ReceiptDetail" />
           <EntitySet Name="Receipts" EntityType="Self.Receipt" />
-          <EntitySet Name="Reports" EntityType="Self.Report" />
           <EntitySet Name="SalesOrderDetails" EntityType="Self.SalesOrderDetail" />
           <EntitySet Name="SalesOrders" EntityType="Self.SalesOrder" />
           <EntitySet Name="SalesReturnDetails" EntityType="Self.SalesReturnDetail" />
@@ -9806,6 +9792,7 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             <End Role="CommodityCategory" EntitySet="CommodityCategories" />
             <End Role="CommodityCategory1" EntitySet="CommodityCategories" />
           </AssociationSet>
+          <EntitySet Name="Reports" EntityType="TotalSmartPortalModel.Report" />
           </EntityContainer>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -13189,6 +13176,21 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportUniqueID" Type="Int32" Nullable="false" />
+          <Property Name="ReportGroupID" Type="Int32" Nullable="false" />
+          <Property Name="ReportGroupName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportURL" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReportTypeID" Type="Int32" Nullable="false" />
+          <Property Name="PrintOptionID" Type="Int32" Nullable="false" />
+          <Property Name="SerialID" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14033,21 +14035,6 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="InActive" ColumnName="InActive" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
                 <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reports">
-            <EntityTypeMapping TypeName="TotalSmartPortalModel.Report">
-              <MappingFragment StoreEntitySet="Reports">
-                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
-                <ScalarProperty Name="ReportUniqueID" ColumnName="ReportUniqueID" />
-                <ScalarProperty Name="ReportGroupID" ColumnName="ReportGroupID" />
-                <ScalarProperty Name="ReportGroupName" ColumnName="ReportGroupName" />
-                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
-                <ScalarProperty Name="ReportURL" ColumnName="ReportURL" />
-                <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
-                <ScalarProperty Name="SerialID" ColumnName="SerialID" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -16818,6 +16805,22 @@ warning 6035: The relationship 'FK_SalesReturns_AspNetUsers2' has columns that a
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="TotalSmartPortalModel.Report">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="SerialID" ColumnName="SerialID" />
+                <ScalarProperty Name="PrintOptionID" ColumnName="PrintOptionID" />
+                <ScalarProperty Name="ReportTypeID" ColumnName="ReportTypeID" />
+                <ScalarProperty Name="ReportURL" ColumnName="ReportURL" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="ReportGroupName" ColumnName="ReportGroupName" />
+                <ScalarProperty Name="ReportGroupID" ColumnName="ReportGroupID" />
+                <ScalarProperty Name="ReportUniqueID" ColumnName="ReportUniqueID" />
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

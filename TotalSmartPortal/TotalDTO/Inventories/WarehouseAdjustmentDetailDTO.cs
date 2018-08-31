@@ -6,6 +6,7 @@ using TotalDTO.Helpers;
 using System.Collections.Generic;
 using TotalModel.Helpers;
 using TotalBase;
+using TotalBase.Enums;
 
 namespace TotalDTO.Inventories
 {
@@ -17,6 +18,7 @@ namespace TotalDTO.Inventories
         public int WarehouseAdjustmentID { get; set; }
 
         public int WarehouseAdjustmentTypeID { get; set; }
+        public GlobalEnums.NmvnTaskID NMVNTaskID { get; set; }
 
         public Nullable<int> GoodsReceiptID { get; set; }
         public Nullable<int> GoodsReceiptDetailID { get; set; }

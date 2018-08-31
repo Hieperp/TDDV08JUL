@@ -28,12 +28,15 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
         {
             string queryString = " @WarehouseID int, @FromDate DateTime, @ToDate DateTime " + "\r\n"; //Filter by @LocalWarehouseID to make this stored procedure run faster, but it may be removed without any effect the algorithm
 
-            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            //queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
             queryString = queryString + "       DECLARE     @LocalFromDate DateTime, @LocalToDate DateTime " + "\r\n";
-            queryString = queryString + "       SET         @LocalFromDate = @FromDate      SET @LocalToDate = @ToDate " + "\r\n";
+            queryString = queryString + "       SET         @LocalFromDate = @FromDate          SET @LocalToDate = @ToDate " + "\r\n";
+
+            queryString = queryString + "       DECLARE     @LocalWarehouseID int, @LocationID int " + "\r\n";
+            queryString = queryString + "       SET         @LocalWarehouseID = @WarehouseID    SET @LocationID = 0    " + "\r\n";
 
             queryString = queryString + "       IF         (@WarehouseID <= 0 ) " + "\r\n";
             queryString = queryString + "                   " + this.WarehouseJournalBUILD(true) + "\r\n";
@@ -53,13 +56,11 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
             queryString = queryString + "    BEGIN " + "\r\n";
 
             if (!allWarehouses)
-            {
-                queryString = queryString + "   DECLARE     @LocalWarehouseID int, @LocationID int " + "\r\n";
-                queryString = queryString + "   SET         @LocalWarehouseID = @WarehouseID    " + "\r\n";
                 queryString = queryString + "   SET         @LocationID = (SELECT LocationID FROM Warehouses WHERE WarehouseID = @LocalWarehouseID) " + "\r\n";
-            }
 
-            queryString = queryString + "       SELECT      Commodities.CommodityID, Commodities.Code, Commodities.Name, Commodities.SalesUnit, Commodities.LeadTime, " + "\r\n";
+            //IIF(GoodsReceiptDetails.EntryDate >= @LocalFromDate, '   ' + CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103), '     DAU KY ' + CONVERT(VARCHAR, DATEADD (day, -1,  @LocalFromDate), 103)) AS GroupName, 
+
+            queryString = queryString + "       SELECT      800000 + @LocalWarehouseID AS WarehouseCardID, WarehouseJournalMaster.GroupName, Commodities.CommodityID, Commodities.Code, Commodities.Name, Commodities.SalesUnit, Commodities.LeadTime, " + "\r\n";
             queryString = queryString + "                   WarehouseJournalMaster.GoodsReceiptDetailID, WarehouseJournalMaster.EntryDate, WarehouseJournalMaster.Reference, WarehouseJournalMaster.ReceiptCode, " + "\r\n";
             queryString = queryString + "                   ISNULL(Warehouses.LocationID, 0) AS LocationID, ISNULL(Warehouses.WarehouseCategoryID, 0) AS WarehouseCategoryID, ISNULL(Warehouses.WarehouseID, 0) AS WarehouseID, ISNULL(Warehouses.Name, '') AS WarehouseName, " + "\r\n";
             queryString = queryString + "                   Customers.CustomerTypeID, Customers.CustomerID, Customers.OfficialName AS CustomerName, " + "\r\n";
@@ -78,7 +79,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
             queryString = queryString + "       FROM       (" + "\r\n";
 
             //--BEGIN-INPUT-OUTPUT-END.END
-            queryString = queryString + "                   SELECT  GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.GoodsReceiptDetailID, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.CustomerID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, " + "\r\n";
+            queryString = queryString + "                   SELECT  GoodsReceiptDetailUnionMaster.GroupName, GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.GoodsReceiptDetailID, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.CustomerID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, " + "\r\n";
             queryString = queryString + "                           GoodsReceiptDetailUnionMaster.QuantityBegin, GoodsReceiptDetailUnionMaster.QuantityInputINV, GoodsReceiptDetailUnionMaster.QuantityInputRTN, GoodsReceiptDetailUnionMaster.QuantityInputTRF, GoodsReceiptDetailUnionMaster.QuantityInputADJ, GoodsReceiptDetailUnionMaster.QuantityIssuedINV, GoodsReceiptDetailUnionMaster.QuantityIssuedTRF, GoodsReceiptDetailUnionMaster.QuantityIssuedADJ, 0 AS QuantityOnPurchasing, 0 AS QuantityOnReceipt, GoodsReceiptDetailUnionMaster.MovementMIN, GoodsReceiptDetailUnionMaster.MovementMAX, GoodsReceiptDetailUnionMaster.MovementAVG " + "\r\n";
 
             // NOTE 24.APR.2007: VIEC TINH GIA TON KHO (GoodsReceiptDetails.AmountCostCUR + GoodsReceiptDetails.AmountClearanceCUR)/ GoodsReceiptDetails.Quantity AS UPriceCURInventory, (GoodsReceiptDetails.AmountCostUSD + GoodsReceiptDetails.AmountClearanceUSD)/ GoodsReceiptDetails.Quantity AS UPriceNMDInventory
@@ -87,18 +88,18 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
             // XEM SPWHAmountCostofsalesGet DE TINH LUONG REMAIN NHE
 
             queryString = queryString + "                   FROM   (" + "\r\n";
-            queryString = queryString + "                           SELECT  GoodsReceiptDetailUnion.GoodsReceiptDetailID, " + "\r\n";
+            queryString = queryString + "                           SELECT  GoodsReceiptDetailUnion.GroupName, GoodsReceiptDetailUnion.GoodsReceiptDetailID, " + "\r\n";
             queryString = queryString + "                                   SUM(QuantityBegin) AS QuantityBegin, SUM(QuantityInputINV) AS QuantityInputINV, SUM(QuantityInputRTN) AS QuantityInputRTN, SUM(QuantityInputTRF) AS QuantityInputTRF, SUM(QuantityInputADJ) AS QuantityInputADJ, SUM(QuantityIssuedINV) AS QuantityIssuedINV, SUM(QuantityIssuedTRF) AS QuantityIssuedTRF, SUM(QuantityIssuedADJ) AS QuantityIssuedADJ, " + "\r\n";
             queryString = queryString + "                                   MIN(MovementDate) AS MovementMIN, MAX(MovementDate) AS MovementMAX, SUM((QuantityIssuedINV + QuantityIssuedTRF + QuantityIssuedADJ) * MovementDate) / SUM(QuantityIssuedINV + QuantityIssuedTRF + QuantityIssuedADJ) AS MovementAVG " + "\r\n";
             queryString = queryString + "                           FROM    (" + "\r\n";
-            
-            
-            
-            
-            
+
+
+
+
+
             //BEGINING
             //WHINPUT
-            queryString = queryString + "                                   SELECT      GoodsReceiptDetails.GoodsReceiptDetailID, ROUND(GoodsReceiptDetails.Quantity - GoodsReceiptDetails.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") AS QuantityBegin, 0 AS QuantityInputINV, 0 AS QuantityInputRTN, 0 AS QuantityInputTRF, 0 AS QuantityInputADJ, 0 AS QuantityIssuedINV, 0 AS QuantityIssuedTRF, 0 AS QuantityIssuedADJ, NULL AS MovementDate " + "\r\n";
+            queryString = queryString + "                                   SELECT      ' DAU KY ' + CONVERT(VARCHAR, DATEADD (day, -1,  @LocalFromDate), 103) AS GroupName, GoodsReceiptDetails.GoodsReceiptDetailID, ROUND(GoodsReceiptDetails.Quantity - GoodsReceiptDetails.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") AS QuantityBegin, 0 AS QuantityInputINV, 0 AS QuantityInputRTN, 0 AS QuantityInputTRF, 0 AS QuantityInputADJ, 0 AS QuantityIssuedINV, 0 AS QuantityIssuedTRF, 0 AS QuantityIssuedADJ, NULL AS MovementDate " + "\r\n";
             queryString = queryString + "                                   FROM        GoodsReceiptDetails " + "\r\n";
             queryString = queryString + "                                   WHERE       " + (allWarehouses ? "" : " GoodsReceiptDetails.WarehouseID = @LocalWarehouseID AND ") + " GoodsReceiptDetails.EntryDate < @LocalFromDate AND GoodsReceiptDetails.Quantity > GoodsReceiptDetails.QuantityIssued " + "\r\n";
 
@@ -117,7 +118,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
 
             queryString = queryString + "                                   UNION ALL " + "\r\n";
             //UNDO WarehouseAdjustmentDetails
-            queryString = queryString + "                                   SELECT      GoodsReceiptDetails.GoodsReceiptDetailID, -WarehouseAdjustmentDetails.Quantity AS QuantityBegin, 0 AS QuantityInputINV, 0 AS QuantityInputRTN, 0 AS QuantityInputTRF, 0 AS QuantityInputADJ, 0 AS QuantityIssuedINV, 0 AS QuantityIssuedTRF, 0 AS QuantityIssuedADJ, NULL AS MovementDate " + "\r\n";
+            queryString = queryString + "                                   SELECT      ' DAU KY ' + CONVERT(VARCHAR, DATEADD (day, -1,  @LocalFromDate), 103) AS GroupName, GoodsReceiptDetails.GoodsReceiptDetailID, -WarehouseAdjustmentDetails.Quantity AS QuantityBegin, 0 AS QuantityInputINV, 0 AS QuantityInputRTN, 0 AS QuantityInputTRF, 0 AS QuantityInputADJ, 0 AS QuantityIssuedINV, 0 AS QuantityIssuedTRF, 0 AS QuantityIssuedADJ, NULL AS MovementDate " + "\r\n";
             queryString = queryString + "                                   FROM        GoodsReceiptDetails INNER JOIN " + "\r\n";
             queryString = queryString + "                                               WarehouseAdjustmentDetails ON " + (allWarehouses ? "" : " GoodsReceiptDetails.WarehouseID = @LocalWarehouseID AND ") + " GoodsReceiptDetails.GoodsReceiptDetailID = WarehouseAdjustmentDetails.GoodsReceiptDetailID AND GoodsReceiptDetails.EntryDate < @LocalFromDate AND WarehouseAdjustmentDetails.EntryDate >= @LocalFromDate " + "\r\n";
 
@@ -130,7 +131,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
 
             //INTPUT
             queryString = queryString + "                                   UNION ALL " + "\r\n";
-            queryString = queryString + "                                   SELECT      GoodsReceiptDetails.GoodsReceiptDetailID, 0 AS QuantityBegin, " + "\r\n";
+            queryString = queryString + "                                   SELECT      CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103) AS GroupName, GoodsReceiptDetails.GoodsReceiptDetailID, 0 AS QuantityBegin, " + "\r\n";
             queryString = queryString + "                                               CASE WHEN GoodsReceiptDetails.GoodsReceiptTypeID = " + (int)GlobalEnums.GoodsReceiptTypeID.PurchaseInvoice + " THEN GoodsReceiptDetails.Quantity ELSE 0 END AS QuantityInputINV, " + "\r\n";
             queryString = queryString + "                                               CASE WHEN GoodsReceiptDetails.GoodsReceiptTypeID = " + (int)GlobalEnums.GoodsReceiptTypeID.GoodsReturn + " THEN GoodsReceiptDetails.Quantity ELSE 0 END AS QuantityInputRTN, " + "\r\n";
             queryString = queryString + "                                               CASE WHEN GoodsReceiptDetails.GoodsReceiptTypeID = " + (int)GlobalEnums.GoodsReceiptTypeID.StockTransfer + " THEN GoodsReceiptDetails.Quantity ELSE 0 END AS QuantityInputTRF, " + "\r\n";
@@ -164,12 +165,12 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
 
             queryString = queryString + "                                   UNION ALL " + "\r\n";
             //WarehouseAdjustmentDetails
-            queryString = queryString + "                                   SELECT      WarehouseAdjustmentDetails.GoodsReceiptDetailID, 0 AS QuantityBegin, 0 AS QuantityInputINV, 0 AS QuantityInputRTN, 0 AS QuantityInputTRF, 0 AS QuantityInputADJ, 0 AS QuantityIssuedINV, 0 AS QuantityIssuedTRF, -WarehouseAdjustmentDetails.Quantity AS QuantityIssuedADJ, 0 AS MovementDate " + "\r\n"; //DATEDIFF(DAY, GoodsReceiptDetails.EntryDate, WarehouseAdjustmentDetails.EntryDate) AS MovementDate
+            queryString = queryString + "                                   SELECT      CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103) AS GroupName, WarehouseAdjustmentDetails.GoodsReceiptDetailID, 0 AS QuantityBegin, 0 AS QuantityInputINV, 0 AS QuantityInputRTN, 0 AS QuantityInputTRF, 0 AS QuantityInputADJ, 0 AS QuantityIssuedINV, 0 AS QuantityIssuedTRF, -WarehouseAdjustmentDetails.Quantity AS QuantityIssuedADJ, 0 AS MovementDate " + "\r\n"; //DATEDIFF(DAY, GoodsReceiptDetails.EntryDate, WarehouseAdjustmentDetails.EntryDate) AS MovementDate
             queryString = queryString + "                                   FROM        WarehouseAdjustmentDetails " + "\r\n";
             queryString = queryString + "                                   WHERE       " + (allWarehouses ? "" : " WarehouseAdjustmentDetails.WarehouseID = @LocalWarehouseID AND ") + " WarehouseAdjustmentDetails.EntryDate >= @LocalFromDate AND WarehouseAdjustmentDetails.EntryDate <= @LocalToDate " + "\r\n";
 
             queryString = queryString + "                                   ) AS GoodsReceiptDetailUnion " + "\r\n";
-            queryString = queryString + "                           GROUP BY GoodsReceiptDetailUnion.GoodsReceiptDetailID " + "\r\n";
+            queryString = queryString + "                           GROUP BY GoodsReceiptDetailUnion.GroupName, GoodsReceiptDetailUnion.GoodsReceiptDetailID " + "\r\n";
             queryString = queryString + "                           ) AS GoodsReceiptDetailUnionMaster INNER JOIN " + "\r\n";
             queryString = queryString + "                           GoodsReceiptDetails ON GoodsReceiptDetailUnionMaster.GoodsReceiptDetailID = GoodsReceiptDetails.GoodsReceiptDetailID " + "\r\n";
 
@@ -273,9 +274,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
 
         private void WarehouseCards()
         {
+            string warehouseAdjustmentController = "                            WHEN " + (int)GlobalEnums.NmvnTaskID.OtherMaterialReceipt + " THEN '" + GlobalEnums.NmvnTaskID.OtherMaterialReceipt.ToString() + "s' WHEN " + (int)GlobalEnums.NmvnTaskID.OtherMaterialIssue + " THEN '" + GlobalEnums.NmvnTaskID.OtherMaterialIssue.ToString() + "s' WHEN " + (int)GlobalEnums.NmvnTaskID.MaterialAdjustment + " THEN '" + GlobalEnums.NmvnTaskID.MaterialAdjustment.ToString() + "s' " + "\r\n";
+            warehouseAdjustmentController = warehouseAdjustmentController + "   WHEN " + (int)GlobalEnums.NmvnTaskID.OtherItemReceipt + " THEN '" + GlobalEnums.NmvnTaskID.OtherItemReceipt.ToString() + "s' WHEN " + (int)GlobalEnums.NmvnTaskID.OtherItemIssue + " THEN '" + GlobalEnums.NmvnTaskID.OtherItemIssue.ToString() + "s' WHEN " + (int)GlobalEnums.NmvnTaskID.ItemAdjustment + " THEN '" + GlobalEnums.NmvnTaskID.ItemAdjustment.ToString() + "s' " + "\r\n";
+            warehouseAdjustmentController = warehouseAdjustmentController + "   WHEN " + (int)GlobalEnums.NmvnTaskID.OtherProductReceipt + " THEN '" + GlobalEnums.NmvnTaskID.OtherProductReceipt.ToString() + "s' WHEN " + (int)GlobalEnums.NmvnTaskID.OtherProductIssue + " THEN '" + GlobalEnums.NmvnTaskID.OtherProductIssue.ToString() + "s' WHEN " + (int)GlobalEnums.NmvnTaskID.ProductAdjustment + " THEN '" + GlobalEnums.NmvnTaskID.ProductAdjustment.ToString() + "s' END " + "\r\n";
+
+
             string queryString = " @WarehouseID int, @FromDate DateTime, @ToDate DateTime " + "\r\n"; //Filter by @LocalWarehouseID to make this stored procedure run faster, but it may be removed without any effect the algorithm
 
-            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            //queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
@@ -285,7 +291,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
             queryString = queryString + "       DECLARE     @LocationID int " + "\r\n";
             queryString = queryString + "       SET         @LocationID = (SELECT LocationID FROM Warehouses WHERE WarehouseID = @LocalWarehouseID) " + "\r\n";
 
-            queryString = queryString + "       SELECT      WarehouseJournalMaster.GroupName, WarehouseJournalMaster.SubGroupName, WarehouseJournalMaster.EntryDate, " + "\r\n";
+            queryString = queryString + "       SELECT      WarehouseJournalMaster.ControllerName, WarehouseJournalMaster.EntityID, WarehouseJournalMaster.GroupName, WarehouseJournalMaster.SubGroupName, WarehouseJournalMaster.EntryDate, " + "\r\n";
             queryString = queryString + "                   Commodities.CommodityID, Commodities.Code, Commodities.Name, Commodities.SalesUnit, Commodities.LeadTime, WarehouseJournalMaster.Reference, WarehouseJournalMaster.ReceiptCode, " + "\r\n";
             queryString = queryString + "                   ISNULL(Warehouses.LocationID, 0) AS LocationID, ISNULL(Warehouses.WarehouseCategoryID, 0) AS WarehouseCategoryID, ISNULL(Warehouses.WarehouseID, 0) AS WarehouseID, ISNULL(Warehouses.Name, '') AS WarehouseName, " + "\r\n";
             queryString = queryString + "                   WarehouseJournalMaster.Description, WarehouseJournalMaster.QuantityDebit, WarehouseJournalMaster.QuantityCredit, " + "\r\n";
@@ -301,13 +307,13 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
             //1.BEGINING
             ////////AT TDV, TOTALSMARTPORTAL: JUST HAVE SUMMARY AT BEGINNING
             //WHINPUT
-            queryString = queryString + "                   SELECT     'HH TẠI KHO' AS GroupName, 'DAU KY ' + CONVERT(VARCHAR, DATEADD (day, -1,  @LocalFromDate), 103) AS SubGroupName, GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, N'' AS Description, ROUND(GoodsReceiptDetails.Quantity - GoodsReceiptDetails.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") AS QuantityDebit, 0 AS QuantityCredit " + "\r\n";
+            queryString = queryString + "                   SELECT     '' AS ControllerName, 0 AS EntityID, N'HH TẠI KHO' AS GroupName, N'DAU KY ' + CONVERT(VARCHAR, DATEADD (day, -1,  @LocalFromDate), 103) AS SubGroupName, GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, N'' AS Description, ROUND(GoodsReceiptDetails.Quantity - GoodsReceiptDetails.QuantityIssued, " + (int)GlobalEnums.rndQuantity + ") AS QuantityDebit, 0 AS QuantityCredit " + "\r\n";
             queryString = queryString + "                   FROM        GoodsReceiptDetails " + "\r\n";
             queryString = queryString + "                   WHERE       GoodsReceiptDetails.WarehouseID = @LocalWarehouseID AND GoodsReceiptDetails.EntryDate < @LocalFromDate AND GoodsReceiptDetails.Quantity > GoodsReceiptDetails.QuantityIssued " + "\r\n";
 
             queryString = queryString + "                   UNION ALL " + "\r\n";
             //UNDO WarehouseAdjustmentDetails
-            queryString = queryString + "                   SELECT     'HH TẠI KHO' AS GroupName, 'DAU KY ' + CONVERT(VARCHAR, DATEADD (day, -1,  @LocalFromDate), 103) AS SubGroupName, GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, N'' AS Description, -WarehouseAdjustmentDetails.Quantity AS QuantityDebit, 0 AS QuantityCredit " + "\r\n";
+            queryString = queryString + "                   SELECT     '' AS ControllerName, 0 AS EntityID, N'HH TẠI KHO' AS GroupName, 'DAU KY ' + CONVERT(VARCHAR, DATEADD (day, -1,  @LocalFromDate), 103) AS SubGroupName, GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, N'' AS Description, -WarehouseAdjustmentDetails.Quantity AS QuantityDebit, 0 AS QuantityCredit " + "\r\n";
             queryString = queryString + "                   FROM        GoodsReceiptDetails INNER JOIN " + "\r\n";
             queryString = queryString + "                               WarehouseAdjustmentDetails ON GoodsReceiptDetails.WarehouseID = @LocalWarehouseID AND GoodsReceiptDetails.GoodsReceiptDetailID = WarehouseAdjustmentDetails.GoodsReceiptDetailID AND GoodsReceiptDetails.EntryDate < @LocalFromDate AND WarehouseAdjustmentDetails.EntryDate >= @LocalFromDate " + "\r\n";
 
@@ -386,7 +392,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
             //2.3.INTPUT.PurchaseInvoice
             queryString = queryString + "                   UNION ALL " + "\r\n";
 
-            queryString = queryString + "                   SELECT     'HH TẠI KHO' AS GroupName, CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103) AS SubGroupName, GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, Customers.Name AS Description, GoodsReceiptDetails.Quantity AS QuantityDebit, 0 AS QuantityCredit " + "\r\n";
+
+            queryString = queryString + "                   SELECT      CASE WarehouseAdjustments.NMVNTaskID " + warehouseAdjustmentController + " AS ControllerName, WarehouseAdjustments.WarehouseAdjustmentID AS EntityID, N'HH TẠI KHO' AS GroupName, CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103) AS SubGroupName, GoodsReceiptDetails.EntryDate, GoodsReceiptDetails.CommodityID, WarehouseAdjustments.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, Customers.Name AS Description, GoodsReceiptDetails.Quantity AS QuantityDebit, 0 AS QuantityCredit " + "\r\n";
             queryString = queryString + "                   FROM        GoodsReceiptDetails INNER JOIN " + "\r\n";
             queryString = queryString + "                               WarehouseAdjustments ON GoodsReceiptDetails.WarehouseID = @LocalWarehouseID AND GoodsReceiptDetails.WarehouseAdjustmentID = WarehouseAdjustments.WarehouseAdjustmentID AND GoodsReceiptDetails.EntryDate >= @LocalFromDate AND GoodsReceiptDetails.EntryDate <= @LocalToDate INNER JOIN " + "\r\n";
             queryString = queryString + "                               Customers ON WarehouseAdjustments.CustomerID = Customers.CustomerID " + "\r\n";
@@ -395,7 +402,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
 
 
             //3.OUTPUT (CAC CAU SQL CHO INVOICE, StockTransferDetails, WHADJUST, WHASSEMBLY LA HOAN TOAN GIONG NHAU. LUU Y T/H DAT BIET: WHADJUST.QUANTITY < 0)
-            
+
             //////queryString = queryString + "                   UNION ALL " + "\r\n";
             ////////3.1.SalesInvoiceDetails + "\r\n";
             //////queryString = queryString + "                   SELECT     'HH TẠI KHO' AS GroupName, CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103) AS SubGroupName, SalesInvoiceDetails.EntryDate, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, Customers.Name + ', Đ/C: ' + Customers.AddressNo AS Description, 0 AS QuantityDebit, SalesInvoiceDetails.Quantity AS QuantityCredit " + "\r\n";
@@ -413,7 +420,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
 
             queryString = queryString + "                   UNION ALL " + "\r\n";
             //3.3.WarehouseAdjustmentDetails + "\r\n";
-            queryString = queryString + "                   SELECT     'HH TẠI KHO' AS GroupName, CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103) AS SubGroupName, WarehouseAdjustmentDetails.EntryDate, GoodsReceiptDetails.CommodityID, GoodsReceiptDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, Customers.Name AS Description, 0 AS QuantityDebit, -WarehouseAdjustmentDetails.Quantity AS QuantityCredit " + "\r\n";
+            queryString = queryString + "                   SELECT      CASE WarehouseAdjustmentDetails.NMVNTaskID " + warehouseAdjustmentController + " AS ControllerName, WarehouseAdjustmentDetails.WarehouseAdjustmentID AS EntityID, N'HH TẠI KHO' AS GroupName, CONVERT(VARCHAR, @LocalFromDate, 103) + ' -> ' + CONVERT(VARCHAR, @LocalToDate, 103) AS SubGroupName, WarehouseAdjustmentDetails.EntryDate, GoodsReceiptDetails.CommodityID, WarehouseAdjustmentDetails.Reference, GoodsReceiptDetails.Code AS ReceiptCode, GoodsReceiptDetails.WarehouseID, Customers.Name AS Description, 0 AS QuantityDebit, -WarehouseAdjustmentDetails.Quantity AS QuantityCredit " + "\r\n";
             queryString = queryString + "                   FROM        WarehouseAdjustmentDetails INNER JOIN " + "\r\n";
             queryString = queryString + "                               GoodsReceiptDetails ON WarehouseAdjustmentDetails.WarehouseID = @LocalWarehouseID AND WarehouseAdjustmentDetails.GoodsReceiptDetailID = GoodsReceiptDetails.GoodsReceiptDetailID AND WarehouseAdjustmentDetails.EntryDate >= @LocalFromDate AND WarehouseAdjustmentDetails.EntryDate <= @LocalToDate INNER JOIN " + "\r\n";
             queryString = queryString + "                               Customers ON WarehouseAdjustmentDetails.CustomerID = Customers.CustomerID " + "\r\n";

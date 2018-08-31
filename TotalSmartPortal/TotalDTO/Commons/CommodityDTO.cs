@@ -96,7 +96,7 @@ namespace TotalDTO.Commons
         public string CodePartA { get; set; }
         public string CodePartB { get { return this.CommodityCategoryName.Remove(this.CommodityCategoryName.IndexOf("[")).Trim(); } }
         public string CodePartC { get { return this.CommodityLineName.Remove(this.CommodityLineName.IndexOf("[")).Trim(); } }
-        public string CodePartD { get { return this.IsMaterial ? "" : this.CommodityClassName.Remove(this.CommodityClassName.IndexOf("[")).Trim(); } }
+        public string CodePartD { get { return !this.IsMaterial && this.CommodityClassName != null ? this.CommodityClassName.Remove(this.CommodityClassName.IndexOf("[")).Trim() : null; } }
         public string CodePartE { get; set; }
         public string CodePartF { get; set; }
 
