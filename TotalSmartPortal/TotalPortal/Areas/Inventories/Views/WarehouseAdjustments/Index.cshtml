@@ -18,6 +18,7 @@
                 columns.Bound(p => p.Reference).Title("Số phiếu").Width(10).ClientTemplate("<a href='" + Url.RouteUrl("Default", new { controller = "Inventories/" + Model.ControllerName, action = "Edit" }) + "/#= WarehouseAdjustmentID #'>#=Reference#</a>");
                 columns.Bound(p => p.WarehouseAdjustmentTypeName).Title("Phân loại").Width(10).Filterable(false);
                 columns.Bound(p => p.CustomerName).Title("Khách hàng").Width(190);
+                columns.Bound(p => p.AdjustmentJobs).Title("Mục đích").Width(120);                
                 columns.Bound(p => p.Description).Title("Diễn giải").Width(120);
 
                 columns.Bound(p => p.TotalQuantity).Title("SL").Format(Settings.kfmQuantity).HtmlAttributes(new { @class = "grid-number-column" }).HeaderHtmlAttributes(new { @style = "text-align: right" }).Filterable(false).Width(80).Hidden(!@Model.BothAdjustment);
