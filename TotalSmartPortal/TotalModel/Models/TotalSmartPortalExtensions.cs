@@ -115,6 +115,13 @@ namespace TotalModel.Models
     }
 
 
+    public partial class WarehouseAdjustmentIndex
+    {
+        public virtual decimal TotalQuantityPositive { get { return this.TotalQuantity; } }
+
+        public virtual decimal TotalQuantityNegative { get { return -this.TotalQuantity; } }
+    }
+
 
     public partial class WarehouseAdjustment : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<WarehouseAdjustmentDetail>
     {
