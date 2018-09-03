@@ -579,6 +579,7 @@
     <Content Include="Content\Images\New\icons\Dakirby309-Windows-8-Metro-Apps-Tune-Up-Utilities-Metro.ico" />
     <Content Include="Content\Images\New\icons\Fixxing.ico" />
     <Content Include="Content\Images\New\icons\Ready.ico" />
+    <Content Include="Content\Images\New\Loading.gif" />
     <Content Include="Content\Images\New\menu\bar-graph.png" />
     <Content Include="Content\Images\New\menu\barcode.png" />
     <Content Include="Content\Images\New\menu\credit-card.png" />
