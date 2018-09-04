@@ -272,7 +272,7 @@ namespace TotalDAL.Repositories
             var commodities = this.totalSmartPortalEntities.Commodities.ToList();
             foreach (Commodity commodity in commodities)
             {
-                if (commodity.CodePartB.IndexOf("[") > 0 || commodity.CodePartC.IndexOf("[") > 0 || commodity.CodePartD.IndexOf("[") > 0) throw new Exception("[9999999999999");
+                if (commodity.CodePartB.IndexOf("[") > 0 || commodity.CodePartC.IndexOf("[") > 0 || (commodity.CodePartD != null && commodity.CodePartD.IndexOf("[") > 0)) throw new Exception("[9999999999999");
                 this.ExecuteStoreCommand("UPDATE Commodities SET OfficialCode = N'" + TotalBase.CommonExpressions.AlphaNumericString(commodity.Code) + "' WHERE CommodityID = " + commodity.CommodityID, new ObjectParameter[] { });
             }
 
