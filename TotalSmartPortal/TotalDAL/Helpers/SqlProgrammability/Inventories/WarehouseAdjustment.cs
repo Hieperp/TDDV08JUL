@@ -32,6 +32,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.WarehouseAdjustmentToggleApproved();
 
             this.WarehouseAdjustmentInitReference();
+
+            this.WarehouseAdjustmentSheet();
         }
 
 
@@ -184,6 +186,34 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.totalSmartPortalEntities.CreateTrigger("WarehouseAdjustmentInitReference", simpleInitReference.CreateQuery());
         }
 
+        private void WarehouseAdjustmentSheet()
+        {
+            string queryString = " @WarehouseAdjustmentID int " + "\r\n";
+            //queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+            queryString = queryString + "    BEGIN " + "\r\n";
+
+            queryString = queryString + "       DECLARE         @LocalWarehouseAdjustmentID int    SET @LocalWarehouseAdjustmentID = @WarehouseAdjustmentID" + "\r\n";
+
+            queryString = queryString + "       SELECT          NMVNTaskName = IIF(WarehouseAdjustments.NMVNTaskID IN (" + ((int)GlobalEnums.NmvnTaskID.OtherMaterialReceipt).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherMaterialIssue).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.MaterialAdjustment).ToString() + "), N'NVL', IIF( WarehouseAdjustments.NMVNTaskID IN (" + ((int)GlobalEnums.NmvnTaskID.OtherItemReceipt).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherItemIssue).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.ItemAdjustment).ToString() + "), N'Màng', IIF( WarehouseAdjustments.NMVNTaskID IN (" + ((int)GlobalEnums.NmvnTaskID.OtherProductReceipt).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherProductIssue).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.ProductAdjustment).ToString() + "), N'Thành phẩm', ''))), " + "\r\n";
+            queryString = queryString + "                       NMVNTaskTypeName = IIF(WarehouseAdjustments.NMVNTaskID IN (" + ((int)GlobalEnums.NmvnTaskID.OtherMaterialReceipt).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherItemReceipt).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherProductReceipt).ToString() + "), N'Nhập', IIF( WarehouseAdjustments.NMVNTaskID IN (" + ((int)GlobalEnums.NmvnTaskID.OtherMaterialIssue).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherItemIssue).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherProductIssue).ToString() + "), N'Xuất', IIF( WarehouseAdjustments.NMVNTaskID IN (" + ((int)GlobalEnums.NmvnTaskID.MaterialAdjustment).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.ItemAdjustment).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.ProductAdjustment).ToString() + "), N'Điều chỉnh', ''))), " + "\r\n";
+            queryString = queryString + "                       WarehouseAdjustments.WarehouseAdjustmentID, WarehouseAdjustments.EntryDate, WarehouseAdjustments.Reference, WarehouseAdjustments.NMVNTaskID, WarehouseAdjustments.WarehouseID, WarehouseAdjustments.WarehouseReceiptID, WarehouseAdjustments.WarehouseAdjustmentTypeID, WarehouseAdjustments.LocationID, WarehouseAdjustments.AdjustmentJobs, " + "\r\n";
+            queryString = queryString + "                       WarehouseAdjustmentDetails.BatchEntryDate, WarehouseAdjustmentDetails.CommodityID, WarehouseAdjustmentDetails.CommodityTypeID,  WarehouseAdjustmentDetails.QuantityReceipted, WarehouseAdjustmentDetails.Remarks, " + "\r\n";
+            queryString = queryString + "                       Quantity = IIF(WarehouseAdjustments.NMVNTaskID IN (" + ((int)GlobalEnums.NmvnTaskID.OtherMaterialIssue).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherItemIssue).ToString() + "," + ((int)GlobalEnums.NmvnTaskID.OtherProductIssue).ToString() + "), - WarehouseAdjustmentDetails.Quantity, WarehouseAdjustmentDetails.Quantity), " + "\r\n";
+            queryString = queryString + "                       Commodities.Code, Commodities.CodePartA, Commodities.CodePartB, Commodities.CodePartC, Commodities.CodePartD, Commodities.CodePartE, Commodities.CodePartF, Commodities.Name AS CommodityName, Commodities.CommodityLineID, Commodities.SalesUnit " + "\r\n";
+
+            queryString = queryString + "       FROM            WarehouseAdjustments " + "\r\n";
+            queryString = queryString + "                       INNER JOIN WarehouseAdjustmentDetails ON WarehouseAdjustments.WarehouseAdjustmentID = @LocalWarehouseAdjustmentID AND WarehouseAdjustments.WarehouseAdjustmentID = WarehouseAdjustmentDetails.WarehouseAdjustmentID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Commodities ON WarehouseAdjustmentDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+
+            queryString = queryString + "       ORDER BY        WarehouseAdjustmentDetails.CommodityTypeID " + "\r\n";
+
+
+            queryString = queryString + "    END " + "\r\n";
+
+            this.totalSmartPortalEntities.CreateStoredProcedure("WarehouseAdjustmentSheet", queryString);
+
+        }
 
         #endregion
     }
