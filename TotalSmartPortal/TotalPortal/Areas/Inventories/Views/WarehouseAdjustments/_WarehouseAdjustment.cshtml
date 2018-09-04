@@ -23,7 +23,7 @@
 
     <div class="left-panel">
 
-        @Html.Partial("~/Views/Helpers/Bases/_BaseSectionLeftA.cshtml", @Model, new ViewDataDictionary { { "EntryDateReadonly", false } })
+        @Html.Partial("~/Views/Helpers/Bases/_BaseSectionLeftA.cshtml")
 
         <div class="SBT-Hidden">
             @Html.EditorFor(d => (d as IWarehouseAdjustmentDTO).Warehouse, new { WarehouseDisplayName = @Model.Warehouse.GetDisplayName(m => m.WarehouseID), LeftPanelInput = "left-panel-input" })
