@@ -155,7 +155,7 @@ namespace TotalDTO.Commons
 
     public class CustomerDTO : CustomerPrimitiveDTO
     {
-        public CustomerDTO() { this.Salesperson = new EmployeeBaseDTO(); }
+        public CustomerDTO() { this.Salesperson = new EmployeeBaseDTO(); this.IsCustomer = true;}
 
         public override int SalespersonID { get { return (this.Salesperson != null ? this.Salesperson.EmployeeID : 0); } }
         [Display(Name = "Nhân viên tiếp thị")]
