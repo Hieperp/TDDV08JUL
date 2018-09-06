@@ -363,6 +363,11 @@ namespace TotalDAL.Repositories
             report.RestoreProcedure();
 
 
+            //return;
+
+            Helpers.SqlProgrammability.Commons.Customer customer = new Helpers.SqlProgrammability.Commons.Customer(totalSmartPortalEntities);
+            customer.RestoreProcedure();
+
             return;
 
             Helpers.SqlProgrammability.Generals.UserReference userReference = new Helpers.SqlProgrammability.Generals.UserReference(totalSmartPortalEntities);
@@ -379,10 +384,7 @@ namespace TotalDAL.Repositories
             Helpers.SqlProgrammability.Reports.SaleReports saleReports = new Helpers.SqlProgrammability.Reports.SaleReports(totalSmartPortalEntities);
             saleReports.RestoreProcedure();
 
-            //return;
 
-            Helpers.SqlProgrammability.Commons.Customer customer = new Helpers.SqlProgrammability.Commons.Customer(totalSmartPortalEntities);
-            customer.RestoreProcedure();
 
 
 
