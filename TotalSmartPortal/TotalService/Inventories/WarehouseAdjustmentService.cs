@@ -68,6 +68,9 @@ namespace TotalService.Inventories
                     goodsReceiptDTO.Description = warehouseAdjustment.Description;
                     goodsReceiptDTO.Remarks = warehouseAdjustment.Remarks;
 
+                    goodsReceiptDTO.Approved = warehouseAdjustment.Approved;
+                    goodsReceiptDTO.ApprovedDate = warehouseAdjustment.ApprovedDate;
+
                     List<PendingWarehouseAdjustmentDetail> pendingWarehouseAdjustmentDetails = goodsReceiptAPIRepository.GetPendingWarehouseAdjustmentDetails(warehouseAdjustment.LocationID, null, warehouseAdjustment.WarehouseAdjustmentID, warehouseAdjustment.WarehouseReceiptID, null, false);
                     foreach (PendingWarehouseAdjustmentDetail pendingWarehouseAdjustmentDetail in pendingWarehouseAdjustmentDetails)
                     {
