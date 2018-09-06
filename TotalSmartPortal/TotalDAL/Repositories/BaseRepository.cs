@@ -273,7 +273,9 @@ namespace TotalDAL.Repositories
             foreach (Commodity commodity in commodities)
             {
                 if (commodity.CodePartB.IndexOf("[") > 0 || commodity.CodePartC.IndexOf("[") > 0 || (commodity.CodePartD != null && commodity.CodePartD.IndexOf("[") > 0)) throw new Exception("[9999999999999");
-                this.ExecuteStoreCommand("UPDATE Commodities SET OfficialCode = N'" + TotalBase.CommonExpressions.AlphaNumericString(commodity.Code) + "' WHERE CommodityID = " + commodity.CommodityID, new ObjectParameter[] { });
+
+                string newCode = ((!String.IsNullOrWhiteSpace(commodity.CodePartA) ? commodity.CodePartA + " " : "") + (!String.IsNullOrWhiteSpace(commodity.CodePartB) ? commodity.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(commodity.CodePartC) ? commodity.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(commodity.CodePartD) ? commodity.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(commodity.CodePartE) ? commodity.CodePartE + " x " : "") + (!String.IsNullOrWhiteSpace(commodity.CodePartF) ? commodity.CodePartF : "")).Trim(); 
+                this.ExecuteStoreCommand("UPDATE Commodities SET Code = N'" + newCode + "', OfficialCode = N'" + TotalBase.CommonExpressions.AlphaNumericString(newCode) + "' WHERE CommodityID = " + commodity.CommodityID, new ObjectParameter[] { });
             }
 
 

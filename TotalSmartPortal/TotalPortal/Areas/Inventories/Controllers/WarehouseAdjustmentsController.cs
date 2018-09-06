@@ -57,6 +57,17 @@ namespace TotalPortal.Areas.Inventories.Controllers
             return View(this.InitViewModel(viewDetailViewModel));
         }
 
+        protected override PrintViewModel InitPrintViewModel(int? id)
+        {
+            PrintViewModel printViewModel = base.InitPrintViewModel(id);
+
+            TViewDetailViewModel viewDetailViewModel = this.GetViewModel(id, GlobalEnums.AccessLevel.Readable, true); if (viewDetailViewModel == null) printViewModel.Id = 0;
+
+            printViewModel.PrintOptionID = viewDetailViewModel.Approved ? 1 : 0;
+            printViewModel.ReportPath = viewDetailViewModel.IsMaterial ? "MaterialAdjustmentSheet" : (viewDetailViewModel.IsItem ? "ItemAdjustmentSheet" : (viewDetailViewModel.IsProduct ? "ProductAdjustmentSheet" : ""));
+
+            return printViewModel;
+        }
     }
 
 

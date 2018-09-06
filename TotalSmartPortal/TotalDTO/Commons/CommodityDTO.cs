@@ -91,7 +91,7 @@ namespace TotalDTO.Commons
         public void SetID(int id) { this.CommodityID = id; }
 
         public int CommodityID { get; set; }
-        public string Code { get { return ((!String.IsNullOrWhiteSpace(this.CodePartA) ? this.CodePartA + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartE) ? "[" + this.CodePartE + " x " : "") + (!String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF + "]" : "")).Trim(); } }
+        public string Code { get { return ((!String.IsNullOrWhiteSpace(this.CodePartA) ? this.CodePartA + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartB) ? this.CodePartB + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartC) ? this.CodePartC + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartD) ? this.CodePartD + " " : "") + (!String.IsNullOrWhiteSpace(this.CodePartE) ? this.CodePartE + " x " : "") + (!String.IsNullOrWhiteSpace(this.CodePartF) ? this.CodePartF : "")).Trim(); } }
         public string OfficialCode { get { return TotalBase.CommonExpressions.AlphaNumericString(this.Code); } }
         public string CodePartA { get; set; }
         public string CodePartB { get { return this.CommodityCategoryName.Remove(this.CommodityCategoryName.IndexOf("[")).Trim(); } }
@@ -149,7 +149,7 @@ namespace TotalDTO.Commons
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
             decimal decimalValidate;
-            if (this.NMVNTaskID != GlobalEnums.NmvnTaskID.Item && String.IsNullOrWhiteSpace(this.CodePartA)) yield return new ValidationResult("Vui lòng nhập mã", new[] { "CodePartA" });
+            if (this.NMVNTaskID != GlobalEnums.NmvnTaskID.Item && (String.IsNullOrWhiteSpace(this.CodePartA) || this.CodePartA != TotalBase.CommonExpressions.AlphaNumericString(this.CodePartA))) yield return new ValidationResult("Vui lòng kiểm tra mã", new[] { "CodePartA" });
             if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartE, out decimalValidate)) yield return new ValidationResult("Lỗi độ dày phải là số", new[] { "CodePartE" });
             if (this.NMVNTaskID == GlobalEnums.NmvnTaskID.Item && !decimal.TryParse(this.CodePartF, out decimalValidate)) yield return new ValidationResult("Lỗi chiều rộng phải là số", new[] { "CodePartF" });
         }

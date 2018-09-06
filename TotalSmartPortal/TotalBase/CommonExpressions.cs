@@ -3,12 +3,12 @@
 using TotalBase.Enums;
 
 namespace TotalBase
-{    
+{
     public class CommonExpressions
     {
         public static string AlphaNumericString(string normalString)
         {
-            return Regex.Replace(normalString, @"[^0-9a-zA-Z\*\+\(\)]+", "");
+            return Regex.Replace(normalString, @"[^0-9a-zA-Z\-\*\+\(\)]+", "");
         }
 
         public static string ComposeCommodityCode(string code, int commodityTypeID)
