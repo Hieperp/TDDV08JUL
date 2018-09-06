@@ -46,6 +46,9 @@ namespace TotalDTO.Inventories
         [UIHint("Commons/SOCode")]
         public string Code { get; set; }
 
+        [Display(Name = "Mục đích")]
+        public string Purposes { get; set; }
+
         public virtual int StorekeeperID { get; set; }
 
         public override void PerformPresaveRule()

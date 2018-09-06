@@ -80,13 +80,27 @@
 
     <div class="right-panel">
 
-        <div class="right-top-panel right-top-panel-H1">
+        <div class="right-top-panel right-top-panel-H2">
 
             @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
 
+            <div class="form-group">
+                <div class="right-panel-label right-panel-label-whole-width">
+                    @Html.LabelFor(model => model.Purposes)
+                </div>
+                <div class="div-input">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.Purposes).HtmlAttributes(new { @class = "right-panel-input" })
+                </div>
+                <div class="div-validation-message">
+                    @Html.ValidationMessageFor(model => model.Purposes, "", new { @class = "text-danger" })
+                </div>
+            </div>        
+
             @*@Html.DisplayFor(d => d.Warehouse, "Commons/WarehouseBase")*@
 
-            @Html.Partial("~/Views/Helpers/Commons/_Warehouse.cshtml")
+            <div style="margin-top: -80px; float: right;">
+                @Html.Partial("~/Views/Helpers/Commons/_Warehouse.cshtml")
+            </div>
 
         </div>
 
