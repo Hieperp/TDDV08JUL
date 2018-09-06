@@ -144,9 +144,9 @@ namespace TotalDTO.Commons
         public Nullable<double> LimitAmount { get; set; }
 
         [Display(Name = "Khách hàng")]
-        public bool IsCustomer { get { return true; } }
+        public bool IsCustomer { get; set; }
         [Display(Name = "Nhà cung cấp")]
-        public bool IsSupplier { get { return false; } }
+        public bool IsSupplier { get; set; }
         [Display(Name = "Giới tính nữ")]
         public bool IsFemale { get; set; }
 

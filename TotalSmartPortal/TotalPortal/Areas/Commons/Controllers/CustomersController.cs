@@ -45,6 +45,16 @@ namespace TotalPortal.Areas.Commons.Controllers
             return View(customerViewModel);
         }
 
+        protected override CustomerViewModel InitViewModelByDefault(CustomerViewModel simpleViewModel)
+        {
+            simpleViewModel = base.InitViewModelByDefault(simpleViewModel);
+
+            simpleViewModel.IsCustomer = true;
+            simpleViewModel.IsSupplier = false;
+
+            return simpleViewModel;
+        }
+
     }
 }
 
