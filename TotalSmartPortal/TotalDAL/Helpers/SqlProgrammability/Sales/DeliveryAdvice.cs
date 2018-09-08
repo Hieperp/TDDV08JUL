@@ -132,7 +132,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
 
             queryString = queryString + "       SET NOCOUNT ON " + "\r\n";
 
-            queryString = queryString + "       DECLARE @Commodities TABLE (CommodityID int NOT NULL, Code nvarchar(50) NOT NULL, CodePartA nvarchar(20) NOT NULL, CodePartB nvarchar(20) NOT NULL, CodePartC nvarchar(20) NOT NULL, Name nvarchar(200) NOT NULL, ListedPrice decimal(18, 2) NOT NULL, GrossPrice decimal(18, 2) NOT NULL, DiscountPercent decimal(18, 2) NOT NULL, ControlFreeQuantity decimal(18, 2) NOT NULL, CommodityBrandID int NOT NULL, CommodityTypeID int NOT NULL, CommodityCategoryID int NOT NULL)" + "\r\n";
+            queryString = queryString + "       DECLARE @Commodities TABLE (CommodityID int NOT NULL, Code nvarchar(50) NOT NULL, CodePartA nvarchar(20) NULL, CodePartB nvarchar(20) NULL, CodePartC nvarchar(20) NULL, Name nvarchar(200) NOT NULL, ListedPrice decimal(18, 2) NOT NULL, GrossPrice decimal(18, 2) NOT NULL, DiscountPercent decimal(18, 2) NOT NULL, ControlFreeQuantity decimal(18, 2) NOT NULL, CommodityBrandID int NOT NULL, CommodityTypeID int NOT NULL, CommodityCategoryID int NOT NULL)" + "\r\n";
             queryString = queryString + "       DECLARE @CommoditiesAvailable TABLE (WarehouseID int NOT NULL, CommodityID int NOT NULL, QuantityAvailable decimal(18, 2) NOT NULL, Bookable bit NULL)" + "\r\n";
             queryString = queryString + "       DECLARE @HasCommoditiesAvailable int SET @HasCommoditiesAvailable = 0" + "\r\n";
 
@@ -309,7 +309,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
                 SqlProgrammability.Inventories.Inventories inventories = new Inventories.Inventories(this.totalSmartPortalEntities);
 
                 queryString = queryString + "               DECLARE @WarehouseIDList varchar(555)        DECLARE @CommodityIDList varchar(3999)     DECLARE @WarehouseClassList varchar(555) " + "\r\n";
-                queryString = queryString + "               SELECT  @WarehouseIDList = STUFF((SELECT ',' + CAST(WarehouseID AS varchar) FROM Warehouses WHERE LocationID = @LocationID AND IsBook = 1 FOR XML PATH('')) ,1,1,'') " + "\r\n"; // AND (WarehouseID = @WarehouseID OR @WarehouseID IS NULL): COMMENT OUT APR-2018: TO ALLOW TO GET ALL WAREHOUSE: TO SEE ALL AVAILABLE BALANCE AT ALL WAREHOUSE. THIS MAY BE CHECK THIS COMMENT OUT AGAIN WHEN NEEDED!!!
+                queryString = queryString + "               SELECT  @WarehouseIDList = STUFF((SELECT ',' + CAST(WarehouseID AS varchar) FROM Warehouses WHERE LocationID = @LocationID AND Bookable = 1 FOR XML PATH('')) ,1,1,'') " + "\r\n"; // AND (WarehouseID = @WarehouseID OR @WarehouseID IS NULL): COMMENT OUT APR-2018: TO ALLOW TO GET ALL WAREHOUSE: TO SEE ALL AVAILABLE BALANCE AT ALL WAREHOUSE. THIS MAY BE CHECK THIS COMMENT OUT AGAIN WHEN NEEDED!!!
                 queryString = queryString + "               SELECT  @CommodityIDList = STUFF((SELECT ',' + CAST(CommodityID AS varchar) FROM @Commodities FOR XML PATH('')) ,1,1,'') " + "\r\n";
 
                 queryString = queryString + "               IF (NOT @WarehouseID IS NULL) " + "\r\n";
