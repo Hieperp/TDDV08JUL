@@ -130,12 +130,13 @@
 
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
-                    columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
-                        .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
+                        .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");                   
                     columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(200).EditorTemplateName(Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition ? "StringReadonly" : "AutoCompletes/CommodityAvailable")
                         .ClientFooterTemplate("Tổng cộng (#= kendo.format('{0:n0}', count) # dòng)")
                         .ClientTemplate("#= CommodityCode #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
+                    
+                    columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(280).HtmlAttributes(new { style = "" })
+                       .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
 
                     columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='GoodsReceiptViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
@@ -171,8 +172,8 @@
                             //toolbar.Create().HtmlAttributes(new { @class = "fa fa-map-marker" }).Text("Add new aa le ea1");
                             if (Model.GoodsReceiptTypeID == (int)GlobalEnums.GoodsReceiptTypeID.PurchaseRequisition)
                                 toolbar.Template(@<text>
-                                    <button type="button" class="k-button" onclick="GetPendingPurchaseRequisitionDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng từ đơn đặt hàng </button>
-                                    <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Giao hàng toàn bộ đơn hàng </button>
+                                    <button type="button" class="k-button" onclick="GetPendingPurchaseRequisitionDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng </button>
+                                    <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Nhập toàn bộ mặt hàng </button>
                                 </text>);
                             else
                                 toolbar.Template(@<text>
@@ -304,7 +305,7 @@
     function GetPendingPurchaseRequisitionDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPurchaseRequisitionDetails", "GoodsReceipts", new { area = "Inventories" })", "Chọn mặt hàng từ đơn đặt hàng", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingPurchaseRequisitionDetails", "GoodsReceipts", new { area = "Inventories" })", "Chọn mặt hàng ", "@Settings.PopupWidthLarge", "@Settings.PopupHeightWithTab");
         });
     }
 

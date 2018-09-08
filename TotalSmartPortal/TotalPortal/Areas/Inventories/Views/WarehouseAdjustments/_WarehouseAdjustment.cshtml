@@ -271,6 +271,7 @@
             @if (Model.Editable)
             {
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", Model.ControllerName)"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", Model.ControllerName)" onclick="$('#Approved').val(true);"> <img src="~/Content/Images/New/save-verify-icon.png" /> Lưu và duyệt phiếu</button>
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", Model.ControllerName)" onclick="$('#Approved').val(true); $('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Actions-document-print-icon.png" /> Lưu, duyệt và in PXK</button>
             }
             else

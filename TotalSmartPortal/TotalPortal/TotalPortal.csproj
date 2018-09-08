@@ -645,6 +645,7 @@
     <Content Include="Content\Images\New\Sale2-32.png" />
     <Content Include="Content\Images\New\Save-icon-blue.png" />
     <Content Include="Content\Images\New\save-icon.png" />
+    <Content Include="Content\Images\New\save-verify-icon.png" />
     <Content Include="Content\Images\New\sprite.png" />
     <Content Include="Content\Images\New\supplier_div_bg.png" />
     <Content Include="Content\Images\New\TanThanhGiftIcon.png" />
