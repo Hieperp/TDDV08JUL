@@ -29,7 +29,7 @@ namespace TotalPortal.Areas.Productions.Controllers
 
             StringBuilder commodityTypeIDList = new StringBuilder();
             commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Items);
-            commodityTypeIDList.Append(","); commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Materials);
+            commodityTypeIDList.Append(","); commodityTypeIDList.Append((int)GlobalEnums.CommodityTypeID.Products);
 
             RequireJsOptions.Add("commodityTypeIDList", commodityTypeIDList.ToString(), RequireJsOptionsScope.Page);
         }
