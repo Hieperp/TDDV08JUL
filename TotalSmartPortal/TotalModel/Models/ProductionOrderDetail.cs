@@ -23,7 +23,6 @@ namespace TotalModel.Models
     
         public int ProductionOrderDetailID { get; set; }
         public int ProductionOrderID { get; set; }
-        public int PlannedOrderDetailID { get; set; }
         public int PlannedOrderID { get; set; }
         public System.DateTime EntryDate { get; set; }
         public int LocationID { get; set; }
@@ -41,19 +40,18 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        public virtual Mold Mold { get; set; }
-        public virtual ProductionLine ProductionLine { get; set; }
-        public virtual VoidType VoidType { get; set; }
-        public virtual Workshift Workshift { get; set; }
-        public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
-        public virtual PlannedOrder PlannedOrder { get; set; }
+        public virtual Commodity Commodity { get; set; }
         public virtual CommodityMaterial CommodityMaterial { get; set; }
-        public virtual ProductionOrder ProductionOrder { get; set; }
+        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssueDetail> MaterialIssueDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssue> MaterialIssues { get; set; }
-        public virtual Commodity Commodity { get; set; }
+        public virtual Mold Mold { get; set; }
+        public virtual PlannedOrder PlannedOrder { get; set; }
+        public virtual ProductionLine ProductionLine { get; set; }
+        public virtual ProductionOrder ProductionOrder { get; set; }
+        public virtual VoidType VoidType { get; set; }
+        public virtual Workshift Workshift { get; set; }
     }
 }

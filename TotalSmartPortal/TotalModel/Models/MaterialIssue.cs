@@ -62,9 +62,9 @@ namespace TotalModel.Models
         public virtual PlannedOrderDetail PlannedOrderDetail { get; set; }
         public virtual PlannedOrder PlannedOrder { get; set; }
         public virtual ProductionLine ProductionLine { get; set; }
-        public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
         public virtual Workshift Workshift { get; set; }
         public virtual Warehouse Warehouse { get; set; }
         public virtual Commodity Commodity { get; set; }
+        public virtual ProductionOrderDetail ProductionOrderDetail { get; set; }
     }
 }

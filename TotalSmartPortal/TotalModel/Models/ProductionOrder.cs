@@ -17,8 +17,8 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductionOrder()
         {
-            this.ProductionOrderDetails = new HashSet<ProductionOrderDetail>();
             this.MaterialIssues = new HashSet<MaterialIssue>();
+            this.ProductionOrderDetails = new HashSet<ProductionOrderDetail>();
         }
     
         public int ProductionOrderID { get; set; }
@@ -47,13 +47,13 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> InActiveDate { get; set; }
     
         public virtual Location Location { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
         public virtual VoidType VoidType { get; set; }
         public virtual Workshift Workshift { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual PlannedOrder PlannedOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssue> MaterialIssues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
     }
 }

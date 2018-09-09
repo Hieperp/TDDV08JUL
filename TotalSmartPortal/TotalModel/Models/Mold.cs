@@ -17,10 +17,10 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Mold()
         {
-            this.ProductionOrderDetails = new HashSet<ProductionOrderDetail>();
             this.PlannedOrderDetails = new HashSet<PlannedOrderDetail>();
             this.PlannedOrderMaterials = new HashSet<PlannedOrderMaterial>();
             this.MaterialIssues = new HashSet<MaterialIssue>();
+            this.ProductionOrderDetails = new HashSet<ProductionOrderDetail>();
         }
     
         public int MoldID { get; set; }
@@ -33,12 +33,12 @@ namespace TotalModel.Models
         public decimal CyclePerHours { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlannedOrderDetail> PlannedOrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlannedOrderMaterial> PlannedOrderMaterials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialIssue> MaterialIssues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductionOrderDetail> ProductionOrderDetails { get; set; }
     }
 }

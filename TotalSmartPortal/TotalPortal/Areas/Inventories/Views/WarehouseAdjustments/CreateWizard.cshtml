@@ -88,6 +88,11 @@
         $("#WarehouseReceipt_WarehouseID").val($("#Customer_WarehouseID").val());
         $("#WarehouseReceipt_Code").val($("#Customer_WarehouseCode").val());
         $("#WarehouseReceipt_Name").val($("#Customer_WarehouseName").val());
+
+        //Also remember last AutoComplete value for Warehouse
+        $("#Warehouse_TempName").val($("#Warehouse_Name").val());
+        //Also remember last AutoComplete value for Warehouse
+        $("#WarehouseReceipt_TempName").val($("#WarehouseReceipt_Name").val());
     })
 
 
@@ -96,7 +101,9 @@
         if ($("#NegativeOnly").val() == "True") {
             $("#WarehouseReceipt_WarehouseID").val($("#Warehouse_WarehouseID").val());
             $("#WarehouseReceipt_Code").val($("#Warehouse_Code").val());
-            $('#WarehouseReceipt_Name').val($("#Warehouse_TempName").val());
+            $('#WarehouseReceipt_Name').val($("#Warehouse_Name").val());
+            //Also remember last AutoComplete value for Warehouse
+            $("#WarehouseReceipt_TempName").val($("#WarehouseReceipt_Name").val());
         }
     })
 
@@ -104,7 +111,9 @@
         if ($("#PositiveOnly").val() == "True") {
             $("#Warehouse_WarehouseID").val($("#WarehouseReceipt_WarehouseID").val());
             $("#Warehouse_Code").val($("#WarehouseReceipt_Code").val());
-            $('#Warehouse_Name').val($("#WarehouseReceipt_TempName").val());
+            $('#Warehouse_Name').val($("#WarehouseReceipt_Name").val());
+            //Also remember last AutoComplete value for Warehouse
+            $("#Warehouse_TempName").val($("#Warehouse_Name").val());
         }
     })
 

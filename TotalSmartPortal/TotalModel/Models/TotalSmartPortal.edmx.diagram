@@ -141,13 +141,7 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_Territories_Territories" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.Mold" Width="1.5" PointX="18.625" PointY="7.625" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.ProductionLine" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="TotalSmartPortalModel.ProductionOrderDetail" Width="1.5" PointX="20.875" PointY="13.625" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.Workshift" Width="1.5" PointX="16" PointY="9.75" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Customers" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Molds" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionLines" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Workshifts" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsReceiptDetail" Width="1.5" PointX="33.75" PointY="8.5" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.GoodsReceipt" Width="1.5" PointX="29.5" PointY="32" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_GoodsReceipts_Customers" />
@@ -165,18 +159,14 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_PlannedOrders" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrderDetails" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrderDetails" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_PlannedOrders" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrders_VoidTypes" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.CommodityMaterial" Width="1.5" PointX="10.375" PointY="2.75" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_CommodityMaterials" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_CommodityMaterials" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_CommodityMaterials" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.ProductionOrder" Width="1.5" PointX="21.25" PointY="5.875" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_Locations" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionOrders" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_VoidTypes" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrders_Workshifts" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.PurchaseRequisitionDetail" Width="1.5" PointX="28.5" PointY="15.25" />
@@ -195,7 +185,6 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_GoodsReceiptDetails" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_PlannedOrderDetails" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_PlannedOrderMaterials" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_ProductionOrderDetails" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_Workshifts" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.MaterialIssue" Width="1.5" PointX="31.625" PointY="15.625" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Employees" />
@@ -207,7 +196,6 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_PlannedOrderDetails" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_PlannedOrders" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionLines" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrderDetails" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Workshifts" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.WarehouseAdjustmentType" Width="1.5" PointX="24" PointY="39.5" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.Warehouse" Width="1.5" PointX="34.375" PointY="36.375" />
@@ -253,7 +241,6 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_Commodities" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderDetails_Commodities" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PlannedOrderMaterials_Commodities" />
-        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Commodities" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_PurchaseRequisitionDetails_Commodities" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_SalesOrderDetails_Commodities" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_SalesReturnDetails_Commodities" />
@@ -262,6 +249,18 @@
         <AssociationConnector Association="TotalSmartPortalModel.FK_Promotions_CommodityBrands" />
         <AssociationConnector Association="TotalSmartPortalModel.FK_CommodityCategories_CommodityCategories" />
         <EntityTypeShape EntityType="TotalSmartPortalModel.Report" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TotalSmartPortalModel.ProductionOrderDetail" Width="1.5" PointX="36.5" PointY="8.375" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Commodities" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_CommodityMaterials" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Customers" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssueDetails_ProductionOrderDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_MaterialIssues_ProductionOrderDetails" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Molds" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_PlannedOrders" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionLines" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_ProductionOrders" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_VoidTypes" />
+        <AssociationConnector Association="TotalSmartPortalModel.FK_ProductionOrderDetails_Workshifts" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
